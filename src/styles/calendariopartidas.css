@@ -1,0 +1,204 @@
+/* Estilos generales */
+.game-list {
+  padding: 20px;
+  font-family: 'Roboto', sans-serif; /* Cambiamos la fuente a Roboto */
+}
+
+/* Mensajes de error y éxito */
+.error-message {
+  color: #ff4d4f; /* Rojo moderno para errores */
+  font-weight: bold;
+}
+
+.success-message {
+  color: #52c41a; /* Verde moderno para mensajes de éxito */
+}
+
+/* Botones con estilos más modernos */
+.button-join,
+.button-leave,
+.button-delete,
+.button-close {
+  margin-left: 10px;
+  padding: 10px 20px; /* Espaciado mayor */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer;
+  font-size: 14px; /* Tamaño de texto ligeramente más grande */
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.button-join {
+  background-color: #52c41a; /* Verde moderno */
+  color: white;
+}
+
+.button-leave {
+  background-color: #faad14; /* Naranja moderno */
+  color: white;
+}
+
+.button-delete {
+  background-color: #ff4d4f; /* Rojo moderno */
+  color: white;
+}
+
+.button-close {
+  background-color: #8c8c8c; /* Gris elegante */
+  color: white;
+}
+
+.button-join:hover,
+.button-leave:hover,
+.button-delete:hover,
+.button-close:hover {
+  background-color: #595959; /* Gris oscuro al pasar el ratón */
+}
+
+/* Estilos del componente del evento */
+.event-component {
+  display: flex;
+  align-items: center;
+  background-color: white; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.event-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 10px; /* Bordes redondeados para imágenes */
+  object-fit: cover;
+}
+
+/* Estilos para la ventana modal */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%; /* Reduce el ancho de la ventana modal */
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 15px; /* Bordes más redondeados */
+  background: #fff;
+  z-index: 1001;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra suave y mayor */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75); /* Overlay oscuro */
+  z-index: 1000;
+}
+
+/* Estilos para el calendario */
+.rbc-calendar {
+  font-family: 'Roboto', sans-serif; /* Fuente moderna */
+  border-radius: 10px; /* Bordes redondeados para todo el calendario */
+}
+
+.rbc-month-view {
+  border-radius: 10px; /* Bordes redondeados para las celdas del mes */
+}
+
+.rbc-header {
+  background-color: #f5f5f5; /* Fondo gris claro para los encabezados */
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #595959;
+  text-align: center;
+}
+
+.rbc-day-bg {
+  background-color: #ffffff; /* Fondo blanco para los días */
+  transition: background-color 0.3s ease;
+  border-radius: 10px; /* Bordes redondeados para las celdas del mes */
+}
+
+.rbc-day-bg:hover {
+  background-color: #f0f0f0; /* Fondo más claro al pasar el ratón */
+}
+
+/* Estilos específicos para eventos */
+.rbc-event {
+  background-color: #bae7ff; /* Azul suave para eventos */
+  color: #00474f; /* Texto oscuro */
+  border: none;
+  border-radius: 5px; /* Bordes redondeados para eventos */
+  padding: 5px 10px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para eventos */
+}
+
+.rbc-event:hover {
+  background-color: #91d5ff; /* Azul más intenso al pasar el ratón */
+}
+
+.rbc-event-label {
+  font-size: 12px;
+  color: #595959;
+}
+
+.rbc-event-content {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.rbc-event-time {
+  font-weight: bold;
+}
+
+/* Agenda */
+.rbc-agenda-date-cell {
+  width: 150px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.rbc-agenda-event {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: #fafafa; /* Fondo claro para eventos en la agenda */
+  border-radius: 5px; /* Bordes redondeados */
+  transition: background-color 0.3s ease;
+}
+
+.rbc-agenda-event:hover {
+  background-color: #e6f7ff; /* Fondo más claro al pasar el ratón */
+}
+
+.rbc-agenda-event-title {
+  font-size: 14px;
+}
+
+.rbc-agenda-event-time {
+  font-size: 12px;
+  color: #595959;
+}
+
+/* Para pantallas pequeñas */
+@media (max-width: 768px) {
+  .rbc-calendar {
+    font-size: 12px; /* Reduce el tamaño de fuente */
+  }
+
+  .rbc-agenda-event-title {
+    font-size: 12px; /* Reduce el tamaño de los títulos de los eventos */
+  }
+
+  .rbc-agenda-event {
+    padding: 5px;
+  }
+}

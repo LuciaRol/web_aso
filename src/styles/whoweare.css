@@ -1,0 +1,177 @@
+/* whoweare.css */
+
+/* Contenedor de los miembros */
+.member-container {
+    perspective: 1000px;
+    margin: 10px;
+    width: 220px; /* Tamaño ajustado para incluir el margen y padding */
+  }
+  
+  .member-content {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+    width: 100%;
+    height: 250px;
+  }
+  
+  .flipped {
+    transform: rotateY(180deg);
+  }
+  
+  .member-front,
+  .member-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+  }
+  
+  .member-back {
+    transform: rotateY(180deg);
+  }
+  
+  .member-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .member-message {
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+/* whoweare.css */
+
+/* Banner publicitario */
+.ad-banner {
+  display: flex;
+  justify-content: center; /* Centrar el contenido */
+  align-items: center; /* Centrar verticalmente */
+  background-color: var(--primary-color);
+  background-image: url('../img/banner.jpg'); /* Usar la imagen como fondo */
+  background-size: cover; /* Asegurarse de que la imagen cubra todo el banner */
+  background-position: center; /* Centrar la imagen */
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  height: 200px; /* Aumentar la altura del banner para un mejor ajuste */
+}
+
+.ad-banner-image {
+  height: 100px; /* Aumenta el tamaño de la imagen */
+  width: auto; /* Mantiene la proporción */
+  margin: 0 20px; /* Espacio entre imagen y texto */
+}
+
+
+.ad-banner-text {
+  flex: 1;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Añadir sombra para mejorar la legibilidad */
+}
+
+.ad-banner-text p {
+  font-size: 1.5rem; /* Tamaño del texto */
+  color: #ffebb7; /* Cambia el color del texto a amarillo */
+  font-weight: bold;
+  margin: 0;
+}
+
+.ad-banner-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.ad-banner-close:hover {
+  background-color: #8B4513; /* Marrón al hacer hover sobre el botón */
+  color: white; /* Color de la X cuando se hace hover */
+  border-color: #8B4513; /* Cambia el color del borde al mismo marrón */
+}
+
+/* Contenedor de los miembros */
+.member-container {
+  perspective: 1000px;
+  margin: 10px;
+  width: 220px;
+}
+
+.member-content {
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 250px;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.member-front, .member-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 10px;
+}
+
+.member-back {
+  transform: rotateY(180deg);
+}
+
+.member-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.member-message {
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--primary-color-hover);
+}

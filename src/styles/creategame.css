@@ -1,0 +1,128 @@
+/* creategame.css */
+
+/* Estilo general del contenedor de formularios */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para los mensajes de éxito y error */
+  .success-message {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* Estilos para los grupos de formularios */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo del botón de envío */
+  .submit-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: var(--primary-color-hover);
+  }
+  
+  /* Contenedor y estilos para la búsqueda de juegos */
+  .search-container {
+    margin-top: 20px;
+  }
+  
+  .results-container {
+    margin-top: 20px;
+  }
+  
+  .guest-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .guest-item {
+    display: flex;
+    flex-direction: column; /* Cambiamos a columna para que todo esté en líneas separadas */
+    align-items: center; /* Centra el contenido horizontalmente */
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.game-image {
+    width: 80px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover; /* Mantiene la proporción de la imagen */
+    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.game-name {
+    font-weight: bold; /* Opcional: hacer que el nombre del juego se vea más destacado */
+}
+
+.game-link {
+    margin-top: 5px; /* Espacio entre el nombre del juego y el enlace */
+}
+
+/* El botón sigue en su posición original */
+.submit-button {
+    margin-top: 10px; /* Añadir espacio entre el contenido y el botón */
+}
+  
+
+  /* Estilo de la imagen del juego seleccionado */
+  .selected-game-image {
+    width: 100px;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Enlace para ver en BoardGameGeek */
+  .game-link {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .game-link:hover {
+    color: var(--primary-color-hover);
+  }
+  

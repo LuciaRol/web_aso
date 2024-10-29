@@ -1,0 +1,201 @@
+/* Variables CSS para colores y tamaños */
+:root {
+  --primary-color: #007bff;
+  --primary-hover-color: #0056b3;
+  --contrary-color: #B37100;
+  --contrary-hover-color: #5E471F;
+  --secondary-color: #012E4A;
+  --background-color: #f5f5f5;
+  --white: #fff;
+  --light-gray: #f5f5f5;
+  --gray: #ddd;
+  --dark-gray: #555;
+  --error-color: #ff0000;
+  --success-color: #28a745;
+}
+
+/* Estilos generales */
+.header {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  padding: 10px 0;
+  width: 100%;
+  position: relative;
+}
+
+.header-content {
+  display: flex;
+  align-items: center; /* Alinear verticalmente el logo y el botón */
+  justify-content: space-between; /* Espaciado entre logo y botón */
+  max-width: 1200px; /* Mantén el ancho máximo que ya tenías */
+  margin: 0 auto; /* Centrar el contenido en la página */
+  padding: 0 20px; /* Espacio a los lados */
+  width: 100%; /* Asegura que ocupe todo el ancho de la pantalla */
+}
+
+/* Contenedor del logo y menú hamburguesa */
+.header-logo-container {
+  display: flex; /* Usar flex para alinear logo y botón */
+  align-items: center; /* Alinear verticalmente el logo y el botón */
+  flex-grow: 1; /* Permitir que el contenedor ocupe el espacio disponible */
+}
+
+/* Logo */
+.header-logo {
+  height: 50px; /* Ajusta según sea necesario */
+  margin-right: 10px; /* Espacio entre el logo y el botón */
+}
+
+/* Estilo del botón del menú hamburguesa */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 28px;
+  cursor: pointer;
+  display: none; /* Ocultamos el botón en pantallas grandes */
+  margin-left: auto; /* Mover el botón hamburguesa a la derecha */
+}
+
+/* Ocultamos el menú en dispositivos móviles por defecto */
+.header-nav-container {
+  display: flex;
+  flex-direction: row;
+  max-height: none; /* En pantallas grandes no limitamos la altura */
+  overflow: visible;
+  align-items: center; /* Alinear verticalmente todos los elementos */
+}
+
+/* Menú de navegación */
+.header-nav {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center; /* Centra todos los elementos dentro del ul */
+  flex-grow: 1; /* Permite que el ul ocupe el espacio disponible */
+  align-items: center; /* Alinear verticalmente los elementos dentro del menú */
+}
+
+/* Estilo para los elementos de la lista */
+.header-nav li {
+  margin: 0 15px; /* Espaciado lateral entre los elementos */
+}
+
+.header-nav li a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.header-nav li a:hover {
+  color: var(--gray);
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .header-content {
+    justify-content: space-between; /* Aseguramos el espaciado entre el logo y el botón */
+  }
+
+  .header-logo-container {
+    flex-grow: 0; /* No permitir que crezca en pantallas pequeñas */
+  }
+
+  .menu-toggle {
+    display: block; /* Mostramos el botón en pantallas pequeñas */
+    height: auto; /* Asegúrate de que el botón tenga una altura automática */
+    background: none; /* Para que no haya fondo en el botón */
+    border: none; /* Sin borde */
+    padding: 0; /* Sin padding para mantener altura uniforme */
+    line-height: 1; /* Ajuste de la altura de línea */
+    margin-left: auto; /* Asegura que esté alineado a la derecha */
+  }
+
+  /* Ocultamos el menú por defecto en móviles */
+  .header-nav-container {
+    flex-direction: column;
+    max-height: 0; /* Altura inicial 0 para el menú cerrado */
+    overflow: hidden;
+    transition: max-height 0.5s ease; /* Transición suave al abrir/cerrar */
+    width: 100%;
+    align-items: center; /* Centra todos los elementos en el contenedor */
+  }
+
+  /* Cuando el menú está abierto */
+  .header-nav-container.open {
+    max-height: 500px; /* Ajustar según la cantidad de elementos */
+  }
+
+  /* Menú desplegado en móviles */
+  .header-nav {
+    flex-direction: column;
+    width: 100%; /* Ocupa todo el ancho */
+    align-items: center; /* Centra todos los elementos dentro del menú */
+  }
+
+  .header-nav li {
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .header-nav li a {
+    display: block;
+    padding: 10px;
+    color: var(--white);
+    text-decoration: none;
+    background-color: var(--secondary-color);
+  }
+
+  .header-nav li a:hover {
+    color: #ddd;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo en hover */
+  }
+
+  /* Ajustamos el comportamiento del contenido */
+  .header-content {
+    flex-direction: column; /* Elementos en columna en móviles */
+    align-items: center; /* Centrar contenido */
+  }
+
+  .header-user {
+    display: flex;
+    align-items: center; /* Alinear verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    margin-top: 10px; /* Espacio arriba para separación */
+  }
+
+  .logout-btn {
+    margin-top: 0; /* Remover margen superior */
+    margin-left: 15px; /* Espaciado para el botón logout */
+  }
+}
+
+/* Estilos del botón de logout */
+.logout-btn {
+  background-color: var(--contrary-color); /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  cursor: pointer; /* Cambiar cursor al pasar */
+  transition: background 0.3s; /* Transición suave */
+  align-self: center; /* Centrar el botón en su contenedor */
+}
+
+/* Efecto hover para el botón de logout */
+.logout-btn:hover {
+  background-color: var(--contrary-hover-color); /* Color de fondo del botón al pasar el mouse */
+}
+
+/* Alineación del botón de logout en vista de escritorio */
+.header-user {
+  display: flex; /* Hacer que el contenedor de usuario sea un flex container */
+  align-items: center; /* Centrar verticalmente el contenido */
+  margin-left: 15px; /* Margen para separarlo del menú */
+}
+
+/* Estilo adicional para el botón hamburguesa cuando el menú está abierto */
+.menu-toggle.open {
+  color: var(--primary-hover-color); /* Cambiar color del ícono del menú cuando está abierto */
+}

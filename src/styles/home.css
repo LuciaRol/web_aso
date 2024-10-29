@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+
+:root {
+  --font-family: 'Heebo', sans-serif; /* Define la variable para la fuente */
+}
+
+body {
+  font-family: var(--font-family); /* Aplica la fuente a todo el cuerpo */
+}
+
+.home-container {
+  padding: 0; 
+  margin: 0; 
+  text-align: center;
+  position: relative; 
+  height: 80.6vh; 
+  overflow: hidden; 
+  background-image: url('../img/dragon_dnd.jpg'); /* Usar imagen de fondo */
+  background-size: contain; /* Mantiene la proporción y se ajusta al contenedor */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* No repetir la imagen */
+  max-width: 100vw; /* Limita el ancho máximo a 100% del viewport */
+  max-height: 100vh; /* Limita la altura máxima a 100% del viewport */
+}
+
+.home-title {
+  font-size: 2.5em; /* Tamaño de la fuente en PC */
+  margin-bottom: 20px;
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.chat-section {
+  margin-bottom: 30px; /* Espacio entre el chatbot y el resto del contenido */
+}
+
+.counter-title {
+  color: white; /* Cambia el color del texto a blanco */
+}
+
+.fancy-chat-toggle-button {
+  display: flex;
+  align-items: center;
+  background-color: #E3A754; /* Color de fondo */
+  border: none;
+  border-radius: 5px;
+  color: black; /* Color del texto */
+  cursor: pointer;
+  font-size: 1em;
+  padding: 10px 20px;
+  margin: 60px auto;
+  position: relative;
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.fancy-chat-toggle-button:hover {
+  background-color: #533e21; /* Color más oscuro al pasar el ratón */
+}
+
+.meeple-icon {
+  width: 30px; /* Tamaño del ícono de meeple */
+  height: auto;
+  margin-right: 10px;
+}
+
+/* Estilos para el contenedor del chatbot */
+
+.chatbot-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 350px; /* Ancho del chatbot */
+  height: 400px; /* Altura del chatbot */
+  max-width: 60%; /* Asegúrate de que no exceda el ancho de la pantalla */
+  max-height: 100%; /* Asegúrate de que no exceda el ancho de la pantalla */
+  z-index: 1000; /* Encima de otros contenidos */
+  display: none; /* Inicialmente oculto */
+  background: #E3A754; /* Color de fondo */
+  border: 1px solid #ddd; /* Borde */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow-y: auto; /* Permitir desplazamiento vertical si es necesario */
+}
+
+/* Mostrar el chatbot cuando está activo */
+.chatbot-container.active {
+  display: block; /* Mostrar el chatbot cuando está activo */
+}
+
+/* Estilo del encabezado del chatbot */
+.chatbot-header {
+  background: #7e57c2; /* Color de fondo del encabezado */
+  color: #E3A754; /* Color del texto */
+  padding: 15px; /* Espaciado */
+  border-radius: 8px 8px 0 0; /* Bordes redondeados en la parte superior */
+  display: flex; /* Uso de flexbox */
+  justify-content: space-between; /* Espacio entre elementos */
+  align-items: center; /* Centrar elementos verticalmente */
+}
+
+/* Estilo para el botón de cerrar */
+.chatbot-close-button {
+  background: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  color: white; /* Color del texto */
+  font-size: 18px; /* Tamaño de la fuente */
+  cursor: pointer; /* Cursor tipo puntero */
+}
+
+/* Estilos adicionales para la entrada de texto */
+.chatbot-input {
+  width: 100%; /* Ancho completo */
+  border-radius: 4px; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde ligero */
+  margin-top: 10px; /* Espaciado superior */
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.home-description {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.home-content {
+  font-size: 1em;
+  margin-top: 20px;
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.home-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupar todo el ancho del contenedor */
+  height: 100%; /* Ocupar todo el alto del contenedor */
+  object-fit: cover; /* Mantener proporción y cubrir el contenedor */
+  max-width: 2000px; /* Limitar el ancho máximo a 2000px */
+  max-height: 2000px; /* Limitar la altura máxima a 2000px */
+  z-index: 0; 
+  filter: brightness(50%); 
+}
+
+.overlay {
+  position: absolute;
+  top: 30%; /* Ajusta la posición vertical según sea necesario */
+  left: 75%; /* Desplaza el texto un poco a la derecha */
+  transform: translate(-50%, -50%); /* Centra el texto en su nueva posición */
+  color: black; /* Cambia el color a negro */
+  font-size: 4rem; /* Aumenta el tamaño de la fuente */
+  font-weight: bold; /* Opcional: hace que el texto sea más grueso */
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7); /* Sombra clara para mejorar la legibilidad */
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.overlay-text {
+  position: absolute; /* Posición absoluta sobre la imagen */
+  top: 50%; /* Centro verticalmente */
+  left: 50%; /* Centro horizontalmente */
+  transform: translate(-50%, -50%); /* Centra el texto */
+  color: white; /* Color del texto */
+  text-align: center; /* Centra el texto */
+  z-index: 1; /* Asegura que el texto esté por encima de la imagen */
+}
+
+.overlay-text h1 {
+  font-size: 3em; /* Tamaño del título */
+  margin: 0; /* Sin margen */
+  color: white;
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.overlay-text p {
+  font-size: 1.5em; /* Tamaño del párrafo */
+  margin-top: 10px; /* Espaciado superior */
+  margin-bottom: 0; /* Sin margen inferior */
+  font-family: var(--font-family); /* Aplica la fuente */
+}
+
+.overlay-logo {
+  position: absolute;
+  top: 30%; /* Ajusta la posición vertical según sea necesario */
+  left: 60%; /* Desplaza la imagen un poco a la derecha */
+  transform: translate(-50%, -50%); /* Centra la imagen en su nueva posición */
+  width: 200px; /* Ajusta el tamaño del logo según sea necesario */
+  height: auto; /* Mantiene la proporción de la imagen */
+  z-index: 10; /* Asegura que la imagen esté por encima de la imagen de fondo */
+}
+
+.floating-chat-button {
+  position: fixed; /* Fijo en relación al viewport */
+  bottom: 10px; /* Distancia desde el fondo */
+  right: 10px; /* Distancia desde la derecha */
+  z-index: 1000; /* Asegura que el botón esté encima de otros contenidos */
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2em; /* Reducir el tamaño de la fuente */
+  }
+
+  .home-description {
+    font-size: 1em; /* Reducir el tamaño del párrafo */
+  }
+
+  .overlay-text h1 {
+    font-size: 2em; /* Reducir tamaño del título */
+  }
+
+  .overlay-text p {
+    font-size: 1em; /* Reducir tamaño del párrafo */
+  }
+
+  .overlay {
+    top: 20%; /* Ajustar la posición de la superposición */
+    font-size: 2rem; /* Reducir el tamaño de la fuente de la superposición */
+  }
+}

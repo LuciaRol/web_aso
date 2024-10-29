@@ -1,0 +1,50 @@
+/* General container for the counters */
+.counter-section {
+  display: flex;
+  gap: 20px; /* Space between the two counter boxes */
+  justify-content: center; /* Center the counters horizontally */
+  margin-top: 20px;
+}
+
+/* Style for the semi-transparent box */
+.counter-box {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  color: white; /* Ensure text is readable against dark background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px; /* Fixed width for each counter */
+}
+
+/* Title styling for each counter box */
+.counter-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px; /* Space between title and number */
+}
+
+/* Elementor counter styles */
+.elementor-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10px; /* Space between the text and the counter */
+}
+
+.elementor-counter-number-wrapper {
+  font-size: 2.5rem; /* Size of the number */
+  font-weight: bold; /* Bold number */
+}
+
+.elementor-counter-number-suffix {
+  font-size: 1.5rem; /* Size of the '+' symbol */
+  margin-left: 5px; /* Spacing between the number and the symbol */
+}
+
+.elementor-heading-title {
+  font-size: 1.5rem; /* Size of the title "Juegos" or "Partidas" */
+  margin-bottom: 5px; /* Space between the title and the counter */
+}

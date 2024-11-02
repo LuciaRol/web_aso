@@ -39,29 +39,31 @@ const Header = () => {
                 &#9776; {/* Ícono de menú hamburguesa */}
             </button>
             </div>
-           
-                <nav className={`header-nav-container ${isMenuOpen ? 'open' : ''}`}>
-                    <ul className="header-nav">
-                        <li><Link to="/">Inicio</Link></li>
-                        {!isLoggedIn && <li><Link to="/eventos">Eventos</Link></li>}
-                        {!isLoggedIn && <li><Link to="/calendariopartidas">Partidas</Link></li>}
-                        {!isLoggedIn && <li><Link to="/quienessomos">¿Quiénes somos?</Link></li>}
-                        {!isLoggedIn && <li><Link to="/ludoteca">Ludoteca</Link></li>}
-                        {!isLoggedIn && <li><Link to="/login">Login</Link></li>}
-                        {isLoggedIn && <li><Link to="/crearpartida">Crear Partida</Link></li>}
-                        {isLoggedIn && <li><Link to="/listapartidas">Partidas</Link></li>}
-                        {isLoggedIn && <li><Link to="/RegistroInvitados">Registro de Invitados</Link></li>}
-                        {isLoggedIn && <li><Link to="/PrestamosJuegos">Solicitar Juego</Link></li>}
-                        {isLoggedIn && <li><Link to="/Usuario">Usuario</Link></li>}
-                        {isLoggedIn && (
-                            <li>
-                                <button onClick={handleLogout} className="logout-btn">
-                                    Logout
-                                </button>
-                            </li>
-                        )}
-                    </ul>
-                </nav>
+            <nav className={`header-nav-container ${isMenuOpen ? 'open' : ''}`}>
+                <ul className="header-nav">
+                    <li>
+                        <Link to="/" className={window.location.pathname === '/' ? 'active' : ''}>Inicio</Link>
+                    </li>
+                    {!isLoggedIn && <li><Link to="/eventos" className={window.location.pathname === '/eventos' ? 'active' : ''}>Eventos</Link></li>}
+                    {!isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
+                    {!isLoggedIn && <li><Link to="/quienessomos" className={window.location.pathname === '/quienessomos' ? 'active' : ''}>¿Quiénes somos?</Link></li>}
+                    {!isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/ludoteca' ? 'active' : ''}>Ludoteca</Link></li>}
+                    {!isLoggedIn && <li><Link to="/login" className={window.location.pathname === '/login' ? 'active' : ''}>Login</Link></li>}
+                    {isLoggedIn && <li><Link to="/crearpartida" className={window.location.pathname === '/crearpartida' ? 'active' : ''}>Crear Partida</Link></li>}
+                    {isLoggedIn && <li><Link to="/listapartidas" className={window.location.pathname === '/listapartidas' ? 'active' : ''}>Partidas</Link></li>}
+                    {isLoggedIn && <li><Link to="/RegistroInvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
+                    {isLoggedIn && <li><Link to="/PrestamosJuegos" className={window.location.pathname === '/PrestamosJuegos' ? 'active' : ''}>Solicitar Juego</Link></li>}
+                    {isLoggedIn && <li><Link to="/Usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
+                    {isLoggedIn && (
+                    <li>
+                        <button onClick={handleLogout} className="logout-btn">
+                            Logout
+                        </button>
+                    </li>
+                    )}
+                </ul>
+            </nav>
+
             </div>
         </header>
     );

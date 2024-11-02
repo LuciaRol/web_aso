@@ -1,10 +1,10 @@
 /* Variables CSS para colores y tamaños */
 :root {
-  --primary-color: #007bff;
-  --primary-hover-color: #0056b3;
-  --contrary-color: #B37100;
-  --contrary-hover-color: #5E471F;
-  --secondary-color: #012E4A;
+  --primary-color-header: #007bff;
+  --primary-color-hover-header: #0056b3;
+  --accent-color-header: #B37100;
+  --accent-color-hover-header: #5E471F;
+  --secondary-color-header: #012E4A;
   --background-color: #f5f5f5;
   --white: #fff;
   --light-gray: #f5f5f5;
@@ -16,7 +16,7 @@
 
 /* Estilos generales */
 .header {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color-header);
   color: var(--white);
   padding: 10px 0;
   width: 100%;
@@ -144,7 +144,7 @@
     padding: 10px;
     color: var(--white);
     text-decoration: none;
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color-header);
   }
 
   .header-nav li a:hover {
@@ -173,7 +173,7 @@
 
 /* Estilos del botón de logout */
 .logout-btn {
-  background-color: var(--contrary-color); /* Color de fondo del botón */
+  background-color: var(--accent-color-header); /* Color de fondo del botón */
   color: white; /* Color del texto del botón */
   border: none; /* Sin borde */
   border-radius: 4px; /* Bordes redondeados */
@@ -185,7 +185,7 @@
 
 /* Efecto hover para el botón de logout */
 .logout-btn:hover {
-  background-color: var(--contrary-hover-color); /* Color de fondo del botón al pasar el mouse */
+  background-color: var(--accent-color-hover-header); /* Color de fondo del botón al pasar el mouse */
 }
 
 /* Alineación del botón de logout en vista de escritorio */
@@ -197,5 +197,5 @@
 
 /* Estilo adicional para el botón hamburguesa cuando el menú está abierto */
 .menu-toggle.open {
-  color: var(--primary-hover-color); /* Cambiar color del ícono del menú cuando está abierto */
+  color: var(--primary-color-hover-header); /* Cambiar color del ícono del menú cuando está abierto */
 }

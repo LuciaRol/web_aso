@@ -35,66 +35,62 @@ h1 {
   font-size: 2.5em;
 }
 
-.description {
+.description p{
   text-align: center;
-  max-width: 800px;
-  margin: 20px auto; /* Centers the description horizontally */
-  font-size: 1.2em;
-  color: var(--dark-gray);
 }
 
-/* Styles for Eventos (Event page) */
-.event-container {
-  width: var(--container-width);
-  margin: 15px;
+.events-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres tarjetas por fila */
+  gap: 10px; /* Espacio entre las tarjetas */
+  justify-items: center;
   padding: 20px;
-  background-color: var(--white);
-  border-radius: var(--border-radius);
-  box-shadow: 0px 4px 8px var(--shadow-color);
+}
+
+@media (max-width: 768px) {
+  .events-list {
+    grid-template-columns: repeat(2, 1fr); /* Dos tarjetas por fila en tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .events-list {
+    grid-template-columns: 1fr; /* Una tarjeta por fila en pantallas pequeñas */
+  }
+}
+
+.event-container {
+  width: 350px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 16px;
+  padding: 16px;
   text-align: center;
-  transition: transform var(--transition-time) ease, box-shadow var(--transition-time) ease;
+  transition: transform 0.3s ease;
 }
 
 .event-container:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 6px 12px var(--shadow-hover-color);
 }
 
-/* Style for the event image */
 .event-container img {
-  width: var(--max-image-width); /* Limit the width */
+  width: 100%;
   height: auto;
-  max-height: 400px; /* Optional: limit the height if necessary */
-  border-radius: var(--border-radius);
-  margin: var(--image-padding) auto; /* Center the image horizontally */
-  display: block; /* Ensures image block behavior */
+  border-radius: 8px 8px 0 0;
 }
 
-/* Style for the event text */
 .event-container h3 {
-  font-size: 1.4em;
-  margin-bottom: 10px;
-  color: var(--secondary-color-eventos);
+  font-size: 1.5em;
+  color: #333;
+  margin: 8px 0;
 }
 
 .event-container p {
-  color: var(--dark-gray);
-  font-size: 0.95em;
-  margin-bottom: 10px;
+  font-size: 1em;
+  color: #666;
 }
 
 .event-container strong {
-  display: block;
-  margin-top: 10px;
-  color: var(--text-color);
-}
-
-/* Container for multiple events */
-.events-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center the events */
-  max-width: 1200px;
-  margin: 0 auto; /* Center the container */
-  padding: 20px; /* Optional padding for spacing */
+  color: #333;
 }

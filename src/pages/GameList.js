@@ -36,11 +36,11 @@ const GameList = () => {
 
 
   useEffect(() => {
+    fetchEventos();  // Ahora siempre se ejecuta
     if (user) {
-      fetchEventos();
       fetchUserDetails(user.email);
     }
-  }, [user]);
+  }, []);
 
   const fetchEventos = async () => {
     try {
@@ -110,7 +110,7 @@ const GameList = () => {
 
   const handleJoinEvent = async (event) => {
     if (!user) {
-      setError('Debes estar autenticado para unirte a una partida.');
+      setError('Debes estar logeado para unirte a una partida.');
       return;
     }
 

@@ -1,15 +1,9 @@
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { addDoc, collection, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, firestore } from '../firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  serverTimestamp,
-  updateDoc
-} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, firestore } from '../firebase';
 import '../styles/usuario.css';
 
 const Usuario = () => {
@@ -19,6 +13,7 @@ const Usuario = () => {
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
   const [tiposJuegosFavoritos, setTiposJuegosFavoritos] = useState([]);
+  const [password, setPassword] = useState(''); // Contraseña para el nuevo usuario
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
   const [usuario] = useAuthState(auth);
@@ -121,6 +116,41 @@ const Usuario = () => {
     }
   };
 
+  // Función para agregar un nuevo usuario con email y contraseña
+  const handleAddNewUser = async (event) => {
+    event.preventDefault();
+    try {
+      // Crear el usuario en Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      const user = userCredential.user;
+      // Almacenar los datos adicionales en Firestore
+      await addDoc(collection(firestore, 'users'), {
+        email: user.email,
+        role: 'user', // Rol por defecto
+        nombre: nombre,
+        apellido: apellido,
+        telefono,
+        usuarioTelegram,
+        tiposJuegosFavoritos,
+        fechaHoraRegistro: serverTimestamp(),
+        fechaHoraModificacion: serverTimestamp(),
+      });
+
+      setExito('Nuevo usuario agregado exitosamente');
+      setEmail('');
+      setPassword('');
+      setNombre('');
+      setApellido('');
+      setTelefono('');
+      setUsuarioTelegram('');
+      setTiposJuegosFavoritos([]);
+    } catch (err) {
+      setError('Error al agregar nuevo usuario: ' + err.message);
+      setExito('');
+    }
+  };
+
   const handleUpdateRole = async (userId) => {
     // Solo un admin puede actualizar el rol
     if (!isAdmin) {
@@ -142,6 +172,27 @@ const Usuario = () => {
       }
     } else {
       setError('Rol inválido. Solo se permiten los roles "user" o "admin".');
+    }
+  };
+
+  // Función para eliminar un usuario
+  const handleDeleteUser = async (userId) => {
+    // Solo un admin puede eliminar un usuario
+    if (!isAdmin) {
+      setError('No tienes permisos para eliminar usuarios.');
+      return;
+    }
+
+    const confirmation = window.confirm('¿Estás seguro de que quieres eliminar este usuario?');
+    if (confirmation) {
+      try {
+        const usuarioRef = doc(firestore, 'users', userId);
+        await deleteDoc(usuarioRef);
+        setExito('Usuario eliminado correctamente');
+        fetchUsuarios(); // Recargar la lista de usuarios
+      } catch (err) {
+        setError('Error al eliminar el usuario: ' + err.message);
+      }
     }
   };
 
@@ -196,20 +247,6 @@ const Usuario = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            className="form-control"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled
-            required
-          />
-        </div>
-
-        <div className="form-group">
           <label htmlFor="telefono">Teléfono</label>
           <input
             id="telefono"
@@ -228,34 +265,32 @@ const Usuario = () => {
             id="usuarioTelegram"
             className="form-control"
             type="text"
+            placeholder="Usuario Telegram"
             value={usuarioTelegram}
             onChange={(e) => setUsuarioTelegram(e.target.value)}
+            required
           />
         </div>
 
         <div className="form-group">
           <label htmlFor="tiposJuegosFavoritos">Tipos de Juegos Favoritos</label>
-          <select
+          <input
             id="tiposJuegosFavoritos"
             className="form-control"
-            multiple
-            value={tiposJuegosFavoritos}
-            onChange={(e) => setTiposJuegosFavoritos(Array.from(e.target.selectedOptions, option => option.value))}
-          >
-            <option value="accion">Acción</option>
-            <option value="aventura">Aventura</option>
-            <option value="deporte">Deporte</option>
-            <option value="estrategia">Estrategia</option>
-          </select>
+            type="text"
+            placeholder="Tipos de Juegos Favoritos"
+            value={tiposJuegosFavoritos.join(', ')}
+            onChange={(e) => setTiposJuegosFavoritos(e.target.value.split(','))}
+            required
+          />
         </div>
 
-        <button type="submit" className="submit-button">Actualizar Información</button>
+        <button className="submit-button" type="submit">Guardar</button>
       </form>
 
-      {error && <p className="error">{error}</p>}
-      {exito && <p className="exito">{exito}</p>}
+      {exito && <div className="success-message">{exito}</div>}
+      {error && <div className="error-message">{error}</div>}
 
-      {/* Solo mostrar "Todos los Usuarios" si el usuario es admin */}
       {isAdmin && (
         <>
           <h2>Todos los Usuarios</h2>
@@ -266,13 +301,45 @@ const Usuario = () => {
                 <p><strong>Email:</strong> {usuario.email}</p>
                 <p><strong>Tipo de juegos favoritos:</strong> {usuario.tiposJuegosFavoritos.join(', ')}</p>
                 <p><strong>Rol:</strong> {usuario.role}</p>
-                <button onClick={() => handleUpdateRole(usuario.id)}>
-                  Cambiar Rol
-                </button>
+                <button onClick={() => handleUpdateRole(usuario.id)}>Cambiar Rol</button>
+                <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
               </li>
             ))}
           </ul>
         </>
+      )}
+
+      {isAdmin && (
+        <form onSubmit={handleAddNewUser}>
+          <h2>Agregar Nuevo Usuario</h2>
+          <div className="form-group">
+            <label htmlFor="new-email">Email</label>
+            <input
+              id="new-email"
+              className="form-control"
+              type="email"
+              placeholder="Email del nuevo usuario"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="new-password">Contraseña</label>
+            <input
+              id="new-password"
+              className="form-control"
+              type="password"
+              placeholder="Contraseña del nuevo usuario"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button className="submit-button" type="submit">Agregar Usuario</button>
+        </form>
       )}
     </div>
   );

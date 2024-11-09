@@ -50,7 +50,7 @@ const Header = () => {
                     {!isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/ludoteca' ? 'active' : ''}>Ludoteca</Link></li>}
                     {!isLoggedIn && <li><Link to="/login" className={window.location.pathname === '/login' ? 'active' : ''}>Login</Link></li>}
                     {isLoggedIn && <li><Link to="/crearpartida" className={window.location.pathname === '/crearpartida' ? 'active' : ''}>Crear Partida</Link></li>}
-                    {isLoggedIn && <li><Link to="/listapartidas" className={window.location.pathname === '/listapartidas' ? 'active' : ''}>Partidas</Link></li>}
+                    {isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
                     {isLoggedIn && <li><Link to="/RegistroInvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
                     {isLoggedIn && <li><Link to="/PrestamosJuegos" className={window.location.pathname === '/PrestamosJuegos' ? 'active' : ''}>Solicitar Juego</Link></li>}
                     {isLoggedIn && <li><Link to="/Usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}

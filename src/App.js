@@ -4,7 +4,6 @@ import './App.css';
 import Footer from './components/Footer'; // Import the Footer component
 import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
-import CalendarioPartidas from './pages/CalendarioPartidas';
 import CreateGame from './pages/CreateGame';
 import Eventos from './pages/Eventos';
 import GameList from './pages/GameList';
@@ -23,8 +22,8 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/calendariopartidas" element={<CalendarioPartidas />} />
-        <Route path="/listapartidas" element={<ProtectedRoute element={<GameList />} />} />
+        <Route path="/calendariopartidas" element={<GameList />} />
+        {/* <Route path="/listapartidas" element={<ProtectedRoute element={<GameList />} />} /> */}
         <Route path="/crearpartida" element={<ProtectedRoute element={<CreateGame />} />} />
         <Route path="/quienessomos" element={<WhoWeAre />} />
         <Route path="/eventos" element={<Eventos />} />

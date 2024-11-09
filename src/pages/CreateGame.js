@@ -213,7 +213,7 @@ const sendTelegramMessage = async (message, photoUrl, thread_id) => {
       setSuccessMessage('Partida creada correctamente');
       setGameResults([]);
   
-      navigate('/listapartidas');
+      navigate('/calendariopartidas');
     } catch (err) {
       console.error('Error al agregar partida: ', err);
       setError('Error al agregar partida: ' + err.message);

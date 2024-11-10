@@ -47,7 +47,7 @@ const Header = () => {
                     {!isLoggedIn && <li><Link to="/eventos" className={window.location.pathname === '/eventos' ? 'active' : ''}>Eventos</Link></li>}
                     {!isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
                     {!isLoggedIn && <li><Link to="/quienessomos" className={window.location.pathname === '/quienessomos' ? 'active' : ''}>¿Quiénes somos?</Link></li>}
-                    {!isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/ludoteca' ? 'active' : ''}>Ludoteca</Link></li>}
+                    {!isLoggedIn && <li><Link to="/PrestamosJuegos" className={window.location.pathname === '/PrestamosJuegos' ? 'active' : ''}>Ludoteca</Link></li>}
                     {!isLoggedIn && <li><Link to="/login" className={window.location.pathname === '/login' ? 'active' : ''}>Login</Link></li>}
                     {isLoggedIn && <li><Link to="/crearpartida" className={window.location.pathname === '/crearpartida' ? 'active' : ''}>Crear Partida</Link></li>}
                     {isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}

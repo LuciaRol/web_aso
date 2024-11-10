@@ -28,45 +28,44 @@ const PrestamosJuegos = () => {
   const thread_id = 14; // Reemplaza con el ID del tema "Test"
 
   useEffect(() => {
-    const fetchGamesAndUsers = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        // Fetch games
+        // Cargar juegos sin restricciones
         const gamesSnapshot = await getDocs(collection(firestore, 'ludoteca'));
         const gamesList = gamesSnapshot.docs.map(doc => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
-
-        // Fetch loaned games
-        const loanedSnapshot = await getDocs(collection(firestore, 'prestamojuegos'));
-        const loanedGamesMap = {};
-        loanedSnapshot.docs.forEach(doc => {
-          const data = doc.data();
-          if (data.game && data.game.id) {
-            loanedGamesMap[data.game.id] = { ...data, id: doc.id }; // Add doc.id for updates
-          }
-        });
-
-        // Fetch users
-        const usersSnapshot = await getDocs(collection(firestore, 'users'));
-        const usersMap = {};
-        usersSnapshot.docs.forEach(doc => {
-          const data = doc.data();
-          usersMap[data.email] = `${data.nombre} ${data.apellido}`;
-        });
-
+  
+        // Solo cargar `loanedGames` y `usersMap` si el usuario está autenticado
+        let loanedGamesMap = {};
+        let usersMap = {};
+  
+        if (user) {
+          const loanedSnapshot = await getDocs(collection(firestore, 'prestamojuegos'));
+          loanedSnapshot.docs.forEach(doc => {
+            const data = doc.data();
+            if (data.game && data.game.id) {
+              loanedGamesMap[data.game.id] = { ...data, id: doc.id };
+            }
+          });
+  
+          const usersSnapshot = await getDocs(collection(firestore, 'users'));
+          usersSnapshot.docs.forEach(doc => {
+            const data = doc.data();
+            usersMap[data.email] = `${data.nombre} ${data.apellido}`;
+          });
+        }
+  
         setUsersMap(usersMap);
         setLoanedGames(loanedGamesMap);
         setGames(gamesList);
         setFilteredGames(gamesList);
-
-        // Extract unique genres
+  
         const allGenres = new Set();
-        gamesList.forEach(game => {
-          game.genres.forEach(genre => allGenres.add(genre));
-        });
-        setGenres(Array.from(allGenres));
+        gamesList.forEach(game => game.genres.forEach(genre => allGenres.add(genre)));
+        setGenres([...allGenres]);
       } catch (err) {
         setError(err);
         toast.error('Error al cargar los datos.');
@@ -74,9 +73,9 @@ const PrestamosJuegos = () => {
         setLoading(false);
       }
     };
-
-    fetchGamesAndUsers();
-  }, []);
+  
+    fetchData();
+  }, [user]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -155,7 +154,7 @@ const PrestamosJuegos = () => {
   
   const handleLoan = async () => {
     if (!user || !selectedGame) {
-      toast.warn('Por favor, asegúrese de estar logueado y seleccionar un juego.');
+      toast.warn('Por favor, asegúrese de estar logeado y seleccionar un juego.');
       return;
     }
   

@@ -54,7 +54,10 @@ const PrestamosJuegos = () => {
           const usersSnapshot = await getDocs(collection(firestore, 'users'));
           usersSnapshot.docs.forEach(doc => {
             const data = doc.data();
-            usersMap[data.email] = `${data.nombre} ${data.apellido}`;
+            usersMap[data.email] = {
+              name: `${data.nombre} ${data.apellido}`,
+              role: data.role || 'user', // Aquí traemos el rol del usuario. Si no existe será user
+            };
           });
         }
   
@@ -195,7 +198,10 @@ const PrestamosJuegos = () => {
     }
   
     const loanData = loanedGames[selectedGame.id];
-    if (loanData.userName !== user.email) {
+    const userRole = usersMap[user.email]?.role;
+    
+    // Comprobar si el usuario es admin, ludotecario o el mismo usuario que pidió el juego
+    if (userRole !== 'admin' && userRole !== 'ludotecario' && loanData.userName !== user.email) {
       toast.warn('No tienes permiso para devolver este juego.');
       return;
     }

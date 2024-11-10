@@ -47,7 +47,7 @@ const PrestamosJuegos = () => {
           loanedSnapshot.docs.forEach(doc => {
             const data = doc.data();
             if (data.game && data.game.id) {
-              loanedGamesMap[data.game.id] = { ...data, id: doc.id };
+              loanedGamesMap[data.game.id] = { ...data, id: doc.id, returnDate: data.returnDate, prestado: data.userName || null };
             }
           });
   
@@ -108,7 +108,7 @@ const PrestamosJuegos = () => {
     filtered = filtered.map(game => ({
       ...game,
       available: !(loanedGames[game.id] && !loanedGames[game.id].returnDate),
-      loanedBy: loanedGames[game.id] ? usersMap[loanedGames[game.id].userName] || 'Desconocido' : null,
+      loanedBy: loanedGames[game.id] ? usersMap[loanedGames[game.id].userName].name || 'Desconocido' : null,
       returnDate: loanedGames[game.id] && loanedGames[game.id].loanDate ? new Date(loanedGames[game.id].loanDate.seconds * 1000 + 7 * 24 * 60 * 60 * 1000) : null
     }));
 
@@ -161,7 +161,7 @@ const PrestamosJuegos = () => {
       return;
     }
   
-    const userFullName = usersMap[user.email] || 'Usuario desconocido';
+    const userFullName = usersMap[user.email].name || 'Usuario desconocido';
   
     try {
       await addDoc(collection(firestore, 'prestamojuegos'), {
@@ -206,7 +206,7 @@ const PrestamosJuegos = () => {
       return;
     }
   
-    const userFullName = usersMap[user.email] || 'Usuario desconocido';
+    const userFullName = usersMap[user.email].name || 'Usuario desconocido';
   
     try {
       const loanDocRef = doc(firestore, 'prestamojuegos', loanData.id);
@@ -250,7 +250,7 @@ const PrestamosJuegos = () => {
       closeModal();
     } catch (err) {
       console.error('Error al registrar la devolución:', err);
-      toast.error('Error al registrar la devolución.');
+      toast.error('Error al registrar la devolución. Prueba a recargar la página.');
     }
   };
 
@@ -359,7 +359,10 @@ const PrestamosJuegos = () => {
           <div style={{ marginTop: '20px' }}>
             {!selectedGame.available ? (
               <>
+                <p><strong>Prestado a: </strong>{usersMap[user.email].name || 'Usuario desconocido'}</p>
                 <p><strong>Fecha de Máxima de Devolución:</strong> {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : 'No disponible'}</p>
+
+
                 <button
                   onClick={handleReturn}
                   style={{

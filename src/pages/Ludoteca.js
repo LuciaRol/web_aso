@@ -6,12 +6,13 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { auth, firestore } from '../firebase'; // Ajusta la ruta según la ubicación real de tu archivo firebase.js
+import '../styles/ludoteca.css'; // Import CSS for styles
 
 
 // Establece el contenedor del modal
 Modal.setAppElement('#root');
 
-const PrestamosJuegos = () => {
+const Ludoteca = () => {
   const [games, setGames] = useState([]);
   const [filteredGames, setFilteredGames] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -259,41 +260,50 @@ const PrestamosJuegos = () => {
 
   return (
     <div>
-      <h1>Solicitud de Préstamo de Juegos</h1>
+      <h1>Ludoteca y préstamo de juegos </h1>
       
-      <div style={{ marginBottom: '20px' }}>
-      <label>
-        Filtrar por Género:
-        <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
-          <option value=''>Todos</option>
-          {genres.sort().map(genre => (
-            <option key={genre} value={genre}>{genre}</option>
-          ))}
-        </select>
-      </label>
-        <label style={{ marginLeft: '20px' }}>
-          Buscar por Nombre:
-          <input
-            type="text"
-            value={searchName}
-            onChange={(e) => setSearchName(e.target.value)}
-            placeholder="Nombre del juego"
-          />
+      <div class="filters-row">
+        <label class="filter-item">
+            Filtrar por nombre:
+            <input
+              type="text"
+              value={searchName}
+              onChange={(e) => setSearchName(e.target.value)}
+              placeholder="Introduce un nombre"
+            />
         </label>
-        <label style={{ marginLeft: '20px' }}>
-          Ordenar por:
-          <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
-            <option value='alphabetical'>Alfabéticamente</option>
-            <option value='availability'>Disponibilidad</option>
+
+        <label class="filter-item">
+          Filtrar por género:
+          <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
+            <option value=''>Todos</option>
+            {genres.sort().map(genre => (
+              <option key={genre} value={genre}>{genre}</option>
+            ))}
           </select>
-          {sortCriteria === 'alphabetical' && (
-            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} style={{ marginLeft: '10px' }}>
-              <option value='asc'>Ascendente</option>
-              <option value='desc'>Descendente</option>
+        </label>
+        
+        <label class="filter-item">
+          Ordenar por:
+          <div class="sort-options">
+            <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
+              <option value='alphabetical'>Alfabéticamente</option>
+              <option value='availability'>Disponibilidad</option>
             </select>
-          )}
+            {sortCriteria === 'alphabetical' && (
+              <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                <option value='asc'>Ascendente</option>
+                <option value='desc'>Descendente</option>
+              </select>
+            )}
+          </div>
         </label>
       </div>
+
+
+
+
+      {/* juegos */}
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
         {filteredGames.map(game => (
@@ -423,4 +433,4 @@ const PrestamosJuegos = () => {
   );
 };
 
-export default PrestamosJuegos;
+export default Ludoteca;

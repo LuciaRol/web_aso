@@ -10,7 +10,7 @@ import GameList from './pages/GameList';
 import Home from './pages/Home';
 import ListaUsuarios from './pages/ListaUsuarios';
 import Login from './pages/Login';
-import PrestamosJuegos from './pages/PrestamosJuegos';
+import Ludoteca from './pages/Ludoteca';
 import RegistroInvitados from './pages/RegistroInvitados';
 import Usuario from './pages/Usuario';
 import WhoWeAre from './pages/WhoWeAre';
@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/usuario" element={<ProtectedRoute element={<Usuario />} />} />
         <Route path="/ListaUsuarios" element={<ProtectedRoute element={<ListaUsuarios />} />} />
         <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
-        <Route path="/PrestamosJuegos" element={<PrestamosJuegos />} />
+        <Route path="/Ludoteca" element={<Ludoteca />} />
         <Route path="/login" element={<Home />} />
       </Routes>
       <Footer /> {/* Include the Footer component */}

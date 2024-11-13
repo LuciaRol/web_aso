@@ -24,8 +24,8 @@ const Ludoteca = () => {
   const [user, setUser] = useState(null); // Información del usuario logueado
   const [loanedGames, setLoanedGames] = useState({}); // Estado para juegos prestados
   const [usersMap, setUsersMap] = useState({}); // Mapa para usuarios
-  const [sortCriteria, setSortCriteria] = useState('alphabetical'); // Criterio de ordenación
-  const [sortOrder, setSortOrder] = useState('asc'); // Orden de la ordenación
+  const [sortCriteria, setSortCriteria] = useState('alphabetical-asc'); // Inicializa con 'alfabeticamente, A-Z'
+  const [sortOrder, setSortOrder] = useState('asc');
   const thread_id = 14; // Reemplaza con el ID del tema "Test"
 
   useEffect(() => {
@@ -94,37 +94,45 @@ const Ludoteca = () => {
     return () => unsubscribe();
   }, []);
 
+  const resetFilters = () => {
+    setSelectedGenre('');
+    setSearchName('');
+    setSortCriteria('alphabetical-asc');
+    setSortOrder('asc');
+    filterGames(); // Vuelve a aplicar el filtrado con valores predeterminados
+  };
+
   const filterGames = useCallback(() => {
     let filtered = games;
-
+  
     if (selectedGenre) {
       filtered = filtered.filter(game => game.genres.includes(selectedGenre));
     }
-
+  
     if (searchName) {
       filtered = filtered.filter(game => game.name.toLowerCase().includes(searchName.toLowerCase()));
     }
-
-    // Mark games as unavailable if they are loaned
+  
+    // Calcular el estado de disponibilidad de cada juego
     filtered = filtered.map(game => ({
       ...game,
       available: !(loanedGames[game.id] && !loanedGames[game.id].returnDate),
       loanedBy: loanedGames[game.id] ? usersMap[loanedGames[game.id].userName].name || 'Desconocido' : null,
       returnDate: loanedGames[game.id] && loanedGames[game.id].loanDate ? new Date(loanedGames[game.id].loanDate.seconds * 1000 + 7 * 24 * 60 * 60 * 1000) : null
     }));
-
-    // Apply sorting based on criteria and order
-    if (sortCriteria === 'alphabetical') {
-      filtered.sort((a, b) => {
-        const comparison = a.name.localeCompare(b.name);
-        return sortOrder === 'asc' ? comparison : -comparison;
-      });
+  
+    // Ordenar o filtrar según el criterio seleccionado
+    if (sortCriteria === 'alphabetical-asc') {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortCriteria === 'alphabetical-desc') {
+      filtered.sort((a, b) => b.name.localeCompare(a.name));
     } else if (sortCriteria === 'availability') {
-      filtered.sort((a, b) => a.available === b.available ? 0 : a.available ? -1 : 1);
+      filtered = filtered.filter(game => game.available); // Filtrar solo disponibles
     }
-
+  
     setFilteredGames(filtered);
-  }, [games, selectedGenre, searchName, loanedGames, usersMap, sortCriteria, sortOrder]);
+  }, [games, selectedGenre, searchName, loanedGames, usersMap, sortCriteria]);
+  
 
   useEffect(() => {
     filterGames();
@@ -287,17 +295,19 @@ const Ludoteca = () => {
           Ordenar por:
           <div class="sort-options">
             <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
-              <option value='alphabetical'>Alfabéticamente</option>
-              <option value='availability'>Disponibilidad</option>
-            </select>
-            {sortCriteria === 'alphabetical' && (
-              <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-                <option value='asc'>Ascendente</option>
-                <option value='desc'>Descendente</option>
-              </select>
-            )}
+              <option value="alphabetical-asc">Alfabéticamente, A-Z</option>
+              <option value="alphabetical-desc">Alfabéticamente, Z-A</option>
+              <option value="availability">Disponibles</option>
+          </select>
           </div>
         </label>
+        <div>
+        <div class="filter-item">
+          {/* Otros elementos de filtrado y ordenación */}
+          <button onClick={resetFilters}>Eliminar filtros</button>
+        </div>
+        {/* Renderizado de juegos filtrados */}
+      </div>
       </div>
 
 

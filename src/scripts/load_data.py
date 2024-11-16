@@ -1,7 +1,6 @@
 import os
 import time
 from xml.etree import ElementTree as ET
-
 import firebase_admin
 import requests
 from firebase_admin import credentials, firestore
@@ -63,28 +62,22 @@ def load_to_firebase(games):
 def main():
     username = 'citripio'
     page_size = 10
-    max_requests_per_batch = 1
+    max_requests_per_batch = 0
     delay_seconds = 5
     page = 1
 
-    while True:
-        batch_games = []
-        for _ in range(max_requests_per_batch):
-            print(f'Fetching games from page {page}...')
-            print("page:",page)
-            games = fetch_games(username, page, page_size, delay_seconds)
-            if not games:
-                break
-            batch_games.extend(games)
-            page += 1
-            time.sleep(delay_seconds)  # Wait 5 seconds between requests
-
-        if not batch_games:
+    batch_games = []
+    for _ in range(max_requests_per_batch):
+        
+        games = fetch_games(username, page, page_size, delay_seconds)
+        if not games:
             break
+        batch_games.extend(games)
+        time.sleep(delay_seconds)  # Wait 5 seconds between requests
 
-        load_to_firebase(batch_games)
-        print(f'Waiting for {delay_seconds} seconds before the next batch...')
-        time.sleep(delay_seconds)  # Wait 5 seconds for the next batch
+    load_to_firebase(batch_games)
+    print(f'Waiting for {delay_seconds} seconds before the next batch...')
+    time.sleep(delay_seconds)  # Wait 5 seconds for the next batch
 
 if __name__ == '__main__':
     main()

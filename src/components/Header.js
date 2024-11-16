@@ -47,12 +47,12 @@ const Header = () => {
                     {!isLoggedIn && <li><Link to="/eventos" className={window.location.pathname === '/eventos' ? 'active' : ''}>Eventos</Link></li>}
                     {!isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
                     {!isLoggedIn && <li><Link to="/quienessomos" className={window.location.pathname === '/quienessomos' ? 'active' : ''}>¿Quiénes somos?</Link></li>}
-                    {!isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/ludoteca' ? 'active' : ''}>Ludoteca</Link></li>}
+                    {!isLoggedIn && <li><Link to="/Ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Ludoteca</Link></li>}
                     {!isLoggedIn && <li><Link to="/login" className={window.location.pathname === '/login' ? 'active' : ''}>Login</Link></li>}
                     {isLoggedIn && <li><Link to="/crearpartida" className={window.location.pathname === '/crearpartida' ? 'active' : ''}>Crear Partida</Link></li>}
                     {isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
                     {isLoggedIn && <li><Link to="/RegistroInvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
-                    {isLoggedIn && <li><Link to="/PrestamosJuegos" className={window.location.pathname === '/PrestamosJuegos' ? 'active' : ''}>Solicitar Juego</Link></li>}
+                    {isLoggedIn && <li><Link to="/Ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Solicitar Juego</Link></li>}
                     {isLoggedIn && <li><Link to="/Usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
                     {isLoggedIn && (
                     <li>

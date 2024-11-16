@@ -158,8 +158,8 @@ const Usuario = () => {
       return;
     }
 
-    const newRole = prompt('Ingrese el nuevo rol para el usuario (user/admin):');
-    if (newRole === 'user' || newRole === 'admin') {
+    const newRole = prompt('Ingrese el nuevo rol para el usuario (user/admin/ludotecario):');
+    if (newRole === 'user' || newRole === 'admin' || newRole === 'ludotecario') {
       try {
         const usuarioRef = doc(firestore, 'users', userId);
         await updateDoc(usuarioRef, {
@@ -171,7 +171,7 @@ const Usuario = () => {
         setError('Error al actualizar el rol: ' + err.message);
       }
     } else {
-      setError('Rol inválido. Solo se permiten los roles "user" o "admin".');
+      setError('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
     }
   };
 

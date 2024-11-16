@@ -26,4 +26,4 @@ yarn-error.log*
 
 # Local Run ETL
 
-/src/scripts/
+/scripts/keys.json

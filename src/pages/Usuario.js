@@ -1,10 +1,11 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { addDoc, collection, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, getDocs,getDoc, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, firestore } from '../firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/usuario.css';
+import { getAuth, deleteUser, getUser} from "firebase/auth"; // Asegúrate de importar esto
 
 const Usuario = () => {
   const [nombre, setNombre] = useState('');
@@ -63,13 +64,13 @@ const Usuario = () => {
     event.preventDefault();
     try {
       const role = 'user'; // Asignar 'user' por defecto, pero los admins pueden cambiarlo
-
+  
       // Si el usuario ya existe, actualizamos su información
       const usuarioExistente = usuarios.find((u) => u.email === email);
-
+  
       if (usuarioExistente) {
         // Verificar si el usuario es admin para permitir actualizar el rol
-        if (isAdmin) {
+        
           const usuarioRef = doc(firestore, 'users', usuarioExistente.id);
           await updateDoc(usuarioRef, {
             nombre,
@@ -77,20 +78,15 @@ const Usuario = () => {
             telefono,
             usuarioTelegram,
             tiposJuegosFavoritos,
-            role, // Incluye el rol al actualizar
             fechaHoraModificacion: serverTimestamp(),
           });
-          setExito('Usuario actualizado exitosamente');
-        } else {
-          setError('No tienes permisos para actualizar el rol de otros usuarios.');
-        }
+        
       } else {
         // Si el usuario no existe, se agrega uno nuevo
-        if (isAdmin) {
           await addDoc(collection(firestore, 'users'), {
             nombre,
             apellido,
-            email,
+            email, // Asegurarse de que el email esté presente
             telefono,
             usuarioTelegram,
             tiposJuegosFavoritos,
@@ -98,12 +94,10 @@ const Usuario = () => {
             fechaHoraRegistro: serverTimestamp(),
             fechaHoraModificacion: serverTimestamp(),
           });
-          setExito('Usuario agregado exitosamente');
-        } else {
-          setError('No tienes permisos para agregar un usuario.');
-        }
+        
       }
-
+  
+      // Limpiar el formulario después de guardar
       setNombre('');
       setApellido('');
       setTelefono('');
@@ -122,10 +116,11 @@ const Usuario = () => {
     try {
       // Crear el usuario en Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
       const user = userCredential.user;
-      // Almacenar los datos adicionales en Firestore
+  
+      // Almacenar los datos adicionales en Firestore, incluyendo el UID
       await addDoc(collection(firestore, 'users'), {
+        uid: user.uid,  // Guardar el UID del usuario
         email: user.email,
         role: 'user', // Rol por defecto
         nombre: nombre,
@@ -136,8 +131,9 @@ const Usuario = () => {
         fechaHoraRegistro: serverTimestamp(),
         fechaHoraModificacion: serverTimestamp(),
       });
-
+  
       setExito('Nuevo usuario agregado exitosamente');
+      // Limpiar los campos del formulario
       setEmail('');
       setPassword('');
       setNombre('');
@@ -151,50 +147,58 @@ const Usuario = () => {
     }
   };
 
-  const handleUpdateRole = async (userId) => {
-    // Solo un admin puede actualizar el rol
-    if (!isAdmin) {
-      setError('No tienes permisos para cambiar el rol de este usuario.');
-      return;
-    }
-
-    const newRole = prompt('Ingrese el nuevo rol para el usuario (user/admin/ludotecario):');
-    if (newRole === 'user' || newRole === 'admin' || newRole === 'ludotecario') {
-      try {
-        const usuarioRef = doc(firestore, 'users', userId);
-        await updateDoc(usuarioRef, {
-          role: newRole,
-          fechaHoraModificacion: serverTimestamp(),
-        });
-        setExito('Rol actualizado correctamente');
-      } catch (err) {
-        setError('Error al actualizar el rol: ' + err.message);
+    // Función para actualizar el rol de un usuario.
+    const handleUpdateRole = async (userId, newRole) => {
+      // Solo un admin puede actualizar el rol
+      if (!isAdmin) {
+        setError('No tienes permisos para cambiar el rol de este usuario.');
+        return;
       }
-    } else {
-      setError('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
-    }
-  };
-
-  // Función para eliminar un usuario
-  const handleDeleteUser = async (userId) => {
-    // Solo un admin puede eliminar un usuario
-    if (!isAdmin) {
-      setError('No tienes permisos para eliminar usuarios.');
-      return;
-    }
-
-    const confirmation = window.confirm('¿Estás seguro de que quieres eliminar este usuario?');
-    if (confirmation) {
-      try {
-        const usuarioRef = doc(firestore, 'users', userId);
-        await deleteDoc(usuarioRef);
-        setExito('Usuario eliminado correctamente');
-        fetchUsuarios(); // Recargar la lista de usuarios
-      } catch (err) {
-        setError('Error al eliminar el usuario: ' + err.message);
+    
+      if (newRole === 'user' || newRole === 'admin' || newRole === 'ludotecario') {
+        try {
+          const usuarioRef = doc(firestore, 'users', userId);
+          await updateDoc(usuarioRef, {
+            role: newRole,
+            fechaHoraModificacion: serverTimestamp(),
+          });
+          setExito('Rol actualizado correctamente');
+        } catch (err) {
+          setError('Error al actualizar el rol: ' + err.message);
+        }
+      } else {
+        setError('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
       }
-    }
-  };
+    };
+    
+    const handleDeleteUser = async (userId) => {
+      // Solo un admin puede eliminar un usuario
+      if (!isAdmin) {
+        setError('No tienes permisos para eliminar usuarios.');
+        return;
+      }
+    
+      const confirmation = window.confirm('¿Estás seguro de que quieres eliminar este usuario?');
+      if (confirmation) {
+        try {
+          // Obtener el documento de usuario en Firestore
+          const usuarioRef = doc(firestore, 'users', userId);
+          const userDoc = await getDoc(usuarioRef); // Obtener el documento de Firestore
+    
+          if (userDoc.exists()) {
+            // Eliminar el documento de Firestore directamente
+            await deleteDoc(usuarioRef);
+            
+            setExito('Usuario eliminado correctamente');
+            fetchUsuarios(); // Recargar la lista de usuarios si es necesario
+          } else {
+            setError('No se encontró el usuario en Firestore.');
+          }
+        } catch (err) {
+          setError('Error al eliminar el usuario: ' + err.message);
+        }
+      }
+    };
 
   const handleResetPassword = async () => {
     try {
@@ -292,6 +296,31 @@ const Usuario = () => {
       {error && <div className="error-message">{error}</div>}
 
       {isAdmin && (
+        <div>
+          <h2>Administrar Usuarios</h2>
+          <ul>
+            {usuarios.map((usuario) => (
+              <li key={usuario.id}>
+                <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
+                <p><strong>Email:</strong> {usuario.email}</p>
+                <p><strong>Tipo de juegos favoritos:</strong> {usuario.tiposJuegosFavoritos.join(', ')}</p>
+                <p><strong>Rol:</strong> {usuario.role}</p>
+
+                <select
+                  onChange={(e) => handleUpdateRole(usuario.id, e.target.value)}
+                  value={usuario.role}
+                >
+                  <option value="user">User</option>
+                  <option value="ludotecario">Ludotecario</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {/* {isAdmin && (
         <>
           <h2>Todos los Usuarios</h2>
           <ul>
@@ -302,12 +331,12 @@ const Usuario = () => {
                 <p><strong>Tipo de juegos favoritos:</strong> {usuario.tiposJuegosFavoritos.join(', ')}</p>
                 <p><strong>Rol:</strong> {usuario.role}</p>
                 <button onClick={() => handleUpdateRole(usuario.id)}>Cambiar Rol</button>
-                <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
+               
               </li>
             ))}
           </ul>
         </>
-      )}
+      )} */}
 
       {isAdmin && (
         <form onSubmit={handleAddNewUser}>

@@ -1,9 +1,10 @@
-// src/pages/login.js
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
-import '../styles/login.css'; // Asegúrate de importar tu CSS
+import { firestore } from '../firebase'; // Asegúrate de importar Firestore
+import { collection, query, where, getDocs } from 'firebase/firestore'; // Métodos para consultar Firestore
+import '../styles/login.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -14,12 +15,25 @@ const LoginPage = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
     try {
+      // Check if the email is available in the firestore database as double check security measure
+      const usersRef = collection(firestore, 'users');
+      const q = query(usersRef, where('email', '==', email.trim().toLowerCase()));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        setError('Este correo electrónico no está registrado en nuestra base de datos.');
+        return; // if email is not registered, stop the login process
+      }
+
+      // If mail exists, proceed to check the password and log in
       await signInWithEmailAndPassword(auth, email, password);
       setError('');
       setEmail('');
       setPassword('');
-      navigate('/'); // Redirige al usuario a la página de inicio
+      navigate('/'); // Redirect to the home page
+
     } catch (err) {
       let errorMessage;
       switch (err.code) {

@@ -6,18 +6,16 @@ import firebase_admin
 import requests
 from firebase_admin import credentials, firestore
 
-
-
-cred = credentials.Certificate('../src/scripts/keys.json')
+cred = credentials.Certificate('./keys.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-# Función para obtener información de los juegos desde BoardGameGeek
-def fetch_games(username, page, page_size=20):
+# Function to upload the data of BGG ludoteca to the firebase database. We need to use the BGG API with lots of delays for do not collapse it. 
+def fetch_games(username, page, page_size, delay_seconds=5):
     games = []
     try:
-        response = requests.get(f'https://www.boardgamegeek.com/xmlapi2/collection?username={username}&page={page}&pagesize={page_size}',timeout=10)
+        response = requests.get(f'https://www.boardgamegeek.com/xmlapi2/collection?username={username}&page={page}&pagesize={page_size}')
         response.raise_for_status()
         xml_data = response.content
 
@@ -25,15 +23,16 @@ def fetch_games(username, page, page_size=20):
         root = ET.fromstring(xml_data)
         items = root.findall('item')
 
-        for item in items:
+        for item in items: #First we get all the games per page
             game_id = item.attrib['objectid']
-            detail_response = requests.get(f'https://www.boardgamegeek.com/xmlapi2/thing?id={game_id}',timeout=10)
+            detail_response = requests.get(f'https://www.boardgamegeek.com/xmlapi2/thing?id={game_id}')
             detail_response.raise_for_status()
             game_data = detail_response.content
             game_root = ET.fromstring(game_data)
-
+            
+            print("game_id: "+ game_id)
             game_item = game_root.find('item')
-            if game_item is not None:
+            if game_item is not None: # Here we use the API to get all the necessary information for each game
                 game = {
                     'id': game_item.attrib['id'],
                     'name': game_item.find('name').attrib['value'],
@@ -47,14 +46,15 @@ def fetch_games(username, page, page_size=20):
                     'maxPlaytime': game_item.find('maxplaytime').attrib['value'] if game_item.find('maxplaytime') is not None else 'Not specified'
                 }
                 games.append(game)
-
+                print("game_name: " + game['name'])
+                time.sleep(delay_seconds)  # wait 5 seconds between requests
         return games
 
     except requests.RequestException as e:
         print(f'Error fetching games: {e}')
         return []
 
-# Función para cargar juegos a Firebase en lotes
+# Function to load to firebase database ludoteca collection
 def load_to_firebase(games):
     for game in games:
         db.collection('ludoteca').document(game['id']).set(game)
@@ -62,8 +62,8 @@ def load_to_firebase(games):
 
 def main():
     username = 'citripio'
-    page_size = 20
-    max_requests_per_batch = 10
+    page_size = 10
+    max_requests_per_batch = 1
     delay_seconds = 5
     page = 1
 
@@ -71,19 +71,20 @@ def main():
         batch_games = []
         for _ in range(max_requests_per_batch):
             print(f'Fetching games from page {page}...')
-            games = fetch_games(username, page, page_size)
+            print("page:",page)
+            games = fetch_games(username, page, page_size, delay_seconds)
             if not games:
                 break
             batch_games.extend(games)
             page += 1
-            time.sleep(delay_seconds)  # Espera 5 segundos entre solicitudes
+            time.sleep(delay_seconds)  # Wait 5 seconds between requests
 
         if not batch_games:
             break
 
         load_to_firebase(batch_games)
         print(f'Waiting for {delay_seconds} seconds before the next batch...')
-        time.sleep(delay_seconds)  # Espera 5 segundos antes de continuar con el siguiente lote
+        time.sleep(delay_seconds)  # Wait 5 seconds for the next batch
 
 if __name__ == '__main__':
     main()

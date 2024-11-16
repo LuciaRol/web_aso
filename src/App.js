@@ -4,7 +4,6 @@ import './App.css';
 import Footer from './components/Footer'; // Import the Footer component
 import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
-import CalendarioPartidas from './pages/CalendarioPartidas';
 import CreateGame from './pages/CreateGame';
 import Eventos from './pages/Eventos';
 import GameList from './pages/GameList';
@@ -12,7 +11,6 @@ import Home from './pages/Home';
 import ListaUsuarios from './pages/ListaUsuarios';
 import Login from './pages/Login';
 import Ludoteca from './pages/Ludoteca';
-import PrestamosJuegos from './pages/PrestamosJuegos';
 import RegistroInvitados from './pages/RegistroInvitados';
 import Usuario from './pages/Usuario';
 import WhoWeAre from './pages/WhoWeAre';
@@ -23,8 +21,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/calendariopartidas" element={<CalendarioPartidas />} />
-        <Route path="/listapartidas" element={<ProtectedRoute element={<GameList />} />} />
+        <Route path="/calendariopartidas" element={<GameList />} />
         <Route path="/crearpartida" element={<ProtectedRoute element={<CreateGame />} />} />
         <Route path="/quienessomos" element={<WhoWeAre />} />
         <Route path="/eventos" element={<Eventos />} />
@@ -33,7 +30,6 @@ const App = () => {
         <Route path="/ListaUsuarios" element={<ProtectedRoute element={<ListaUsuarios />} />} />
         <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
         <Route path="/Ludoteca" element={<Ludoteca />} />
-        <Route path="/PrestamosJuegos" element={<ProtectedRoute element={<PrestamosJuegos />} />} />
         <Route path="/login" element={<Home />} />
       </Routes>
       <Footer /> {/* Include the Footer component */}

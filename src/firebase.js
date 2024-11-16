@@ -13,15 +13,14 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyDSy2bioKVlxFf4HMOYdBR72Fvr8O7Xi00",
-    authDomain: "txokoandaluz-70838.firebaseapp.com",
-    databaseURL: "https://txokoandaluz-70838-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "txokoandaluz-70838",
-    storageBucket: "txokoandaluz-70838.appspot.com",
-    messagingSenderId: "14133568676",
-    appId: "1:14133568676:web:42c44e142ec7728dfd3231",
-    measurementId: "G-2WFBZWYBC8"
-};
+    apiKey: "AIzaSyCYWzz8NI4WpdGCDBMQvEMC3CJBPVIcd5s",
+    authDomain: "dragon-de-madera.firebaseapp.com",
+    projectId: "dragon-de-madera",
+    storageBucket: "dragon-de-madera.firebasestorage.app",
+    messagingSenderId: "691925864934",
+    appId: "1:691925864934:web:f6407782deb071e0988627",
+    measurementId: "G-19Z5EXFQ47"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

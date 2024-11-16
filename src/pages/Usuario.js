@@ -1,11 +1,10 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { addDoc, collection, getDocs,getDoc, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, addDoc, collection, getDocs,getDoc, doc, updateDoc, deleteDoc, serverTimestamp , query, where} from 'firebase/firestore';
 import { auth, firestore } from '../firebase';
-import { sendPasswordResetEmail } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/usuario.css';
-import { getAuth, deleteUser, getUser} from "firebase/auth"; // Asegúrate de importar esto
+import { getAuth, deleteUser, getUser, createUserWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth"; // Asegúrate de importar esto
+
 
 const Usuario = () => {
   const [nombre, setNombre] = useState('');
@@ -60,43 +59,44 @@ const Usuario = () => {
     }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const role = 'user'; // Asignar 'user' por defecto, pero los admins pueden cambiarlo
-  
-      // Si el usuario ya existe, actualizamos su información
-      const usuarioExistente = usuarios.find((u) => u.email === email);
-  
-      if (usuarioExistente) {
-        // Verificar si el usuario es admin para permitir actualizar el rol
-        
-          const usuarioRef = doc(firestore, 'users', usuarioExistente.id);
-          await updateDoc(usuarioRef, {
-            nombre,
-            apellido,
-            telefono,
-            usuarioTelegram,
-            tiposJuegosFavoritos,
-            fechaHoraModificacion: serverTimestamp(),
-          });
-        
-      } else {
-        // Si el usuario no existe, se agrega uno nuevo
-          await addDoc(collection(firestore, 'users'), {
-            nombre,
-            apellido,
-            email, // Asegurarse de que el email esté presente
-            telefono,
-            usuarioTelegram,
-            tiposJuegosFavoritos,
-            role, // Asignar el rol al nuevo usuario
-            fechaHoraRegistro: serverTimestamp(),
-            fechaHoraModificacion: serverTimestamp(),
-          });
-        
-      }
-  
+ 
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const auth = getAuth(); // Obtén el objeto de autenticación
+    const user = auth.currentUser; // Obtén el usuario autenticado
+    if (!user) {
+      throw new Error('Usuario no autenticado');
+    }
+
+    const email = user.email; // Obtén el email del usuario autenticado
+    const role = 'user'; // Asignar 'user' por defecto, pero los admins pueden cambiarlo
+
+    // Conectar a Firestore
+    const firestore = getFirestore();
+
+    // Buscar al usuario en Firestore usando su correo electrónico
+    const userQuery = query(
+      collection(firestore, 'users'),
+      where('email', '==', email)
+    );
+    
+    const querySnapshot = await getDocs(userQuery);
+    if (!querySnapshot.empty) {
+      // Si el usuario existe, actualizamos su información
+      const usuarioExistente = querySnapshot.docs[0]; // Obtener el primer documento de la consulta
+      const usuarioRef = doc(firestore, 'users', usuarioExistente.id);
+
+      // Actualizar los datos del usuario
+      await updateDoc(usuarioRef, {
+        nombre,
+        apellido,
+        telefono,
+        usuarioTelegram,
+        tiposJuegosFavoritos,
+        fechaHoraModificacion: serverTimestamp(),
+      });
+      
       // Limpiar el formulario después de guardar
       setNombre('');
       setApellido('');
@@ -104,11 +104,18 @@ const Usuario = () => {
       setUsuarioTelegram('');
       setTiposJuegosFavoritos([]);
       setError('');
-    } catch (err) {
-      setError('Error al agregar o actualizar usuario: ' + err.message);
+      setExito('Usuario actualizado correctamente');
+    } else {
+      // Si no se encuentra el usuario, mostramos un error
+      setError('Usuario no encontrado');
       setExito('');
     }
-  };
+
+  } catch (err) {
+    setError('Error al agregar o actualizar usuario: ' + err.message);
+    setExito('');
+  }
+};
 
   // Función para agregar un nuevo usuario con email y contraseña
   const handleAddNewUser = async (event) => {
@@ -215,6 +222,52 @@ const Usuario = () => {
 
   return (
     <div className="form-container">
+        <h1>Tu información de usuario</h1>
+        {usuario && (
+          <div className="user-info">
+            <h2>Información del Usuario</h2>
+            <p><strong>Nombre:</strong> {usuario.displayName || 'No disponible'}</p>
+            <p><strong>Email:</strong> {usuario.email}</p>
+            <p><strong>Teléfono:</strong> {telefono || 'No disponible'}</p>
+            <p><strong>Usuario Telegram:</strong> {usuarioTelegram || 'No disponible'}</p>
+            <p><strong>Tipo de juegos favoritos:</strong> {tiposJuegosFavoritos.join(', ') || 'No disponible'}</p>
+            <button className="submit-button" onClick={handleResetPassword}>Restablecer Contraseña</button>
+          </div>
+      )}
+
+
+{isAdmin && (
+        <form onSubmit={handleAddNewUser}>
+          <h2>Agregar Nuevo Usuario</h2>
+          <div className="form-group">
+            <label htmlFor="new-email">Email</label>
+            <input
+              id="new-email"
+              className="form-control"
+              type="email"
+              placeholder="Email del nuevo usuario"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="new-password">Contraseña</label>
+            <input
+              id="new-password"
+              className="form-control"
+              type="password"
+              placeholder="Contraseña del nuevo usuario"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button className="submit-button" type="submit">Agregar Usuario</button>
+        </form>
+      )}
       <h1>Modifica tu información de usuario</h1>
 
       {usuario && (
@@ -320,56 +373,7 @@ const Usuario = () => {
           </ul>
         </div>
       )}
-      {/* {isAdmin && (
-        <>
-          <h2>Todos los Usuarios</h2>
-          <ul>
-            {usuarios.map((usuario) => (
-              <li key={usuario.id}>
-                <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
-                <p><strong>Email:</strong> {usuario.email}</p>
-                <p><strong>Tipo de juegos favoritos:</strong> {usuario.tiposJuegosFavoritos.join(', ')}</p>
-                <p><strong>Rol:</strong> {usuario.role}</p>
-                <button onClick={() => handleUpdateRole(usuario.id)}>Cambiar Rol</button>
-               
-              </li>
-            ))}
-          </ul>
-        </>
-      )} */}
-
-      {isAdmin && (
-        <form onSubmit={handleAddNewUser}>
-          <h2>Agregar Nuevo Usuario</h2>
-          <div className="form-group">
-            <label htmlFor="new-email">Email</label>
-            <input
-              id="new-email"
-              className="form-control"
-              type="email"
-              placeholder="Email del nuevo usuario"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="new-password">Contraseña</label>
-            <input
-              id="new-password"
-              className="form-control"
-              type="password"
-              placeholder="Contraseña del nuevo usuario"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button className="submit-button" type="submit">Agregar Usuario</button>
-        </form>
-      )}
+      
     </div>
   );
 };

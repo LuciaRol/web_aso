@@ -1,8 +1,8 @@
-import { getFirestore, addDoc, collection, getDocs, getDoc, doc, updateDoc, deleteDoc, serverTimestamp, query, where, orderBy, startAfter, limit, getCountFromServer } from 'firebase/firestore';
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/usuario.css';
+import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
 
 const AdminUsuarios = () => {
   const [email, setEmail] = useState('');
@@ -17,6 +17,12 @@ const AdminUsuarios = () => {
   const [errorPagination, setErrorPagination] = useState(''); // Error en la paginación
   const [totalUsuarios, setTotalUsuarios] = useState(0); // Total de usuarios en la base de datos
   const [usuariosPorPagina] = useState(5); // Número de usuarios por página
+
+  const [selectedUserId, setSelectedUserId] = useState(null); // Usuario seleccionado para editar
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [usuarioTelegram, setUsuarioTelegram] = useState('');
 
   useEffect(() => {
     if (usuario && usuario.email) {
@@ -84,13 +90,47 @@ const AdminUsuarios = () => {
     }
   };
 
+  // Función para actualizar la información del usuario
+  const handleUpdateUser = async (userId) => {
+    if (!isAdmin) {
+      setError('No tienes permisos para modificar los datos de otros usuarios.');
+      return;
+    }
+
+    try {
+      const userRef = doc(firestore, 'users', userId);
+      await updateDoc(userRef, {
+        nombre,
+        apellido,
+        telefono,
+        usuarioTelegram,
+        fechaHoraModificacion: serverTimestamp(),
+      });
+
+      setExito('Usuario actualizado correctamente');
+      fetchUsuarios(); // Recargar la lista de usuarios
+      resetForm(); // Resetear el formulario
+    } catch (err) {
+      setError('Error al actualizar la información del usuario: ' + err.message);
+    }
+  };
+
+  // Resetear formulario después de la actualización
+  const resetForm = () => {
+    setNombre('');
+    setApellido('');
+    setTelefono('');
+    setUsuarioTelegram('');
+    setSelectedUserId(null);
+  };
+
   // Función para actualizar el rol de un usuario.
   const handleUpdateRole = async (userId, newRole) => {
     if (!isAdmin) {
       setError('No tienes permisos para cambiar el rol de este usuario.');
       return;
     }
-  
+
     if (newRole === 'user' || newRole === 'admin' || newRole === 'ludotecario') {
       try {
         const usuarioRef = doc(firestore, 'users', userId);
@@ -153,38 +193,78 @@ const AdminUsuarios = () => {
         <div>
           <h2>Administrar Usuarios</h2>
           <p>Total de usuarios: {totalUsuarios}</p> {/* Mostrar el total de usuarios */}
+
+          {/* Formulario para editar usuario */}
+          {selectedUserId && (
+            <div>
+              <h3>Actualizar Información de Usuario</h3>
+              <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Apellido"
+                  value={apellido}
+                  onChange={(e) => setApellido(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Teléfono"
+                  value={telefono}
+                  onChange={(e) => setTelefono(e.target.value)}
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Usuario Telegram"
+                  value={usuarioTelegram}
+                  onChange={(e) => setUsuarioTelegram(e.target.value)}
+                  required
+                />
+                <button type="submit">Actualizar Usuario</button>
+              </form>
+            </div>
+          )}
+
           <ul>
             {usuarios.map((usuario) => (
               <li key={usuario.id}>
                 <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
                 <p><strong>Email:</strong> {usuario.email}</p>
+                <p><strong>Teléfono:</strong> {usuario.telefono}</p>
                 <p><strong>Rol:</strong> {usuario.role}</p>
+                <p><strong>Usuario Telegram:</strong> {usuario.usuarioTelegram}</p>
 
-                <select
-                  onChange={(e) => handleUpdateRole(usuario.id, e.target.value)}
-                  value={usuario.role}
-                >
-                  <option value="user">User</option>
-                  <option value="ludotecario">Ludotecario</option>
-                  <option value="admin">Admin</option>
-                </select>
+                {/* Botones para editar el rol y eliminar usuario */}
+                <button onClick={() => handleUpdateRole(usuario.id, 'admin')}>Hacer Admin</button>
+                <button onClick={() => handleUpdateRole(usuario.id, 'ludotecario')}>Hacer Ludotecario</button>
+                <button onClick={() => handleUpdateRole(usuario.id, 'user')}>Hacer Usuario</button>
                 <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
+                <button onClick={() => { setSelectedUserId(usuario.id); setNombre(usuario.nombre); setApellido(usuario.apellido); setTelefono(usuario.telefono); setUsuarioTelegram(usuario.usuarioTelegram); }}>
+                  Editar Usuario
+                </button>
               </li>
             ))}
           </ul>
 
-          <div className="pagination">
-            <button onClick={prevPage} disabled={page === 1}>Anterior</button>
-            <span>Página {page}</span>
-            {showNextButton && (
-              <button onClick={nextPage}>Siguiente</button>
-            )}
+          <div>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {exito && <p style={{ color: 'green' }}>{exito}</p>}
+          </div>
+
+          {/* Botones de paginación */}
+          <div>
+            <button onClick={prevPage}>Anterior</button>
+            <button onClick={nextPage} disabled={!showNextButton}>Siguiente</button>
           </div>
         </div>
       )}
-
-      {loading && <p>Cargando usuarios...</p>}
-      {errorPagination && <p>{errorPagination}</p>}
     </div>
   );
 };

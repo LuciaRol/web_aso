@@ -3,7 +3,7 @@ import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/usuario.css';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut} from "firebase/auth";
 
 const AdminUsuario = () => {
   const [nuevoEmail, setNuevoEmail] = useState('');
@@ -51,6 +51,11 @@ const AdminUsuario = () => {
       // Create user in Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, nuevoEmail, nuevaContraseña);
       const user = userCredential.user;
+      
+      // Signout so it doesn't log into the new user. This process is done automatically with function of line 52. It is thought so each user logs in itself.
+      // From other customer requirements, it would be done as per Firestore suggestions. In here, the admin must be the one to sign up new users. 
+      await signOut(auth);
+
 
       // Store additional data in Firestore, including UID
       await addDoc(collection(firestore, 'users'), {

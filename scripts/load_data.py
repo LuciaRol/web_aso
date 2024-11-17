@@ -5,7 +5,7 @@ import firebase_admin
 import requests
 from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate('./keys.json')
+cred = credentials.Certificate('./keys.json') # This file is the key to access to the firebase database. By default, it is not in the git repository for security reasons.
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 

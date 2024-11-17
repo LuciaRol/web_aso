@@ -13,6 +13,8 @@ import Login from './pages/Login';
 import Ludoteca from './pages/Ludoteca';
 import RegistroInvitados from './pages/RegistroInvitados';
 import Usuario from './pages/Usuario';
+import CrearUsuario from './pages/CrearUsuario';
+import AdminUsuarios from './pages/AdminUsuarios';
 import WhoWeAre from './pages/WhoWeAre';
 
 const App = () => {
@@ -27,6 +29,8 @@ const App = () => {
         <Route path="/eventos" element={<Eventos />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/usuario" element={<ProtectedRoute element={<Usuario />} />} />
+        <Route path="/crearusuario" element={<ProtectedRoute element={<CrearUsuario />} />} />
+        <Route path="/adminusuarios" element={<ProtectedRoute element={<AdminUsuarios />} />} />
         <Route path="/ListaUsuarios" element={<ProtectedRoute element={<ListaUsuarios />} />} />
         <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
         <Route path="/Ludoteca" element={<Ludoteca />} />

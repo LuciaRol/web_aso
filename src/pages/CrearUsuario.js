@@ -5,7 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/usuario.css';
 import { createUserWithEmailAndPassword, signOut} from "firebase/auth";
 
-const AdminUsuario = () => {
+const CrearUsuario = () => {
   const [nuevoEmail, setNuevoEmail] = useState('');
   const [nuevaContraseña, setNuevaContraseña] = useState('');
   const [nombre, setNombre] = useState('');
@@ -181,4 +181,4 @@ const AdminUsuario = () => {
   );
 };
 
-export default AdminUsuario;
+export default CrearUsuario;

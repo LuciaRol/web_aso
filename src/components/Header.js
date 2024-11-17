@@ -80,19 +80,33 @@ const Header = () => {
                     {!isLoggedIn && <li><Link to="/login" className={window.location.pathname === '/login' ? 'active' : ''}>Login</Link></li>}
                     {isLoggedIn && <li><Link to="/crearpartida" className={window.location.pathname === '/crearpartida' ? 'active' : ''}>Crear Partida</Link></li>}
                     {isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
-                    {isLoggedIn && <li><Link to="/RegistroInvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
-                    {isLoggedIn && <li><Link to="/Ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Solicitar Juego</Link></li>}
-                    {isLoggedIn && <li><Link to="/Usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
+                    {isLoggedIn && <li><Link to="/registroinvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
+                    {isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Solicitar Juego</Link></li>}
+                    {isLoggedIn && <li><Link to="/usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
                     {isLoggedIn && userRole === 'admin' && (
                         <li>
                             <Link
-                                to="/AdminUsuario"
-                                className={window.location.pathname === '/AdminUsuario' ? 'active' : ''}
+                                to="/crearusuario"
+                                className={window.location.pathname === '/crearusuario' ? 'active' : ''}
                             >
-                                Admin Usuarios
+                                Crear Usuarios
                             </Link>
+                            
                         </li>
-)}
+                        
+                    )}
+                    {isLoggedIn && userRole === 'admin' && (
+                        <li>
+                            <Link
+                                to="/adminusuarios"
+                                className={window.location.pathname === '/adminusuarios' ? 'active' : ''}
+                            >
+                                Administrar Usuarios
+                            </Link>
+                            
+                        </li>
+                        
+                    )}
                     {isLoggedIn && (
                     <li>
                         <button onClick={handleLogout} className="logout-btn">

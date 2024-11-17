@@ -1,4 +1,4 @@
-import { getFirestore, addDoc, collection, getDocs, getDoc, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore';
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -6,27 +6,27 @@ import '../styles/usuario.css';
 import { getAuth, deleteUser, createUserWithEmailAndPassword } from "firebase/auth";
 
 const AdminUsuario = () => {
+  const [nuevoEmail, setNuevoEmail] = useState('');
+  const [nuevaContraseña, setNuevaContraseña] = useState('');
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
-  const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
-  const [password, setPassword] = useState(''); // Password for new users
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
   const [usuario] = useAuthState(auth);
-  const [usuarios, setUsuarios] = useState([]); // Get all users
-  const [isAdmin, setIsAdmin] = useState(false); // Check that user is admin
+  const [usuarios, setUsuarios] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (usuario && usuario.email) {
-      setEmail(usuario.email);
-      fetchUsuarios(); // Load all users
-      checkIfUserIsAdmin(usuario.email); // Check if admin user
+      fetchUsuarios();
+      checkIfUserIsAdmin(usuario.email);
     }
   }, [usuario]);
 
-  // Function to check if admin user
+  // Function to check if user is an admin
   const checkIfUserIsAdmin = async (email) => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -34,7 +34,7 @@ const AdminUsuario = () => {
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         if (userData.email === email && userData.role === 'admin') {
-          setIsAdmin(true); 
+          setIsAdmin(true);
         }
       });
     } catch (err) {
@@ -57,12 +57,13 @@ const AdminUsuario = () => {
     }
   };
 
-  // Function to add new user to db and authentication
+  // Function to add a new user
   const handleAddNewUser = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
-      // Create user in firebase authentication
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Create user in Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, nuevoEmail, nuevaContraseña);
       const user = userCredential.user;
 
       // Store additional data in Firestore, including UID
@@ -70,8 +71,8 @@ const AdminUsuario = () => {
         uid: user.uid,  // Store UID in db
         email: user.email,
         role: 'user', // Default role user
-        nombre: nombre,
-        apellido: apellido,
+        nombre,
+        apellido,
         telefono,
         usuarioTelegram,
         fechaHoraRegistro: serverTimestamp(),
@@ -79,9 +80,9 @@ const AdminUsuario = () => {
       });
 
       setExito('Nuevo usuario agregado exitosamente');
-      // Clean form
-      setEmail('');
-      setPassword('');
+      // Clear form fields after submission
+      setNuevoEmail('');
+      setNuevaContraseña('');
       setNombre('');
       setApellido('');
       setTelefono('');
@@ -89,58 +90,8 @@ const AdminUsuario = () => {
     } catch (err) {
       setError('Error al agregar nuevo usuario: ' + err.message);
       setExito('');
-    }
-  };
-
-  // Function to update the role of a user
-  const handleUpdateRole = async (userId, newRole) => {
-    // Only an admin can update the role
-    if (!isAdmin) {
-      setError('No tienes permisos para cambiar el rol de este usuario.');
-      return;
-    }
-
-    if (newRole === 'user' || newRole === 'admin' || newRole === 'ludotecario') {
-      try {
-        const usuarioRef = doc(firestore, 'users', userId);
-        await updateDoc(usuarioRef, {
-          role: newRole,
-          fechaHoraModificacion: serverTimestamp(),
-        });
-        setExito('Rol actualizado correctamente');
-      } catch (err) {
-        setError('Error al actualizar el rol: ' + err.message);
-      }
-    } else {
-      setError('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
-    }
-  };
-
-  const handleDeleteUser = async (userId) => {
-    // Only an admin can delete a user
-    if (!isAdmin) {
-      setError('No tienes permisos para eliminar usuarios.');
-      return;
-    }
-
-    const confirmation = window.confirm('¿Estás seguro de que quieres eliminar este usuario?');
-    if (confirmation) {
-      try {
-        // Get the user document from Firestore
-        const usuarioRef = doc(firestore, 'users', userId);
-        const userDoc = await getDoc(usuarioRef);
-
-        if (userDoc.exists()) {
-          // Delete the Firestore document
-          await deleteDoc(usuarioRef);
-          setExito('Usuario eliminado correctamente');
-          fetchUsuarios(); // Reload the user list if needed
-        } else {
-          setError('No se encontró el usuario en Firestore.');
-        }
-      } catch (err) {
-        setError('Error al eliminar el usuario: ' + err.message);
-      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -152,35 +103,35 @@ const AdminUsuario = () => {
         <form onSubmit={handleAddNewUser}>
           <h2>Agregar Nuevo Usuario</h2>
           <div className="form-group">
-            <label htmlFor="new-email">Email</label>
+            <label htmlFor="nuevo-email">Email</label>
             <input
-              id="new-email"
+              id="nuevo-email"
               className="form-control"
               type="email"
               placeholder="Email del nuevo usuario"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={nuevoEmail}
+              onChange={(e) => setNuevoEmail(e.target.value)}
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="new-password">Contraseña</label>
+            <label htmlFor="nueva-contraseña">Contraseña</label>
             <input
-              id="new-password"
+              id="nueva-contraseña"
               className="form-control"
               type="password"
               placeholder="Contraseña del nuevo usuario"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={nuevaContraseña}
+              onChange={(e) => setNuevaContraseña(e.target.value)}
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="new-nombre">Nombre</label>
+            <label htmlFor="nuevo-nombre">Nombre</label>
             <input
-              id="new-nombre"
+              id="nuevo-nombre"
               className="form-control"
               type="text"
               placeholder="Nombre del nuevo usuario"
@@ -191,9 +142,9 @@ const AdminUsuario = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="new-apellido">Apellido</label>
+            <label htmlFor="nuevo-apellido">Apellido</label>
             <input
-              id="new-apellido"
+              id="nuevo-apellido"
               className="form-control"
               type="text"
               placeholder="Apellido del nuevo usuario"
@@ -204,9 +155,9 @@ const AdminUsuario = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="new-telefono">Teléfono</label>
+            <label htmlFor="nuevo-telefono">Teléfono</label>
             <input
-              id="new-telefono"
+              id="nuevo-telefono"
               className="form-control"
               type="text"
               placeholder="Teléfono del nuevo usuario"
@@ -216,9 +167,9 @@ const AdminUsuario = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="new-usuarioTelegram">Usuario Telegram</label>
+            <label htmlFor="nuevo-usuarioTelegram">Usuario Telegram</label>
             <input
-              id="new-usuarioTelegram"
+              id="nuevo-usuarioTelegram"
               className="form-control"
               type="text"
               placeholder="Usuario Telegram del nuevo usuario"
@@ -227,44 +178,11 @@ const AdminUsuario = () => {
             />
           </div>
 
-       
-
-          <button className="submit-button" type="submit">Agregar Usuario</button>
+          <button className="submit-button" type="submit" disabled={loading}>
+            {loading ? 'Agregando...' : 'Agregar Usuario'}
+          </button>
         </form>
       )}
-
-      {isAdmin && (
-        <div>
-          <h2>Administrar Usuarios</h2>
-          <ul>
-            {usuarios.map((usuario) => (
-              <li key={usuario.id}>
-                <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
-                <p><strong>Email:</strong> {usuario.email}</p>
-                <p><strong>Rol:</strong> {usuario.role}</p>
-
-                <select
-                  onChange={(e) => handleUpdateRole(usuario.id, e.target.value)}
-                  defaultValue={usuario.role}
-                >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                  <option value="ludotecario">Ludotecario</option>
-                </select>
-
-                <button
-                  onClick={() => handleDeleteUser(usuario.id)}
-                >
-                  Eliminar Usuario
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {error && <div className="error">{error}</div>}
-      {exito && <div className="success">{exito}</div>}
     </div>
   );
 };

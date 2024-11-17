@@ -1,9 +1,9 @@
-import { getFirestore, addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore';
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/usuario.css';
-import { getAuth, deleteUser, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const AdminUsuario = () => {
   const [nuevoEmail, setNuevoEmail] = useState('');

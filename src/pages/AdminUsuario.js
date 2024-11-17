@@ -21,7 +21,6 @@ const AdminUsuario = () => {
 
   useEffect(() => {
     if (usuario && usuario.email) {
-      fetchUsuarios();
       checkIfUserIsAdmin(usuario.email);
     }
   }, [usuario]);
@@ -42,20 +41,7 @@ const AdminUsuario = () => {
     }
   };
 
-  // Function to get all users from Firestore
-  const fetchUsuarios = async () => {
-    try {
-      const usersRef = collection(firestore, 'users');
-      const querySnapshot = await getDocs(usersRef);
-      const fetchedUsuarios = [];
-      querySnapshot.forEach((doc) => {
-        fetchedUsuarios.push({ id: doc.id, ...doc.data() });
-      });
-      setUsuarios(fetchedUsuarios);
-    } catch (err) {
-      console.error('Error al obtener usuarios:', err);
-    }
-  };
+ 
 
   // Function to add a new user
   const handleAddNewUser = async (event) => {
@@ -183,6 +169,9 @@ const AdminUsuario = () => {
           </button>
         </form>
       )}
+
+      {error && <div className="error">{error}</div>}
+      {exito && <div className="success">{exito}</div>}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import '../styles/usuario.css';
 import { getAuth, deleteUser, getUser, createUserWithEmailAndPassword, sendPasswordResetEmail} from "firebase/auth"; // Asegúrate de importar esto
 
 
-const Usuario = () => {
+const AdminUsuario = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [email, setEmail] = useState('');
@@ -378,4 +378,4 @@ const handleSubmit = async (event) => {
   );
 };
 
-export default Usuario;
+export default AdminUsuario;

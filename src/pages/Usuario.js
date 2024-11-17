@@ -109,6 +109,7 @@ const Usuario = () => {
 
   return (
     <div className="form-container">
+      
       <h1>Modifica tu información de usuario</h1>
 
       <form onSubmit={handleSubmit}>
@@ -169,6 +170,11 @@ const Usuario = () => {
 
       {exito && <div className="success-message">{exito}</div>}
       {error && <div className="error-message">{error}</div>}
+      {usuario && (
+        <div className="user-info">
+          <button className="submit-button" onClick={handleResetPassword}>Restablecer Contraseña</button>
+        </div>
+      )}
     </div>
   );
 };

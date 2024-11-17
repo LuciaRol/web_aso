@@ -54,6 +54,8 @@ const Header = () => {
                     {isLoggedIn && <li><Link to="/RegistroInvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
                     {isLoggedIn && <li><Link to="/Ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Solicitar Juego</Link></li>}
                     {isLoggedIn && <li><Link to="/Usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
+                    {isLoggedIn && <li><Link to="/AdminUsuario" className={window.location.pathname === '/AdminUsuario' ? 'active' : ''}>Admin Usuarios</Link></li>}
+
                     {isLoggedIn && (
                     <li>
                         <button onClick={handleLogout} className="logout-btn">

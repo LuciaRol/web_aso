@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
-import { firestore } from '../firebase';
 import Modal from '../components/Modal';
 import '../styles/eventos.css';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, firestore } from '../firebase';
 
 const CrearEventos = () => {
   const [events, setEvents] = useState([]);
@@ -15,6 +16,9 @@ const CrearEventos = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [usuario] = useAuthState(auth);
+  const [isAdmin, setIsAdmin] = useState(false);
+
 
   // Fetch events from Firestore
   const fetchEvents = async () => {
@@ -41,12 +45,37 @@ const CrearEventos = () => {
   };
 
   useEffect(() => {
-    fetchEvents(); // Llamamos a fetchEvents para cargar los eventos al inicio
-  }, []);
+    if (usuario && usuario.email) {
+      checkIfUserIsAdmin(usuario.email);
+      fetchEvents(); // Llamamos a fetchEvents para cargar los eventos al inicio
+
+    }
+  }, [usuario]);
+
+  // Function to check if user is an admin
+  const checkIfUserIsAdmin = async (email) => {
+    try {
+      const usersRef = collection(firestore, 'users');
+      const querySnapshot = await getDocs(usersRef);
+      querySnapshot.forEach((doc) => {
+        const userData = doc.data();
+        if (userData.email === email && userData.role === 'admin') {
+          setIsAdmin(true);
+        }
+      });
+    } catch (err) {
+      console.error('Error al verificar si el usuario es admin:', err);
+    }
+  };
 
   // Handle form submission to create new event
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isAdmin) {
+      setError('No tienes permisos para crear eventos.');
+      return;
+    }
 
     if (!titulo || !fecha || !hora || !descripcion || !imagen) {
       setError('Por favor, completa todos los campos.');
@@ -83,6 +112,11 @@ const CrearEventos = () => {
 
   // Handle event deletion
   const handleDeleteEvent = async (id) => {
+
+    if (!isAdmin) {
+      setError('No tienes permisos para crear eventos.');
+      return;
+    }
     try {
       await deleteDoc(doc(firestore, 'eventos', id));
       setEvents(events.filter(event => event.id !== id)); // Remove the deleted event from the list
@@ -193,7 +227,7 @@ const CrearEventos = () => {
           </div>
         ))}
       </div>
-
+        
       {/* Modal para confirmación de eliminación (se elimina la funcionalidad del botón de eliminación dentro del modal) */}
       {selectedEvent && (
         <Modal

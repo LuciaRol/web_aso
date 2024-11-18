@@ -82,7 +82,18 @@ const Header = () => {
                     {isLoggedIn && <li><Link to="/registroinvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
                     {isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Solicitar Juego</Link></li>}
                     {isLoggedIn && <li><Link to="/usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
-                    {isLoggedIn && <li><Link to="/creareventos" className={window.location.pathname === '/creareventos' ? 'active' : ''}>Crear Eventos</Link></li>}
+                    {isLoggedIn && userRole === 'admin' && (
+                        <li>
+                            <Link
+                                to="/creareventos"
+                                className={window.location.pathname === '/creareventos' ? 'active' : ''}
+                            >
+                                Crear Eventos
+                            </Link>
+                            
+                        </li>
+                        
+                    )}
                     {isLoggedIn && userRole === 'admin' && (
                         <li>
                             <Link

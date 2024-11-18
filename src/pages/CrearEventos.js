@@ -9,7 +9,7 @@ const CrearEventos = () => {
   const [events, setEvents] = useState([]);
   const [titulo, setTitulo] = useState('');
   const [fecha, setFecha] = useState('');
-  const [hora, setHora] = useState('');  // Nuevo estado para la hora
+  const [hora, setHora] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [imagen, setImagen] = useState('');
   const [error, setError] = useState('');
@@ -19,13 +19,12 @@ const CrearEventos = () => {
   const [usuario] = useAuthState(auth);
   const [isAdmin, setIsAdmin] = useState(false);
 
-
   // Fetch events from Firestore
   const fetchEvents = async () => {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(firestore, 'eventos'));
-      const eventsData = querySnapshot.docs.map(doc => {
+      const eventsData = querySnapshot.docs.map((doc) => {
         const data = doc.data();
         return {
           id: doc.id,
@@ -33,12 +32,12 @@ const CrearEventos = () => {
           img: data.imagen,
           description: data.descripcion,
           date: data.fecha,
-          time: data.hora, // Añadir la hora
+          time: data.hora,
         };
       });
       setEvents(eventsData);
     } catch (error) {
-      console.error("Error al obtener los eventos:", error);
+      console.error('Error al obtener los eventos:', error);
     } finally {
       setLoading(false);
     }
@@ -47,12 +46,10 @@ const CrearEventos = () => {
   useEffect(() => {
     if (usuario && usuario.email) {
       checkIfUserIsAdmin(usuario.email);
-      fetchEvents(); // Llamamos a fetchEvents para cargar los eventos al inicio
-
+      fetchEvents();
     }
   }, [usuario]);
 
-  // Function to check if user is an admin
   const checkIfUserIsAdmin = async (email) => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -68,7 +65,6 @@ const CrearEventos = () => {
     }
   };
 
-  // Handle form submission to create new event
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -84,7 +80,6 @@ const CrearEventos = () => {
 
     setLoading(true);
     try {
-      // Crear el evento con fecha y hora
       await addDoc(collection(firestore, 'eventos'), {
         titulo,
         fecha,
@@ -93,15 +88,13 @@ const CrearEventos = () => {
         imagen,
       });
 
-      // Clear the form
       setTitulo('');
       setFecha('');
-      setHora(''); // Limpiar el campo de hora
+      setHora('');
       setDescripcion('');
       setImagen('');
       setError('');
       alert('Evento creado correctamente');
-      // Refetch the events to stay in sync
       fetchEvents();
     } catch (error) {
       setError('Error al crear el evento: ' + error.message);
@@ -110,29 +103,25 @@ const CrearEventos = () => {
     }
   };
 
-  // Handle event deletion
   const handleDeleteEvent = async (id) => {
-
     if (!isAdmin) {
       setError('No tienes permisos para crear eventos.');
       return;
     }
     try {
       await deleteDoc(doc(firestore, 'eventos', id));
-      setEvents(events.filter(event => event.id !== id)); // Remove the deleted event from the list
+      setEvents(events.filter((event) => event.id !== id));
       alert('Evento eliminado correctamente');
     } catch (error) {
       console.error('Error al eliminar el evento:', error);
     }
   };
 
-  // Open modal to confirm deletion
   const openModal = (event) => {
     setSelectedEvent(event);
     setModalOpen(true);
   };
 
-  // Close modal
   const closeModal = () => {
     setModalOpen(false);
     setSelectedEvent(null);
@@ -145,7 +134,6 @@ const CrearEventos = () => {
         <p>Crea un evento especial y compártelo con todos para que no se lo pierdan...</p>
       </div>
 
-      {/* Formulario para crear nuevo evento */}
       <form onSubmit={handleSubmit}>
         {error && <div className="error-message">{error}</div>}
         <div className="form-group">
@@ -212,29 +200,33 @@ const CrearEventos = () => {
         </button>
       </form>
 
-      {/* Mostrar los eventos creados */}
       <h2>Eventos Creados</h2>
       <div className="events-list">
-        {events.map(event => (
-          <div key={event.id} className="event-container">
+        {events.map((event) => (
+          <div key={event.id} className="event-container" onClick={() => openModal(event)}>
             <img src={event.img} alt={event.title} />
             <h3>{event.title}</h3>
             <p>{event.description}</p>
-            <p><strong>Fecha:</strong> {event.date} {event.time}</p> {/* Mostrar fecha y hora */}
-            <button onClick={() => handleDeleteEvent(event.id)} className="delete-button">
+            <p>
+              <strong>Fecha:</strong> {event.date} {event.time}
+            </p>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();  // Detener la propagación del clic
+                handleDeleteEvent(event.id);
+              }} 
+              className="delete-button"
+            >
               Eliminar Evento
             </button>
           </div>
+          
         ))}
+          
       </div>
-        
-      {/* Modal para confirmación de eliminación (se elimina la funcionalidad del botón de eliminación dentro del modal) */}
+
       {selectedEvent && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          event={selectedEvent}
-        />
+        <Modal isOpen={isModalOpen} onClose={closeModal} event={selectedEvent} />
       )}
     </div>
   );

@@ -1,91 +1,104 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
-import { firestore } from '../firebase'; // Asegúrate de que firestore está correctamente configurado
+import { firestore } from '../firebase';
 import Modal from '../components/Modal';
-import '../styles/eventos.css'; // Importa el CSS para los estilos
+import '../styles/eventos.css';
 
 const CrearEventos = () => {
-  const [events, setEvents] = useState([]); // Estado para los eventos existentes
+  const [events, setEvents] = useState([]);
   const [titulo, setTitulo] = useState('');
   const [fecha, setFecha] = useState('');
+  const [hora, setHora] = useState('');  // Nuevo estado para la hora
   const [descripcion, setDescripcion] = useState('');
   const [imagen, setImagen] = useState('');
   const [error, setError] = useState('');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // Cargar eventos existentes desde Firestore
+  // Fetch events from Firestore
+  const fetchEvents = async () => {
+    setLoading(true);
+    try {
+      const querySnapshot = await getDocs(collection(firestore, 'eventos'));
+      const eventsData = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          title: data.titulo,
+          img: data.imagen,
+          description: data.descripcion,
+          date: data.fecha,
+          time: data.hora, // Añadir la hora
+        };
+      });
+      setEvents(eventsData);
+    } catch (error) {
+      console.error("Error al obtener los eventos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, 'eventos'));
-        const eventsData = querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.titulo,
-            img: data.imagen,
-            description: data.descripcion,
-            date: data.fecha,
-          };
-        });
-        setEvents(eventsData); // Actualizar estado con los eventos obtenidos
-      } catch (error) {
-        console.error("Error al obtener los eventos:", error);
-      }
-    };
-
-    fetchEvents();
+    fetchEvents(); // Llamamos a fetchEvents para cargar los eventos al inicio
   }, []);
 
-  // Manejar el envío del formulario para crear un nuevo evento
+  // Handle form submission to create new event
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!titulo || !fecha || !descripcion || !imagen) {
+    if (!titulo || !fecha || !hora || !descripcion || !imagen) {
       setError('Por favor, completa todos los campos.');
       return;
     }
 
+    setLoading(true);
     try {
+      // Crear el evento con fecha y hora
       await addDoc(collection(firestore, 'eventos'), {
         titulo,
         fecha,
+        hora,
         descripcion,
         imagen,
       });
 
-      // Después de agregar el evento, actualizar la lista
+      // Clear the form
       setTitulo('');
       setFecha('');
+      setHora(''); // Limpiar el campo de hora
       setDescripcion('');
       setImagen('');
       setError('');
       alert('Evento creado correctamente');
+      // Refetch the events to stay in sync
+      fetchEvents();
     } catch (error) {
       setError('Error al crear el evento: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Manejar la eliminación de un evento
+  // Handle event deletion
   const handleDeleteEvent = async (id) => {
     try {
       await deleteDoc(doc(firestore, 'eventos', id));
-      setEvents(events.filter(event => event.id !== id)); // Filtrar el evento eliminado de la lista
-      closeModal(); // Cerrar el modal después de la eliminación
+      setEvents(events.filter(event => event.id !== id)); // Remove the deleted event from the list
       alert('Evento eliminado correctamente');
     } catch (error) {
       console.error('Error al eliminar el evento:', error);
     }
   };
 
-  // Abrir el modal
+  // Open modal to confirm deletion
   const openModal = (event) => {
     setSelectedEvent(event);
     setModalOpen(true);
   };
 
-  // Cerrar el modal
+  // Close modal
   const closeModal = () => {
     setModalOpen(false);
     setSelectedEvent(null);
@@ -95,9 +108,7 @@ const CrearEventos = () => {
     <div>
       <h1>Crear Evento</h1>
       <div className="description">
-        <p>
-          Crea un evento especial y compártelo con todos para que no se lo pierdan...
-        </p>
+        <p>Crea un evento especial y compártelo con todos para que no se lo pierdan...</p>
       </div>
 
       {/* Formulario para crear nuevo evento */}
@@ -128,6 +139,18 @@ const CrearEventos = () => {
         </div>
 
         <div className="form-group">
+          <label htmlFor="hora">Hora</label>
+          <input
+            id="hora"
+            className="form-control"
+            type="time"
+            value={hora}
+            onChange={(e) => setHora(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="form-group">
           <label htmlFor="descripcion">Descripción</label>
           <textarea
             id="descripcion"
@@ -150,29 +173,33 @@ const CrearEventos = () => {
           />
         </div>
 
-        <button type="submit">Crear Evento</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Creando Evento...' : 'Crear Evento'}
+        </button>
       </form>
 
       {/* Mostrar los eventos creados */}
       <h2>Eventos Creados</h2>
       <div className="events-list">
         {events.map(event => (
-          <div key={event.id} className="event-container" onClick={() => openModal(event)}>
+          <div key={event.id} className="event-container">
             <img src={event.img} alt={event.title} />
             <h3>{event.title}</h3>
             <p>{event.description}</p>
-            <p><strong>Fecha:</strong> {event.date}</p>
+            <p><strong>Fecha:</strong> {event.date} {event.time}</p> {/* Mostrar fecha y hora */}
+            <button onClick={() => handleDeleteEvent(event.id)} className="delete-button">
+              Eliminar Evento
+            </button>
           </div>
         ))}
       </div>
 
-      {/* Modal para confirmación de eliminación */}
+      {/* Modal para confirmación de eliminación (se elimina la funcionalidad del botón de eliminación dentro del modal) */}
       {selectedEvent && (
         <Modal
           isOpen={isModalOpen}
           onClose={closeModal}
           event={selectedEvent}
-          onDelete={handleDeleteEvent}
         />
       )}
     </div>

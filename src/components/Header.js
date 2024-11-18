@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import defaultImage from '../img/meeple_logo.png';
 import '../styles/header.css';
@@ -14,7 +14,6 @@ const Header = () => {
     const [userRole, setUserRole] = useState(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation();
     const db = getFirestore();
 
     useEffect(() => {
@@ -83,6 +82,18 @@ const Header = () => {
                     {isLoggedIn && <li><Link to="/registroinvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
                     {isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Solicitar Juego</Link></li>}
                     {isLoggedIn && <li><Link to="/usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
+                    {isLoggedIn && userRole === 'admin' && (
+                        <li>
+                            <Link
+                                to="/creareventos"
+                                className={window.location.pathname === '/creareventos' ? 'active' : ''}
+                            >
+                                Crear Eventos
+                            </Link>
+                            
+                        </li>
+                        
+                    )}
                     {isLoggedIn && userRole === 'admin' && (
                         <li>
                             <Link

@@ -1,33 +1,8 @@
-import React, { useState } from 'react';
-import { default as event1, default as event3 } from '../img/evento_miercoles.jpg';
-import event2 from '../img/halloween.jpg'; // Correct image for event2
+import React, { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { firestore } from '../firebase'; // Asegúrate de que firestore está correctamente configurado
 import Modal from '../components/Modal';
-import '../styles/eventos.css'; // Import CSS for styles
-
-
-const events = [
-  {
-    id: 1,
-    title: 'Miércoles Dragoneros',
-    img: event1,
-    description: 'Nos reunimos por las tardes para jugar a lo que más nos apetezca...',
-    date: 'Todos los miércoles por la tarde',
-  },
-  {
-    id: 2,
-    title: 'Noche de Halloween',
-    img: event2,
-    description: 'Una vez al año, nos reunimos para jugar a juegos de roles ocultos...',
-    date: 'Noche del 31 de Octubre, 2024',
-  },
-  {
-    id: 3,
-    title: 'Reunión Familiar de Juegos',
-    img: event3,
-    description: 'Un evento para toda la familia...',
-    date: '30 de Octubre, 2024',
-  },
-];
+import '../styles/eventos.css'; // Importa el CSS para los estilos
 
 const Event = ({ event, onOpen }) => {
   return (
@@ -41,8 +16,40 @@ const Event = ({ event, onOpen }) => {
 };
 
 const Eventos = () => {
+  const [events, setEvents] = useState([]); // Estado para los eventos
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+
+  // Cargar eventos desde Firestore
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(firestore, 'eventos'));
+        const eventsData = querySnapshot.docs.map(doc => {
+          const data = doc.data();
+          
+          // Verifica que la URL de la imagen esté correctamente formada
+          const imageUrl = data.imagen; // Esto debe ser una URL de la imagen como string
+          if (!imageUrl) {
+            console.warn(`Evento ${data.titulo} no tiene imagen.`);
+          }
+
+          return {
+            id: doc.id,
+            title: data.titulo,
+            img: imageUrl, // La URL de la imagen
+            description: data.descripcion,
+            date: data.fecha,
+          };
+        });
+        setEvents(eventsData); // Guarda los eventos en el estado
+      } catch (error) {
+        console.error("Error al obtener los eventos:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   const openModal = (event) => {
     setSelectedEvent(event);

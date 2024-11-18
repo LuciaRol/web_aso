@@ -29,7 +29,7 @@ const Eventos = () => {
           const data = doc.data();
           
           // Verifica que la URL de la imagen esté correctamente formada
-          const imageUrl = "https://www.gamereactor.eu/media/63/_2486393.png"; // Esto debe ser una URL de la imagen como string
+          const imageUrl = data.imagen; // Esto debe ser una URL de la imagen como string
           if (!imageUrl) {
             console.warn(`Evento ${data.titulo} no tiene imagen.`);
           }

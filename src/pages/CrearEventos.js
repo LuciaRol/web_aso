@@ -4,6 +4,7 @@ import Modal from '../components/Modal';
 import '../styles/eventos.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase';
+import axios from 'axios';
 
 const CrearEventos = () => {
   const [events, setEvents] = useState([]);
@@ -18,7 +19,27 @@ const CrearEventos = () => {
   const [loading, setLoading] = useState(false);
   const [usuario] = useAuthState(auth);
   const [isAdmin, setIsAdmin] = useState(false);
+  const thread_id = 180; // Id del tema Eventos
+  const defaultImageUrl = 'https://i.ytimg.com/vi/_MT_L-vnAtk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC5OCu-k6xnhj7bvjhg_yvwLe8DNw';
 
+
+
+  const sendTelegramMessage = async (message, photoUrl, thread_id) => {
+    const botToken = '7350032544:AAG9w7OxVesnNISo_zntiGYjiCPSq2lQOv4';
+    const chatId = '-1002173130256'; // ID del grupo
+    const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendPhoto`;
+
+    try {
+      await axios.post(telegramApiUrl, {
+        chat_id: chatId,
+        photo: photoUrl || defaultImageUrl, // Usa la URL predeterminada si photoUrl es null o vacío
+        caption: message,
+        message_thread_id: thread_id, // Incluye el ID del tema aquí
+      });
+    } catch (error) {
+      console.error('Error al enviar mensaje a Telegram:', error);
+    }
+  };
   // Fetch events from Firestore
   const fetchEvents = async () => {
     setLoading(true);
@@ -87,6 +108,17 @@ const CrearEventos = () => {
         descripcion,
         imagen,
       });
+
+      const message = `Nuevo evento creado:
+      
+        ${titulo}
+        - Fecha: ${fecha}
+        - Hora: ${hora}
+        - Descripción: ${descripcion}`;
+      
+        // Enviar mensaje de Telegram después de crear el evento
+      await sendTelegramMessage(message, imagen, thread_id);
+
 
       setTitulo('');
       setFecha('');

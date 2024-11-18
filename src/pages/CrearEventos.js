@@ -212,7 +212,7 @@ const CrearEventos = () => {
             </p>
             <button 
               onClick={(e) => {
-                e.stopPropagation();  // Detener la propagación del clic
+                e.stopPropagation();  // We do not allow the click to open the modal window
                 handleDeleteEvent(event.id);
               }} 
               className="delete-button"

@@ -2,11 +2,41 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { firestore } from '../firebase'; // Importa la instancia de Firestore
 
+// Componente para ingresar la URL de la imagen
+const FormularioImagen = ({ setImagen }) => {
+  const [urlImagen, setUrlImagen] = useState('');
+
+  const handleChange = (e) => {
+    setUrlImagen(e.target.value);
+  };
+
+  const handleBlur = () => {
+    setImagen(urlImagen); // Actualiza el estado del formulario principal
+  };
+
+  return (
+    <div className="form-group">
+      <label htmlFor="imagen">URL de la Imagen</label>
+      <input
+        id="imagen"
+        className="form-control"
+        type="url"
+        placeholder="Ingresa la URL de la imagen"
+        value={urlImagen}
+        onChange={handleChange}
+        onBlur={handleBlur} // Actualiza la URL cuando el input pierde el foco
+      />
+    </div>
+  );
+};
+
+// Componente principal para crear un evento
 const FormularioEvento = () => {
   const [titulo, setTitulo] = useState('');
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
   const [descripcion, setDescripcion] = useState('');
+  const [imagen, setImagen] = useState(''); // Estado para la URL de la imagen
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
 
@@ -14,7 +44,7 @@ const FormularioEvento = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!titulo || !fecha || !hora || !descripcion) {
+    if (!titulo || !fecha || !hora || !descripcion || !imagen) {
       setError('Por favor, completa todos los campos.');
       return;
     }
@@ -27,6 +57,7 @@ const FormularioEvento = () => {
         fecha,
         hora,
         descripcion,
+        imagen, // Guarda la URL de la imagen
         fechaHoraCreacion: serverTimestamp(), // Agregar la fecha de creación
       });
 
@@ -36,6 +67,7 @@ const FormularioEvento = () => {
       setFecha('');
       setHora('');
       setDescripcion('');
+      setImagen(''); // Limpiar el campo de la imagen
     } catch (error) {
       setError('Error al crear el evento: ' + error.message);
     }
@@ -94,6 +126,9 @@ const FormularioEvento = () => {
             required
           />
         </div>
+
+        {/* Incluir el componente de imagen */}
+        <FormularioImagen setImagen={setImagen} />
 
         <button className="submit-button" type="submit">Crear Evento</button>
       </form>

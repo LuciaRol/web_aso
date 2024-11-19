@@ -1,12 +1,13 @@
-import axios from 'axios';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import React, { useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { auth, firestore } from '../firebase'; // Ajusta la ruta según la ubicación real de tu archivo firebase.js
+import { auth, firestore } from '../firebase'; 
 import '../styles/ludoteca.css'; // Import CSS for styles
+import { utils, writeFile } from 'xlsx'; // Importar utilidades para exportar Excel
+import { sendTelegramMessage } from '../components/TelegramMessenger'; // Telegram component
 
 
 // Establece el contenedor del modal
@@ -21,25 +22,26 @@ const Ludoteca = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [searchName, setSearchName] = useState('');
   const [selectedGame, setSelectedGame] = useState(null);
-  const [user, setUser] = useState(null); // Información del usuario logueado
-  const [loanedGames, setLoanedGames] = useState({}); // Estado para juegos prestados
-  const [usersMap, setUsersMap] = useState({}); // Mapa para usuarios
-  const [sortCriteria, setSortCriteria] = useState('alphabetical-asc'); // Inicializa con 'alfabeticamente, A-Z'
+  const [user, setUser] = useState(null); // Data of the user logged
+  const [loanedGames, setLoanedGames] = useState({}); // State of games
+  const [usersMap, setUsersMap] = useState({}); 
+  const [sortCriteria, setSortCriteria] = useState('alphabetical-asc'); // Starts ordered alphabetically
   const [sortOrder, setSortOrder] = useState('asc');
-  const thread_id = 14; // Reemplaza con el ID del tema "Test"
+  const thread_id = 14; // thread of the Telegram
+  const [letterFilter, setLetterFilter] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Cargar juegos sin restricciones
+        // Load all games
         const gamesSnapshot = await getDocs(collection(firestore, 'ludoteca'));
         const gamesList = gamesSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
   
-        // Solo cargar `loanedGames` y `usersMap` si el usuario está autenticado
+        
         let loanedGamesMap = {};
         let usersMap = {};
   
@@ -57,7 +59,7 @@ const Ludoteca = () => {
             const data = doc.data();
             usersMap[data.email] = {
               name: `${data.nombre} ${data.apellido}`,
-              role: data.role || 'user', // Aquí traemos el rol del usuario. Si no existe será user
+              role: data.role || 'user', // We bring the role of the user. If there is no role recognised, it is user
             };
           });
         }
@@ -99,7 +101,7 @@ const Ludoteca = () => {
     setSearchName('');
     setSortCriteria('alphabetical-asc');
     setSortOrder('asc');
-    filterGames(); // Vuelve a aplicar el filtrado con valores predeterminados
+    filterGames();
   };
 
   const filterGames = useCallback(() => {
@@ -113,7 +115,7 @@ const Ludoteca = () => {
       filtered = filtered.filter(game => game.name.toLowerCase().includes(searchName.toLowerCase()));
     }
   
-    // Calcular el estado de disponibilidad de cada juego
+    
     filtered = filtered.map(game => ({
       ...game,
       available: !(loanedGames[game.id] && !loanedGames[game.id].returnDate),
@@ -121,13 +123,13 @@ const Ludoteca = () => {
       returnDate: loanedGames[game.id] && loanedGames[game.id].loanDate ? new Date(loanedGames[game.id].loanDate.seconds * 1000 + 7 * 24 * 60 * 60 * 1000) : null
     }));
   
-    // Ordenar o filtrar según el criterio seleccionado
+    // To order according to the criteria
     if (sortCriteria === 'alphabetical-asc') {
       filtered.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortCriteria === 'alphabetical-desc') {
       filtered.sort((a, b) => b.name.localeCompare(a.name));
     } else if (sortCriteria === 'availability') {
-      filtered = filtered.filter(game => game.available); // Filtrar solo disponibles
+      filtered = filtered.filter(game => game.available); 
     }
   
     setFilteredGames(filtered);
@@ -146,24 +148,6 @@ const Ludoteca = () => {
     setSelectedGame(null);
   };
 
-
-  const sendTelegramMessage = async (message, photoUrl, thread_id) => {
-    const botToken = '7350032544:AAG9w7OxVesnNISo_zntiGYjiCPSq2lQOv4';
-    const chatId = '-1002173130256'; // ID del grupo
-    const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendPhoto`;
-  
-    try {
-      await axios.post(telegramApiUrl, {
-        chat_id: chatId,
-        photo: photoUrl, // URL de la foto
-        caption: message,
-        message_thread_id: thread_id, // Incluye el ID del tema aquí
-      });
-    } catch (error) {
-      console.error('Error al enviar mensaje a Telegram:', error);
-    }
-  };
-  
   const handleLoan = async () => {
     if (!user || !selectedGame) {
       toast.warn('Por favor, asegúrese de estar logeado y seleccionar un juego.');
@@ -209,7 +193,7 @@ const Ludoteca = () => {
     const loanData = loanedGames[selectedGame.id];
     const userRole = usersMap[user.email]?.role;
     
-    // Comprobar si el usuario es admin, ludotecario o el mismo usuario que pidió el juego
+    // Check if the user is admin, ludotecario or the same user that loaned the game. If different, no possible to return it. 
     if (userRole !== 'admin' && userRole !== 'ludotecario' && loanData.userName !== user.email) {
       toast.warn('No tienes permiso para devolver este juego.');
       return;
@@ -263,25 +247,83 @@ const Ludoteca = () => {
     }
   };
 
+
+  const exportToExcel = (data, filename = 'ludoteca.xlsx') => {
+    const worksheet = utils.json_to_sheet(data); // Convert json to spreadsheet
+    const workbook = utils.book_new(); 
+    utils.book_append_sheet(workbook, worksheet, 'Ludoteca'); // Add sheet
+    writeFile(workbook, filename); // Download excel file
+  };
+
+    // Function to filter by letter
+    const filterByLetter = (letter) => {
+      setLetterFilter(letter);
+      const filtered = games.filter((game) => game.name.toLowerCase().startsWith(letter.toLowerCase()))
+        .map(game => ({
+          ...game,
+          available: !(loanedGames[game.id] && !loanedGames[game.id].returnDate),
+          loanedBy: loanedGames[game.id] ? usersMap[loanedGames[game.id].userName].name || 'Desconocido' : null,
+          returnDate: loanedGames[game.id] && loanedGames[game.id].loanDate ? new Date(loanedGames[game.id].loanDate.seconds * 1000 + 7 * 24 * 60 * 60 * 1000) : null
+        }));
+      setFilteredGames(filtered);
+    };
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
   return (
     <div>
       <h1>Ludoteca y préstamo de juegos </h1>
-      
-      <div class="filters-row">
-        <label class="filter-item">
-            Filtrar por nombre:
-            <input
-              type="text"
-              value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-              placeholder="Introduce un nombre"
-            />
+  
+      {/* Filtros y botón de exportación */}
+      <div className="filters-row">
+        {/* Botón para exportar */}
+        <div className="filter-item">
+          <button
+            onClick={() =>
+              exportToExcel(
+                filteredGames.map(game => ({
+                  Nombre: game.name,
+                  Géneros: game.genres.join(', '),
+                  Disponible: game.available ? 'Sí' : 'No',
+                  'Prestado a': game.loanedBy || '',
+                  'Fecha de devolución': game.returnDate ? game.returnDate.toLocaleDateString() : '',
+                }))
+              )
+            }
+          >
+            Exportar a Excel
+          </button>
+        </div>
+      </div>
+       {/* Filtro por letra */}
+       <div className="filters-row">
+       
+        <div className="alphabet-buttons">
+          {[...Array(26)].map((_, i) => {
+            const letter = String.fromCharCode(65 + i); // Letras de la A a la Z
+            return (
+              <button
+                key={letter}
+                onClick={() => filterByLetter(letter)}
+              >
+                {letter}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="filters-row">
+        <label className="filter-item">
+          Filtrar por nombre:
+          <input
+            type="text"
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            placeholder="Introduce un nombre"
+          />
         </label>
-
-        <label class="filter-item">
+  
+        <label className="filter-item">
           Filtrar por género:
           <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
             <option value=''>Todos</option>
@@ -291,30 +333,23 @@ const Ludoteca = () => {
           </select>
         </label>
         
-        <label class="filter-item">
+        <label className="filter-item">
           Ordenar por:
-          <div class="sort-options">
+          <div className="sort-options">
             <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
               <option value="alphabetical-asc">Alfabéticamente, A-Z</option>
               <option value="alphabetical-desc">Alfabéticamente, Z-A</option>
               <option value="availability">Disponibles</option>
-          </select>
+            </select>
           </div>
         </label>
         <div>
-        <div class="filter-item">
-          {/* Otros elementos de filtrado y ordenación */}
-          <button onClick={resetFilters}>Eliminar filtros</button>
+          <div className="filter-item">
+            <button onClick={resetFilters}>Eliminar filtros</button>
+          </div>
         </div>
-        {/* Renderizado de juegos filtrados */}
       </div>
-      </div>
-
-
-
-
-      {/* juegos */}
-
+    
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
         {filteredGames.map(game => (
           <div
@@ -330,117 +365,114 @@ const Ludoteca = () => {
           </div>
         ))}
       </div>
-
-    {/* Modal for showing game details */}
-    <Modal
-      isOpen={!!selectedGame}
-      onRequestClose={closeModal}
-      contentLabel="Game Details"
-      style={{
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        },
-        content: {
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          maxWidth: '80vw', // Ajusta el ancho máximo
-          maxHeight: '80vh', // Ajusta la altura máxima
-          width: 'auto',
-          height: 'auto',
-          padding: '20px',
-          border: '1px solid #ccc',
-          borderRadius: '8px',
-          backgroundColor: '#fff',
-          overflow: 'auto', // Habilitar desplazamiento si el contenido es demasiado grande
-          position: 'relative',
-        }
-      }}
-    >
-      {selectedGame && (
-        <div style={{ textAlign: 'center', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <h2 style={{ margin: '0 0 10px', fontSize: '1.5em' }}>{selectedGame.name}</h2>
-          <img
-            src={selectedGame.image}
-            alt={selectedGame.name}
-            style={{
-              maxWidth: '100%',
-              maxHeight: '40vh', // Ajusta la altura máxima de la imagen
-              objectFit: 'contain',
-              borderRadius: '8px',
-            }}
-          />
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px' }}>
-            <p><strong>Géneros:</strong> {selectedGame.genres.join(', ')}</p>
-            <p><strong>Jugadores Máximos:</strong> {selectedGame.maxPlayers}</p>
-            <p><a href={selectedGame.url} target="_blank" rel="noopener noreferrer">Ver en BGG</a></p>
-          </div>
-          <div style={{ marginTop: '20px' }}>
-            {!selectedGame.available ? (
-              <>
-                <p><strong>Prestado a: </strong>{usersMap[user.email].name || 'Usuario desconocido'}</p>
-                <p><strong>Fecha de Máxima de Devolución:</strong> {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : 'No disponible'}</p>
-
-
+  
+      {/* Modal for showing game details */}
+      <Modal
+        isOpen={!!selectedGame}
+        onRequestClose={closeModal}
+        contentLabel="Game Details"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          },
+          content: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            maxWidth: '80vw', 
+            maxHeight: '80vh', 
+            width: 'auto',
+            height: 'auto',
+            padding: '20px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            backgroundColor: '#fff',
+            overflow: 'auto', 
+            position: 'relative',
+          }
+        }}
+      >
+        {selectedGame && (
+          <div style={{ textAlign: 'center', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h2 style={{ margin: '0 0 10px', fontSize: '1.5em' }}>{selectedGame.name}</h2>
+            <img
+              src={selectedGame.image}
+              alt={selectedGame.name}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '40vh', // Ajusta la altura máxima de la imagen
+                objectFit: 'contain',
+                borderRadius: '8px',
+              }}
+            />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px' }}>
+              <p><strong>Géneros:</strong> {selectedGame.genres.join(', ')}</p>
+              <p><strong>Jugadores Máximos:</strong> {selectedGame.maxPlayers}</p>
+              <p><a href={selectedGame.url} target="_blank" rel="noopener noreferrer">Ver en BGG</a></p>
+            </div>
+            <div style={{ marginTop: '20px' }}>
+              {!selectedGame.available ? (
+                <>
+                  <p><strong>Prestado a: </strong>{usersMap[user.email].name || 'Usuario desconocido'}</p>
+                  <p><strong>Fecha de Máxima de Devolución:</strong> {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : 'No disponible'}</p>
+  
+                  <button
+                    onClick={handleReturn}
+                    style={{
+                      marginTop: '10px',
+                      padding: '10px 20px',
+                      fontSize: '16px',
+                      cursor: 'pointer',
+                      backgroundColor: '#dc3545',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '5px',
+                    }}
+                  >
+                    Devolver
+                  </button>
+                </>
+              ) : (
                 <button
-                  onClick={handleReturn}
+                  onClick={handleLoan}
                   style={{
                     marginTop: '10px',
                     padding: '10px 20px',
                     fontSize: '16px',
                     cursor: 'pointer',
-                    backgroundColor: '#dc3545',
+                    backgroundColor: '#007bff',
                     color: '#fff',
                     border: 'none',
                     borderRadius: '5px',
                   }}
                 >
-                  Devolver
+                  Registrar Préstamo
                 </button>
-              </>
-            ) : (
+              )}
               <button
-                onClick={handleLoan}
+                onClick={closeModal}
                 style={{
                   marginTop: '10px',
                   padding: '10px 20px',
                   fontSize: '16px',
                   cursor: 'pointer',
-                  backgroundColor: '#007bff',
-                  color: '#fff',
+                  backgroundColor: '#ccc',
+                  color: '#000',
                   border: 'none',
                   borderRadius: '5px',
                 }}
               >
-                Registrar Préstamo
+                Cerrar
               </button>
-            )}
-            <button
-              onClick={closeModal}
-              style={{
-                marginTop: '10px',
-                padding: '10px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#ccc',
-                color: '#000',
-                border: 'none',
-                borderRadius: '5px',
-              }}
-            >
-              Cerrar
-            </button>
+            </div>
           </div>
-        </div>
-      )}
-    </Modal>
-
-
-      {/* Toast notifications container */}
+        )}
+      </Modal>
+  
       <ToastContainer />
     </div>
   );
-};
-
-export default Ludoteca;
+  
+}
+  export default Ludoteca;

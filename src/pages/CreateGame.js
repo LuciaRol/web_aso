@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner'; // Importa el componente Spinner
 import '../styles/creategame.css'; // Import the CSS file
-
+import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta según tu estructura de proyecto
 import { auth, firestore } from '../firebase';
 
 const CreateGame = () => {
@@ -27,7 +26,7 @@ const CreateGame = () => {
   const [partidaTipo, setPartidaTipo] = useState('partidaJuego'); // Estado para el tipo de partida
   const [manualGameName, setManualGameName] = useState(''); // Estado para el nombre del juego en "Partida Abierta"
   const thread_id = 34; // Reemplaza con el ID del tema "Test"
-  const defaultImageUrl = 'https://media.istockphoto.com/id/179311557/es/foto/cerdo-en-mud.jpg?s=612x612&w=0&k=20&c=HKbW3H4O5IaJfNCoNxIfkRyELxCG1Zz2cGLkAvdgah8=';
+  const defaultImageUrl = 'https://pbs.twimg.com/media/Fz4hsZrXwAA6lG4.jpg';
 
   const navigate = useNavigate();
 
@@ -50,24 +49,6 @@ const CreateGame = () => {
       }
     } catch (err) {
       console.error('Error al obtener detalles del usuario:', err);
-    }
-  };
-
-  
-const sendTelegramMessage = async (message, photoUrl, thread_id) => {
-    const botToken = '7350032544:AAG9w7OxVesnNISo_zntiGYjiCPSq2lQOv4';
-    const chatId = '-1002173130256'; // ID del grupo
-    const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendPhoto`;
-
-    try {
-      await axios.post(telegramApiUrl, {
-        chat_id: chatId,
-        photo: photoUrl || defaultImageUrl, // Usa la URL predeterminada si photoUrl es null o vacío
-        caption: message,
-        message_thread_id: thread_id, // Incluye el ID del tema aquí
-      });
-    } catch (error) {
-      console.error('Error al enviar mensaje a Telegram:', error);
     }
   };
 
@@ -171,6 +152,7 @@ const sendTelegramMessage = async (message, photoUrl, thread_id) => {
       setError('Selecciona un juego primero.');
       return;
     }
+    
     try {
       const partidasRef = collection(firestore, 'partidas');
       const partidaData = {
@@ -200,6 +182,7 @@ const sendTelegramMessage = async (message, photoUrl, thread_id) => {
         - Descripción: ${description}`;
       
       await sendTelegramMessage(message, partidaData.photoUrl, thread_id);
+
   
       // Limpieza y redirección
       setFecha('');

@@ -4,9 +4,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { auth, firestore } from '../firebase'; // Ajusta la ruta según la ubicación real de tu archivo firebase.js
+import { auth, firestore } from '../firebase'; 
 import '../styles/ludoteca.css'; // Import CSS for styles
-import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta según tu estructura de proyecto
+import { utils, writeFile } from 'xlsx'; // Importar utilidades para exportar Excel
+import { sendTelegramMessage } from '../components/TelegramMessenger'; // Telegram component
 
 
 // Establece el contenedor del modal
@@ -21,25 +22,25 @@ const Ludoteca = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [searchName, setSearchName] = useState('');
   const [selectedGame, setSelectedGame] = useState(null);
-  const [user, setUser] = useState(null); // Información del usuario logueado
-  const [loanedGames, setLoanedGames] = useState({}); // Estado para juegos prestados
-  const [usersMap, setUsersMap] = useState({}); // Mapa para usuarios
-  const [sortCriteria, setSortCriteria] = useState('alphabetical-asc'); // Inicializa con 'alfabeticamente, A-Z'
+  const [user, setUser] = useState(null); // Data of the user logged
+  const [loanedGames, setLoanedGames] = useState({}); // State of games
+  const [usersMap, setUsersMap] = useState({}); 
+  const [sortCriteria, setSortCriteria] = useState('alphabetical-asc'); // Starts ordered alphabetically
   const [sortOrder, setSortOrder] = useState('asc');
-  const thread_id = 14; // Reemplaza con el ID del tema "Test"
+  const thread_id = 14; // thread of the Telegram
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Cargar juegos sin restricciones
+        // Load all games
         const gamesSnapshot = await getDocs(collection(firestore, 'ludoteca'));
         const gamesList = gamesSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
   
-        // Solo cargar `loanedGames` y `usersMap` si el usuario está autenticado
+        
         let loanedGamesMap = {};
         let usersMap = {};
   
@@ -57,7 +58,7 @@ const Ludoteca = () => {
             const data = doc.data();
             usersMap[data.email] = {
               name: `${data.nombre} ${data.apellido}`,
-              role: data.role || 'user', // Aquí traemos el rol del usuario. Si no existe será user
+              role: data.role || 'user', // We bring the role of the user. If there is no role recognised, it is user
             };
           });
         }
@@ -99,7 +100,7 @@ const Ludoteca = () => {
     setSearchName('');
     setSortCriteria('alphabetical-asc');
     setSortOrder('asc');
-    filterGames(); // Vuelve a aplicar el filtrado con valores predeterminados
+    filterGames();
   };
 
   const filterGames = useCallback(() => {
@@ -113,7 +114,7 @@ const Ludoteca = () => {
       filtered = filtered.filter(game => game.name.toLowerCase().includes(searchName.toLowerCase()));
     }
   
-    // Calcular el estado de disponibilidad de cada juego
+    
     filtered = filtered.map(game => ({
       ...game,
       available: !(loanedGames[game.id] && !loanedGames[game.id].returnDate),
@@ -121,13 +122,13 @@ const Ludoteca = () => {
       returnDate: loanedGames[game.id] && loanedGames[game.id].loanDate ? new Date(loanedGames[game.id].loanDate.seconds * 1000 + 7 * 24 * 60 * 60 * 1000) : null
     }));
   
-    // Ordenar o filtrar según el criterio seleccionado
+    // To order according to the criteria
     if (sortCriteria === 'alphabetical-asc') {
       filtered.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortCriteria === 'alphabetical-desc') {
       filtered.sort((a, b) => b.name.localeCompare(a.name));
     } else if (sortCriteria === 'availability') {
-      filtered = filtered.filter(game => game.available); // Filtrar solo disponibles
+      filtered = filtered.filter(game => game.available); 
     }
   
     setFilteredGames(filtered);
@@ -191,7 +192,7 @@ const Ludoteca = () => {
     const loanData = loanedGames[selectedGame.id];
     const userRole = usersMap[user.email]?.role;
     
-    // Comprobar si el usuario es admin, ludotecario o el mismo usuario que pidió el juego
+    // Check if the user is admin, ludotecario or the same user that loaned the game. If different, no possible to return it. 
     if (userRole !== 'admin' && userRole !== 'ludotecario' && loanData.userName !== user.email) {
       toast.warn('No tienes permiso para devolver este juego.');
       return;
@@ -245,12 +246,42 @@ const Ludoteca = () => {
     }
   };
 
+
+  const exportToExcel = (data, filename = 'ludoteca.xlsx') => {
+    const worksheet = utils.json_to_sheet(data); // Convertir datos JSON a hoja de cálculo
+    const workbook = utils.book_new(); // Crear un libro nuevo
+    utils.book_append_sheet(workbook, worksheet, 'Ludoteca'); // Añadir la hoja
+    writeFile(workbook, filename); // Descargar el archivo
+  };
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
-      <h1>Ludoteca y préstamo de juegos </h1>
+      <div>
+        <h1>Ludoteca y préstamo de juegos </h1>
+
+          {/* Filtros y botón de exportación */}
+      <div className="filters-row">
+        {/* Botón para exportar */}
+        <div className="filter-item">
+          <button
+            onClick={() =>
+              exportToExcel(
+                filteredGames.map(game => ({
+                  Nombre: game.name,
+                  Géneros: game.genres.join(', '),
+                  Disponible: game.available ? 'Sí' : 'No',
+                  'Prestado a': game.loanedBy || '',
+                  'Fecha de devolución': game.returnDate ? game.returnDate.toLocaleDateString() : '',
+                }))
+              )
+            }
+          >
+            Exportar a Excel
+          </button>
+        </div>
+      </div>
       
       <div class="filters-row">
         <label class="filter-item">
@@ -285,15 +316,11 @@ const Ludoteca = () => {
         </label>
         <div>
         <div class="filter-item">
-          {/* Otros elementos de filtrado y ordenación */}
           <button onClick={resetFilters}>Eliminar filtros</button>
         </div>
-        {/* Renderizado de juegos filtrados */}
+      
       </div>
       </div>
-
-
-
 
       {/* juegos */}
 
@@ -327,15 +354,15 @@ const Ludoteca = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          maxWidth: '80vw', // Ajusta el ancho máximo
-          maxHeight: '80vh', // Ajusta la altura máxima
+          maxWidth: '80vw', 
+          maxHeight: '80vh', 
           width: 'auto',
           height: 'auto',
           padding: '20px',
           border: '1px solid #ccc',
           borderRadius: '8px',
           backgroundColor: '#fff',
-          overflow: 'auto', // Habilitar desplazamiento si el contenido es demasiado grande
+          overflow: 'auto', 
           position: 'relative',
         }
       }}
@@ -418,9 +445,7 @@ const Ludoteca = () => {
       )}
     </Modal>
 
-
-      {/* Toast notifications container */}
-      <ToastContainer />
+    <ToastContainer />
     </div>
   );
 };

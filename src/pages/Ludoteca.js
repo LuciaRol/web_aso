@@ -28,6 +28,7 @@ const Ludoteca = () => {
   const [sortCriteria, setSortCriteria] = useState('alphabetical-asc'); // Starts ordered alphabetically
   const [sortOrder, setSortOrder] = useState('asc');
   const thread_id = 14; // thread of the Telegram
+  const [letterFilter, setLetterFilter] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -248,20 +249,32 @@ const Ludoteca = () => {
 
 
   const exportToExcel = (data, filename = 'ludoteca.xlsx') => {
-    const worksheet = utils.json_to_sheet(data); // Convertir datos JSON a hoja de cálculo
-    const workbook = utils.book_new(); // Crear un libro nuevo
-    utils.book_append_sheet(workbook, worksheet, 'Ludoteca'); // Añadir la hoja
-    writeFile(workbook, filename); // Descargar el archivo
+    const worksheet = utils.json_to_sheet(data); // Convert json to spreadsheet
+    const workbook = utils.book_new(); 
+    utils.book_append_sheet(workbook, worksheet, 'Ludoteca'); // Add sheet
+    writeFile(workbook, filename); // Download excel file
   };
+
+    // Function to filter by letter
+    const filterByLetter = (letter) => {
+      setLetterFilter(letter);
+      const filtered = games.filter((game) => game.name.toLowerCase().startsWith(letter.toLowerCase()))
+        .map(game => ({
+          ...game,
+          available: !(loanedGames[game.id] && !loanedGames[game.id].returnDate),
+          loanedBy: loanedGames[game.id] ? usersMap[loanedGames[game.id].userName].name || 'Desconocido' : null,
+          returnDate: loanedGames[game.id] && loanedGames[game.id].loanDate ? new Date(loanedGames[game.id].loanDate.seconds * 1000 + 7 * 24 * 60 * 60 * 1000) : null
+        }));
+      setFilteredGames(filtered);
+    };
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
-
   return (
-      <div>
-        <h1>Ludoteca y préstamo de juegos </h1>
-
-          {/* Filtros y botón de exportación */}
+    <div>
+      <h1>Ludoteca y préstamo de juegos </h1>
+  
+      {/* Filtros y botón de exportación */}
       <div className="filters-row">
         {/* Botón para exportar */}
         <div className="filter-item">
@@ -282,19 +295,35 @@ const Ludoteca = () => {
           </button>
         </div>
       </div>
-      
-      <div class="filters-row">
-        <label class="filter-item">
-            Filtrar por nombre:
-            <input
-              type="text"
-              value={searchName}
-              onChange={(e) => setSearchName(e.target.value)}
-              placeholder="Introduce un nombre"
-            />
+       {/* Filtro por letra */}
+       <div className="filters-row">
+       
+        <div className="alphabet-buttons">
+          {[...Array(26)].map((_, i) => {
+            const letter = String.fromCharCode(65 + i); // Letras de la A a la Z
+            return (
+              <button
+                key={letter}
+                onClick={() => filterByLetter(letter)}
+              >
+                {letter}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="filters-row">
+        <label className="filter-item">
+          Filtrar por nombre:
+          <input
+            type="text"
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            placeholder="Introduce un nombre"
+          />
         </label>
-
-        <label class="filter-item">
+  
+        <label className="filter-item">
           Filtrar por género:
           <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
             <option value=''>Todos</option>
@@ -304,26 +333,23 @@ const Ludoteca = () => {
           </select>
         </label>
         
-        <label class="filter-item">
+        <label className="filter-item">
           Ordenar por:
-          <div class="sort-options">
+          <div className="sort-options">
             <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
               <option value="alphabetical-asc">Alfabéticamente, A-Z</option>
               <option value="alphabetical-desc">Alfabéticamente, Z-A</option>
               <option value="availability">Disponibles</option>
-          </select>
+            </select>
           </div>
         </label>
         <div>
-        <div class="filter-item">
-          <button onClick={resetFilters}>Eliminar filtros</button>
+          <div className="filter-item">
+            <button onClick={resetFilters}>Eliminar filtros</button>
+          </div>
         </div>
-      
       </div>
-      </div>
-
-      {/* juegos */}
-
+    
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
         {filteredGames.map(game => (
           <div
@@ -339,115 +365,114 @@ const Ludoteca = () => {
           </div>
         ))}
       </div>
-
-    {/* Modal for showing game details */}
-    <Modal
-      isOpen={!!selectedGame}
-      onRequestClose={closeModal}
-      contentLabel="Game Details"
-      style={{
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        },
-        content: {
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          maxWidth: '80vw', 
-          maxHeight: '80vh', 
-          width: 'auto',
-          height: 'auto',
-          padding: '20px',
-          border: '1px solid #ccc',
-          borderRadius: '8px',
-          backgroundColor: '#fff',
-          overflow: 'auto', 
-          position: 'relative',
-        }
-      }}
-    >
-      {selectedGame && (
-        <div style={{ textAlign: 'center', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <h2 style={{ margin: '0 0 10px', fontSize: '1.5em' }}>{selectedGame.name}</h2>
-          <img
-            src={selectedGame.image}
-            alt={selectedGame.name}
-            style={{
-              maxWidth: '100%',
-              maxHeight: '40vh', // Ajusta la altura máxima de la imagen
-              objectFit: 'contain',
-              borderRadius: '8px',
-            }}
-          />
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px' }}>
-            <p><strong>Géneros:</strong> {selectedGame.genres.join(', ')}</p>
-            <p><strong>Jugadores Máximos:</strong> {selectedGame.maxPlayers}</p>
-            <p><a href={selectedGame.url} target="_blank" rel="noopener noreferrer">Ver en BGG</a></p>
-          </div>
-          <div style={{ marginTop: '20px' }}>
-            {!selectedGame.available ? (
-              <>
-                <p><strong>Prestado a: </strong>{usersMap[user.email].name || 'Usuario desconocido'}</p>
-                <p><strong>Fecha de Máxima de Devolución:</strong> {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : 'No disponible'}</p>
-
-
+  
+      {/* Modal for showing game details */}
+      <Modal
+        isOpen={!!selectedGame}
+        onRequestClose={closeModal}
+        contentLabel="Game Details"
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          },
+          content: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            maxWidth: '80vw', 
+            maxHeight: '80vh', 
+            width: 'auto',
+            height: 'auto',
+            padding: '20px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            backgroundColor: '#fff',
+            overflow: 'auto', 
+            position: 'relative',
+          }
+        }}
+      >
+        {selectedGame && (
+          <div style={{ textAlign: 'center', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <h2 style={{ margin: '0 0 10px', fontSize: '1.5em' }}>{selectedGame.name}</h2>
+            <img
+              src={selectedGame.image}
+              alt={selectedGame.name}
+              style={{
+                maxWidth: '100%',
+                maxHeight: '40vh', // Ajusta la altura máxima de la imagen
+                objectFit: 'contain',
+                borderRadius: '8px',
+              }}
+            />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px' }}>
+              <p><strong>Géneros:</strong> {selectedGame.genres.join(', ')}</p>
+              <p><strong>Jugadores Máximos:</strong> {selectedGame.maxPlayers}</p>
+              <p><a href={selectedGame.url} target="_blank" rel="noopener noreferrer">Ver en BGG</a></p>
+            </div>
+            <div style={{ marginTop: '20px' }}>
+              {!selectedGame.available ? (
+                <>
+                  <p><strong>Prestado a: </strong>{usersMap[user.email].name || 'Usuario desconocido'}</p>
+                  <p><strong>Fecha de Máxima de Devolución:</strong> {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : 'No disponible'}</p>
+  
+                  <button
+                    onClick={handleReturn}
+                    style={{
+                      marginTop: '10px',
+                      padding: '10px 20px',
+                      fontSize: '16px',
+                      cursor: 'pointer',
+                      backgroundColor: '#dc3545',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '5px',
+                    }}
+                  >
+                    Devolver
+                  </button>
+                </>
+              ) : (
                 <button
-                  onClick={handleReturn}
+                  onClick={handleLoan}
                   style={{
                     marginTop: '10px',
                     padding: '10px 20px',
                     fontSize: '16px',
                     cursor: 'pointer',
-                    backgroundColor: '#dc3545',
+                    backgroundColor: '#007bff',
                     color: '#fff',
                     border: 'none',
                     borderRadius: '5px',
                   }}
                 >
-                  Devolver
+                  Registrar Préstamo
                 </button>
-              </>
-            ) : (
+              )}
               <button
-                onClick={handleLoan}
+                onClick={closeModal}
                 style={{
                   marginTop: '10px',
                   padding: '10px 20px',
                   fontSize: '16px',
                   cursor: 'pointer',
-                  backgroundColor: '#007bff',
-                  color: '#fff',
+                  backgroundColor: '#ccc',
+                  color: '#000',
                   border: 'none',
                   borderRadius: '5px',
                 }}
               >
-                Registrar Préstamo
+                Cerrar
               </button>
-            )}
-            <button
-              onClick={closeModal}
-              style={{
-                marginTop: '10px',
-                padding: '10px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#ccc',
-                color: '#000',
-                border: 'none',
-                borderRadius: '5px',
-              }}
-            >
-              Cerrar
-            </button>
+            </div>
           </div>
-        </div>
-      )}
-    </Modal>
-
-    <ToastContainer />
+        )}
+      </Modal>
+  
+      <ToastContainer />
     </div>
   );
-};
-
-export default Ludoteca;
+  
+}
+  export default Ludoteca;

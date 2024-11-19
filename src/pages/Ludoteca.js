@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { onAuthStateChanged } from 'firebase/auth';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -7,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { auth, firestore } from '../firebase'; // Ajusta la ruta según la ubicación real de tu archivo firebase.js
 import '../styles/ludoteca.css'; // Import CSS for styles
+import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta según tu estructura de proyecto
 
 
 // Establece el contenedor del modal
@@ -146,24 +146,6 @@ const Ludoteca = () => {
     setSelectedGame(null);
   };
 
-
-  const sendTelegramMessage = async (message, photoUrl, thread_id) => {
-    const botToken = '7350032544:AAG9w7OxVesnNISo_zntiGYjiCPSq2lQOv4';
-    const chatId = '-1002173130256'; // ID del grupo
-    const telegramApiUrl = `https://api.telegram.org/bot${botToken}/sendPhoto`;
-  
-    try {
-      await axios.post(telegramApiUrl, {
-        chat_id: chatId,
-        photo: photoUrl, // URL de la foto
-        caption: message,
-        message_thread_id: thread_id, // Incluye el ID del tema aquí
-      });
-    } catch (error) {
-      console.error('Error al enviar mensaje a Telegram:', error);
-    }
-  };
-  
   const handleLoan = async () => {
     if (!user || !selectedGame) {
       toast.warn('Por favor, asegúrese de estar logeado y seleccionar un juego.');

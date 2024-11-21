@@ -250,30 +250,38 @@ const GameList = () => {
   };
 
   const EventComponent = ({ event }) => {
+    const [user] = useAuthState(auth); // Verificar si hay un usuario autenticado
     const isCreator = event.resource.creador === nombreCompletoUsuario;
     const isParticipant = event.resource.jugadores.includes(nombreCompletoUsuario);
+  
     return (
       <div className="event-component">
         <strong>{event.title}</strong>
         <div>
-          {isCreator ? (
-            <button onClick={() => handleDeleteEvent(event)} className="button-delete">
-              Borrar Partida
-            </button>
-          ) : (
-            <button onClick={() => handleJoinEvent(event)} className="button-join">
-              Unirse
-            </button>
-          )}
-          {isParticipant && !isCreator && (
-            <button onClick={() => handleLeaveEvent(event)} className="button-leave">
-              Dejar Partida
-            </button>
-          )}
+          {/* Sin botones en la agenda */}
+          {/* {user && (
+            <>
+              {isCreator ? (
+                <button onClick={() => handleDeleteEvent(event)} className="button-delete">
+                  Borrar Partida
+                </button>
+              ) : (
+                <button onClick={() => handleJoinEvent(event)} className="button-join">
+                  Unirse
+                </button>
+              )}
+              {isParticipant && !isCreator && (
+                <button onClick={() => handleLeaveEvent(event)} className="button-leave">
+                  Dejar Partida
+                </button>
+              )}
+            </>
+          )} */}
         </div>
       </div>
     );
   };
+  
 
   
   // Función para seleccionar nombres aleatorios sin repetir
@@ -490,79 +498,85 @@ const GameList = () => {
             <p><strong>Jugadores:</strong> {selectedEvent.resource.jugadores.length}/{selectedEvent.resource.numJugadoresMax}</p>
             <p><strong>Descripción:</strong> {selectedEvent.resource.description}</p>
             <div>
-              {selectedEvent.resource.creador === nombreCompletoUsuario ? (
-                <button onClick={() => { handleDeleteEvent(selectedEvent); closeModal(); }} className="button-delete">
-                  Borrar Partida
-                </button>
-              ) : (
+              {/* Renderizar botones solo si el usuario está autenticado */}
+              {user && (
                 <>
-                  {!selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
-                    <button onClick={() => { handleJoinEvent(selectedEvent); closeModal(); }} className="button-join">
-                      Unirse a Partida
+                  {selectedEvent.resource.creador === nombreCompletoUsuario ? (
+                    <button onClick={() => { handleDeleteEvent(selectedEvent); closeModal(); }} className="button-delete">
+                      Borrar Partida
                     </button>
+                  ) : (
+                    <>
+                      {!selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
+                        <button onClick={() => { handleJoinEvent(selectedEvent); closeModal(); }} className="button-join">
+                          Unirse a Partida
+                        </button>
+                      )}
+                      {selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && (
+                        <button onClick={() => { handleLeaveEvent(selectedEvent); closeModal(); }} className="button-leave">
+                          Dejar Partida
+                        </button>
+                      )}
+                      {selectedEvent.resource.jugadores.length >= selectedEvent.resource.numJugadoresMax && (
+                        <p className="error-message">La partida ya está llena</p>
+                      )}
+                    </>
                   )}
-                  {selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && (
-                    <button onClick={() => { handleLeaveEvent(selectedEvent); closeModal(); }} className="button-leave">
-                      Dejar Partida
-                    </button>
-                  )}
-                  {selectedEvent.resource.jugadores.length >= selectedEvent.resource.numJugadoresMax && (
-                    <p className="error-message">La partida ya está llena</p>
-                  )}
+                  <div className="invite-section">
+                    {selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && 
+                      selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
+                      <>
+                        <label htmlFor="inviteCount"></label>
+                        <select
+                          id="inviteCount"
+                          value={guestCount}
+                          onChange={(e) => setGuestCount(parseInt(e.target.value))}
+                          className="invite-select"
+                        >
+                          {[...Array(selectedEvent.resource.numJugadoresMax - selectedEvent.resource.jugadores.length).keys()].map(num => (
+                            <option key={num + 1} value={num + 1}>
+                              {num + 1}
+                            </option>
+                          ))}
+                        </select>
+                        <button onClick={() => handleInviteGuest(guestCount)} className="button-invite">
+                          + Invitados
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  <div className="remove-section">
+                    {selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && (
+                      selectedEvent.resource.jugadores.some(jugador => nombresPersonajes.includes(jugador)) && (
+                        <>
+                          <label htmlFor="numInvitadosEliminar"></label>
+                          <select
+                            id="numInvitadosEliminar"
+                            value={numInvitadosEliminar}
+                            onChange={(e) => setNumInvitadosEliminar(Number(e.target.value))}
+                            className="remove-select"
+                          >
+                            {/* Generar opciones hasta el número de invitados actuales */}
+                            {[...Array(selectedEvent.resource.jugadores.filter(jugador => nombresPersonajes.includes(jugador)).length).keys()].map(num => (
+                              <option key={num + 1} value={num + 1}>
+                                {num + 1}
+                              </option>
+                            ))}
+                          </select>
+                          <button onClick={() => handleRemoveGuest(numInvitadosEliminar)} className="button-invite-guest">
+                            - Invitados
+                          </button>
+                        </>
+                      )
+                    )}
+                  </div>
                 </>
               )}
-              <div className="invite-section">
-                {selectedEvent && selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && 
-                  selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
-                  <>
-                    <label htmlFor="inviteCount"></label>
-                    <select
-                      id="inviteCount"
-                      value={guestCount}
-                      onChange={(e) => setGuestCount(parseInt(e.target.value))}
-                      className="invite-select"
-                    >
-                      {[...Array(selectedEvent.resource.numJugadoresMax - selectedEvent.resource.jugadores.length).keys()].map(num => (
-                        <option key={num + 1} value={num + 1}>
-                          {num + 1}
-                        </option>
-                      ))}
-                    </select>
-                    <button onClick={() => handleInviteGuest(guestCount)} className="button-invite">
-                      + Invitados
-                    </button>
-                  </>
-                )}
-              </div>
-              <div className="remove-section">
-                {selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && (
-                  selectedEvent.resource.jugadores.some(jugador => nombresPersonajes.includes(jugador)) && (
-                    <>
-                      <label htmlFor="numInvitadosEliminar"></label>
-                      <select
-                        id="numInvitadosEliminar"
-                        value={numInvitadosEliminar}
-                        onChange={(e) => setNumInvitadosEliminar(Number(e.target.value))}
-                        className="remove-select"
-                      >
-                        {/* Generar opciones hasta el número de invitados actuales */}
-                        {[...Array(selectedEvent.resource.jugadores.filter(jugador => nombresPersonajes.includes(jugador)).length).keys()].map(num => (
-                          <option key={num + 1} value={num + 1}>
-                            {num + 1}
-                          </option>
-                        ))}
-                      </select>
-                      <button onClick={() => handleRemoveGuest(numInvitadosEliminar)} className="button-invite-guest">
-                        - Invitados
-                      </button>
-                    </>
-                  )
-                )}
-              </div>
             </div>
           </div>
         )}
       </Modal>
+
       <ToastContainer />
     </div>
   );

@@ -9,6 +9,8 @@ import { auth, firestore } from '../firebase';
 import defaultImage from '../img/partida_abierta.jpg';
 import '../styles/gamelist.css'; // Importa el CSS
 import nombresPersonajes from './nombresPersonajes'; // Ajusta la ruta según sea necesario
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 moment.locale('es');
@@ -110,7 +112,8 @@ const GameList = () => {
 
   const handleJoinEvent = async (event) => {
     if (!user) {
-      setError('Debes estar logeado para unirte a una partida.');
+      toast.error('Debes estar logeado para unirte a una partida.'); // Alerta de fracaso
+      //setError('Debes estar logeado para unirte a una partida.');
       return;
     }
 
@@ -119,7 +122,8 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
 
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe.'); // Alerta de fracaso
+        //setError('La partida seleccionada no existe.');
         return;
       }
 
@@ -127,12 +131,14 @@ const GameList = () => {
 
       const jugadorActual = `${nombreUsuario} ${apellidoUsuario}`;
       if (partidaData.jugadores.includes(jugadorActual)) {
-        setError('Ya estás apuntado a esta partida.');
+        toast.error('Ya estás apuntad@ a esta partida.'); // Alerta de fracaso
+        //setError('Ya estás apuntado a esta partida.');
         return;
       }
 
       if (partidaData.jugadores.length >= partidaData.numJugadoresMax) {
-        setError('La partida ya ha alcanzado el número máximo de jugadores.');
+        toast.error('La partida ya ha alcanzado el número máximo de jugadores.'); // Alerta de fracaso
+        //setError('La partida ya ha alcanzado el número máximo de jugadores.');
         return;
       }
 
@@ -141,7 +147,8 @@ const GameList = () => {
         jugadores: updatedJugadores
       });
 
-      setJoinSuccessMessage('¡Te has unido correctamente a la partida!');
+      toast.success('¡Te has unido correctamente a la partida!'); // Alerta de éxito
+      // setJoinSuccessMessage('¡Te has unido correctamente a la partida!');
       fetchEventos();
 
       setTimeout(() => {
@@ -156,7 +163,8 @@ const GameList = () => {
 
   const handleLeaveEvent = async (event) => {
     if (!user) {
-      setError('Debes estar autenticado para salir de una partida.');
+      toast.error('Debes estar autenticado para salir de una partida.'); // Alerta de fracaso
+      //setError('Debes estar autenticado para salir de una partida.');
       return;
     }
 
@@ -165,7 +173,9 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
 
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe.'); // Alerta de fracaso
+
+        // setError('La partida seleccionada no existe.');
         return;
       }
 
@@ -173,7 +183,8 @@ const GameList = () => {
 
       const jugadorActual = `${nombreUsuario} ${apellidoUsuario}`;
       if (!partidaData.jugadores.includes(jugadorActual)) {
-        setError('No estás apuntado a esta partida.');
+        toast.error('No estás apuntado a esta partida.'); // Alerta de fracaso
+        //setError('No estás apuntado a esta partida.');
         return;
       }
 
@@ -182,7 +193,9 @@ const GameList = () => {
         jugadores: updatedJugadores
       });
 
-      setJoinSuccessMessage('¡Has salido de la partida correctamente!');
+      toast.success('¡Has salido de la partida correctamente!'); // Alerta de éxito
+
+      //setJoinSuccessMessage('¡Has salido de la partida correctamente!');
       fetchEventos();
 
       setTimeout(() => {
@@ -197,18 +210,22 @@ const GameList = () => {
 
   const handleDeleteEvent = async (event) => {
     if (!user) {
-      setError('Debes estar autenticado para borrar una partida.');
+      toast.error('Debes estar logeado y ser el creador para borrar la partida.'); // Alerta de fracaso
+      //setError('Debes estar autenticado para borrar una partida.');
       return;
     }
 
     if (event.resource.creador !== nombreCompletoUsuario) {
-      setError('Solo el creador puede borrar esta partida.');
+      toast.error('Solo el creador puede borrar esta partida.'); // Alerta de fracaso
+
+//      setError('Solo el creador puede borrar esta partida.');
       return;
     }
 
     try {
       await deleteDoc(doc(firestore, 'partidas', event.id));
-      setJoinSuccessMessage('¡Partida borrada exitosamente!');
+      toast.success('¡Partida borrada!'); // Alerta de éxito
+//      setJoinSuccessMessage('¡Partida borrada exitosamente!');
       fetchEventos();
       setTimeout(() => {
         setJoinSuccessMessage('');
@@ -216,7 +233,8 @@ const GameList = () => {
       closeModal(); // Close the modal after deleting
     } catch (err) {
       console.error('Error al borrar la partida: ', err);
-      setError('Error al borrar la partida: ' + err.message);
+      toast.error('Error al borrar la partida: ' + err.message); // Alerta de fracaso
+      //setError('Error al borrar la partida: ' + err.message);
     }
   };
 
@@ -232,30 +250,38 @@ const GameList = () => {
   };
 
   const EventComponent = ({ event }) => {
+    const [user] = useAuthState(auth); // Verificar si hay un usuario autenticado
     const isCreator = event.resource.creador === nombreCompletoUsuario;
     const isParticipant = event.resource.jugadores.includes(nombreCompletoUsuario);
+  
     return (
       <div className="event-component">
         <strong>{event.title}</strong>
         <div>
-          {isCreator ? (
-            <button onClick={() => handleDeleteEvent(event)} className="button-delete">
-              Borrar Partida
-            </button>
-          ) : (
-            <button onClick={() => handleJoinEvent(event)} className="button-join">
-              Unirse
-            </button>
-          )}
-          {isParticipant && !isCreator && (
-            <button onClick={() => handleLeaveEvent(event)} className="button-leave">
-              Dejar Partida
-            </button>
-          )}
+          {/* Sin botones en la agenda */}
+          {/* {user && (
+            <>
+              {isCreator ? (
+                <button onClick={() => handleDeleteEvent(event)} className="button-delete">
+                  Borrar Partida
+                </button>
+              ) : (
+                <button onClick={() => handleJoinEvent(event)} className="button-join">
+                  Unirse
+                </button>
+              )}
+              {isParticipant && !isCreator && (
+                <button onClick={() => handleLeaveEvent(event)} className="button-leave">
+                  Dejar Partida
+                </button>
+              )}
+            </>
+          )} */}
         </div>
       </div>
     );
   };
+  
 
   
   // Función para seleccionar nombres aleatorios sin repetir
@@ -274,7 +300,8 @@ const GameList = () => {
   
   const handleInviteGuest = async (count) => {
     if (!user) {
-      setError('Debes estar autenticado para invitar a un jugador.');
+      toast.error('Debes estar logeado y en la partida para invitar a un jugador'); // Alerta de fracaso
+      //setError('Debes estar autenticado para invitar a un jugador.');
       return;
     }
   
@@ -283,7 +310,8 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
   
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe'); // Alerta de fracaso
+        //setError('La partida seleccionada no existe.');
         return;
       }
   
@@ -298,8 +326,9 @@ const GameList = () => {
       await updateDoc(partidaRef, {
         jugadores: updatedJugadores
       });
-  
-      setJoinSuccessMessage(`¡Se ha invitado a ${actualInvitations} jugador(es) correctamente!`);
+      
+      toast.success(`¡Se ha invitado a ${actualInvitations} jugador(es) correctamente!`); // Alerta de éxito
+      //setJoinSuccessMessage(`¡Se ha invitado a ${actualInvitations} jugador(es) correctamente!`);
       setGuestCount(guestCount + actualInvitations); // Incrementa el contador de invitados
       fetchEventos(); // Refresca los eventos
   
@@ -309,12 +338,14 @@ const GameList = () => {
       closeModal(); // Cierra el modal después de invitar
     } catch (err) {
       console.error('Error al invitar a jugadores: ', err);
-      setError('Error al invitar a jugadores: ' + err.message);
+      toast.error('Error al invitar a jugadores: ' + err.message); // Alerta de fracaso
+      //setError('Error al invitar a jugadores: ' + err.message);
     }
   };
   const handleRemoveGuest = async (numInvitadosAEliminar) => {
     if (!user) {
-      setError('Debes estar autenticado para echar a un jugador.');
+      toast.error('Debes estar logeado para echar a un invitado'); // Alerta de fracaso
+      //setError('Debes estar autenticado para echar a un jugador.');
       return;
     }
   
@@ -323,7 +354,8 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
   
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe'); // Alerta de fracaso
+        //setError('La partida seleccionada no existe.');
         return;
       }
   
@@ -335,12 +367,14 @@ const GameList = () => {
       );
   
       if (invitados.length === 0) {
-        setError('No hay invitados de la lista para echar.');
+        toast.error('No hay invitados de la lista para echar.'); // Alerta de fracaso
+        //setError('No hay invitados de la lista para echar.');
         return;
       }
   
       if (numInvitadosAEliminar > invitados.length) {
-        setError(`Solo hay ${invitados.length} invitados, no puedes eliminar más.`);
+        toast.error(`Solo hay ${invitados.length} invitados, no puedes eliminar más.`); // Alerta de fracaso
+        //setError(`Solo hay ${invitados.length} invitados, no puedes eliminar más.`);
         return;
       }
   
@@ -353,8 +387,9 @@ const GameList = () => {
       await updateDoc(partidaRef, {
         jugadores: updatedJugadores
       });
-  
-      setJoinSuccessMessage(`¡Has echado a ${invitadosAEliminar.join(', ')} correctamente!`);
+      
+      toast.success(`¡Has echado a ${invitadosAEliminar.join(', ')} correctamente!`); // Alerta de éxito
+      //setJoinSuccessMessage(`¡Has echado a ${invitadosAEliminar.join(', ')} correctamente!`);
       fetchEventos(); // Refrescar eventos
   
       setTimeout(() => {
@@ -364,7 +399,8 @@ const GameList = () => {
   
     } catch (err) {
       console.error('Error al echar a jugadores: ', err);
-      setError('Error al echar a jugadores: ' + err.message);
+      toast.error('Error al echar a jugadores: ' + err.message); // Alerta de fracaso
+      //setError('Error al echar a jugadores: ' + err.message);
     }
   };
   
@@ -462,80 +498,86 @@ const GameList = () => {
             <p><strong>Jugadores:</strong> {selectedEvent.resource.jugadores.length}/{selectedEvent.resource.numJugadoresMax}</p>
             <p><strong>Descripción:</strong> {selectedEvent.resource.description}</p>
             <div>
-              {selectedEvent.resource.creador === nombreCompletoUsuario ? (
-                <button onClick={() => { handleDeleteEvent(selectedEvent); closeModal(); }} className="button-delete">
-                  Borrar Partida
-                </button>
-              ) : (
+              {/* Renderizar botones solo si el usuario está autenticado */}
+              {user && (
                 <>
-                  {!selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
-                    <button onClick={() => { handleJoinEvent(selectedEvent); closeModal(); }} className="button-join">
-                      Unirse a Partida
+                  {selectedEvent.resource.creador === nombreCompletoUsuario ? (
+                    <button onClick={() => { handleDeleteEvent(selectedEvent); closeModal(); }} className="button-delete">
+                      Borrar Partida
                     </button>
+                  ) : (
+                    <>
+                      {!selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
+                        <button onClick={() => { handleJoinEvent(selectedEvent); closeModal(); }} className="button-join">
+                          Unirse a Partida
+                        </button>
+                      )}
+                      {selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && (
+                        <button onClick={() => { handleLeaveEvent(selectedEvent); closeModal(); }} className="button-leave">
+                          Dejar Partida
+                        </button>
+                      )}
+                      {selectedEvent.resource.jugadores.length >= selectedEvent.resource.numJugadoresMax && (
+                        <p className="error-message">La partida ya está llena</p>
+                      )}
+                    </>
                   )}
-                  {selectedEvent.resource.jugadores.includes(nombreCompletoUsuario) && (
-                    <button onClick={() => { handleLeaveEvent(selectedEvent); closeModal(); }} className="button-leave">
-                      Dejar Partida
-                    </button>
-                  )}
-                  {selectedEvent.resource.jugadores.length >= selectedEvent.resource.numJugadoresMax && (
-                    <p className="error-message">La partida ya está llena</p>
-                  )}
+                  <div className="invite-section">
+                    {selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && 
+                      selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
+                      <>
+                        <label htmlFor="inviteCount"></label>
+                        <select
+                          id="inviteCount"
+                          value={guestCount}
+                          onChange={(e) => setGuestCount(parseInt(e.target.value))}
+                          className="invite-select"
+                        >
+                          {[...Array(selectedEvent.resource.numJugadoresMax - selectedEvent.resource.jugadores.length).keys()].map(num => (
+                            <option key={num + 1} value={num + 1}>
+                              {num + 1}
+                            </option>
+                          ))}
+                        </select>
+                        <button onClick={() => handleInviteGuest(guestCount)} className="button-invite">
+                          + Invitados
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  <div className="remove-section">
+                    {selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && (
+                      selectedEvent.resource.jugadores.some(jugador => nombresPersonajes.includes(jugador)) && (
+                        <>
+                          <label htmlFor="numInvitadosEliminar"></label>
+                          <select
+                            id="numInvitadosEliminar"
+                            value={numInvitadosEliminar}
+                            onChange={(e) => setNumInvitadosEliminar(Number(e.target.value))}
+                            className="remove-select"
+                          >
+                            {/* Generar opciones hasta el número de invitados actuales */}
+                            {[...Array(selectedEvent.resource.jugadores.filter(jugador => nombresPersonajes.includes(jugador)).length).keys()].map(num => (
+                              <option key={num + 1} value={num + 1}>
+                                {num + 1}
+                              </option>
+                            ))}
+                          </select>
+                          <button onClick={() => handleRemoveGuest(numInvitadosEliminar)} className="button-invite-guest">
+                            - Invitados
+                          </button>
+                        </>
+                      )
+                    )}
+                  </div>
                 </>
               )}
-              <div className="invite-section">
-                {selectedEvent && selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && 
-                  selectedEvent.resource.jugadores.length < selectedEvent.resource.numJugadoresMax && (
-                  <>
-                    <label htmlFor="inviteCount"></label>
-                    <select
-                      id="inviteCount"
-                      value={guestCount}
-                      onChange={(e) => setGuestCount(parseInt(e.target.value))}
-                      className="invite-select"
-                    >
-                      {[...Array(selectedEvent.resource.numJugadoresMax - selectedEvent.resource.jugadores.length).keys()].map(num => (
-                        <option key={num + 1} value={num + 1}>
-                          {num + 1}
-                        </option>
-                      ))}
-                    </select>
-                    <button onClick={() => handleInviteGuest(guestCount)} className="button-invite">
-                      + Invitados
-                    </button>
-                  </>
-                )}
-              </div>
-              <div className="remove-section">
-                {selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && (
-                  selectedEvent.resource.jugadores.some(jugador => nombresPersonajes.includes(jugador)) && (
-                    <>
-                      <label htmlFor="numInvitadosEliminar"></label>
-                      <select
-                        id="numInvitadosEliminar"
-                        value={numInvitadosEliminar}
-                        onChange={(e) => setNumInvitadosEliminar(Number(e.target.value))}
-                        className="remove-select"
-                      >
-                        {/* Generar opciones hasta el número de invitados actuales */}
-                        {[...Array(selectedEvent.resource.jugadores.filter(jugador => nombresPersonajes.includes(jugador)).length).keys()].map(num => (
-                          <option key={num + 1} value={num + 1}>
-                            {num + 1}
-                          </option>
-                        ))}
-                      </select>
-                      <button onClick={() => handleRemoveGuest(numInvitadosEliminar)} className="button-invite-guest">
-                        - Invitados
-                      </button>
-                    </>
-                  )
-                )}
-              </div>
             </div>
           </div>
         )}
       </Modal>
 
+      <ToastContainer />
     </div>
   );
 };

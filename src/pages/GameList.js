@@ -9,6 +9,8 @@ import { auth, firestore } from '../firebase';
 import defaultImage from '../img/partida_abierta.jpg';
 import '../styles/gamelist.css'; // Importa el CSS
 import nombresPersonajes from './nombresPersonajes'; // Ajusta la ruta según sea necesario
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 moment.locale('es');
@@ -110,7 +112,8 @@ const GameList = () => {
 
   const handleJoinEvent = async (event) => {
     if (!user) {
-      setError('Debes estar logeado para unirte a una partida.');
+      toast.error('Debes estar logeado para unirte a una partida.'); // Alerta de fracaso
+      //setError('Debes estar logeado para unirte a una partida.');
       return;
     }
 
@@ -119,7 +122,8 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
 
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe.'); // Alerta de fracaso
+        //setError('La partida seleccionada no existe.');
         return;
       }
 
@@ -127,12 +131,14 @@ const GameList = () => {
 
       const jugadorActual = `${nombreUsuario} ${apellidoUsuario}`;
       if (partidaData.jugadores.includes(jugadorActual)) {
-        setError('Ya estás apuntado a esta partida.');
+        toast.error('Ya estás apuntad@ a esta partida.'); // Alerta de fracaso
+        //setError('Ya estás apuntado a esta partida.');
         return;
       }
 
       if (partidaData.jugadores.length >= partidaData.numJugadoresMax) {
-        setError('La partida ya ha alcanzado el número máximo de jugadores.');
+        toast.error('La partida ya ha alcanzado el número máximo de jugadores.'); // Alerta de fracaso
+        //setError('La partida ya ha alcanzado el número máximo de jugadores.');
         return;
       }
 
@@ -141,7 +147,8 @@ const GameList = () => {
         jugadores: updatedJugadores
       });
 
-      setJoinSuccessMessage('¡Te has unido correctamente a la partida!');
+      toast.success('¡Te has unido correctamente a la partida!'); // Alerta de éxito
+      // setJoinSuccessMessage('¡Te has unido correctamente a la partida!');
       fetchEventos();
 
       setTimeout(() => {
@@ -156,7 +163,8 @@ const GameList = () => {
 
   const handleLeaveEvent = async (event) => {
     if (!user) {
-      setError('Debes estar autenticado para salir de una partida.');
+      toast.error('Debes estar autenticado para salir de una partida.'); // Alerta de fracaso
+      //setError('Debes estar autenticado para salir de una partida.');
       return;
     }
 
@@ -165,7 +173,9 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
 
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe.'); // Alerta de fracaso
+
+        // setError('La partida seleccionada no existe.');
         return;
       }
 
@@ -173,7 +183,8 @@ const GameList = () => {
 
       const jugadorActual = `${nombreUsuario} ${apellidoUsuario}`;
       if (!partidaData.jugadores.includes(jugadorActual)) {
-        setError('No estás apuntado a esta partida.');
+        toast.error('No estás apuntado a esta partida.'); // Alerta de fracaso
+        //setError('No estás apuntado a esta partida.');
         return;
       }
 
@@ -182,7 +193,9 @@ const GameList = () => {
         jugadores: updatedJugadores
       });
 
-      setJoinSuccessMessage('¡Has salido de la partida correctamente!');
+      toast.success('¡Has salido de la partida correctamente!'); // Alerta de éxito
+
+      //setJoinSuccessMessage('¡Has salido de la partida correctamente!');
       fetchEventos();
 
       setTimeout(() => {
@@ -197,18 +210,22 @@ const GameList = () => {
 
   const handleDeleteEvent = async (event) => {
     if (!user) {
-      setError('Debes estar autenticado para borrar una partida.');
+      toast.error('Debes estar logeado y ser el creador para borrar la partida.'); // Alerta de fracaso
+      //setError('Debes estar autenticado para borrar una partida.');
       return;
     }
 
     if (event.resource.creador !== nombreCompletoUsuario) {
-      setError('Solo el creador puede borrar esta partida.');
+      toast.error('Solo el creador puede borrar esta partida.'); // Alerta de fracaso
+
+//      setError('Solo el creador puede borrar esta partida.');
       return;
     }
 
     try {
       await deleteDoc(doc(firestore, 'partidas', event.id));
-      setJoinSuccessMessage('¡Partida borrada exitosamente!');
+      toast.success('¡Partida borrada!'); // Alerta de éxito
+//      setJoinSuccessMessage('¡Partida borrada exitosamente!');
       fetchEventos();
       setTimeout(() => {
         setJoinSuccessMessage('');
@@ -216,7 +233,8 @@ const GameList = () => {
       closeModal(); // Close the modal after deleting
     } catch (err) {
       console.error('Error al borrar la partida: ', err);
-      setError('Error al borrar la partida: ' + err.message);
+      toast.error('Error al borrar la partida: ' + err.message); // Alerta de fracaso
+      //setError('Error al borrar la partida: ' + err.message);
     }
   };
 
@@ -274,7 +292,8 @@ const GameList = () => {
   
   const handleInviteGuest = async (count) => {
     if (!user) {
-      setError('Debes estar autenticado para invitar a un jugador.');
+      toast.error('Debes estar logeado y en la partida para invitar a un jugador'); // Alerta de fracaso
+      //setError('Debes estar autenticado para invitar a un jugador.');
       return;
     }
   
@@ -283,7 +302,8 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
   
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe'); // Alerta de fracaso
+        //setError('La partida seleccionada no existe.');
         return;
       }
   
@@ -298,8 +318,9 @@ const GameList = () => {
       await updateDoc(partidaRef, {
         jugadores: updatedJugadores
       });
-  
-      setJoinSuccessMessage(`¡Se ha invitado a ${actualInvitations} jugador(es) correctamente!`);
+      
+      toast.success(`¡Se ha invitado a ${actualInvitations} jugador(es) correctamente!`); // Alerta de éxito
+      //setJoinSuccessMessage(`¡Se ha invitado a ${actualInvitations} jugador(es) correctamente!`);
       setGuestCount(guestCount + actualInvitations); // Incrementa el contador de invitados
       fetchEventos(); // Refresca los eventos
   
@@ -309,12 +330,14 @@ const GameList = () => {
       closeModal(); // Cierra el modal después de invitar
     } catch (err) {
       console.error('Error al invitar a jugadores: ', err);
-      setError('Error al invitar a jugadores: ' + err.message);
+      toast.error('Error al invitar a jugadores: ' + err.message); // Alerta de fracaso
+      //setError('Error al invitar a jugadores: ' + err.message);
     }
   };
   const handleRemoveGuest = async (numInvitadosAEliminar) => {
     if (!user) {
-      setError('Debes estar autenticado para echar a un jugador.');
+      toast.error('Debes estar logeado para echar a un invitado'); // Alerta de fracaso
+      //setError('Debes estar autenticado para echar a un jugador.');
       return;
     }
   
@@ -323,7 +346,8 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
   
       if (!partidaDoc.exists()) {
-        setError('La partida seleccionada no existe.');
+        toast.error('La partida seleccionada no existe'); // Alerta de fracaso
+        //setError('La partida seleccionada no existe.');
         return;
       }
   
@@ -335,12 +359,14 @@ const GameList = () => {
       );
   
       if (invitados.length === 0) {
-        setError('No hay invitados de la lista para echar.');
+        toast.error('No hay invitados de la lista para echar.'); // Alerta de fracaso
+        //setError('No hay invitados de la lista para echar.');
         return;
       }
   
       if (numInvitadosAEliminar > invitados.length) {
-        setError(`Solo hay ${invitados.length} invitados, no puedes eliminar más.`);
+        toast.error(`Solo hay ${invitados.length} invitados, no puedes eliminar más.`); // Alerta de fracaso
+        //setError(`Solo hay ${invitados.length} invitados, no puedes eliminar más.`);
         return;
       }
   
@@ -353,8 +379,9 @@ const GameList = () => {
       await updateDoc(partidaRef, {
         jugadores: updatedJugadores
       });
-  
-      setJoinSuccessMessage(`¡Has echado a ${invitadosAEliminar.join(', ')} correctamente!`);
+      
+      toast.success(`¡Has echado a ${invitadosAEliminar.join(', ')} correctamente!`); // Alerta de éxito
+      //setJoinSuccessMessage(`¡Has echado a ${invitadosAEliminar.join(', ')} correctamente!`);
       fetchEventos(); // Refrescar eventos
   
       setTimeout(() => {
@@ -364,7 +391,8 @@ const GameList = () => {
   
     } catch (err) {
       console.error('Error al echar a jugadores: ', err);
-      setError('Error al echar a jugadores: ' + err.message);
+      toast.error('Error al echar a jugadores: ' + err.message); // Alerta de fracaso
+      //setError('Error al echar a jugadores: ' + err.message);
     }
   };
   
@@ -535,7 +563,7 @@ const GameList = () => {
           </div>
         )}
       </Modal>
-
+      <ToastContainer />
     </div>
   );
 };

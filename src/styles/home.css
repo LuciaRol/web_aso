@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 :root {
-  --font-family: 'Heebo', sans-serif; /* Define la variable para la fuente */
+  --font-family: 'MedievalSharp', cursive; /* Define la variable para la fuente */
 }
 
 body {
@@ -41,11 +41,14 @@ body {
 }
 
 .overlay-text h1 {
-  font-size: 3em; /* Tamaño del título */
+  color: white;
+  font-family: var(--font-family);
+  font-size: 4rem; /* Tamaño del título */
   margin: 0; /* Sin margen */
 }
 
 .overlay-text p {
+  font-family: var(--font-family);
   font-size: 1.5em; /* Tamaño del párrafo */
   margin-top: 10px; /* Espaciado superior */
 }

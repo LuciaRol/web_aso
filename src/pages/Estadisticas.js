@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, getCountFromServer } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { Bar } from 'react-chartjs-2';
 import { firestore } from '../firebase'; // Importa la configuración de Firebase
 import Spinner from '../components/Spinner'; // Importa el Spinner
 import '../styles/estadisticas.css'; // Estilo personalizado si lo necesitas
+import { FaUserAlt } from 'react-icons/fa'; // Icono de usuario
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { FaUserAlt } from 'react-icons/fa'; // Importa el ícono de usuario
 
 // Registra las escalas y elementos que usarás
 ChartJS.register(
@@ -19,7 +19,8 @@ ChartJS.register(
 
 const Estadisticas = () => {
   const [chartData, setChartData] = useState({});
-  const [userCount, setUserCount] = useState(0); // Estado para contar usuarios
+  const [invitedChartData, setInvitedChartData] = useState({});
+  const [userCount, setUserCount] = useState(0); // Para contar usuarios
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Estadisticas = () => {
         const partidasRef = collection(firestore, 'partidas');
         const querySnapshot = await getDocs(partidasRef);
 
-        // Procesar datos
+        // Procesar datos de partidas
         const partidas = querySnapshot.docs.map(doc => doc.data());
         const partidasPorMes = {};
 
@@ -43,7 +44,7 @@ const Estadisticas = () => {
           partidasPorMes[mesAño]++;
         });
 
-        // Crear datos para el gráfico
+        // Crear datos para el gráfico de partidas
         const labels = Object.keys(partidasPorMes).sort(); // Ordenar meses cronológicamente
         const counts = labels.map(mes => partidasPorMes[mes]);
 
@@ -59,6 +60,44 @@ const Estadisticas = () => {
             },
           ],
         });
+
+        // Obtener datos de invitados
+        const invitadosRef = collection(firestore, 'invitados');
+        const invitadosSnapshot = await getDocs(invitadosRef);
+        const invitados = invitadosSnapshot.docs.map(doc => doc.data());
+        const invitadosPorMes = {};
+
+        invitados.forEach(invitado => {
+          const fecha = new Date(invitado.registrationDate.toDate()); // Convertir Timestamp a Date
+          const mesAño = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}`;
+
+          if (!invitadosPorMes[mesAño]) {
+            invitadosPorMes[mesAño] = 0;
+          }
+          invitadosPorMes[mesAño]++;
+        });
+
+        const invitedLabels = Object.keys(invitadosPorMes).sort();
+        const invitedCounts = invitedLabels.map(mes => invitadosPorMes[mes]);
+
+        setInvitedChartData({
+          labels: invitedLabels,
+          datasets: [
+            {
+              label: 'Invitados por Mes',
+              data: invitedCounts,
+              backgroundColor: 'rgba(153, 102, 255, 0.6)',
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 1,
+            },
+          ],
+        });
+
+        // Obtener el número total de usuarios
+        const usersRef = collection(firestore, 'users');
+        const usersSnapshot = await getDocs(usersRef);
+        setUserCount(usersSnapshot.size);
+
         setIsLoading(false);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -66,24 +105,12 @@ const Estadisticas = () => {
       }
     };
 
-    const fetchUserCount = async () => {
-      try {
-        // Referencia a la colección de usuarios
-        const usersRef = collection(firestore, 'users');
-        const userSnapshot = await getCountFromServer(usersRef); // Obtener el número de usuarios
-        setUserCount(userSnapshot.data().count);
-      } catch (error) {
-        console.error("Error al obtener el número de usuarios:", error);
-      }
-    };
-
     fetchGameStats();
-    fetchUserCount();
   }, []);
 
   return (
     <div className="estadisticas-container">
-        {/* Contenedor de Número de Usuarios */}
+      {/* Contenedor de Número de Usuarios */}
       <div className="user-count-box">
         <FaUserAlt size={50} /> {/* Ícono de persona */}
         <div>
@@ -91,29 +118,49 @@ const Estadisticas = () => {
           <p>{userCount}</p>
         </div>
       </div>
-      <h1>Estadísticas de Partidas</h1>
-      
+
+      {/* Gráficos */}
       {isLoading ? (
         <Spinner /> // Aquí mostramos el Spinner mientras se cargan los datos
       ) : (
-        <Bar
-          data={chartData}
-          options={{
-            responsive: true,
-            scales: {
-              x: {
-                title: { display: true, text: 'Mes y Año' },
-              },
-              y: {
-                title: { display: true, text: 'Cantidad de Partidas' },
-                beginAtZero: true,
-              },
-            },
-          }}
-        />
-      )}
+        <div className="charts-container">
+          <div className="chart-box">
+            <Bar
+              data={chartData}
+              options={{
+                responsive: true,
+                scales: {
+                  x: {
+                    title: { display: true, text: 'Mes y Año' },
+                  },
+                  y: {
+                    title: { display: true, text: 'Cantidad de Partidas' },
+                    beginAtZero: true,
+                  },
+                },
+              }}
+            />
+          </div>
 
-      
+          <div className="chart-box">
+            <Bar
+              data={invitedChartData}
+              options={{
+                responsive: true,
+                scales: {
+                  x: {
+                    title: { display: true, text: 'Mes y Año' },
+                  },
+                  y: {
+                    title: { display: true, text: 'Cantidad de Invitados' },
+                    beginAtZero: true,
+                  },
+                },
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

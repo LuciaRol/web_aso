@@ -17,12 +17,15 @@ import CrearUsuario from './pages/CrearUsuario';
 import AdminUsuarios from './pages/AdminUsuarios';
 import WhoWeAre from './pages/WhoWeAre';
 import CrearEventos from './pages/CrearEventos';
+import EventosScheduler from './components/EventosScheduler'; // Importa el componente
 
 
 const App = () => {
   return (
     <Router>
       <Header />
+      <EventosScheduler /> {/* Agrega el componente aquí */}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/calendariopartidas" element={<GameList />} />

@@ -59,7 +59,7 @@ Descripción: ${event.descripcion}`;
 
     const interval = setInterval(() => {
       executeScheduler(); // Ejecutar periódicamente
-    }, 60000); // Cambiar a 3600000 ms para 1 hora
+    }, 86400000); // ms Un día
 
     return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
   }, []); // Ejecutar solo una vez al montar

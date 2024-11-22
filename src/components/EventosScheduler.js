@@ -32,8 +32,7 @@ const EventosScheduler = () => {
   const sendEventMessages = async (eventsToSend) => {
     const thread_id = 180; // ID del tema de Telegram
     for (const event of eventsToSend) {
-      const message = `Evento próximo:
-      
+      const message = `¡Recordad que tenemos este evento programado!
 Título: ${event.titulo}
 Fecha: ${event.fecha}
 Hora: ${event.hora}

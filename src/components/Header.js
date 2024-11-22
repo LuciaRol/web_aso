@@ -118,6 +118,18 @@ const Header = () => {
                         </li>
                         
                     )}
+                    {isLoggedIn && userRole === 'admin' && (
+                        <li>
+                            <Link
+                                to="/estadisticas"
+                                className={window.location.pathname === '/estadisticas' ? 'active' : ''}
+                            >
+                                Estadísticas
+                            </Link>
+                            
+                        </li>
+                        
+                    )}
                     {isLoggedIn && (
                     <li>
                         <button onClick={handleLogout} className="logout-btn">

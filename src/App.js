@@ -16,6 +16,7 @@ import Usuario from './pages/Usuario';
 import CrearUsuario from './pages/CrearUsuario';
 import AdminUsuarios from './pages/AdminUsuarios';
 import WhoWeAre from './pages/WhoWeAre';
+import Estadisticas from './pages/Estadisticas';
 import CrearEventos from './pages/CrearEventos';
 import EventosScheduler from './components/EventosScheduler'; // Importa el componente
 
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/ListaUsuarios" element={<ProtectedRoute element={<ListaUsuarios />} />} />
         <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
         <Route path="/creareventos" element={<ProtectedRoute element={<CrearEventos />} />} />
+        <Route path="/estadisticas" element={<Estadisticas />} />
         <Route path="/Ludoteca" element={<Ludoteca />} />
         <Route path="/login" element={<Home />} />
       </Routes>

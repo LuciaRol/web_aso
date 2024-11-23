@@ -59,8 +59,18 @@ body {
 
 .counter-box {
   margin: 10px; /* Espacio entre los contadores */
+  font-family: var(--font-family); /* Aplica la misma fuente */
 }
 
 .counter-title {
   color: white;
+  font-family: var(--font-family); /* Aplica la misma fuente al título */
+  font-size: 2rem; /* Ajuste de tamaño si es necesario */
+}
+
+.counter-box p, .counter-box span { /* Aplica la fuente también a los números */
+  font-family: var(--font-family); /* Aplica la misma fuente al número */
+  font-size: 3rem; /* Ajuste del tamaño de los números */
+  margin-top: 10px; /* Espaciado superior */
+  color: white; /* Asegura que el color del número también sea blanco */
 }

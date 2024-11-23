@@ -6,7 +6,7 @@ const Counter = ({ endValue }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const duration = 6000; // Duración de la animación en milisegundos
+    const duration = 10000; // Duración de la animación en milisegundos
     const increment = endValue / (duration / 100); // Incremento por intervalo
 
     const timer = setInterval(() => {

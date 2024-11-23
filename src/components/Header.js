@@ -121,6 +121,18 @@ const Header = () => {
                     {isLoggedIn && userRole === 'admin' && (
                         <li>
                             <Link
+                                to="/promocionyrecordatorios"
+                                className={window.location.pathname === '/promocionyrecordatorios' ? 'active' : ''}
+                            >
+                                Recordatorios
+                            </Link>
+                            
+                        </li>
+                        
+                    )}
+                    {isLoggedIn && userRole === 'admin' && (
+                        <li>
+                            <Link
                                 to="/estadisticas"
                                 className={window.location.pathname === '/estadisticas' ? 'active' : ''}
                             >

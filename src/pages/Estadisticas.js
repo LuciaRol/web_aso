@@ -20,6 +20,7 @@ ChartJS.register(
 const Estadisticas = () => {
   const [chartData, setChartData] = useState({});
   const [invitedChartData, setInvitedChartData] = useState({});
+  const [historicludotecaChartData, setHistoricChartData] = useState({}); // Para los datos del gráfico de historicoprestamojuegos
   const [userCount, setUserCount] = useState(0); // Para contar usuarios
   const [isLoading, setIsLoading] = useState(true);
 
@@ -98,6 +99,38 @@ const Estadisticas = () => {
         const usersSnapshot = await getDocs(usersRef);
         setUserCount(usersSnapshot.size);
 
+        // Obtener datos de historicos juegos (historicoprestamojuegos)
+        const historicoprestamojuegosRef = collection(firestore, 'historicoprestamojuegos');
+        const historicoprestamojuegosSnapshot = await getDocs(historicoprestamojuegosRef);
+        const historicoprestamojuegos = historicoprestamojuegosSnapshot.docs.map(doc => doc.data());
+        const historicoprestamojuegosPorMes = {};
+
+        historicoprestamojuegos.forEach(historicoprestamojuego => {
+          const fecha = new Date(historicoprestamojuego.loanDate.toDate()); // Convertir Timestamp a Date
+          const mesAño = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}`;
+
+          if (!historicoprestamojuegosPorMes[mesAño]) {
+            historicoprestamojuegosPorMes[mesAño] = 0;
+          }
+          historicoprestamojuegosPorMes[mesAño]++;
+        });
+
+        const historicoprestamojuegosLabels = Object.keys(historicoprestamojuegosPorMes).sort();
+        const historicoprestamojuegosCounts = historicoprestamojuegosLabels.map(mes => historicoprestamojuegosPorMes[mes]);
+
+        setHistoricChartData({
+          labels: historicoprestamojuegosLabels,
+          datasets: [
+            {
+              label: 'Juegos prestados',
+              data: historicoprestamojuegosCounts,
+              backgroundColor: 'rgba(255, 159, 64, 0.6)',
+              borderColor: 'rgba(255, 159, 64, 1)',
+              borderWidth: 1,
+            },
+          ],
+        });
+
         setIsLoading(false);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -153,6 +186,24 @@ const Estadisticas = () => {
                   },
                   y: {
                     title: { display: true, text: 'Cantidad de Invitados' },
+                    beginAtZero: true,
+                  },
+                },
+              }}
+            />
+          </div>
+
+          <div className="chart-box">
+            <Bar
+              data={historicludotecaChartData}
+              options={{
+                responsive: true,
+                scales: {
+                  x: {
+                    title: { display: true, text: 'Mes y Año' },
+                  },
+                  y: {
+                    title: { display: true, text: 'Juegos prestados' },
                     beginAtZero: true,
                   },
                 },

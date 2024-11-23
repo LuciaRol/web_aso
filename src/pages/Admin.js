@@ -48,23 +48,23 @@ const Admin = () => {
     return (
         <div className="admin-container">
             <h1>Panel de Administración</h1>
-            <ul className="admin-links">
-                <li>
+            <div className="admin-grid">
+                <div className="admin-box">
                     <Link to="/creareventos">Crear Eventos</Link>
-                </li>
-                <li>
+                </div>
+                <div className="admin-box">
                     <Link to="/crearusuario">Crear Usuarios</Link>
-                </li>
-                <li>
+                </div>
+                <div className="admin-box">
                     <Link to="/adminusuarios">Administrar Usuarios</Link>
-                </li>
-                <li>
+                </div>
+                <div className="admin-box">
                     <Link to="/promocionyrecordatorios">Promoción y Recordatorios</Link>
-                </li>
-                <li>
+                </div>
+                <div className="admin-box">
                     <Link to="/estadisticas">Estadísticas</Link>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     );
 };

@@ -18,15 +18,15 @@ import AdminUsuarios from './pages/AdminUsuarios';
 import WhoWeAre from './pages/WhoWeAre';
 import Estadisticas from './pages/Estadisticas';
 import CrearEventos from './pages/CrearEventos';
-import EventosScheduler from './components/EventosScheduler'; // Importa el componente
+import PromocionYRecordatorios from './pages/PromoRecordatorios';
+import JuegosPrestados from './pages/JuegosPrestados';
+import Admin from './pages/Admin';
 
 
 const App = () => {
   return (
     <Router>
       <Header />
-      <EventosScheduler /> {/* Agrega el componente aquí */}
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/calendariopartidas" element={<GameList />} />
@@ -35,12 +35,15 @@ const App = () => {
         <Route path="/eventos" element={<Eventos />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/usuario" element={<ProtectedRoute element={<Usuario />} />} />
+        <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />
         <Route path="/crearusuario" element={<ProtectedRoute element={<CrearUsuario />} />} />
         <Route path="/adminusuarios" element={<ProtectedRoute element={<AdminUsuarios />} />} />
         <Route path="/ListaUsuarios" element={<ProtectedRoute element={<ListaUsuarios />} />} />
         <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
         <Route path="/creareventos" element={<ProtectedRoute element={<CrearEventos />} />} />
-        <Route path="/estadisticas" element={<Estadisticas />} />
+        <Route path="/promocionyrecordatorios" element={<ProtectedRoute element={<PromocionYRecordatorios />} />} />
+        <Route path="/estadisticas" element={<ProtectedRoute element={<Estadisticas />} />} />
+        <Route path="/juegosprestados" element={<ProtectedRoute element={<JuegosPrestados />} />} />
         <Route path="/Ludoteca" element={<Ludoteca />} />
         <Route path="/login" element={<Home />} />
       </Routes>

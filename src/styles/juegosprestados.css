@@ -1,0 +1,99 @@
+/* Contenedor del listado de juegos prestados */
+.loaned-games-list {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .loaned-games-list h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .loaned-game-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .loaned-game-item img {
+    border-radius: 8px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+  }
+  
+  .loaned-game-item div {
+    flex: 1;
+    margin-left: 15px;
+  }
+  
+  .loaned-game-item p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .loaned-game-item p strong {
+    color: #333;
+  }
+  
+  .loaned-game-item .loaned-game-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .loaned-game-item .loaned-game-buttons button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .loaned-game-item .loaned-game-buttons button:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Mensaje cuando no hay juegos prestados */
+  .loaned-games-list p {
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+    font-style: italic;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }

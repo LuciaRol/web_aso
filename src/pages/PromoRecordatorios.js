@@ -65,7 +65,7 @@ Descripción: ${event.descripcion}`;
             cursor: 'pointer',
           }}
         >
-          Enviar Recordatorios
+          Enviar recordatorio eventos
         </button>
       </div>
       {/* Contenedor de Toast */}

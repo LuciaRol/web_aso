@@ -85,58 +85,10 @@ const Header = () => {
                     {isLoggedIn && userRole === 'admin' && (
                         <li>
                             <Link
-                                to="/creareventos"
-                                className={window.location.pathname === '/creareventos' ? 'active' : ''}
+                                to="/admin"
+                                className={window.location.pathname === '/admin' ? 'active' : ''}
                             >
-                                Crear Eventos
-                            </Link>
-                            
-                        </li>
-                        
-                    )}
-                    {isLoggedIn && userRole === 'admin' && (
-                        <li>
-                            <Link
-                                to="/crearusuario"
-                                className={window.location.pathname === '/crearusuario' ? 'active' : ''}
-                            >
-                                Crear Usuarios
-                            </Link>
-                            
-                        </li>
-                        
-                    )}
-                    {isLoggedIn && userRole === 'admin' && (
-                        <li>
-                            <Link
-                                to="/adminusuarios"
-                                className={window.location.pathname === '/adminusuarios' ? 'active' : ''}
-                            >
-                                Administrar Usuarios
-                            </Link>
-                            
-                        </li>
-                        
-                    )}
-                    {isLoggedIn && userRole === 'admin' && (
-                        <li>
-                            <Link
-                                to="/promocionyrecordatorios"
-                                className={window.location.pathname === '/promocionyrecordatorios' ? 'active' : ''}
-                            >
-                                Recordatorios
-                            </Link>
-                            
-                        </li>
-                        
-                    )}
-                    {isLoggedIn && userRole === 'admin' && (
-                        <li>
-                            <Link
-                                to="/estadisticas"
-                                className={window.location.pathname === '/estadisticas' ? 'active' : ''}
-                            >
-                                Estadísticas
+                                Admin
                             </Link>
                             
                         </li>

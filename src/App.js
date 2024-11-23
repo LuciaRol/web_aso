@@ -19,6 +19,8 @@ import WhoWeAre from './pages/WhoWeAre';
 import Estadisticas from './pages/Estadisticas';
 import CrearEventos from './pages/CrearEventos';
 import PromocionYRecordatorios from './pages/PromoRecordatorios';
+import Admin from './pages/Admin';
+
 
 const App = () => {
   return (
@@ -32,6 +34,7 @@ const App = () => {
         <Route path="/eventos" element={<Eventos />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/usuario" element={<ProtectedRoute element={<Usuario />} />} />
+        <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />
         <Route path="/crearusuario" element={<ProtectedRoute element={<CrearUsuario />} />} />
         <Route path="/adminusuarios" element={<ProtectedRoute element={<AdminUsuarios />} />} />
         <Route path="/ListaUsuarios" element={<ProtectedRoute element={<ListaUsuarios />} />} />

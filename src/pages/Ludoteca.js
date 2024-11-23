@@ -286,6 +286,7 @@ const Ludoteca = () => {
                   Géneros: game.genres.join(', '),
                   Disponible: game.available ? 'Sí' : 'No',
                   'Prestado a': game.loanedBy || '',
+                  'Fecha de préstamo': game.loanedBy ? loanedGames[game.id]?.loanDate?.toDate().toLocaleDateString() : '', // Agrega la fecha de préstamo
                   'Fecha de devolución': game.returnDate ? game.returnDate.toLocaleDateString() : '',
                 }))
               )

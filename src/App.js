@@ -19,6 +19,7 @@ import WhoWeAre from './pages/WhoWeAre';
 import Estadisticas from './pages/Estadisticas';
 import CrearEventos from './pages/CrearEventos';
 import PromocionYRecordatorios from './pages/PromoRecordatorios';
+import JuegosPrestados from './pages/JuegosPrestados';
 import Admin from './pages/Admin';
 
 
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/creareventos" element={<ProtectedRoute element={<CrearEventos />} />} />
         <Route path="/promocionyrecordatorios" element={<ProtectedRoute element={<PromocionYRecordatorios />} />} />
         <Route path="/estadisticas" element={<ProtectedRoute element={<Estadisticas />} />} />
+        <Route path="/juegosprestados" element={<ProtectedRoute element={<JuegosPrestados />} />} />
         <Route path="/Ludoteca" element={<Ludoteca />} />
         <Route path="/login" element={<Home />} />
       </Routes>

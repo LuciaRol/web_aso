@@ -163,7 +163,7 @@ const Header = () => {
                                         className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
-                                        Registro de Invitados
+                                        Registro Invitados
                                     </Link>
                                 </li>
                                 <li>

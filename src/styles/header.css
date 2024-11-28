@@ -172,7 +172,7 @@
 
   /* Cuando el menú está abierto */
   .header-nav-container.open {
-    max-height: 500px; /* Ajustar según la cantidad de elementos */
+    max-height: 700px; /* Ajustar según la cantidad de elementos */
   }
 
   /* Menú desplegado en móviles */

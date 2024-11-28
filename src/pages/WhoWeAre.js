@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import banner from '../img/banner.jpg'; // Cambia esta línea si tienes una imagen específica para el banner
 import homer_a from '../img/quienes_somos/homer_a.jpg';
 import homer_b from '../img/quienes_somos/homer_b.jpg';
 import peter_parker from '../img/quienes_somos/peter_parker.jpg';
 import spiderman from '../img/quienes_somos/spiderman.jpg';
+import { FaWhatsapp } from 'react-icons/fa'; // Importamos el icono de WhatsApp
 import '../styles/whoweare.css'; // Importa el CSS correspondiente
 
 const members = [
@@ -37,12 +37,12 @@ const Member = ({ member }) => {
       <div className={`member-content ${isToggled ? 'flipped' : ''}`}>
         <div className="member-front">
           <div className="member-name">{member.name}</div>
-          <img src={member.imgA} alt={member.name} style={{ width: '200px', height: '200px' }} />
+          <img src={member.imgA} alt={member.name} style={{ width: '150px', height: '150px' }} />
           <p className="member-message">{member.messageA}</p>
         </div>
         <div className="member-back">
           <div className="member-name">{member.name}</div>
-          <img src={member.imgB} alt={member.name} style={{ width: '200px', height: '200px' }} />
+          <img src={member.imgB} alt={member.name} style={{ width: '150px', height: '150px' }} />
           <p className="member-message">{member.messageB}</p>
         </div>
       </div>
@@ -62,7 +62,6 @@ const WhoWeAre = () => {
       {/* Banner publicitario */}
       {isBannerVisible && (
         <div className="ad-banner">
-          <img src={banner} alt="Publicidad del Club" className="ad-banner-image" />
           <div className="ad-banner-text">
             <p>¡Bebe Grog! Una bebida tan fuerte que puede disolver una jarra de metal.</p>
           </div>
@@ -85,6 +84,19 @@ const WhoWeAre = () => {
         </p>
       </div>
 
+
+      
+      {/* Sección de contacto */}
+      <h2>¿Cómo contactarnos?</h2>
+      <p style={{ textAlign: 'center' }}>
+      <p>Si tienes alguna pregunta o quieres unirte a nuestro grupo, puedes enviarnos un mensaje o unirte a nuestro grupo de WhatsApp haciendo clic en el siguiente icono:</p>
+      </p>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
+        <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+          <FaWhatsapp size={50} color="#25D366" /> {/* Icono de WhatsApp */}
+        </a>
+      </div>
+
       <h2>Nuestros Miembros</h2>
       <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
         Haz clic en los miembros para ver su identidad secreta.
@@ -94,6 +106,7 @@ const WhoWeAre = () => {
           <Member key={member.id} member={member} />
         ))}
       </div>
+
     </div>
   );
 };

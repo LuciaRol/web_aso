@@ -1,0 +1,59 @@
+/* footer.css */
+
+/* Variables de color específicas para el footer */
+:root {
+    --footer-bg-color: #012E4A; /* Fondo rojo para el footer */
+    --footer-text-color: white; /* Color del texto en el footer */
+    --footer-link-hover: white; /* Color de hover para los enlaces */
+  }
+  
+  /* Estilos para el footer */
+  footer {
+    background-color: var(--footer-bg-color); /* Fondo rojo */
+    color: var(--footer-text-color);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Estilo para los enlaces */
+  footer a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  footer a:hover {
+    color: var(--footer-link-hover); /* Hover en rojo más oscuro */
+    text-decoration: underline;
+  }
+  
+  /* Estilo para los íconos sociales */
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .social-icons a {
+    color: var(--footer-text-color);
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    transform: scale(1.2); /* Efecto de agrandamiento */
+    color: var(--footer-link-hover);
+  }
+  
+  /* Estilos responsive */
+  @media (max-width: 768px) {
+    footer {
+      padding: 15px 10px;
+    }
+  
+    .social-icons {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  }
+  

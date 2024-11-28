@@ -66,7 +66,7 @@
   margin: 20px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
-  height: 200px; /* Aumentar la altura del banner para un mejor ajuste */
+  height: 300px; /* Aumentar la altura del banner para un mejor ajuste */
 }
 
 .ad-banner-image {

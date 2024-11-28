@@ -129,7 +129,16 @@ const Header = () => {
                             </>
                         )}
                         {isLoggedIn && (
-                            <>
+                            <>  
+                                <li>
+                                    <Link
+                                        to="/eventos"
+                                        className={window.location.pathname === '/eventos' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Eventos
+                                    </Link>
+                                </li>
                                 <li>
                                     <Link
                                         to="/crearpartida"

@@ -1,5 +1,5 @@
 import { auth, firestore } from '../firebase';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/adminusuarios.css';
 import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
@@ -25,7 +25,7 @@ const AdminUsuarios = () => {
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
-  const [isFormVisible, setIsFormVisible] = useState(true); // Estado para controlar la visibilidad del formulario
+  const formRef = useRef(null);
 
 
   useEffect(() => {
@@ -35,8 +35,15 @@ const AdminUsuarios = () => {
       checkIfUserIsAdmin(usuario.email); // Verificamos si el usuario es admin
       fetchTotalUsuarios(); // Obtener el total de usuarios
     }
-  }, [usuario, page]);
+  
+    // Desplazarse al formulario cuando un usuario es seleccionado para editar
+    if (selectedUserId) {
+      formRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [usuario, page, selectedUserId]); // Agregar selectedUserId como dependencia
+  
 
+  
   // Función para obtener el total de usuarios en la base de datos
   const fetchTotalUsuarios = async () => {
     try {
@@ -233,49 +240,53 @@ const AdminUsuarios = () => {
               </div>
             ))}
           </div>
-
-           {/* Formulario para editar usuario */}
+          
+  {/* Formulario para editar usuario */}
            {selectedUserId && (
-          <div className="centered-container">
-            <div className="user-form">
-              <h3>Actualizar Información de Usuario</h3>
-              <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
-                <input
-                  type="text"
-                  placeholder="Nombre"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Apellido"
-                  value={apellido}
-                  onChange={(e) => setApellido(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Teléfono"
-                  value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Usuario Telegram"
-                  value={usuarioTelegram}
-                  onChange={(e) => setUsuarioTelegram(e.target.value)}
-                  required
-                />
-                <button type="submit">Actualizar Usuario</button>
-                <button type="button" className="cancel-button" onClick={cerrarFormulario}>
-                  Cancelar
-                </button>
+            <div ref={formRef}>
+              <div className="centered-container">
+                <div className="user-form">
+                  <h3>Actualizar Información de Usuario</h3>
+                  <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
+                    <input
+                      type="text"
+                      placeholder="Nombre"
+                      value={nombre}
+                      onChange={(e) => setNombre(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Apellido"
+                      value={apellido}
+                      onChange={(e) => setApellido(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Teléfono"
+                      value={telefono}
+                      onChange={(e) => setTelefono(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Usuario Telegram"
+                      value={usuarioTelegram}
+                      onChange={(e) => setUsuarioTelegram(e.target.value)}
+                      required
+                    />
+                    <button type="submit">Actualizar Usuario</button>
+                    <button type="button" className="cancel-button" onClick={cerrarFormulario}>
+                      Cancelar
+                    </button>
 
-              </form>
+                  </form>
+                </div>
+              </div>
+              
             </div>
-          </div>
+         
         )}
 
 

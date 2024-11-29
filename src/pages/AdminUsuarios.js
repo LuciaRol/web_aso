@@ -1,8 +1,10 @@
 import { auth, firestore } from '../firebase';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/usuario.css';
+import '../styles/adminusuarios.css';
 import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';  // Importar ToastContainer y toast
+import 'react-toastify/dist/ReactToastify.css'; // Importar estilos
 
 const AdminUsuarios = () => {
   const [email, setEmail] = useState('');
@@ -16,13 +18,15 @@ const AdminUsuarios = () => {
   const [page, setPage] = useState(1); // Página actual
   const [errorPagination, setErrorPagination] = useState(''); // Error en la paginación
   const [totalUsuarios, setTotalUsuarios] = useState(0); // Total de usuarios en la base de datos
-  const [usuariosPorPagina] = useState(5); // Número de usuarios por página
-
+  //const [usuariosPorPagina] = useState(5); // Número de usuarios por página
   const [selectedUserId, setSelectedUserId] = useState(null); // Usuario seleccionado para editar
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
+  const formRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
+
 
   useEffect(() => {
     if (usuario && usuario.email) {
@@ -31,7 +35,13 @@ const AdminUsuarios = () => {
       checkIfUserIsAdmin(usuario.email); // Verificamos si el usuario es admin
       fetchTotalUsuarios(); // Obtener el total de usuarios
     }
-  }, [usuario, page]);
+  
+    // Desplazarse al formulario cuando un usuario es seleccionado para editar
+    if (selectedUserId) {
+      formRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [usuario, page, selectedUserId, searchTerm]); // Agregar searchTerm como dependencia
+  
 
   // Función para obtener el total de usuarios en la base de datos
   const fetchTotalUsuarios = async () => {
@@ -60,20 +70,12 @@ const AdminUsuarios = () => {
     }
   };
 
-  // Función para cargar los usuarios con paginación
+  // Función para cargar los usuarios con paginación y filtro de búsqueda
   const fetchUsuarios = async () => {
     setLoading(true);
     try {
       const usersRef = collection(firestore, 'users');
-      let q;
-
-      if (page === 1) {
-        // Si es la primera página, no usamos startAfter
-        q = query(usersRef, orderBy('nombre'), limit(usuariosPorPagina));
-      } else if (lastVisible) {
-        // Usamos startAfter si no estamos en la primera página
-        q = query(usersRef, orderBy('nombre'), startAfter(lastVisible), limit(usuariosPorPagina));
-      }
+      let q = query(usersRef, orderBy('nombre'));
 
       const querySnapshot = await getDocs(q);
       const fetchedUsuarios = [];
@@ -81,8 +83,39 @@ const AdminUsuarios = () => {
         fetchedUsuarios.push({ id: doc.id, ...doc.data() });
       });
 
-      setUsuarios(fetchedUsuarios);
-      setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]); // Actualizar el último documento
+      // Normalizar el término de búsqueda
+      const normalizedSearchTerm = searchTerm
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+      // Filtrar localmente por nombre, apellido o telegram
+      const filteredUsuarios = fetchedUsuarios.filter((usuario) => {
+        const nombreNormalized = usuario.nombre
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const apellidoNormalized = usuario.apellido
+          ? usuario.apellido
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+          : '';
+        const telegramNormalized = usuario.usuarioTelegram
+          ? usuario.usuarioTelegram
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+          : '';
+
+        return (
+          nombreNormalized.includes(normalizedSearchTerm) ||
+          apellidoNormalized.includes(normalizedSearchTerm) ||
+          telegramNormalized.includes(normalizedSearchTerm)
+        );
+      });
+
+      setUsuarios(filteredUsuarios);
       setLoading(false);
     } catch (err) {
       setErrorPagination('Error al obtener usuarios: ' + err.message);
@@ -90,10 +123,13 @@ const AdminUsuarios = () => {
     }
   };
 
+
+
   // Función para actualizar la información del usuario
   const handleUpdateUser = async (userId) => {
     if (!isAdmin) {
-      setError('No tienes permisos para modificar los datos de otros usuarios.');
+      toast.error('No tienes permisos para modificar los datos de otros usuarios.');
+
       return;
     }
 
@@ -107,11 +143,11 @@ const AdminUsuarios = () => {
         fechaHoraModificacion: serverTimestamp(),
       });
 
-      setExito('Usuario actualizado correctamente');
+      toast.success('Usuario actualizado correctamente');
       fetchUsuarios(); // Recargar la lista de usuarios
       resetForm(); // Resetear el formulario
     } catch (err) {
-      setError('Error al actualizar la información del usuario: ' + err.message);
+      toast.error('Error al actualizar la información del usuario: ' + err.message);
     }
   };
 
@@ -127,7 +163,8 @@ const AdminUsuarios = () => {
   // Función para actualizar el rol de un usuario.
   const handleUpdateRole = async (userId, newRole) => {
     if (!isAdmin) {
-      setError('No tienes permisos para cambiar el rol de este usuario.');
+      toast.error('No tienes permisos para cambiar el rol de este usuario.');
+
       return;
     }
 
@@ -138,18 +175,22 @@ const AdminUsuarios = () => {
           role: newRole,
           fechaHoraModificacion: serverTimestamp(),
         });
-        setExito('Rol actualizado correctamente');
+        toast.success('Rol actualizado correctamente.');
+        fetchUsuarios(); // Recargar la lista de usuarios
+        resetForm(); // Resetear el formulario
       } catch (err) {
-        setError('Error al actualizar el rol: ' + err.message);
+            // Mensaje de éxito
+        toast.error('Error al actualizar el rol: ' + err.message);
+
       }
     } else {
-      setError('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
+      toast.error('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
     }
   };
 
   const handleDeleteUser = async (userId) => {
     if (!isAdmin) {
-      setError('No tienes permisos para eliminar usuarios.');
+      toast.error('No tienes permisos para eliminar usuarios.');
       return;
     }
 
@@ -161,80 +202,43 @@ const AdminUsuarios = () => {
 
         if (userDoc.exists()) {
           await deleteDoc(usuarioRef);
-          setExito('Usuario eliminado correctamente');
+          toast.success('Usuario eliminado correctamente.');
           fetchUsuarios(); // Recargar la lista de usuarios
         } else {
-          setError('No se encontró el usuario en Firestore.');
+          toast.error('No se encontró el usuario en Firestore.');
         }
       } catch (err) {
-        setError('Error al eliminar el usuario: ' + err.message);
+        toast.error('Error al eliminar el usuario: ' + err.message);
       }
     }
   };
 
-  // Función para ir a la siguiente página
-  const nextPage = () => {
-    setPage(page + 1);
-  };
-
-  // Función para ir a la página anterior
-  const prevPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
-
+  const cerrarFormulario = () => {
+    fetchUsuarios(); // Recargar la lista de usuarios
+    resetForm(); // Resetear el formulario
+  }
   // Lógica para mostrar u ocultar el botón de "Siguiente"
-  const showNextButton = usuarios.length === usuariosPorPagina && page * usuariosPorPagina < totalUsuarios;
+  //const showNextButton = usuarios.length === usuariosPorPagina && page * usuariosPorPagina < totalUsuarios;
 
   return (
     <div className="form-container">
+       {/* Campo de búsqueda */}
+       <div className="search-container">
+            <input
+              type="text"
+              placeholder="Buscar por nombre, apellido o telegram"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
+            />
+          </div>
       {isAdmin && (
         <div>
           <h2>Administrar Usuarios</h2>
           <p>Total de usuarios: {totalUsuarios}</p> {/* Mostrar el total de usuarios */}
 
-          {/* Formulario para editar usuario */}
-          {selectedUserId && (
-            <div>
-              <h3>Actualizar Información de Usuario</h3>
-              <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
-                <input
-                  type="text"
-                  placeholder="Nombre"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Apellido"
-                  value={apellido}
-                  onChange={(e) => setApellido(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Teléfono"
-                  value={telefono}
-                  onChange={(e) => setTelefono(e.target.value)}
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Usuario Telegram"
-                  value={usuarioTelegram}
-                  onChange={(e) => setUsuarioTelegram(e.target.value)}
-                  required
-                />
-                <button type="submit">Actualizar Usuario</button>
-              </form>
-            </div>
-          )}
-
-          <ul>
+          <div className="users-grid">
             {usuarios.map((usuario) => (
-              <li key={usuario.id}>
+              <div key={usuario.id} className="user-card">
                 <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
                 <p><strong>Email:</strong> {usuario.email}</p>
                 <p><strong>Teléfono:</strong> {usuario.telefono}</p>
@@ -246,25 +250,77 @@ const AdminUsuarios = () => {
                 <button onClick={() => handleUpdateRole(usuario.id, 'ludotecario')}>Hacer Ludotecario</button>
                 <button onClick={() => handleUpdateRole(usuario.id, 'user')}>Hacer Usuario</button>
                 <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
-                <button onClick={() => { setSelectedUserId(usuario.id); setNombre(usuario.nombre); setApellido(usuario.apellido); setTelefono(usuario.telefono); setUsuarioTelegram(usuario.usuarioTelegram); }}>
+                <button onClick={() => { 
+                  setSelectedUserId(usuario.id); 
+                  setNombre(usuario.nombre); 
+                  setApellido(usuario.apellido); 
+                  setTelefono(usuario.telefono); 
+                  setUsuarioTelegram(usuario.usuarioTelegram); 
+                }}>
                   Editar Usuario
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
-
-          <div>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {exito && <p style={{ color: 'green' }}>{exito}</p>}
           </div>
+          
+  {/* Formulario para editar usuario */}
+           {selectedUserId && (
+            <div ref={formRef}>
+              <div className="centered-container">
+                <div className="user-form">
+                  <h3>Actualizar Información de Usuario</h3>
+                  <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
+                    <input
+                      type="text"
+                      placeholder="Nombre"
+                      value={nombre}
+                      onChange={(e) => setNombre(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Apellido"
+                      value={apellido}
+                      onChange={(e) => setApellido(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Teléfono"
+                      value={telefono}
+                      onChange={(e) => setTelefono(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Usuario Telegram"
+                      value={usuarioTelegram}
+                      onChange={(e) => setUsuarioTelegram(e.target.value)}
+                      required
+                    />
+                    <button type="submit">Actualizar Usuario</button>
+                    <button type="button" className="cancel-button" onClick={cerrarFormulario}>
+                      Cancelar
+                    </button>
 
-          {/* Botones de paginación */}
-          <div>
+                  </form>
+                </div>
+              </div>
+              
+            </div>
+         
+        )}
+
+
+
+          {/* Botones de paginación
+          <div className="pagination-buttons">
             <button onClick={prevPage}>Anterior</button>
             <button onClick={nextPage} disabled={!showNextButton}>Siguiente</button>
-          </div>
+          </div> */}
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

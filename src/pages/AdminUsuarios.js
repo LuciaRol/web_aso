@@ -152,7 +152,8 @@ const AdminUsuarios = () => {
           fechaHoraModificacion: serverTimestamp(),
         });
         toast.success('Rol actualizado correctamente.');
-
+        fetchUsuarios(); // Recargar la lista de usuarios
+        resetForm(); // Resetear el formulario
       } catch (err) {
             // Mensaje de éxito
         toast.error('Error al actualizar el rol: ' + err.message);

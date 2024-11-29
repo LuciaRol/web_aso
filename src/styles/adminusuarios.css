@@ -132,3 +132,26 @@
 .user-form button.cancel-button:hover {
   background-color: var(--adminusuarios-link-hover);  /* Color de fondo cuando se pasa el mouse por encima */
 }
+
+/* Estilos generales para los botones */
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: var(--adminusuarios-bg-color);
+  color: var(--adminusuarios-text-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Cambio de color al pasar el mouse por encima */
+button:hover {
+  background-color: var(--adminusuarios-link-hover);
+}
+
+/* Agregar color para los botones deshabilitados */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

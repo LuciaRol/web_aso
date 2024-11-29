@@ -25,6 +25,8 @@ const AdminUsuarios = () => {
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
+  const [isFormVisible, setIsFormVisible] = useState(true); // Estado para controlar la visibilidad del formulario
+
 
   useEffect(() => {
     if (usuario && usuario.email) {
@@ -191,6 +193,10 @@ const AdminUsuarios = () => {
     }
   };
 
+  const cerrarFormulario = () => {
+    fetchUsuarios(); // Recargar la lista de usuarios
+    resetForm(); // Resetear el formulario
+  }
   // Lógica para mostrar u ocultar el botón de "Siguiente"
   const showNextButton = usuarios.length === usuariosPorPagina && page * usuariosPorPagina < totalUsuarios;
 
@@ -263,6 +269,10 @@ const AdminUsuarios = () => {
                   required
                 />
                 <button type="submit">Actualizar Usuario</button>
+                <button type="button" className="cancel-button" onClick={cerrarFormulario}>
+                  Cancelar
+                </button>
+
               </form>
             </div>
           </div>

@@ -1,9 +1,10 @@
 /* Estilo general */
 :root {
   --adminusuarios-bg-color: #012E4A; /* Fondo rojo para el footer */
+  --adminusuarios-bg-color-cancel: #4a1001; /* Fondo rojo para el footer */
   --adminusuarios-text-color: white; /* Color del texto en el footer */
-  --adminusuarios-link-hover:  #0056b3; /* Color de hover para los enlaces */
   --adminusuarios-background-color: #f0f0f0;
+  --adminusuarios-link-hover: #B37100;
 }
 
 .users-grid {
@@ -113,10 +114,21 @@
 }
 
 .user-form button:hover {
-  background-color: #01456c;
+  background-color: var(--adminusuarios-link-hover);
 }
 
 .user-form button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+/* Botón cancelar de editar usuario */
+.user-form button.cancel-button {
+  background-color: var(--adminusuarios-bg-color-cancel);  /* Color gris para el botón de cancelar */
+  color: var(--adminusuarios-text-color);  /* Color de texto más oscuro */
+  font-size: 16px;
+}
+
+.user-form button.cancel-button:hover {
+  background-color: var(--adminusuarios-link-hover);  /* Color de fondo cuando se pasa el mouse por encima */
 }

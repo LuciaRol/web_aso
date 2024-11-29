@@ -1,8 +1,10 @@
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/usuario.css';
+import '../styles/adminusuarios.css';
 import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';  // Importar ToastContainer y toast
+import 'react-toastify/dist/ReactToastify.css'; // Importar estilos
 
 const AdminUsuarios = () => {
   const [email, setEmail] = useState('');
@@ -93,7 +95,8 @@ const AdminUsuarios = () => {
   // Función para actualizar la información del usuario
   const handleUpdateUser = async (userId) => {
     if (!isAdmin) {
-      setError('No tienes permisos para modificar los datos de otros usuarios.');
+      toast.error('No tienes permisos para modificar los datos de otros usuarios.');
+
       return;
     }
 
@@ -107,11 +110,11 @@ const AdminUsuarios = () => {
         fechaHoraModificacion: serverTimestamp(),
       });
 
-      setExito('Usuario actualizado correctamente');
+      toast.success('Usuario actualizado correctamente');
       fetchUsuarios(); // Recargar la lista de usuarios
       resetForm(); // Resetear el formulario
     } catch (err) {
-      setError('Error al actualizar la información del usuario: ' + err.message);
+      toast.error('Error al actualizar la información del usuario: ' + err.message);
     }
   };
 
@@ -127,7 +130,8 @@ const AdminUsuarios = () => {
   // Función para actualizar el rol de un usuario.
   const handleUpdateRole = async (userId, newRole) => {
     if (!isAdmin) {
-      setError('No tienes permisos para cambiar el rol de este usuario.');
+      toast.error('No tienes permisos para cambiar el rol de este usuario.');
+
       return;
     }
 
@@ -138,18 +142,21 @@ const AdminUsuarios = () => {
           role: newRole,
           fechaHoraModificacion: serverTimestamp(),
         });
-        setExito('Rol actualizado correctamente');
+        toast.success('Rol actualizado correctamente.');
+
       } catch (err) {
-        setError('Error al actualizar el rol: ' + err.message);
+            // Mensaje de éxito
+        toast.error('Error al actualizar el rol: ' + err.message);
+
       }
     } else {
-      setError('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
+      toast.error('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
     }
   };
 
   const handleDeleteUser = async (userId) => {
     if (!isAdmin) {
-      setError('No tienes permisos para eliminar usuarios.');
+      toast.error('No tienes permisos para eliminar usuarios.');
       return;
     }
 
@@ -161,13 +168,13 @@ const AdminUsuarios = () => {
 
         if (userDoc.exists()) {
           await deleteDoc(usuarioRef);
-          setExito('Usuario eliminado correctamente');
+          toast.success('Usuario eliminado correctamente.');
           fetchUsuarios(); // Recargar la lista de usuarios
         } else {
-          setError('No se encontró el usuario en Firestore.');
+          toast.error('No se encontró el usuario en Firestore.');
         }
       } catch (err) {
-        setError('Error al eliminar el usuario: ' + err.message);
+        toast.error('Error al eliminar el usuario: ' + err.message);
       }
     }
   };
@@ -196,7 +203,7 @@ const AdminUsuarios = () => {
 
           {/* Formulario para editar usuario */}
           {selectedUserId && (
-            <div>
+            <div className="user-form">
               <h3>Actualizar Información de Usuario</h3>
               <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
                 <input
@@ -232,9 +239,9 @@ const AdminUsuarios = () => {
             </div>
           )}
 
-          <ul>
+          <div className="users-grid">
             {usuarios.map((usuario) => (
-              <li key={usuario.id}>
+              <div key={usuario.id} className="user-card">
                 <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
                 <p><strong>Email:</strong> {usuario.email}</p>
                 <p><strong>Teléfono:</strong> {usuario.telefono}</p>
@@ -246,12 +253,18 @@ const AdminUsuarios = () => {
                 <button onClick={() => handleUpdateRole(usuario.id, 'ludotecario')}>Hacer Ludotecario</button>
                 <button onClick={() => handleUpdateRole(usuario.id, 'user')}>Hacer Usuario</button>
                 <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
-                <button onClick={() => { setSelectedUserId(usuario.id); setNombre(usuario.nombre); setApellido(usuario.apellido); setTelefono(usuario.telefono); setUsuarioTelegram(usuario.usuarioTelegram); }}>
+                <button onClick={() => { 
+                  setSelectedUserId(usuario.id); 
+                  setNombre(usuario.nombre); 
+                  setApellido(usuario.apellido); 
+                  setTelefono(usuario.telefono); 
+                  setUsuarioTelegram(usuario.usuarioTelegram); 
+                }}>
                   Editar Usuario
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
 
           <div>
             {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -259,12 +272,13 @@ const AdminUsuarios = () => {
           </div>
 
           {/* Botones de paginación */}
-          <div>
+          <div className="pagination-buttons">
             <button onClick={prevPage}>Anterior</button>
             <button onClick={nextPage} disabled={!showNextButton}>Siguiente</button>
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

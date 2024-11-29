@@ -26,6 +26,7 @@ const AdminUsuarios = () => {
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
   const formRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
 
 
   useEffect(() => {
@@ -40,9 +41,8 @@ const AdminUsuarios = () => {
     if (selectedUserId) {
       formRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [usuario, page, selectedUserId]); // Agregar selectedUserId como dependencia
+  }, [usuario, page, selectedUserId, searchTerm]); // Agregar searchTerm como dependencia
   
-
   
   // Función para obtener el total de usuarios en la base de datos
   const fetchTotalUsuarios = async () => {
@@ -72,18 +72,28 @@ const AdminUsuarios = () => {
   };
 
   // Función para cargar los usuarios con paginación
+  // Función para cargar los usuarios con paginación y filtro de búsqueda
   const fetchUsuarios = async () => {
     setLoading(true);
     try {
       const usersRef = collection(firestore, 'users');
       let q;
 
-      if (page === 1) {
-        // Si es la primera página, no usamos startAfter
-        q = query(usersRef, orderBy('nombre'), limit(usuariosPorPagina));
-      } else if (lastVisible) {
-        // Usamos startAfter si no estamos en la primera página
-        q = query(usersRef, orderBy('nombre'), startAfter(lastVisible), limit(usuariosPorPagina));
+      // Si hay un término de búsqueda, lo aplicamos en la consulta
+      if (searchTerm) {
+        q = query(
+          usersRef,
+          where('nombre', '>=', searchTerm),
+          where('nombre', '<=', searchTerm + '\uf8ff'),
+          limit(usuariosPorPagina)
+        );
+      } else {
+        // Si no hay búsqueda, simplemente mostramos los usuarios paginados
+        if (page === 1) {
+          q = query(usersRef, orderBy('nombre'), limit(usuariosPorPagina));
+        } else if (lastVisible) {
+          q = query(usersRef, orderBy('nombre'), startAfter(lastVisible), limit(usuariosPorPagina));
+        }
       }
 
       const querySnapshot = await getDocs(q);
@@ -100,6 +110,7 @@ const AdminUsuarios = () => {
       setLoading(false);
     }
   };
+
 
   // Función para actualizar la información del usuario
   const handleUpdateUser = async (userId) => {
@@ -210,6 +221,15 @@ const AdminUsuarios = () => {
 
   return (
     <div className="form-container">
+       {/* Campo de búsqueda */}
+       <div className="search-container">
+            <input
+              type="text"
+              placeholder="Buscar por nombre, apellido o telegram"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
+            />
+          </div>
       {isAdmin && (
         <div>
           <h2>Administrar Usuarios</h2>

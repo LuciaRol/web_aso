@@ -230,6 +230,7 @@ const AdminUsuarios = () => {
 
            {/* Formulario para editar usuario */}
            {selectedUserId && (
+          <div className="centered-container">
             <div className="user-form">
               <h3>Actualizar Información de Usuario</h3>
               <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
@@ -264,7 +265,8 @@ const AdminUsuarios = () => {
                 <button type="submit">Actualizar Usuario</button>
               </form>
             </div>
-          )}
+          </div>
+        )}
 
 
 

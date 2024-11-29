@@ -43,7 +43,7 @@ const AdminUsuarios = () => {
     }
   }, [usuario, page, selectedUserId, searchTerm]); // Agregar searchTerm como dependencia
   
-  
+
   // Función para obtener el total de usuarios en la base de datos
   const fetchTotalUsuarios = async () => {
     try {
@@ -71,30 +71,12 @@ const AdminUsuarios = () => {
     }
   };
 
-  // Función para cargar los usuarios con paginación
   // Función para cargar los usuarios con paginación y filtro de búsqueda
   const fetchUsuarios = async () => {
     setLoading(true);
     try {
       const usersRef = collection(firestore, 'users');
-      let q;
-
-      // Si hay un término de búsqueda, lo aplicamos en la consulta
-      if (searchTerm) {
-        q = query(
-          usersRef,
-          where('nombre', '>=', searchTerm),
-          where('nombre', '<=', searchTerm + '\uf8ff'),
-          limit(usuariosPorPagina)
-        );
-      } else {
-        // Si no hay búsqueda, simplemente mostramos los usuarios paginados
-        if (page === 1) {
-          q = query(usersRef, orderBy('nombre'), limit(usuariosPorPagina));
-        } else if (lastVisible) {
-          q = query(usersRef, orderBy('nombre'), startAfter(lastVisible), limit(usuariosPorPagina));
-        }
-      }
+      let q = query(usersRef, orderBy('nombre'), limit(usuariosPorPagina));
 
       const querySnapshot = await getDocs(q);
       const fetchedUsuarios = [];
@@ -102,14 +84,46 @@ const AdminUsuarios = () => {
         fetchedUsuarios.push({ id: doc.id, ...doc.data() });
       });
 
-      setUsuarios(fetchedUsuarios);
-      setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]); // Actualizar el último documento
+      // Normalizar el término de búsqueda
+      const normalizedSearchTerm = searchTerm
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+      // Filtrar localmente por nombre, apellido o telegram
+      const filteredUsuarios = fetchedUsuarios.filter((usuario) => {
+        const nombreNormalized = usuario.nombre
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '');
+        const apellidoNormalized = usuario.apellido
+          ? usuario.apellido
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+          : '';
+        const telegramNormalized = usuario.usuarioTelegram
+          ? usuario.usuarioTelegram
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+          : '';
+
+        return (
+          nombreNormalized.includes(normalizedSearchTerm) ||
+          apellidoNormalized.includes(normalizedSearchTerm) ||
+          telegramNormalized.includes(normalizedSearchTerm)
+        );
+      });
+
+      setUsuarios(filteredUsuarios);
       setLoading(false);
     } catch (err) {
       setErrorPagination('Error al obtener usuarios: ' + err.message);
       setLoading(false);
     }
   };
+
 
 
   // Función para actualizar la información del usuario

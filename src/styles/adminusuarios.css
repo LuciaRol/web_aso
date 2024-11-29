@@ -20,7 +20,7 @@
   background-color: #f0f0f0;
   padding: 20px;
   border-radius: 8px;
-  width: 250px; /* Puedes ajustar el ancho según lo que necesites */
+  width: 300px; /* Puedes ajustar el ancho según lo que necesites */
   text-align: center; /* Centrar el texto dentro de la tarjeta */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -60,6 +60,16 @@
 .pagination-buttons button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.form-container {
+  background-color: #fff; /* Fondo blanco */
+  padding: 20px;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 1500px; /* Limita el ancho máximo */
+  margin-left: auto;
+  margin-right: auto; /* Centra el contenedor */
+  border-radius: 8px; /* Bordes redondeados */
 }
 
 /* Contenedor principal para centrar el formulario */

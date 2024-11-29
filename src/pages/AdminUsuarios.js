@@ -201,8 +201,35 @@ const AdminUsuarios = () => {
           <h2>Administrar Usuarios</h2>
           <p>Total de usuarios: {totalUsuarios}</p> {/* Mostrar el total de usuarios */}
 
-          {/* Formulario para editar usuario */}
-          {selectedUserId && (
+          <div className="users-grid">
+            {usuarios.map((usuario) => (
+              <div key={usuario.id} className="user-card">
+                <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
+                <p><strong>Email:</strong> {usuario.email}</p>
+                <p><strong>Teléfono:</strong> {usuario.telefono}</p>
+                <p><strong>Rol:</strong> {usuario.role}</p>
+                <p><strong>Usuario Telegram:</strong> {usuario.usuarioTelegram}</p>
+
+                {/* Botones para editar el rol y eliminar usuario */}
+                <button onClick={() => handleUpdateRole(usuario.id, 'admin')}>Hacer Admin</button>
+                <button onClick={() => handleUpdateRole(usuario.id, 'ludotecario')}>Hacer Ludotecario</button>
+                <button onClick={() => handleUpdateRole(usuario.id, 'user')}>Hacer Usuario</button>
+                <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
+                <button onClick={() => { 
+                  setSelectedUserId(usuario.id); 
+                  setNombre(usuario.nombre); 
+                  setApellido(usuario.apellido); 
+                  setTelefono(usuario.telefono); 
+                  setUsuarioTelegram(usuario.usuarioTelegram); 
+                }}>
+                  Editar Usuario
+                </button>
+              </div>
+            ))}
+          </div>
+
+           {/* Formulario para editar usuario */}
+           {selectedUserId && (
             <div className="user-form">
               <h3>Actualizar Información de Usuario</h3>
               <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
@@ -239,37 +266,7 @@ const AdminUsuarios = () => {
             </div>
           )}
 
-          <div className="users-grid">
-            {usuarios.map((usuario) => (
-              <div key={usuario.id} className="user-card">
-                <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
-                <p><strong>Email:</strong> {usuario.email}</p>
-                <p><strong>Teléfono:</strong> {usuario.telefono}</p>
-                <p><strong>Rol:</strong> {usuario.role}</p>
-                <p><strong>Usuario Telegram:</strong> {usuario.usuarioTelegram}</p>
 
-                {/* Botones para editar el rol y eliminar usuario */}
-                <button onClick={() => handleUpdateRole(usuario.id, 'admin')}>Hacer Admin</button>
-                <button onClick={() => handleUpdateRole(usuario.id, 'ludotecario')}>Hacer Ludotecario</button>
-                <button onClick={() => handleUpdateRole(usuario.id, 'user')}>Hacer Usuario</button>
-                <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
-                <button onClick={() => { 
-                  setSelectedUserId(usuario.id); 
-                  setNombre(usuario.nombre); 
-                  setApellido(usuario.apellido); 
-                  setTelefono(usuario.telefono); 
-                  setUsuarioTelegram(usuario.usuarioTelegram); 
-                }}>
-                  Editar Usuario
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {exito && <p style={{ color: 'green' }}>{exito}</p>}
-          </div>
 
           {/* Botones de paginación */}
           <div className="pagination-buttons">

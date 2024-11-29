@@ -18,8 +18,7 @@ const AdminUsuarios = () => {
   const [page, setPage] = useState(1); // Página actual
   const [errorPagination, setErrorPagination] = useState(''); // Error en la paginación
   const [totalUsuarios, setTotalUsuarios] = useState(0); // Total de usuarios en la base de datos
-  const [usuariosPorPagina] = useState(5); // Número de usuarios por página
-
+  //const [usuariosPorPagina] = useState(5); // Número de usuarios por página
   const [selectedUserId, setSelectedUserId] = useState(null); // Usuario seleccionado para editar
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
@@ -76,7 +75,7 @@ const AdminUsuarios = () => {
     setLoading(true);
     try {
       const usersRef = collection(firestore, 'users');
-      let q = query(usersRef, orderBy('nombre'), limit(usuariosPorPagina));
+      let q = query(usersRef, orderBy('nombre'));
 
       const querySnapshot = await getDocs(q);
       const fetchedUsuarios = [];
@@ -214,24 +213,12 @@ const AdminUsuarios = () => {
     }
   };
 
-  // Función para ir a la siguiente página
-  const nextPage = () => {
-    setPage(page + 1);
-  };
-
-  // Función para ir a la página anterior
-  const prevPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
-
   const cerrarFormulario = () => {
     fetchUsuarios(); // Recargar la lista de usuarios
     resetForm(); // Resetear el formulario
   }
   // Lógica para mostrar u ocultar el botón de "Siguiente"
-  const showNextButton = usuarios.length === usuariosPorPagina && page * usuariosPorPagina < totalUsuarios;
+  //const showNextButton = usuarios.length === usuariosPorPagina && page * usuariosPorPagina < totalUsuarios;
 
   return (
     <div className="form-container">
@@ -326,11 +313,11 @@ const AdminUsuarios = () => {
 
 
 
-          {/* Botones de paginación */}
+          {/* Botones de paginación
           <div className="pagination-buttons">
             <button onClick={prevPage}>Anterior</button>
             <button onClick={nextPage} disabled={!showNextButton}>Siguiente</button>
-          </div>
+          </div> */}
         </div>
       )}
       <ToastContainer />

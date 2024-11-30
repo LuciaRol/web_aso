@@ -29,6 +29,8 @@ const Ludoteca = () => {
   const [sortOrder, setSortOrder] = useState('asc');
   const thread_id = 14; // thread of the Telegram
   const [letterFilter, setLetterFilter] = useState('');
+  const [showAlphabetButtons, setShowAlphabetButtons] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -268,6 +270,11 @@ const Ludoteca = () => {
       setFilteredGames(filtered);
     };
 
+   // Función para alternar la visibilidad de los botones
+   const toggleAlphabetButtons = () => {
+    setShowAlphabetButtons(!showAlphabetButtons);
+  };
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
@@ -302,9 +309,18 @@ const Ludoteca = () => {
           </div>
         )}
       </div>
-       {/* Filtro por letra */}
-       <div className="filters-row">
-       
+      
+      <div className="filters-row">
+          {/* Botón para mostrar/ocultar los botones de letras */}
+          <button onClick={toggleAlphabetButtons}>
+        {showAlphabetButtons ? 'Ocultar Filtro Letra Inicial' : 'Filtro Letra Inicial'}
+      </button>
+
+      </div>
+      {/* Filtro por letra */}
+      <div className="filters-row">
+      
+      {showAlphabetButtons && (
         <div className="alphabet-buttons">
           {[...Array(26)].map((_, i) => {
             const letter = String.fromCharCode(65 + i); // Letras de la A a la Z
@@ -317,7 +333,7 @@ const Ludoteca = () => {
               </button>
             );
           })}
-        </div>
+        </div>)}
       </div>
       <div className="filters-row">
         <label className="filter-item">

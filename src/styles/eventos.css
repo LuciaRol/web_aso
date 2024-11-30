@@ -75,9 +75,10 @@ h1 {
 }
 
 .event-container img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px 8px 0 0;
+  width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
+  height: 200px; /* Asigna una altura fija a todas las imágenes */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+  border-radius: 8px 8px 0 0; /* Mantiene los bordes redondeados en la parte superior */
 }
 
 .event-container h3 {

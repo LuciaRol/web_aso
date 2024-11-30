@@ -8,7 +8,6 @@ import CreateGame from './pages/CreateGame';
 import Eventos from './pages/Eventos';
 import GameList from './pages/GameList';
 import Home from './pages/Home';
-import ListaUsuarios from './pages/ListaUsuarios';
 import Login from './pages/Login';
 import Ludoteca from './pages/Ludoteca';
 import RegistroInvitados from './pages/RegistroInvitados';
@@ -20,6 +19,8 @@ import Estadisticas from './pages/Estadisticas';
 import CrearEventos from './pages/CrearEventos';
 import PromocionYRecordatorios from './pages/PromoRecordatorios';
 import JuegosPrestados from './pages/JuegosPrestados';
+import ListaInvitados from './pages/ListaInvitados';
+
 import Admin from './pages/Admin';
 
 
@@ -38,12 +39,12 @@ const App = () => {
         <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />
         <Route path="/crearusuario" element={<ProtectedRoute element={<CrearUsuario />} />} />
         <Route path="/adminusuarios" element={<ProtectedRoute element={<AdminUsuarios />} />} />
-        <Route path="/ListaUsuarios" element={<ProtectedRoute element={<ListaUsuarios />} />} />
         <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
         <Route path="/creareventos" element={<ProtectedRoute element={<CrearEventos />} />} />
         <Route path="/promocionyrecordatorios" element={<ProtectedRoute element={<PromocionYRecordatorios />} />} />
         <Route path="/estadisticas" element={<ProtectedRoute element={<Estadisticas />} />} />
         <Route path="/juegosprestados" element={<ProtectedRoute element={<JuegosPrestados />} />} />
+        <Route path="/listainvitados" element={<ProtectedRoute element={<ListaInvitados />} />} />
         <Route path="/Ludoteca" element={<Ludoteca />} />
         <Route path="/login" element={<Home />} />
       </Routes>

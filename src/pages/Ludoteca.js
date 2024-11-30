@@ -277,24 +277,30 @@ const Ludoteca = () => {
       {/* Filtros y botón de exportación */}
       <div className="filters-row">
         {/* Botón para exportar */}
-        <div className="filter-item">
-          <button
-            onClick={() =>
-              exportToExcel(
-                filteredGames.map(game => ({
-                  Nombre: game.name,
-                  Géneros: game.genres.join(', '),
-                  Disponible: game.available ? 'Sí' : 'No',
-                  'Prestado a': game.loanedBy || '',
-                  'Fecha de préstamo': game.loanedBy ? loanedGames[game.id]?.loanDate?.toDate().toLocaleDateString() : '', // Agrega la fecha de préstamo
-                  'Fecha de devolución': game.returnDate ? game.returnDate.toLocaleDateString() : '',
-                }))
-              )
-            }
-          >
-            Exportar a Excel
-          </button>
-        </div>
+        {user && (
+          <div className="filter-item">
+            <button
+              onClick={() =>
+                exportToExcel(
+                  filteredGames.map((game) => ({
+                    Nombre: game.name,
+                    Géneros: game.genres.join(', '),
+                    Disponible: game.available ? 'Sí' : 'No',
+                    'Prestado a': game.loanedBy || '',
+                    'Fecha de préstamo': game.loanedBy
+                      ? loanedGames[game.id]?.loanDate?.toDate().toLocaleDateString()
+                      : '', // Agrega la fecha de préstamo
+                    'Fecha de devolución': game.returnDate
+                      ? game.returnDate.toLocaleDateString()
+                      : '',
+                  }))
+                )
+              }
+            >
+              Exportar a Excel
+            </button>
+          </div>
+        )}
       </div>
        {/* Filtro por letra */}
        <div className="filters-row">

@@ -3,6 +3,7 @@ import homer_a from '../img/quienes_somos/homer_a.jpg';
 import homer_b from '../img/quienes_somos/homer_b.jpg';
 import peter_parker from '../img/quienes_somos/peter_parker.jpg';
 import spiderman from '../img/quienes_somos/spiderman.jpg';
+import qrCode from '../img/quienes_somos/qr_code.png';
 import { FaWhatsapp } from 'react-icons/fa'; // Importamos el icono de WhatsApp
 import '../styles/whoweare.css'; // Importa el CSS correspondiente
 
@@ -71,33 +72,59 @@ const WhoWeAre = () => {
         </div>
       )}
 
-      <h2>¿Quiénes somos?</h2>
+      <h2>¡Bienvenidos!</h2>
       <div className="description">
         <p>
-          Bienvenidos a nuestro club de juegos de mesa, un refugio para los entusiastas de todas las edades y niveles de experiencia. Fundado por un grupo de amigos apasionados, nuestro club es más que un simple lugar de reunión; es un espacio donde la imaginación cobra vida y las amistades se forjan entre risas y estrategias. 
+        Somos una asociación cultural sin ánimo de lucro, que fomenta el ocio a través de los juegos de mesa, pero también hacemos pintura de miniaturas, cineforums, rol, videojuegos, etc.
         </p>
         <p>
-          Desde nuestros humildes comienzos, nuestro propósito ha sido claro: crear una comunidad inclusiva y vibrante donde cada miembro pueda explorar nuevos mundos, enfrentarse a desafíos épicos y disfrutar del espíritu de la camaradería. Ya sea que prefieras juegos de estrategia, aventuras temáticas, o clásicos familiares, aquí encontrarás un asiento en la mesa esperando por ti.
+        Disponemos de un local de 140m2 situado en el barrio de la Chana y destinado exclusivamente a las actividades propias de nuestra asociación.  
         </p>
         <p>
-          Únete a nosotros y descubre el poder de los juegos de mesa para conectar, educar y, sobre todo, divertir. ¡Que empiecen los juegos!
+        Disfruta de juegos modernos en todo su esplendor con títulos que te sorprenderán y distraerán desde el primer momento. 
+        La gran cantidad de socios permite que se organicen partidas de todo tipo (temáticas, mecánicas, dificultad) a diferentes horarios.
+        </p>
+        <p>
+        Colaboramos y participamos en varios eventos relacionados con el sector, ¡ven a conocernos!
+        </p>
+      </div>
+
+      <h2>Visítanos</h2>
+      <div className="description">
+        <ul>
+          <li>Tiene 3 invitaciones gratuitas para asistir a partidas privadas.</li>
+          <li>Organizamos eventos gratuitos periódicamente, ¡síguenos en redes sociales!</li>
+          <li>Si te interesa hacerte socio, te recomendamos usar tus invitaciones y conocernos.</li>
+        </ul>
+        <p>
+        No tenemos un horario de apertura fijo, sino que los socios van abriendo partidas a diferentes horas en función de su disponibilidad. 
+        Si alguien que no es socio se quiere sumar, la mejor manera es ver el calendario de actividades donde aparecen las partidas y los huecos disponibles. 
+        Si alguna partida te interesa, pregúntanos en las redes sociales o únete al chat de WhatsApp para contactar con el organizador.
         </p>
       </div>
 
 
       
-      {/* Sección de contacto */}
-      <h2>¿Cómo contactarnos?</h2>
-      <p style={{ textAlign: 'center' }}>
-      <p>Si tienes alguna pregunta o quieres unirte a nuestro grupo, puedes enviarnos un mensaje o unirte a nuestro grupo de WhatsApp haciendo clic en el siguiente icono:</p>
-      </p>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>
-        <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
-          <FaWhatsapp size={50} color="#25D366" /> {/* Icono de WhatsApp */}
-        </a>
+    {/* Sección de contacto */}
+    <h2>Contacto</h2>
+    <p>
+      Si tienes alguna pregunta o quieres unirte a nuestro grupo, puedes enviarnos un mensaje o unirte a nuestro grupo de WhatsApp haciendo clic en el siguiente icono:
+    </p>
+     
+    <div>
+      <div>
+      <img src={qrCode} alt="Código QR para acceder al grupo de WhatsApp del Dragón de Madera" />
       </div>
+    </div>
 
-      <h2>Nuestros Miembros</h2>
+
+    <div>
+      <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+        <FaWhatsapp size={50} color="#25D366" /> {/* Icono de WhatsApp */}
+      </a>
+    </div>
+
+     {/*  <h2>Nuestros Miembros</h2>
       <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
         Haz clic en los miembros para ver su identidad secreta.
       </p>
@@ -105,7 +132,7 @@ const WhoWeAre = () => {
         {members.map(member => (
           <Member key={member.id} member={member} />
         ))}
-      </div>
+      </div> */}
 
     </div>
   );

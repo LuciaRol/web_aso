@@ -4,8 +4,14 @@ import homer_b from '../img/quienes_somos/homer_b.jpg';
 import peter_parker from '../img/quienes_somos/peter_parker.jpg';
 import spiderman from '../img/quienes_somos/spiderman.jpg';
 import qrCode from '../img/quienes_somos/qr_code.png';
+import aso1 from '../img/quienes_somos/aso1.jpg';
+import aso2 from '../img/quienes_somos/aso2.jpg';
+import aso3 from '../img/quienes_somos/aso3.jpg';
 import SendEmail from '../components/SendEmail';
 import { FaWhatsapp } from 'react-icons/fa'; // Importamos el icono de WhatsApp
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../styles/whoweare.css'; // Importa el CSS correspondiente
 
 
@@ -88,6 +94,30 @@ const WhoWeAre = () => {
       )}
 
       <h2>¡Bienvenidos!</h2>
+
+      <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src={aso1} class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src={aso2} class="d-block w-100" alt="..." />
+          </div>
+          <div class="carousel-item">
+            <img src={aso3} class="d-block w-100" alt="..." />
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+
       <div className="description">
         <p>
           Somos una asociación cultural sin ánimo de lucro, que fomenta el ocio a través de los juegos de mesa, pero también hacemos pintura de miniaturas, cineforums, rol, videojuegos, etc.

@@ -5,6 +5,15 @@
   --primary-color: #2c3e50;
   --primary-color-hover: #2980b9;
   --secondary-color: #2c3e50;
+
+  --text-size: 1rem;               /* 16px / 16 = 1rem */
+  --text-hightlight: 1.125rem;    /* 18px / 16 = 1.125rem */
+  --text-note: 0.875rem;          /* 14px / 16 = 0.875rem */
+  
+  --title-size: 2.125rem;         /* 34px / 16 = 2.125rem */
+  --subtitle-size: 1.5rem;        /* 24px / 16 = 1.5rem */
+  --subtitle-size-small: 1.25rem; /* 20px / 16 = 1.25rem */
+  
 }
 
 /* Estilos generales */

@@ -1,6 +1,7 @@
 // src/components/SendEmail.js
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
+import '../styles/whoweare.css';
 
 const SendEmail = () => {
   const [emailData, setEmailData] = useState({ name: '', email: '', message: '' });
@@ -33,46 +34,48 @@ const SendEmail = () => {
   };
 
   return (
-    <div>
-      <h2>Envíanos un Email</h2>
-      {status && (
-        <p style={{ color: status.success ? 'green' : 'red' }}>
-          {status.message}
-        </p>
-      )}
-      <form onSubmit={handleSubmit} className="email-form">
-        <label>
-          Nombre:
-          <input
-            type="text"
-            name="name"
-            value={emailData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Correo Electrónico:
-          <input
-            type="email"
-            name="email"
-            value={emailData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Mensaje:
-          <textarea
-            name="message"
-            value={emailData.message}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <button type="submit">Enviar Email</button>
-      </form>
-    </div>
+    <div className="email-container">
+    {status && (
+      <p className={`status-message ${status.success ? 'success' : 'error'}`}>
+        {status.message}
+      </p>
+    )}
+    <form onSubmit={handleSubmit} className="email-form">
+      <label className="email-label">
+        Nombre:
+        <input
+          type="text"
+          name="name"
+          value={emailData.name}
+          onChange={handleChange}
+          required
+          className="email-input"
+        />
+      </label>
+      <label className="email-label">
+        Correo Electrónico:
+        <input
+          type="email"
+          name="email"
+          value={emailData.email}
+          onChange={handleChange}
+          required
+          className="email-input"
+        />
+      </label>
+      <label className="email-label">
+        Mensaje:
+        <textarea
+          name="message"
+          value={emailData.message}
+          onChange={handleChange}
+          required
+          className="email-textarea"
+        />
+      </label>
+      <button type="submit" className="">Enviar Email</button>
+    </form>
+  </div>
   );
 };
 

@@ -1,55 +1,3 @@
-/* whoweare.css */
-
-/* Contenedor de los miembros */
-.member-container {
-    perspective: 1000px;
-    margin: 10px;
-    width: 220px; /* Tamaño ajustado para incluir el margen y padding */
-  }
-  
-  .member-content {
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-    position: relative;
-    width: 100%;
-    height: 250px;
-  }
-  
-  .flipped {
-    transform: rotateY(180deg);
-  }
-  
-  .member-front,
-  .member-back {
-    backface-visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    border-radius: 10px;
-  }
-  
-  .member-back {
-    transform: rotateY(180deg);
-  }
-  
-  .member-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .member-message {
-    font-size: 0.9rem;
-    margin-top: 10px;
-  }
-
-/* whoweare.css */
 
 /* Banner publicitario */
 .ad-banner {
@@ -108,70 +56,172 @@
   border-color: #8B4513; /* Cambia el color del borde al mismo marrón */
 }
 
-/* Contenedor de los miembros */
-.member-container {
-  perspective: 1000px;
-  margin: 10px;
-  width: 220px;
+
+
+/* SECCIÓN CARRUSEL Y TEXTO */
+section {
+  display: grid;
+  grid-template-columns: 2fr 2fr; /* El carrusel ocupa 1/3 del ancho y la descripción 2/3 */
+  gap: 20px; /* Espacio entre el carrusel y el contenedor de descripción */
+  padding: 20px; /* Espaciado interno */
 }
 
-.member-content {
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  position: relative;
+/* Estilo para el carrusel */
+#carouselExampleRide {
   width: 100%;
-  height: 250px;
 }
 
-.flipped {
-  transform: rotateY(180deg);
-}
-
-.member-front, .member-back {
-  backface-visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Contenedor de la descripción */
+.description-container {
   width: 100%;
-  height: 100%;
-  text-align: center;
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: white;
-  border-radius: 10px;
 }
 
-.member-back {
-  transform: rotateY(180deg);
+/* Estilo adicional para las descripciones */
+.description.custom-description {
+  font-size: 16px;
+  line-height: 1.6;
+  
 }
 
-.member-name {
-  font-size: 1.2rem;
+
+/* VISÍTANOS */
+
+/* Estilo para la sección Visítanos usando Grid */
+.visit-us-section {
+  display: grid;
+  grid-template-columns: 1fr; /* Define una sola columna para los elementos */
+  justify-items: center; /* Centra los elementos en el eje horizontal */
+  align-items: start; /* Alinea los elementos al inicio en el eje vertical */
+  padding: 20px;
+}
+
+/* Estilo para el título */
+.visit-us-heading {
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 15px; /* Añade espacio entre el título y el texto */
+  text-align: center; /* Centra el título */
 }
 
-.member-message {
-  font-size: 0.9rem;
-  margin-top: 10px;
+/* Estilo para la lista de la sección */
+.visit-us-list {
+  list-style-type: disc;
+  margin-left: 20px;
+  margin-bottom: 10px; /* Añade espacio entre los ítems de la lista */
+  text-align: left; /* Alinea la lista a la izquierda */
 }
 
 
-.container {
-  width: 100%;
-  max-width: 1200px;
+
+
+/* SECCIÓN CONTACTO */
+
+/* Estilo para la sección de contacto */
+.contact-section {
+  display: grid;                /* Usar grid para organizar los elementos */
+  grid-template-columns: 1fr;    /* Una sola columna */
+  gap: 20px;                    /* Espacio entre los elementos */
+  padding: 20px;
+  text-align: center;            /* Centrar el texto */
+}
+
+/* Estilo para el título */
+.contact-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Espacio entre el título y el párrafo */
+}
+
+/* Estilo para la descripción */
+.contact-description {
+  font-size: 16px;
+  margin-bottom: 20px; /* Espacio entre el párrafo y el QR */
+}
+
+/* Estilo para la imagen del código QR */
+.contact-qr-container {
+  margin-bottom: 20px; /* Espacio entre el QR y el formulario */
+}
+
+.contact-qr-container,
+.email-form-container {
+  width: 100%;            /* Asegura que los divs ocupen todo su contenedor */
+}
+
+.contact-qr-image {
+  max-width: 100%;
+  height: auto; /* Mantiene la proporción de la imagen */
+}
+
+/* Estilo para el contenedor del formulario */
+.email-form-container {
+  margin-top: 20px;
+}
+
+.contact-content {
+  display: grid;          /* Usamos grid para organizar los elementos en fila */
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño (50% cada una) */
+  gap: 20px;              /* Espacio entre las columnas */
+}
+
+
+/* FORMULARIO */
+.email-container {
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+.email-heading, .contact-qr-heading {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-button:hover {
-  background-color: var(--primary-color-hover);
+.status-message {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.email-form {
+  display: grid;
+  grid-template-columns: 1fr; /* Una sola columna */
+  gap: 15px; /* Espacio entre los elementos */
+}
+
+.email-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.email-input,
+.email-textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.email-textarea {
+  height: 150px;
+}
+
+
+
+
+
+
+
+

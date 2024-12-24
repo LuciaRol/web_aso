@@ -3,6 +3,7 @@
 
 .home-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh; /* Altura de toda la ventana */
@@ -13,14 +14,46 @@
   position: relative;
 }
 
-.home-container img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
+.image-container {
+  position: relative;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   z-index: -1;
+}
+
+.counter-section {
+  position: absolute;
+  top: 60%; /* Colocar los contadores en la mitad inferior */
+  left: 50%;
+  transform: translateX(-50%); /* Centrado horizontal */
+  display: flex;
+  gap: 20px; /* Espacio entre los contadores */
+  z-index: 1; /* Asegura que esté encima de la imagen */
+}
+
+.counter-box {
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.counter-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .home-container::before {
@@ -28,9 +61,9 @@
   font-family: 'MedievalSharp', cursive;
   white-space: pre;
   position: absolute;
-  top: 50%;
+  top: 20%; /* Mover hacia la parte superior */
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   text-align: center;
   color: white;
   font-size: 4.5rem; /* Tamaño de la primera línea */
@@ -43,7 +76,7 @@
   content: "Asociación de juegos de mesa, rol y wargames";
   white-space: pre;
   position: absolute;
-  top: 60%; /* Ajusta la posición para que esté debajo de la primera línea */
+  top: 35%; /* Ajustar para que esté debajo del título */
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -52,4 +85,15 @@
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   z-index: 1;
+}
+
+section {
+  margin-top: 20px;
+}
+
+section img {
+  width: auto;
+  height: 100px;
+  display: block;
+  margin: 0 auto;
 }

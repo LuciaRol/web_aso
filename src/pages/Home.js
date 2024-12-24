@@ -10,13 +10,38 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div>
-        <img src={queenDragon}/>
+
+        <main className="image-container">
+          <img src={queenDragon}/>
+
+          <div className="counter-section">
+              {/* Cuadrado del contador de juegos */}
+            <div className="counter-box">
+              <h2 className="counter-title">Juegos</h2>
+              <Counter endValue={900} />
+            </div>
+
+            {/* Cuadrado del contador de partidas */}
+            <div className="counter-box">
+              <h2 className="counter-title">Partidas</h2>
+              <Counter endValue={300} />
+            </div>
+          </div>
+        </main>
+
+      
+
+      <section>
+        <div>
+          <img src={logoNegro}/>
+        </div>
+      </section>
+
+
+
       </div>
 
-
-     
-    </div>
+      
 
 
 

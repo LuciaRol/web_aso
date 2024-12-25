@@ -35,15 +35,36 @@ const Home = () => {
         <div>
           <img src={logoNegro}/>
         </div>
+
+        <article>
+          <h3>Dragón de madera</h3>
+          <p>Asociación sin ánimo de lucro</p>
+          <p>Visítanos en:</p>
+          <p>c/ Pepita Serrador 3, local 6</p>
+          <p>18015 Granada</p>
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </article>
       </section>
 
+      <section>
+        <article>
+          <h4>Si te gustan los juegos de mesa, vives en Granada o alrededores y quieres conocer gente nueva, ¡pásate a conocernos!</h4>
+          <p>Disponemos de un local de 140m2 situado en La Chana y destinado a las actividades de la asociación.</p>
+          <p>Disfruta de juegos clásicos y modernos en todo su esplendor con títulos que te sorprenderán y te distraerán desde el primer momento.</p>
+        </article>
+        <ul>
+          <li>Local</li>
+          <li>Ludoteca</li>
+          <li>Eventos</li>
+          <li>Descuentos</li>
+        </ul>
+      </section>
 
-
-      </div>
-
-      
-
-
+    </div>
 
   );
 

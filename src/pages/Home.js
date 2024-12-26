@@ -101,23 +101,36 @@ const Home = () => {
             </p>
           </article>
           <ul className="about-features">
-            <li>
-              <img src={House} alt="House"/>
-              <p>Local</p>
-            </li>
-            <li>
-              <img src={Meeple} alt="House"/>
-              <p>Ludoteca</p>
-            </li>
-            <li>
-              <img src={Evento} alt="Event"/>
-              <p>Eventos</p>
-            </li>
-            <li>
-              <img src={Discount} alt="Discount"/>
-              <p>Descuentos</p>
-            </li>
-          </ul>
+  <li>
+    <div className="feature-content">
+      <img src={House} alt="House" />
+      <p>Local</p>
+    </div>
+    <div className="hover-text">Local a disposición de los socios</div>
+  </li>
+  <li>
+    <div className="feature-content">
+      <img src={Meeple} alt="Meeple" />
+      <p>Ludoteca</p>
+    </div>
+    <div className="hover-text">Amplia variedad de juegos en la ludoteca propia de la asociación</div>
+  </li>
+  <li>
+    <div className="feature-content">
+      <img src={Evento} alt="Event" />
+      <p>Eventos</p>
+    </div>
+    <div className="hover-text">Eventos mensuales y extraordinarios</div>
+  </li>
+  <li>
+    <div className="feature-content">
+      <img src={Discount} alt="Discount" />
+      <p>Descuentos</p>
+    </div>
+    <div className="hover-text">Descuentos en tiendas</div>
+  </li>
+</ul>
+
         </section>
 
 

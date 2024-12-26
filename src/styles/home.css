@@ -82,16 +82,88 @@
   font-weight: bold;
 }
 
+/* SECCIONES */
+/* General styles for sections */
+/* General styles for sections */
 section {
   width: 100%;
   padding: 20px;
   background-color: #fff;
   margin-top: 20px;
+  align-items: center; /* Centrado vertical */
 }
 
-section img {
+/* Styles for the info section */
+.info-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Imagen y texto en columnas */
+  gap: 20px; /* Espacio entre columnas */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+}
+
+.carousel-info img {
   width: auto;
-  height: 100px;
+  height: 550px;
   display: block;
   margin: 0 auto;
+}
+
+.info-details {
+  text-align: center; /* Cambiar a alineación izquierda */
+}
+
+.info-details h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.info-details p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.info-social {
+  display: flex;
+  justify-content: center; /* Alinear íconos a la izquierda */
+  gap: 10px;
+  list-style: none;
+  margin-top: 10px;
+}
+
+
+/* Styles for the about section */
+.about-section {
+  grid-template-columns: 1fr 1fr; /* Imagen y texto en columnas */
+  gap: 20px; /* Espacio entre columnas */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  text-align: center;
+}
+
+.about-details h4 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.about-details p {
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+/* Styles for the features list */
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Crear dos columnas */
+  gap: 15px; /* Espacio entre los elementos */
+  margin-top: 15px;
+  padding-left: 20px;
+  text-align: center; /* Alineación a la izquierda */
+}
+
+.about-features li {
+  font-size: 1rem;
+  margin: 5px 0;
+  list-style: none;
+  cursor: pointer;
 }

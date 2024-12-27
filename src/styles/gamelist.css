@@ -1,3 +1,4 @@
+/* VENTANA MODAL */
 /* Estilo para el fondo de la ventana modal */
 .modal-content {
   background-color: #ffffff !important; /* Fondo blanco sólido */
@@ -107,4 +108,59 @@
 .success {
   color: green;
   font-weight: bold;
+}
+
+
+/* Media query para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 100%; /* Ancho completo en móviles */
+    height: 100%; /* Altura completa en móviles */
+    max-width: none; /* Eliminar límite de ancho */
+    max-height: none; /* Eliminar límite de altura */
+    padding: 10px; /* Ajuste de padding */
+    background-color: rgba(255, 255, 255, 0.97) !important;
+  }
+
+  .invite-section,
+  .remove-section {
+    display: flex; /* Usamos flexbox para organizar los elementos */
+    flex-direction: row; /* Aseguramos que los elementos estén en la misma fila */
+    align-items: center; /* Centramos los elementos verticalmente */
+    justify-content: center; /* Centramos los elementos horizontalmente */
+  }
+
+  .invite-select,
+  .remove-select {
+    width: 45%; /* Ajustamos el ancho para que quepan en la misma fila */
+    margin: 5px;
+    padding: 12px;
+    border: 1px solid #ccc; /* Borde estándar */
+    background-color: white; /* Fondo blanco estándar */
+    z-index: 999; /* Asegura que los elementos estén por encima de otros */
+  }
+
+  .button-invite,
+  .button-invite-guest,
+  .button-delete,
+  .button-join,
+  .button-leave {
+    width: 90%; /* Asegura que los botones se ajusten en pantallas pequeñas */
+    margin: 5px 0;
+    padding: 12px;
+    border: none; /* Sin borde personalizado */
+    background-color: #007bff; /* Color de fondo original (azul) */
+    color: white; /* Texto blanco */
+    font-size: 16px; /* Tamaño de fuente original */
+    cursor: pointer; /* Añadido para mejorar la interacción */
+  }
+
+  .button-invite:hover,
+  .button-invite-guest:hover,
+  .button-delete:hover,
+  .button-join:hover,
+  .button-leave:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón (azul más oscuro) */
+  }
+
 }

@@ -9,12 +9,14 @@
   
   /* Estilos para el footer */
   footer {
+    position: relative;
+    width: 100%; /* Ocupa todo el ancho */
     background-color: var(--footer-bg-color); /* Fondo rojo */
     color: var(--footer-text-color);
     padding: 20px;
     text-align: center;
   }
-  
+
   /* Estilo para los enlaces */
   footer a {
     color: var(--footer-text-color);

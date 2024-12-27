@@ -1,401 +1,110 @@
-/* Estilos para el componente GameList */
-.game-list {
+/* Estilo para el fondo de la ventana modal */
+.modal-content {
+  background-color: #ffffff !important; /* Fondo blanco sólido */
   padding: 20px;
+  border-radius: 8px;
+  width: 90%; /* Ancho adaptativo */
+  max-width: 600px; /* Máximo ancho */
+  max-height: 80vh; /* Altura máxima del 80% de la ventana */
+  overflow-y: auto; /* Agrega desplazamiento vertical si el contenido excede */
+  position: relative;
+  text-align: center; /* Centra el contenido */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
-.error-message {
-  color: red;
+/* Fondo semitransparente oscuro detrás del modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.success-message {
-  color: green;
-}
-
-/* Estilo general de los botones */
-.button {
-  margin-left: 10px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px; /* Esquinas redondeadas */
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s; /* Transición suave para efectos */
-}
-
-.button:hover {
-  transform: scale(1.05); /* Efecto de ampliación al pasar el mouse */
-}
-
-/* Estilos específicos para cada botón */
-.button-join {
-  background: #28a745; /* Verde */
-  color: white;
-}
-
-.button-join:hover {
-  background: #218838; /* Verde más oscuro */
-}
-
-.button-leave {
-  background: #ff9f00; /* Naranja */
-  color: white;
-}
-
-.button-leave:hover {
-  background: #e68a00; /* Naranja más oscuro */
-}
-
-.button-delete {
-  background: #dc3545; /* Rojo */
-  color: white;
-}
-
-.button-delete:hover {
-  background: #c82333; /* Rojo más oscuro */
-}
-
+/* Botón de cierre */
 .button-close {
-  background: #6c757d; /* Gris */
-  color: white;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.3s;
 }
 
 .button-close:hover {
-  background: #5a6268; /* Gris más oscuro */
+  color: #333;
+  background-color: transparent;
 }
 
-
-.button-invite, .button-invite-guest {
-  padding: 8px 12px;  /* Ajusta el espacio interno de ambos botones */
-  font-size: 14px;    /* Tamaño de la fuente igual para ambos */
-  width: 100px;       /* Ancho fijo para igualarlos */
-  height: 40px;       /* Alto fijo para igualarlos */
-  text-align: center; /* Centra el texto */
-  border-radius: 4px; /* Opcional: bordes redondeados */
-  display: inline-block;
-}
-
-/* Estilo específico para el botón de + Invitados */
-/* Estilo para el botón de + Invitados */
-.button-invite {
-  background-color: #a3c1e0; /* Azul claro para el botón de + Invitados */
-  color: rgb(0, 0, 0);       /* Color del texto en negro */
-  border: none;              /* Sin borde, o ajusta según prefieras */
-  padding: 8px 16px;        /* Espaciado del botón */
-  border-radius: 5px;       /* Bordes redondeados */
-  cursor: pointer;           /* Cambiar cursor a puntero al pasar el ratón */
-  font-size: 16px;          /* Tamaño de fuente */
-  width: 100px;              /* Ancho fijo del botón */
-}
-
-/* Estilo específico para el botón de - Invitados */
-.button-invite-guest {
-  background-color: #4a4e55; /* Azul grisáceo para el botón de - Invitados */
-  color: white;               /* Color del texto en blanco */
-  border: none;               /* Sin borde */
-  padding: 8px 16px;         /* Espaciado del botón */
-  border-radius: 5px;        /* Bordes redondeados */
-  cursor: pointer;            /* Cambiar cursor a puntero al pasar el ratón */
-  font-size: 16px;           /* Tamaño de fuente */
-  width: 100px;               /* Ancho fijo del botón */
-}
-
-
-.event-component {
-  display: flex;
-  align-items: center;
-}
-
+/* Imagen del evento */
 .event-image {
-  width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
-/* Estilos para la ventana modal */
-.modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 95%; /* Ancho al 95% para pantallas pequeñas */
-  max-width: 350px; /* Ancho máximo más pequeño */
-  padding: 10px; /* Relleno reducido */
+  width: 10rem; /* Ancho fijo en rem */
+  height: 10rem; /* Alto igual al ancho */
+  object-fit: cover; /* Ajuste para cubrir todo el espacio */
+  margin: 10px auto;
   border-radius: 8px; /* Esquinas redondeadas */
-  background: #fff;
-  z-index: 1001; /* Asegura que el contenido esté sobre el overlay */
-  overflow: hidden; /* Evitar desbordamiento */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra más ligera */
 }
 
-/* Contenido de la imagen del evento */
-.event-image {
-  width: 100%; /* Ajustar anchura al 100% del contenedor */
-  height: auto; /* Mantener la proporción original */
-  max-height: 100px; /* Reducir la altura máxima de la imagen */
-  object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin distorsionarse */
-  border-radius: 5px; /* Esquinas redondeadas en la imagen */
-}
-
-/* Estilo de texto dentro de la modal */
-.modal-content h2 {
-  font-size: 1.1rem; /* Tamaño de fuente menor para el título */
-  margin-bottom: 5px; /* Espaciado inferior reducido */
-  white-space: nowrap; /* Evitar que el título se divida en varias líneas */
-  overflow: hidden; /* Ocultar el texto que no cabe */
-  text-overflow: ellipsis; /* Añadir puntos suspensivos si el texto es demasiado largo */
-}
-
-.modal-content p {
-  font-size: 0.8rem; /* Tamaño de fuente más pequeño para texto general */
-  margin: 3px 0; /* Espaciado entre párrafos reducido */
-}
-
-.modal-content h2 {
-  color: inherit; /* hereda el color del texto general o el color que prefieras */
-}
-
-/* Ajustar botones dentro de la modal */
-.modal-content button {
-  padding: 6px 10px; /* Ajustar tamaño de los botones */
-  font-size: 0.85rem; /* Reducir tamaño de fuente en botones */
-}
-
-/* Estilo de la sección de Invitar Jugadores */
+/* Secciones internas */
 .invite-section,
 .remove-section {
-  display: flex; /* Usar flexbox para alinear en fila */
-  align-items: center; /* Alinear verticalmente */
-  margin-top: 5px; /* Espacio superior para separar de otros elementos */
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; /* Centra los elementos en la fila */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 10px; /* Espacio entre el select y el botón */
 }
 
 .invite-select,
-.remove-select,
-select {
-  width: 70%; /* Ancho del selector */
-  padding: 6px; /* Espaciado interno en select */
-  margin-right: 5px; /* Espaciado a la derecha para separar del botón */
-}
-
-/* Estilo para la X de cerrar la modal */
-.button-close {
-  position: absolute; /* Posicionamiento absoluto */
-  top: 10px; /* Espacio desde la parte superior */
-  right: 10px; /* Espacio desde el lado derecho */
-  background: transparent; /* Fondo transparente */
-  border: none; /* Sin borde */
-  color: #333; /* Color de la X */
-  font-size: 1.5rem; /* Tamaño de fuente para la X */
-  cursor: pointer; /* Cambiar el cursor al pasar el mouse */
-  transition: color 0.3s; /* Transición suave para el color */
-}
-
-.button-close:hover {
-  color: #dc3545; /* Color al pasar el mouse (rojo) */
-}
-
-/* Estilos generales de botones */
-.button {
-  margin-left: 10px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px; /* Esquinas redondeadas */
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s; /* Transición suave para efectos */
-}
-
-.button:hover {
-  transform: scale(1.05); /* Efecto de ampliación al pasar el mouse */
-}
-
-/* Estilos específicos para cada botón */
-.button-join {
-  background: #28a745; /* Verde */
-  color: white;
-}
-
-.button-join:hover {
-  background: #218838; /* Verde más oscuro */
-}
-
-.button-leave {
-  background: #ff9f00; /* Naranja */
-  color: white;
-}
-
-.button-leave:hover {
-  background: #e68a00; /* Naranja más oscuro */
-}
-
-.button-delete {
-  background: #dc3545; /* Rojo */
-  color: white;
-}
-
-.button-delete:hover {
-  background: #c82333; /* Rojo más oscuro */
-}
-
-.button-remove-guest {
-  background: #6c757d; /* Gris */
-  color: white;
-}
-
-.button-remove-guest:hover {
-  background: #5a6268; /* Gris más oscuro */
-}
-
-
-
-/* Estilo de la sección de Echar Jugadores */
-.remove-section {
-  display: flex; /* Usar flexbox para alinear en fila */
-  align-items: center; /* Alinear verticalmente */
-  margin-top: 10px; /* Espacio superior para separar de otros elementos */
-}
-
-.remove-select,
-select {
-  width: 70%; /* Ancho del selector */
-  padding: 6px; /* Espaciado interno en select */
-  margin-right: 5px; /* Espaciado a la derecha para separar del botón */
-}
-
-/* Si necesitas un tamaño de fuente específico para el selector de eliminar jugadores */
 .remove-select {
-  font-size: 0.85rem; /* Tamaño de fuente más pequeño para el selector de eliminar jugadores */
-}
-
-
-
-/* agenda */ 
-.rbc-agenda-date-cell {
-  width: 150px; /* Aumenta el ancho de la celda de la fecha */
-  padding: 10px; /* Añade relleno */
-}
-
-.rbc-agenda-event-cell {
-  padding: 10px;
-  font-size: 14px;
-}
-
-/* Ajusta el tamaño del evento dentro de la agenda */
-.rbc-agenda-event {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px; /* Añade relleno para mejorar el espaciado */
-}
-
-/* Ajusta la altura mínima de las celdas de la agenda para evitar desbordamiento */
-.rbc-agenda-content > table > tbody > tr {
-  min-height: 50px;
-}
-
-/* Estilos para el calendario */
-.rbc-calendar {
-  font-family: Arial, sans-serif;
-}
-
-.rbc-agenda-cell {
-  border: none;
-}
-
-.rbc-agenda-date-cell {
-  font-weight: bold;
-}
-
-.rbc-agenda-event {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 5px;
-}
-
-.rbc-agenda-time {
-  font-weight: bold;
-}
-
-.rbc-agenda-event-title {
-  font-size: 14px;
-}
-
-.rbc-agenda-event-details {
-  font-size: 12px;
-  color: #555;
-}
-
-.rbc-agenda-event-time {
-  color: #666;
-}
-
-/* Estilos específicos para eventos */
-.event-component {
-  padding: 10px;
-  font-size: 14px;
+  padding: 0.8rem; /* Igualar la altura con el botón */
+  border: 1px solid #ccc;
   border-radius: 4px;
-  border: 1px solid #ddd;
-  background: none; /* Elimina el fondo del evento */
+  width: 100%; /* Asegura que el ancho se ajuste */
+  max-width: 200px; /* Limita el ancho máximo */
 }
 
-.event-component strong {
-  display: block;
+.button-invite,
+.button-invite-guest,
+.button-delete,
+.button-join,
+.button-leave {
+  padding: 0.8rem 1.5rem; /* Igualar altura con el select */
+  margin: 0;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* Azul */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%; /* Asegura que el botón ocupe el mismo ancho que el select */
+  max-width: 200px; /* Limita el ancho máximo */
 }
 
-.event-component .event-details {
-  font-size: 12px;
-  color: #555;
+.button-invite:hover,
+.button-invite-guest:hover,
+.button-delete:hover,
+.button-join:hover,
+.button-leave:hover {
+  background-color: #0056b3; /* Azul oscuro */
 }
 
-/* Estilo de los botones dentro del evento */
-.event-component button {
-  margin-top: 5px;
-  padding: 5px;
-  font-size: 12px;
+/* Mensajes de error */
+.error-message {
+  color: red;
+  font-weight: bold;
 }
 
-/* Estilos para los eventos del calendario */
-.rbc-event {
-  background-color: white; /* Fondo blanco por defecto */
-  color: black; /* Letras negras por defecto */
-  border: 1px solid #ddd; /* Borde gris claro */
-  border-radius: 4px; /* Esquinas redondeadas */
-}
-
-.rbc-event:hover {
-  background-color: #f0f0f0; /* Fondo ligeramente gris cuando se pasa el mouse */
-}
-
-.rbc-event-label {
-  font-size: 14px;
-  color: black; /* Letras negras */
-}
-
-.rbc-event-content {
-  padding: 5px;
-}
-
-.rbc-event-time {
-  font-weight: bold; /* Hora en negrita */
-}
-
-.event-image {
-  width: 100%; /* Ajusta la anchura de la imagen al 100% del contenedor */
-  height: auto; /* Mantiene la proporción original de la imagen */
-  margin-bottom: 10px;
-  max-height: 200px; /* Establece una altura máxima fija */
-  object-fit: cover; /* Ajusta la imagen para que cubra el contenedor sin distorsionarse */
-}
-
-/* Para pantallas pequeñas */
-@media (max-width: 768px) {
-  .rbc-calendar {
-      font-size: 12px; /* Reduce el tamaño de fuente */
-  }
-
-  .rbc-agenda-event-title {
-      font-size: 12px; /* Reduce el tamaño de los títulos de los eventos */
-  }
-
-  .rbc-agenda-event {
-      padding: 5px;
-  }
+/* Mensajes de éxito */
+.success {
+  color: green;
+  font-weight: bold;
 }

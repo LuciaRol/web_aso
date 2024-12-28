@@ -31,7 +31,7 @@ const AdminUsers = () => {
   useEffect(() => {
     if (usuario && usuario.email) {
       setEmail(usuario.email);
-      fetchUsuarios(); // Cargar todos los usuarios
+      fetchUsers(); // Cargar todos los usuarios
       checkIfUserIsAdmin(usuario.email); // Verificamos si el usuario es admin
       fetchTotalUsuarios(); // Obtener el total de usuarios
     }
@@ -71,7 +71,7 @@ const AdminUsers = () => {
   };
 
   // Función para cargar los usuarios con paginación y filtro de búsqueda
-  const fetchUsuarios = async () => {
+  const fetchUsers = async () => {
     setLoading(true);
     try {
       const usersRef = collection(firestore, 'users');
@@ -144,7 +144,7 @@ const AdminUsers = () => {
       });
 
       toast.success('Usuario actualizado correctamente');
-      fetchUsuarios(); // Recargar la lista de usuarios
+      fetchUsers(); // Recargar la lista de usuarios
       resetForm(); // Resetear el formulario
     } catch (err) {
       toast.error('Error al actualizar la información del usuario: ' + err.message);
@@ -176,7 +176,7 @@ const AdminUsers = () => {
           fechaHoraModificacion: serverTimestamp(),
         });
         toast.success('Rol actualizado correctamente.');
-        fetchUsuarios(); // Recargar la lista de usuarios
+        fetchUsers(); // Recargar la lista de usuarios
         resetForm(); // Resetear el formulario
       } catch (err) {
             // Mensaje de éxito
@@ -203,7 +203,7 @@ const AdminUsers = () => {
         if (userDoc.exists()) {
           await deleteDoc(usuarioRef);
           toast.success('Usuario eliminado correctamente.');
-          fetchUsuarios(); // Recargar la lista de usuarios
+          fetchUsers(); // Recargar la lista de usuarios
         } else {
           toast.error('No se encontró el usuario en Firestore.');
         }
@@ -214,7 +214,7 @@ const AdminUsers = () => {
   };
 
   const cerrarFormulario = () => {
-    fetchUsuarios(); // Recargar la lista de usuarios
+    fetchUsers(); // Recargar la lista de usuarios
     resetForm(); // Resetear el formulario
   }
   // Lógica para mostrar u ocultar el botón de "Siguiente"
@@ -310,14 +310,6 @@ const AdminUsers = () => {
             </div>
          
         )}
-
-
-
-          {/* Botones de paginación
-          <div className="pagination-buttons">
-            <button onClick={prevPage}>Anterior</button>
-            <button onClick={nextPage} disabled={!showNextButton}>Siguiente</button>
-          </div> */}
         </div>
       )}
       <ToastContainer />

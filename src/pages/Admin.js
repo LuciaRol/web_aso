@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import '../styles/admin.css';
+import '../styles/Admin.css';
 
 const Admin = () => {
     const [user] = useAuthState(auth);
@@ -62,7 +62,7 @@ const Admin = () => {
                     <Link to="/promocionyrecordatorios">Recordatorios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/estadisticas">Estadísticas</Link>
+                    <Link to="/Estadisticas">Estadísticas</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/juegosprestados">Juegos Prestados</Link>

@@ -16,7 +16,7 @@ import CreateUser from './pages/CreateUser';
 import AdminUsers from './pages/AdminUsers';
 import WhoWeAre from './pages/WhoWeAre';
 import Statistics from './pages/Statistics';
-import CrearEventos from './pages/CrearEventos';
+import CreateEvents from './pages/CreateEvents';
 import PromocionYRecordatorios from './pages/PromoRecordatorios';
 import JuegosPrestados from './pages/JuegosPrestados';
 import ListaInvitados from './pages/ListaInvitados';
@@ -39,7 +39,7 @@ const App = () => {
         <Route path="/CreateUser" element={<ProtectedRoute element={<CreateUser />} />} />
         <Route path="/AdminUsers" element={<ProtectedRoute element={<AdminUsers />} />} />
         <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
-        <Route path="/creareventos" element={<ProtectedRoute element={<CrearEventos />} />} />
+        <Route path="/CreateEvents" element={<ProtectedRoute element={<CreateEvents />} />} />
         <Route path="/promocionyrecordatorios" element={<ProtectedRoute element={<PromocionYRecordatorios />} />} />
         <Route path="/Statistics" element={<ProtectedRoute element={<Statistics />} />} />
         <Route path="/juegosprestados" element={<ProtectedRoute element={<JuegosPrestados />} />} />

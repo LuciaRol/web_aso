@@ -50,7 +50,7 @@ const Admin = () => {
             <h1>Panel de Administración</h1>
             <div className="admin-grid">
                 <div className="admin-box">
-                    <Link to="/creareventos">Crear Eventos</Link>
+                    <Link to="/CreateEvents">Crear Eventos</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/CreateUser">Crear Usuarios</Link>

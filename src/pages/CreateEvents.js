@@ -6,7 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase';
 import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta según tu estructura de proyecto
 
-const CrearEventos = () => {
+const CreateEvents = () => {
   const [events, setEvents] = useState([]);
   const [titulo, setTitulo] = useState('');
   const [fecha, setFecha] = useState('');
@@ -247,4 +247,4 @@ const CrearEventos = () => {
   );
 };
 
-export default CrearEventos;
+export default CreateEvents;

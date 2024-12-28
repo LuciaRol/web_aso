@@ -65,7 +65,7 @@ const Admin = () => {
                     <Link to="/Statistics">Estadísticas</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/juegosprestados">Juegos Prestados</Link>
+                    <Link to="/LoanedGames">Juegos Prestados</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/listainvitados">Listado de Invitados</Link>

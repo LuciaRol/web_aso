@@ -2,9 +2,9 @@ import { getDocs, collection } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { firestore } from '../firebase';
 import * as XLSX from 'xlsx'; // Importar la librería xlsx
-import '../styles/listainvitados.css';
+import '../styles/GuestList.css';
 
-const ListaInvitados = () => {
+const GuestList = () => {
   const [guestData, setGuestData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -62,7 +62,7 @@ const ListaInvitados = () => {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Invitados");
 
     // Exportar el archivo Excel
-    XLSX.writeFile(workbook, "ListaInvitados.xlsx");
+    XLSX.writeFile(workbook, "GuestList.xlsx");
   };
 
   // Obtener los datos al montar el componente
@@ -126,4 +126,4 @@ const ListaInvitados = () => {
   );
 };
 
-export default ListaInvitados;
+export default GuestList;

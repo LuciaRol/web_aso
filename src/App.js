@@ -19,7 +19,7 @@ import Statistics from './pages/Statistics';
 import CreateEvents from './pages/CreateEvents';
 import PromocionYRecordatorios from './pages/PromoRecordatorios';
 import LoanedGames from './pages/LoanedGames';
-import ListaInvitados from './pages/ListaInvitados';
+import GuestList from './pages/GuestList';
 import Admin from './pages/Admin';
 
 
@@ -43,7 +43,7 @@ const App = () => {
         <Route path="/promocionyrecordatorios" element={<ProtectedRoute element={<PromocionYRecordatorios />} />} />
         <Route path="/Statistics" element={<ProtectedRoute element={<Statistics />} />} />
         <Route path="/LoanedGames" element={<ProtectedRoute element={<LoanedGames />} />} />
-        <Route path="/listainvitados" element={<ProtectedRoute element={<ListaInvitados />} />} />
+        <Route path="/GuestList" element={<ProtectedRoute element={<GuestList />} />} />
         <Route path="/Ludoteca" element={<Ludoteca />} />
         <Route path="/login" element={<Home />} />
       </Routes>

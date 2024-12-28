@@ -5,7 +5,7 @@ import Footer from './components/Footer'; // Import the Footer component
 import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
 import CreateGame from './pages/CreateGame';
-import Eventos from './pages/Eventos';
+import Events from './pages/Events';
 import GameList from './pages/GameList';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/calendariopartidas" element={<GameList />} />
         <Route path="/crearpartida" element={<ProtectedRoute element={<CreateGame />} />} />
         <Route path="/quienessomos" element={<WhoWeAre />} />
-        <Route path="/eventos" element={<Eventos />} />
+        <Route path="/Events" element={<Events />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/usuario" element={<ProtectedRoute element={<Usuario />} />} />
         <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />

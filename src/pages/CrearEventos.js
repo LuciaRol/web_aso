@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import Modal from '../components/Modal';
-import '../styles/eventos.css';
+import '../styles/Events.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase';
 import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta según tu estructura de proyecto

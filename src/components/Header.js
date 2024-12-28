@@ -83,8 +83,8 @@ const Header = () => {
                             <>
                                 <li>
                                     <Link
-                                        to="/eventos"
-                                        className={window.location.pathname === '/eventos' ? 'active' : ''}
+                                        to="/Events"
+                                        className={window.location.pathname === '/Events' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Eventos
@@ -132,8 +132,8 @@ const Header = () => {
                             <>  
                                 <li>
                                     <Link
-                                        to="/eventos"
-                                        className={window.location.pathname === '/eventos' ? 'active' : ''}
+                                        to="/Events"
+                                        className={window.location.pathname === '/Events' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Eventos

@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { Bar } from 'react-chartjs-2';
 import { firestore } from '../firebase'; // Importa la configuración de Firebase
 import Spinner from '../components/Spinner'; // Importa el Spinner
-import '../styles/estadisticas.css'; // Estilo personalizado si lo necesitas
+import '../styles/Statistics.css'; // Estilo personalizado si lo necesitas
 import { FaUserAlt } from 'react-icons/fa'; // Icono de usuario
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
@@ -17,7 +17,7 @@ ChartJS.register(
   Legend
 );
 
-const Estadisticas = () => {
+const Statistics = () => {
   const [chartData, setChartData] = useState({});
   const [invitedChartData, setInvitedChartData] = useState({});
   const [historicludotecaChartData, setHistoricChartData] = useState({}); // Para los datos del gráfico de historicoprestamojuegos
@@ -142,7 +142,7 @@ const Estadisticas = () => {
   }, []);
 
   return (
-    <div className="estadisticas-container">
+    <div className="Statistics-container">
       {/* Contenedor de Número de Usuarios */}
       <div className="user-count-box">
         <FaUserAlt size={50} /> {/* Ícono de persona */}
@@ -216,4 +216,4 @@ const Estadisticas = () => {
   );
 };
 
-export default Estadisticas;
+export default Statistics;

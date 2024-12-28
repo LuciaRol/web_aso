@@ -53,7 +53,7 @@ const JuegosPrestados = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="estadisticas-container">
+    <div className="Statistics-container">
       {/* Contenedor de Número de Usuarios */}
       {/* Listado de Juegos Prestados */}
       <div className="loaned-games-list">

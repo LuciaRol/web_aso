@@ -62,7 +62,7 @@ const Admin = () => {
                     <Link to="/promocionyrecordatorios">Recordatorios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/Estadisticas">Estadísticas</Link>
+                    <Link to="/Statistics">Estadísticas</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/juegosprestados">Juegos Prestados</Link>

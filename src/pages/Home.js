@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Counter from '../components/counter';
 import partidaVideo from '../img/dragon_dnd.mp4'; // Ruta del video
-import queenDragon from '../img/landing/queen_dragon.png';
 import aso1 from '../img/quienes_somos/aso1.jpg';
 import aso2 from '../img/quienes_somos/aso2.jpg';
 import aso3 from '../img/quienes_somos/aso3.jpg';
@@ -14,13 +13,12 @@ import Discount from '../img/landing/Discount.png';
 import '../styles/home.css';
 
 const Home = () => {
-  
-
   return (
     <div className="home-container">
 
         <main className="image-container">
-          <img src={queenDragon}/>
+          {/* Cambiar imagen por video */}
+          <video src={partidaVideo} autoPlay loop muted className="video-background" />
 
           <div className="counter-section">
               {/* Cuadrado del contador de juegos */}
@@ -132,13 +130,8 @@ const Home = () => {
 </ul>
 
         </section>
-
-
     </div>
-
   );
-
-  
 };
 
 export default Home;

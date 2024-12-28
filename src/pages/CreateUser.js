@@ -52,6 +52,7 @@ const CreateUser = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, nuevoEmail, nuevaContraseña);
       const user = userCredential.user;
       
+
       // Store additional data in Firestore, including UID
       await addDoc(collection(firestore, 'users'), {
         uid: user.uid,  // Store UID in db

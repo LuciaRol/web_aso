@@ -53,13 +53,13 @@ const Admin = () => {
                     <Link to="/creareventos">Crear Eventos</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/crearusuario">Crear Usuarios</Link>
+                    <Link to="/CreateUser">Crear Usuarios</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/adminusuarios">Administrar Usuarios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/promocionyrecordatorios">Promoción y Recordatorios</Link>
+                    <Link to="/promocionyrecordatorios">Recordatorios</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/estadisticas">Estadísticas</Link>

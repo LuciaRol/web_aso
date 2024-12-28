@@ -1,10 +1,10 @@
 /* Estilo general */
 :root {
-  --adminusuarios-bg-color: #012E4A; /* Fondo rojo para el footer */
-  --adminusuarios-bg-color-cancel: #4a1001; /* Fondo rojo para el footer */
-  --adminusuarios-text-color: white; /* Color del texto en el footer */
-  --adminusuarios-background-color: #f0f0f0;
-  --adminusuarios-link-hover: #B37100;
+  --AdminUsers-bg-color: #012E4A; /* Fondo rojo para el footer */
+  --AdminUsers-bg-color-cancel: #4a1001; /* Fondo rojo para el footer */
+  --AdminUsers-text-color: white; /* Color del texto en el footer */
+  --AdminUsers-background-color: #f0f0f0;
+  --AdminUsers-link-hover: #B37100;
 }
 
 .users-grid {
@@ -32,8 +32,8 @@
 .user-card button {
   margin: 4px 0;
   padding: 8px 12px;
-  background-color: var(--adminusuarios-bg-color);
-  color: var(--adminusuarios-text-color);
+  background-color: var(--AdminUsers-bg-color);
+  color: var(--AdminUsers-text-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -49,8 +49,8 @@
 .pagination-buttons button {
   padding: 10px 20px;
   margin: 5px;
-  background-color: var(--adminusuarios-bg-color);
-  color: var(--adminusuarios-text-color);
+  background-color: var(--AdminUsers-bg-color);
+  color: var(--AdminUsers-text-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -81,7 +81,7 @@
 
 /* Estilo del formulario */
 .user-form {
-  background-color: var(--adminusuarios-background-color);
+  background-color: var(--AdminUsers-background-color);
   padding: 20px;
   border-radius: 8px;
   width: 300px; /* Ajusta el ancho del formulario */
@@ -89,7 +89,7 @@
   margin-top: 20px;
 }
 .user-form h3 {
-  color: var(--adminusuarios-bg-color);
+  color: var(--AdminUsers-bg-color);
   text-align: center;
   margin-bottom: 20px;
 }
@@ -110,13 +110,13 @@
 
 .user-form input:focus {
   outline: none;
-  border-color: var(--adminusuarios-bg-color);
+  border-color: var(--AdminUsers-bg-color);
 }
 
 .user-form button {
   padding: 10px;
-  background-color: var(--adminusuarios-bg-color);
-  color: var(--adminusuarios-text-color);
+  background-color: var(--AdminUsers-bg-color);
+  color: var(--AdminUsers-text-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -124,7 +124,7 @@
 }
 
 .user-form button:hover {
-  background-color: var(--adminusuarios-link-hover);
+  background-color: var(--AdminUsers-link-hover);
 }
 
 .user-form button:disabled {
@@ -134,21 +134,21 @@
 
 /* Botón cancelar de editar usuario */
 .user-form button.cancel-button {
-  background-color: var(--adminusuarios-bg-color-cancel);  /* Color gris para el botón de cancelar */
-  color: var(--adminusuarios-text-color);  /* Color de texto más oscuro */
+  background-color: var(--AdminUsers-bg-color-cancel);  /* Color gris para el botón de cancelar */
+  color: var(--AdminUsers-text-color);  /* Color de texto más oscuro */
   font-size: 16px;
 }
 
 .user-form button.cancel-button:hover {
-  background-color: var(--adminusuarios-link-hover);  /* Color de fondo cuando se pasa el mouse por encima */
+  background-color: var(--AdminUsers-link-hover);  /* Color de fondo cuando se pasa el mouse por encima */
 }
 
 /* Estilos generales para los botones */
 button {
   padding: 10px 20px;
   margin: 5px;
-  background-color: var(--adminusuarios-bg-color);
-  color: var(--adminusuarios-text-color);
+  background-color: var(--AdminUsers-bg-color);
+  color: var(--AdminUsers-text-color);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -157,7 +157,7 @@ button {
 
 /* Cambio de color al pasar el mouse por encima */
 button:hover {
-  background-color: var(--adminusuarios-link-hover);
+  background-color: var(--AdminUsers-link-hover);
 }
 
 /* Agregar color para los botones deshabilitados */

@@ -56,7 +56,7 @@ const Admin = () => {
                     <Link to="/CreateUser">Crear Usuarios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/adminusuarios">Administrar Usuarios</Link>
+                    <Link to="/AdminUsers">Administrar Usuarios</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/promocionyrecordatorios">Recordatorios</Link>

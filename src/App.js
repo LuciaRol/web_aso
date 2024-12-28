@@ -10,7 +10,7 @@ import GameList from './pages/GameList';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Ludoteca from './pages/Ludoteca';
-import RegistroInvitados from './pages/RegistroInvitados';
+import GuestRegistry from './pages/GuestRegistry';
 import User from './pages/User';
 import CreateUser from './pages/CreateUser';
 import AdminUsers from './pages/AdminUsers';
@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/admin" element={<ProtectedRoute element={<Admin />} />} />
         <Route path="/CreateUser" element={<ProtectedRoute element={<CreateUser />} />} />
         <Route path="/AdminUsers" element={<ProtectedRoute element={<AdminUsers />} />} />
-        <Route path="/RegistroInvitados" element={<ProtectedRoute element={<RegistroInvitados />} />} />
+        <Route path="/GuestRegistry" element={<ProtectedRoute element={<GuestRegistry />} />} />
         <Route path="/CreateEvents" element={<ProtectedRoute element={<CreateEvents />} />} />
         <Route path="/Reminder" element={<ProtectedRoute element={<Reminder />} />} />
         <Route path="/Statistics" element={<ProtectedRoute element={<Statistics />} />} />

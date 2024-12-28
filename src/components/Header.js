@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import defaultImage from '../img/meeple_logo.png';
-import '../styles/header.css';
+import '../styles/Header.css';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 const Header = () => {
@@ -159,8 +159,8 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/registroinvitados"
-                                        className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}
+                                        to="/GuestRegistry"
+                                        className={window.location.pathname === '/GuestRegistry' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Registro Invitados

@@ -10,7 +10,7 @@ import House from '../img/landing/House.png';
 import Meeple from '../img/landing/Meeple.png';
 import Evento from '../img/landing/Event.png';
 import Discount from '../img/landing/Discount.png';
-import '../styles/home.css';
+import '../styles/Home.css';
 
 const Home = () => {
   return (

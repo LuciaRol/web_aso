@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import { firestore } from '../firebase'; // Asegúrate de importar Firestore
 import { collection, query, where, getDocs } from 'firebase/firestore'; // Métodos para consultar Firestore
-import '../styles/login.css';
+import '../styles/Login.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

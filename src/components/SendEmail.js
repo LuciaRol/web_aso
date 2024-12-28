@@ -1,7 +1,7 @@
 // src/components/SendEmail.js
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
-import '../styles/whoweare.css';
+import '../styles/WhoWeAre.css';
 
 const SendEmail = () => {
   const [emailData, setEmailData] = useState({ name: '', email: '', message: '' });

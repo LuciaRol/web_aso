@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { auth, firestore } from '../firebase'; 
-import '../styles/ludoteca.css'; // Import CSS for styles
+import '../styles/Ludoteca.css'; // Import CSS for styles
 import { utils, writeFile } from 'xlsx'; // Importar utilidades para exportar Excel
 import { sendTelegramMessage } from '../components/TelegramMessenger'; // Telegram component
 

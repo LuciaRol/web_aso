@@ -177,8 +177,8 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/usuario"
-                                        className={window.location.pathname === '/Usuario' ? 'active' : ''}
+                                        to="/User"
+                                        className={window.location.pathname === '/User' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Usuario

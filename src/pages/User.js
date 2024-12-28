@@ -11,12 +11,12 @@ import {
 import { auth } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/usuario.css';
+import '../styles/User.css';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Usuario = () => {
+const User = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -178,4 +178,4 @@ const Usuario = () => {
   );
 };
 
-export default Usuario;
+export default User;

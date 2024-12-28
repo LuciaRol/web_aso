@@ -52,10 +52,6 @@ const CrearUsuario = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, nuevoEmail, nuevaContraseña);
       const user = userCredential.user;
       
-      // Signout so it doesn't log into the new user. This process is done automatically with function of line 52. It is thought so each user logs in itself.
-      // From other customer requirements, it would be done as per Firestore suggestions. In here, the admin must be the one to sign up new users. 
-      await signOut(auth);
-
 
       // Store additional data in Firestore, including UID
       await addDoc(collection(firestore, 'users'), {
@@ -69,6 +65,11 @@ const CrearUsuario = () => {
         fechaHoraRegistro: serverTimestamp(),
         fechaHoraModificacion: serverTimestamp(),
       });
+
+
+      // Signout so it doesn't log into the new user. This process is done automatically with function of line 71. It is thought so each user logs in itself.
+      // From other customer requirements, it would be done as per Firestore suggestions. In here, the admin must be the one to sign up new users. 
+      await signOut(auth);
 
       setExito('Nuevo usuario agregado exitosamente');
       // Clear form fields after submission

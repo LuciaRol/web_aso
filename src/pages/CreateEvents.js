@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, deleteDoc, doc, query, where } from 'firebase/firestore';
 import Modal from '../components/Modal';
 import '../styles/events.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from '../firebase';
-import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta según tu estructura de proyecto
+import { sendTelegramMessage } from '../components/TelegramMessenger'; // Adjust path as per your project structure
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateEvents = () => {
   const [events, setEvents] = useState([]);
@@ -13,17 +15,13 @@ const CreateEvents = () => {
   const [hora, setHora] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [imagen, setImagen] = useState('');
-  const [error, setError] = useState('');
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [usuario] = useAuthState(auth);
   const [isAdmin, setIsAdmin] = useState(false);
   const thread_id = 180; // Id del tema Eventos
-  const defaultImageUrl = 'https://pbs.twimg.com/media/Fz4hsZrXwAA6lG4.jpg';
 
-
-  // Fetch events from Firestore
   const fetchEvents = async () => {
     setLoading(true);
     try {
@@ -41,6 +39,7 @@ const CreateEvents = () => {
       });
       setEvents(eventsData);
     } catch (error) {
+      toast.error('Error al obtener los eventos.');
       console.error('Error al obtener los eventos:', error);
     } finally {
       setLoading(false);
@@ -56,8 +55,9 @@ const CreateEvents = () => {
 
   const checkIfUserIsAdmin = async (email) => {
     try {
-      const usersRef = collection(firestore, 'users');
-      const querySnapshot = await getDocs(usersRef);
+      const querySnapshot = await getDocs(
+        query(collection(firestore, 'users'), where('email', '==', email))
+      );
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         if (userData.email === email && userData.role === 'admin') {
@@ -65,6 +65,7 @@ const CreateEvents = () => {
         }
       });
     } catch (err) {
+      toast.error('Error al verificar si el usuario es admin.');
       console.error('Error al verificar si el usuario es admin:', err);
     }
   };
@@ -73,12 +74,12 @@ const CreateEvents = () => {
     e.preventDefault();
 
     if (!isAdmin) {
-      setError('No tienes permisos para crear eventos.');
+      toast.error('No tienes permisos para crear eventos.');
       return;
     }
 
     if (!titulo || !fecha || !hora || !descripcion || !imagen) {
-      setError('Por favor, completa todos los campos.');
+      toast.error('Por favor, completa todos los campos.');
       return;
     }
 
@@ -93,26 +94,22 @@ const CreateEvents = () => {
       });
 
       const message = `Nuevo evento creado:
-      
         ${titulo}
         - Fecha: ${fecha}
         - Hora: ${hora}
         - Descripción: ${descripcion}`;
-      
-        // Enviar mensaje de Telegram después de crear el evento
       await sendTelegramMessage(message, imagen, thread_id);
-
 
       setTitulo('');
       setFecha('');
       setHora('');
       setDescripcion('');
       setImagen('');
-      setError('');
-      alert('Evento creado correctamente');
+      toast.success('Evento creado correctamente.');
       fetchEvents();
     } catch (error) {
-      setError('Error al crear el evento: ' + error.message);
+      toast.error('Error al crear el evento.');
+      console.error('Error al crear el evento:', error);
     } finally {
       setLoading(false);
     }
@@ -120,14 +117,15 @@ const CreateEvents = () => {
 
   const handleDeleteEvent = async (id) => {
     if (!isAdmin) {
-      setError('No tienes permisos para crear eventos.');
+      toast.error('No tienes permisos para eliminar eventos.');
       return;
     }
     try {
       await deleteDoc(doc(firestore, 'eventos', id));
       setEvents(events.filter((event) => event.id !== id));
-      alert('Evento eliminado correctamente');
+      toast.success('Evento eliminado correctamente.');
     } catch (error) {
+      toast.error('Error al eliminar el evento.');
       console.error('Error al eliminar el evento:', error);
     }
   };
@@ -144,13 +142,13 @@ const CreateEvents = () => {
 
   return (
     <div>
+      <ToastContainer />
       <h1>Crear Evento</h1>
       <div className="description">
         <p>Crea un evento especial y compártelo con todos para que no se lo pierdan...</p>
       </div>
 
       <form onSubmit={handleSubmit}>
-        {error && <div className="error-message">{error}</div>}
         <div className="form-group">
           <label htmlFor="titulo">Título</label>
           <input
@@ -225,19 +223,17 @@ const CreateEvents = () => {
             <p>
               <strong>Fecha:</strong> {event.date} {event.time}
             </p>
-            <button 
+            <button
               onClick={(e) => {
-                e.stopPropagation();  // We do not allow the click to open the modal window
+                e.stopPropagation(); // Prevent opening modal
                 handleDeleteEvent(event.id);
-              }} 
+              }}
               className="delete-button"
             >
               Eliminar Evento
             </button>
           </div>
-          
         ))}
-          
       </div>
 
       {selectedEvent && (

@@ -1,6 +1,6 @@
-// nombresPersonajes.js
+// GuestNames.js
 
-const nombresPersonajes = [
+const GuestNames = [
     "Homer Simpson", "Rick Sánchez", "Peter Parker", "Bruce Wayne", "Clark Kent", 
     "Tony Stark", "Bart Simpson", "Mickey Mouse", "Pedro Picapiedra", "Scooby-Doo", 
     "Patricio Estrella", "Johnny Bravo", "Shaggy Rogers", "Tommy Pickles", "Dexter", 
@@ -57,4 +57,4 @@ const nombresPersonajes = [
     "Treebeard", "Bilbo Baggins", "Gordo Bolger",
 ];
 
-export default nombresPersonajes;
+export default GuestNames;

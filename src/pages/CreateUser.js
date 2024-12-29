@@ -2,10 +2,10 @@ import { addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/usuario.css';
+import '../styles/user.css';
 import { createUserWithEmailAndPassword, signOut} from "firebase/auth";
 
-const CrearUsuario = () => {
+const CreateUser = () => {
   const [nuevoEmail, setNuevoEmail] = useState('');
   const [nuevaContraseña, setNuevaContraseña] = useState('');
   const [nombre, setNombre] = useState('');
@@ -66,8 +66,7 @@ const CrearUsuario = () => {
         fechaHoraModificacion: serverTimestamp(),
       });
 
-
-      // Signout so it doesn't log into the new user. This process is done automatically with function of line 71. It is thought so each user logs in itself.
+      // Signout so it doesn't log into the new user. This process is done automatically with function of line 52. It is thought so each user logs in itself.
       // From other customer requirements, it would be done as per Firestore suggestions. In here, the admin must be the one to sign up new users. 
       await signOut(auth);
 
@@ -182,4 +181,4 @@ const CrearUsuario = () => {
   );
 };
 
-export default CrearUsuario;
+export default CreateUser;

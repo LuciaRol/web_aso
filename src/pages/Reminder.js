@@ -5,7 +5,7 @@ import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Importar estilos de react-toastify
 
-const PromocionYRecordatorios = () => {
+const Reminder = () => {
   // Función para obtener los eventos y enviarlos manualmente
   const handleManualExecution = async () => {
     try {
@@ -74,4 +74,4 @@ Descripción: ${event.descripcion}`;
   );
 };
 
-export default PromocionYRecordatorios;
+export default Reminder;

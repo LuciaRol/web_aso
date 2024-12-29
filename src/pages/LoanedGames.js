@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase'; // Importa la configuración de Firebase
-import '../styles/juegosprestados.css'; // Estilo personalizado si lo necesitas
+import '../styles/loanedgames.css'; // Estilo personalizado si lo necesitas
 
 
 
-const JuegosPrestados = () => {
+const LoanedGames = () => {
   const [loanedGames, setLoanedGames] = useState([]); // Para los juegos prestados
   const [usersMap, setUsersMap] = useState({}); // Mapa de usuarios (email -> {name, lastName})
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +53,7 @@ const JuegosPrestados = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="estadisticas-container">
+    <div className="Statistics-container">
       {/* Contenedor de Número de Usuarios */}
       {/* Listado de Juegos Prestados */}
       <div className="loaned-games-list">
@@ -105,4 +105,4 @@ const JuegosPrestados = () => {
   );
 };
 
-export default JuegosPrestados;
+export default LoanedGames;

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { firestore } from '../firebase';
-import '../styles/registroinvitados.css';
+import '../styles/guestregistry.css';
 
 const normalizeText = (text) => {
   return text
@@ -13,7 +13,7 @@ const normalizeText = (text) => {
     .trim();
 };
 
-const RegistroInvitados = () => {
+const GuestRegistry = () => {
   const [invitedName, setInvitedName] = useState('');
   const [invitedSurname, setInvitedSurname] = useState('');
   const [searchText, setSearchText] = useState('');
@@ -192,4 +192,4 @@ const RegistroInvitados = () => {
   );
 };
 
-export default RegistroInvitados;
+export default GuestRegistry;

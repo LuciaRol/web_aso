@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase'; // Asegúrate de que firestore está correctamente configurado
 import Modal from '../components/Modal';
-import '../styles/eventos.css'; // Importa el CSS para los estilos
+import '../styles/events.css';  // Importa el CSS para los estilos
 
 const Event = ({ event, onOpen }) => {
   return (
@@ -15,7 +15,7 @@ const Event = ({ event, onOpen }) => {
   );
 };
 
-const Eventos = () => {
+const Events = () => {
   const [events, setEvents] = useState([]); // Estado para los eventos
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -80,4 +80,4 @@ const Eventos = () => {
   );
 };
 
-export default Eventos;
+export default Events;

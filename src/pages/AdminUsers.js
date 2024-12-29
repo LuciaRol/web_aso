@@ -1,12 +1,12 @@
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/adminusuarios.css';
+import '../styles/adminusers.css';
 import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';  // Importar ToastContainer y toast
 import 'react-toastify/dist/ReactToastify.css'; // Importar estilos
 
-const AdminUsuarios = () => {
+const AdminUsers = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
@@ -31,7 +31,7 @@ const AdminUsuarios = () => {
   useEffect(() => {
     if (usuario && usuario.email) {
       setEmail(usuario.email);
-      fetchUsuarios(); // Cargar todos los usuarios
+      fetchUsers(); // Cargar todos los usuarios
       checkIfUserIsAdmin(usuario.email); // Verificamos si el usuario es admin
       fetchTotalUsuarios(); // Obtener el total de usuarios
     }
@@ -71,7 +71,7 @@ const AdminUsuarios = () => {
   };
 
   // Función para cargar los usuarios con paginación y filtro de búsqueda
-  const fetchUsuarios = async () => {
+  const fetchUsers = async () => {
     setLoading(true);
     try {
       const usersRef = collection(firestore, 'users');
@@ -144,7 +144,7 @@ const AdminUsuarios = () => {
       });
 
       toast.success('Usuario actualizado correctamente');
-      fetchUsuarios(); // Recargar la lista de usuarios
+      fetchUsers(); // Recargar la lista de usuarios
       resetForm(); // Resetear el formulario
     } catch (err) {
       toast.error('Error al actualizar la información del usuario: ' + err.message);
@@ -176,7 +176,7 @@ const AdminUsuarios = () => {
           fechaHoraModificacion: serverTimestamp(),
         });
         toast.success('Rol actualizado correctamente.');
-        fetchUsuarios(); // Recargar la lista de usuarios
+        fetchUsers(); // Recargar la lista de usuarios
         resetForm(); // Resetear el formulario
       } catch (err) {
             // Mensaje de éxito
@@ -203,7 +203,7 @@ const AdminUsuarios = () => {
         if (userDoc.exists()) {
           await deleteDoc(usuarioRef);
           toast.success('Usuario eliminado correctamente.');
-          fetchUsuarios(); // Recargar la lista de usuarios
+          fetchUsers(); // Recargar la lista de usuarios
         } else {
           toast.error('No se encontró el usuario en Firestore.');
         }
@@ -214,7 +214,7 @@ const AdminUsuarios = () => {
   };
 
   const cerrarFormulario = () => {
-    fetchUsuarios(); // Recargar la lista de usuarios
+    fetchUsers(); // Recargar la lista de usuarios
     resetForm(); // Resetear el formulario
   }
   // Lógica para mostrar u ocultar el botón de "Siguiente"
@@ -310,14 +310,6 @@ const AdminUsuarios = () => {
             </div>
          
         )}
-
-
-
-          {/* Botones de paginación
-          <div className="pagination-buttons">
-            <button onClick={prevPage}>Anterior</button>
-            <button onClick={nextPage} disabled={!showNextButton}>Siguiente</button>
-          </div> */}
         </div>
       )}
       <ToastContainer />
@@ -325,4 +317,4 @@ const AdminUsuarios = () => {
   );
 };
 
-export default AdminUsuarios;
+export default AdminUsers;

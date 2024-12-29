@@ -8,7 +8,7 @@ import Modal from 'react-modal';
 import { auth, firestore } from '../firebase';
 import defaultImage from '../img/partida_abierta.jpg';
 import '../styles/gamelist.css'; // Importa el CSS
-import nombresPersonajes from './nombresPersonajes'; // Ajusta la ruta según sea necesario
+import GuestNames from './GuestNames'; // Ajusta la ruta según sea necesario
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -320,7 +320,7 @@ const GameList = () => {
       const actualInvitations = Math.min(count, maxInvitations); // Limita el número de invitados al máximo permitido
   
       // Selecciona nombres aleatorios para los nuevos invitados
-      const nuevosInvitados = seleccionarNombresAleatorios(actualInvitations, nombresPersonajes);
+      const nuevosInvitados = seleccionarNombresAleatorios(actualInvitations, GuestNames);
   
       const updatedJugadores = [...partidaData.jugadores, ...nuevosInvitados];
       await updateDoc(partidaRef, {
@@ -363,7 +363,7 @@ const GameList = () => {
       
       // Filtrar los jugadores que están en la partida y coinciden con los nombres del array
       const invitados = partidaData.jugadores.filter(jugador =>
-        nombresPersonajes.includes(jugador)
+        GuestNames.includes(jugador)
       );
   
       if (invitados.length === 0) {
@@ -547,7 +547,7 @@ const GameList = () => {
                   </div>
                   <div className="remove-section">
                     {selectedEvent.resource.jugadores.includes(`${nombreUsuario} ${apellidoUsuario}`) && (
-                      selectedEvent.resource.jugadores.some(jugador => nombresPersonajes.includes(jugador)) && (
+                      selectedEvent.resource.jugadores.some(jugador => GuestNames.includes(jugador)) && (
                         <>
                           <label htmlFor="numInvitadosEliminar"></label>
                           <select
@@ -557,7 +557,7 @@ const GameList = () => {
                             className="remove-select"
                           >
                             {/* Generar opciones hasta el número de invitados actuales */}
-                            {[...Array(selectedEvent.resource.jugadores.filter(jugador => nombresPersonajes.includes(jugador)).length).keys()].map(num => (
+                            {[...Array(selectedEvent.resource.jugadores.filter(jugador => GuestNames.includes(jugador)).length).keys()].map(num => (
                               <option key={num + 1} value={num + 1}>
                                 {num + 1}
                               </option>

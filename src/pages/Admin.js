@@ -50,25 +50,25 @@ const Admin = () => {
             <h1>Panel de Administración</h1>
             <div className="admin-grid">
                 <div className="admin-box">
-                    <Link to="/creareventos">Crear Eventos</Link>
+                    <Link to="/CreateEvents">Crear Eventos</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/crearusuario">Crear Usuarios</Link>
+                    <Link to="/CreateUser">Crear Usuarios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/adminusuarios">Administrar Usuarios</Link>
+                    <Link to="/AdminUsers">Administrar Usuarios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/promocionyrecordatorios">Promoción y Recordatorios</Link>
+                    <Link to="/Reminder">Recordatorios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/estadisticas">Estadísticas</Link>
+                    <Link to="/Statistics">Estadísticas</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/juegosprestados">Juegos Prestados</Link>
+                    <Link to="/LoanedGames">Juegos Prestados</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/listainvitados">Listado de Invitados</Link>
+                    <Link to="/GuestList">Listado de Invitados</Link>
                 </div>
             </div>
         </div>

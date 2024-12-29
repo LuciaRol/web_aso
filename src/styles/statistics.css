@@ -19,7 +19,7 @@
     100% { transform: rotate(360deg); }
 }
   
-.estadisticas-container {
+.Statistics-container {
     display: flex;
     flex-direction: column;
     align-items: center;

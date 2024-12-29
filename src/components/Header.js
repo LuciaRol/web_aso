@@ -83,8 +83,8 @@ const Header = () => {
                             <>
                                 <li>
                                     <Link
-                                        to="/eventos"
-                                        className={window.location.pathname === '/eventos' ? 'active' : ''}
+                                        to="/Events"
+                                        className={window.location.pathname === '/Events' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Eventos
@@ -132,8 +132,8 @@ const Header = () => {
                             <>  
                                 <li>
                                     <Link
-                                        to="/eventos"
-                                        className={window.location.pathname === '/eventos' ? 'active' : ''}
+                                        to="/Events"
+                                        className={window.location.pathname === '/Events' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Eventos
@@ -159,8 +159,8 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/registroinvitados"
-                                        className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}
+                                        to="/GuestRegistry"
+                                        className={window.location.pathname === '/GuestRegistry' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Registro Invitados
@@ -177,8 +177,8 @@ const Header = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/usuario"
-                                        className={window.location.pathname === '/Usuario' ? 'active' : ''}
+                                        to="/User"
+                                        className={window.location.pathname === '/User' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
                                         Usuario

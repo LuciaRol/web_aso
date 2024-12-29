@@ -53,7 +53,7 @@
     justify-content: space-between;
     width: 100%; /* Aseguramos que ocupe el 100% del ancho disponible */
     max-width: 1200px; /* Limita el ancho máximo */
-    height: 60vh; /* Asegura que los gráficos se vean de forma cómoda */
+    height: 20vh; /* Asegura que los gráficos se vean de forma cómoda */
 }
 
 .chart-box {

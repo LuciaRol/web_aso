@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner'; // Importa el componente Spinner
-import '../styles/CreateGame.css'; // Import the CSS file
+import '../styles/creategame.css'; // Import the CSS file
 import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta según tu estructura de proyecto
 import { auth, firestore } from '../firebase';
 

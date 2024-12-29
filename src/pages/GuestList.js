@@ -2,7 +2,7 @@ import { getDocs, collection } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { firestore } from '../firebase';
 import * as XLSX from 'xlsx'; // Importar la librería xlsx
-import '../styles/GuestList.css';
+import '../styles/guestlist.css';
 
 const GuestList = () => {
   const [guestData, setGuestData] = useState([]);

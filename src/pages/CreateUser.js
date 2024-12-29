@@ -2,7 +2,7 @@ import { addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/User.css';
+import '../styles/user.css';
 import { createUserWithEmailAndPassword, signOut} from "firebase/auth";
 
 const CreateUser = () => {

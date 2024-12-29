@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Modal from 'react-modal';
 import { auth, firestore } from '../firebase';
 import defaultImage from '../img/partida_abierta.jpg';
-import '../styles/GameList.css'; // Importa el CSS
+import '../styles/gamelist.css'; // Importa el CSS
 import GuestNames from './GuestNames'; // Ajusta la ruta según sea necesario
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

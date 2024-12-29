@@ -7,7 +7,7 @@ import SendEmail from '../components/SendEmail';
 import { FaWhatsapp } from 'react-icons/fa'; // Importamos el icono de WhatsApp
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import '../styles/WhoWeAre.css'; // Importa el CSS correspondiente
+import '../styles/whoweare.css'; // Importa el CSS correspondiente
 
 
 

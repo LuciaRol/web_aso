@@ -3,7 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { Bar } from 'react-chartjs-2';
 import { firestore } from '../firebase'; // Importa la configuración de Firebase
 import Spinner from '../components/Spinner'; // Importa el Spinner
-import '../styles/Statistics.css'; // Estilo personalizado si lo necesitas
+import '../styles/statistics.css'; // Estilo personalizado si lo necesitas
 import { FaUserAlt } from 'react-icons/fa'; // Icono de usuario
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 

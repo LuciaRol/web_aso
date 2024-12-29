@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import '../styles/Admin.css';
+import '../styles/admin.css';
 
 const Admin = () => {
     const [user] = useAuthState(auth);

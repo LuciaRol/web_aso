@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase'; // Importa la configuración de Firebase
-import '../styles/LoanedGames.css'; // Estilo personalizado si lo necesitas
+import '../styles/loanedgames.css'; // Estilo personalizado si lo necesitas
 
 
 

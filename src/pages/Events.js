@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase'; // Asegúrate de que firestore está correctamente configurado
 import Modal from '../components/Modal';
-import '../styles/Events.css'; // Importa el CSS para los estilos
+import '../styles/events.css'; // Importa el CSS para los estilos
 
 const Event = ({ event, onOpen }) => {
   return (

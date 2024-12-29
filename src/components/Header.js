@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
 import defaultImage from '../img/meeple_logo.png';
-import '../styles/Header.css';
+import '../styles/header.css';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 const Header = () => {

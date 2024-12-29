@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { firestore } from '../firebase';
-import '../styles/GuestRegistry.css';
+import '../styles/guestregistry.css';
 
 const normalizeText = (text) => {
   return text

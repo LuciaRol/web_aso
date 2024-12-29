@@ -1,7 +1,7 @@
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/AdminUsers.css';
+import '../styles/adminusers.css';
 import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';  // Importar ToastContainer y toast
 import 'react-toastify/dist/ReactToastify.css'; // Importar estilos

@@ -187,3 +187,23 @@ select {
   padding: 12px;
   font-size: 1em;
 }
+
+/* Botón Edit */
+.edit-form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+}
+
+.edit-form .form-group {
+  margin-bottom: 15px;
+}
+
+.edit-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}

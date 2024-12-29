@@ -95,3 +95,95 @@ h1 {
 .event-container strong {
   color: #333;
 }
+
+
+/* Formulario crear eventos */
+form {
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Título del formulario */
+form h2 {
+  text-align: center;
+  color: var(--secondary-color-eventos);
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+/* Campos de entrada */
+input[type="text"], input[type="email"], input[type="date"], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  font-size: 1em;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  box-sizing: border-box;
+  transition: border-color var(--transition-time);
+}
+
+/* Cambiar color de borde al enfocar los campos */
+input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+  border-color: var(--primary-color-eventos);
+  outline: none;
+}
+
+/* Estilo para el botón */
+button {
+  padding: 12px;
+  background-color: var(--primary-color-eventos);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color var(--transition-time);
+}
+
+button:hover {
+  background-color: var(--secondary-color-eventos);
+}
+
+/* Espacio adicional en el botón */
+button:focus {
+  outline: none;
+}
+
+/* Mensajes de error */
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+/* Estilo para el texto en los campos */
+label {
+  font-weight: bold;
+  color: var(--secondary-color-eventos);
+  font-size: 1.1em;
+}
+
+/* Agregar márgenes entre las etiquetas y los campos */
+label + input, label + select, label + textarea {
+  margin-top: 5px;
+}
+
+/* Añadir espacio entre los campos */
+input, select, textarea {
+  margin-bottom: 10px;
+}
+
+/* Estilos para las opciones del select */
+select {
+  padding: 12px;
+  font-size: 1em;
+}

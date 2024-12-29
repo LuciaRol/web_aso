@@ -223,11 +223,22 @@ const CreateEvents = () => {
             <p>
               <strong>Fecha:</strong> {event.date} {event.time}
             </p>
-            <button
+            <button 
               onClick={(e) => {
-                e.stopPropagation(); // Prevent opening modal
+                e.stopPropagation(); // Prevent modal from opening
+                // Add functionality for this button as needed
+                console.log('New button clicked for event:', event.id);
+              }} 
+              className="delete-button" // Using the same styling class
+            >
+              Editar Evento
+            </button>
+            <p></p>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();  // Prevent modal from opening
                 handleDeleteEvent(event.id);
-              }}
+              }} 
               className="delete-button"
             >
               Eliminar Evento

@@ -287,8 +287,8 @@ const CreateEvents = () => {
         ))}
       </div>
       {editEvent && (
-        <div className="edit-form">
-          <h3>Editar Evento</h3>
+        <div className="description">
+          <h1>Editar Evento</h1>
           <form onSubmit={handleUpdateEvent}>
             <div className="form-group">
               <label htmlFor="titulo">Título</label>

@@ -55,7 +55,14 @@ const CreateEvents = () => {
   }, [usuario]);
 
   const handleEditEvent = (event) => {
-    setEditEvent(event);
+    setEditEvent({
+      id: event.id,
+      titulo: event.title, 
+      fecha: event.date,
+      hora: event.time,
+      descripcion: event.description,
+      imagen: event.img,
+    });
   };
   
   const checkIfUserIsAdmin = async (email) => {

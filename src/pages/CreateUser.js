@@ -88,11 +88,11 @@ const CreateUser = () => {
 
   return (
     <div className="form-container">
-      <h1>Tu información de usuario</h1>
+      <h1>Crear nuevo usuario</h1>
 
       {isAdmin && (
         <form onSubmit={handleAddNewUser}>
-          <h2>Agregar Nuevo Usuario</h2>
+         
           <div className="form-group">
             <label htmlFor="nuevo-email">Email</label>
             <input

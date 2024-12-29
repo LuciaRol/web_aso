@@ -30,7 +30,7 @@
 /* Center the title and description */
 h1 {
   text-align: center;
-  color: var(--secondary-color-eventos);
+  color: var(--secondary-color-eventos); /* Usamos el color secundario para el título */
   margin-top: 20px;
   font-size: 2.5em;
 }
@@ -61,13 +61,13 @@ h1 {
 
 .event-container {
   width: 350px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--white); /* Fondo blanco para el contenedor */
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave */
   margin: 16px;
   padding: 16px;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-time) ease;
 }
 
 .event-container:hover {
@@ -83,15 +83,99 @@ h1 {
 
 .event-container h3 {
   font-size: 1.5em;
-  color: #333;
+  color: var(--text-color); /* Usamos el color de texto para el título */
   margin: 8px 0;
 }
 
 .event-container p {
   font-size: 1em;
-  color: #666;
+  color: var(--dark-gray); /* Usamos gris oscuro para el texto */
 }
 
 .event-container strong {
-  color: #333;
+  color: var(--text-color); /* Color de texto fuerte */
+}
+
+/* Formulario crear eventos */
+form {
+  background-color: var(--white); /* Fondo blanco */
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave */
+  max-width: 600px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Título del formulario */
+form h2 {
+  text-align: center;
+  color: var(--secondary-color-eventos); /* Usamos el color secundario para el título */
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+/* Campos de entrada */
+input[type="text"], input[type="email"], input[type="date"], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--gray); /* Borde gris claro */
+  border-radius: var(--border-radius);
+  font-size: 1em;
+  background-color: var(--background-color); /* Fondo gris claro */
+  color: var(--text-color); /* Texto en color oscuro */
+  box-sizing: border-box;
+  transition: border-color var(--transition-time);
+}
+
+/* Cambiar color de borde al enfocar los campos */
+input[type="text"]:focus, input[type="email"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+  border-color: var(--primary-color-eventos); /* Borde azul al enfocar */
+  outline: none;
+}
+
+/* Estilo para el botón */
+button {
+  padding: 12px;
+  background-color: var(--primary-color-eventos); /* Fondo azul */
+  color: var(--white); /* Texto blanco */
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color var(--transition-time);
+}
+
+button:hover {
+  background-color: var(--secondary-color-eventos); /* Fondo azul oscuro al pasar el mouse */
+}
+
+/* Espacio adicional en el botón */
+button:focus {
+  outline: none;
+}
+
+/* Estilo para el texto en los campos */
+label {
+  font-weight: bold;
+  color: var(--secondary-color-eventos); /* Color secundario para las etiquetas */
+  font-size: 1.1em;
+}
+
+/* Agregar márgenes entre las etiquetas y los campos */
+label + input, label + select, label + textarea {
+  margin-top: 5px;
+}
+
+/* Añadir espacio entre los campos */
+input, select, textarea {
+  margin-bottom: 10px;
+}
+
+/* Estilos para las opciones del select */
+select {
+  padding: 12px;
+  font-size: 1em;
 }

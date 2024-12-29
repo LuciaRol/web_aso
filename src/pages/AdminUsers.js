@@ -222,8 +222,12 @@ const AdminUsers = () => {
 
   return (
     <div className="form-container">
-       {/* Campo de búsqueda */}
-       <div className="search-container">
+       
+      {isAdmin && (
+        <div>
+          <h2>Administrar Usuarios</h2>
+          {/* Campo de búsqueda */}
+          <div className="search-container">
             <input
               type="text"
               placeholder="Buscar por nombre, apellido o telegram"
@@ -231,9 +235,6 @@ const AdminUsers = () => {
               onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
             />
           </div>
-      {isAdmin && (
-        <div>
-          <h2>Administrar Usuarios</h2>
           <p>Total de usuarios: {totalUsuarios}</p> {/* Mostrar el total de usuarios */}
 
           <div className="users-grid">

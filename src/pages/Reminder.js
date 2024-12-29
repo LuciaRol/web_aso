@@ -1,35 +1,53 @@
+// Reminder.js
 import React from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
-import { sendTelegramMessage } from '../components/TelegramMessenger'; // Ajusta la ruta
+import { sendTelegramMessage } from '../components/TelegramMessenger';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Importar estilos de react-toastify
+import 'react-toastify/dist/ReactToastify.css';
+import '../styles/reminder.css'; // Import the CSS file
 
 const Reminder = () => {
-  // Función para obtener los eventos y enviarlos manualmente
   const handleManualExecution = async () => {
     try {
       const querySnapshot = await getDocs(collection(firestore, 'eventos'));
-      const today = new Date(); // Fecha actual
-      today.setHours(0, 0, 0, 0); // Ignorar la hora para comparaciones
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
       const eventsData = querySnapshot.docs
         .map((doc) => doc.data())
         .filter((event) => {
-          const eventDate = new Date(event.fecha); // Convierte la fecha del evento
-          return eventDate >= today; // Incluye solo eventos de hoy o posteriores
+          const eventDate = new Date(event.fecha);
+          return !isNaN(eventDate) && eventDate >= today;
         });
 
-      const thread_id = 180; // ID del tema de Telegram
+      if (eventsData.length === 0) {
+        toast.info('No hay eventos programados para hoy o fechas futuras.', {
+          position: 'top-right',
+          autoClose: 5000,
+        });
+        return;
+      }
+
+      const thread_id = 180;
       for (const event of eventsData) {
+        if (!event.titulo || !event.fecha || !event.hora || !event.descripcion) {
+          console.warn(`Evento inválido: ${JSON.stringify(event)}`);
+          continue;
+        }
+
         const message = `¡Recordad que tenemos este evento programado!
 Título: ${event.titulo}
 Fecha: ${event.fecha}
 Hora: ${event.hora}
 Descripción: ${event.descripcion}`;
 
-        await sendTelegramMessage(message, event.imagen, thread_id);
-        console.log(`Mensaje enviado para el evento: ${event.titulo}`);
+        try {
+          await sendTelegramMessage(message, event.imagen, thread_id);
+          console.log(`Mensaje enviado para el evento: ${event.titulo}`);
+        } catch (error) {
+          console.error(`Error al enviar el mensaje para ${event.titulo}:`, error);
+        }
       }
 
       toast.success('¡Eventos ejecutados y mensajes enviados con éxito!', {
@@ -46,29 +64,16 @@ Descripción: ${event.descripcion}`;
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ textAlign: 'center', color: '#333' }}>Promoción y Recordatorios</h1>
-      <p style={{ textAlign: 'center', color: '#555' }}>
+    <div className="reminder-container">
+      <h1 className="reminder-title">Promoción y Recordatorios</h1>
+      <p className="reminder-description">
         Haz clic en el botón para enviar los recordatorios de eventos programados.
       </p>
-      {/* Botón para ejecutar los eventos manualmente */}
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <button
-          onClick={handleManualExecution}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: '#007BFF',
-            color: '#FFF',
-            border: 'none',
-            borderRadius: '5px',
-            fontSize: '16px',
-            cursor: 'pointer',
-          }}
-        >
+      <div className="reminder-button-container">
+        <button onClick={handleManualExecution} className="reminder-button">
           Enviar recordatorio eventos
         </button>
       </div>
-      {/* Contenedor de Toast */}
       <ToastContainer />
     </div>
   );

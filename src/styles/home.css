@@ -211,9 +211,37 @@ section {
 }
 
 /* MEDIA QUERY PANTALLAS MÓVILES */
+/* Estilos por defecto (para pantallas grandes de ordenador) */
+@media screen and (min-width: 48.01rem) { /* A partir de 768px */
+  /* Mostrar el video solo en pantallas de ordenador */
+  .video-container {
+    display: block; /* Muestra el video */
+  }
+
+  /* Ocultar la imagen en pantallas grandes */
+  .image-container-mobile {
+    display: none; /* Oculta la imagen */
+  }
+}
 
 /* Media query para pantallas móviles */
 @media screen and (max-width: 48rem) { /* 768px a rem */
+  /* Ocultar el contenedor del video en pantallas móviles */
+  .video-container {
+    display: none; /* Oculta el video */
+  }
+
+  /* Mostrar la imagen en pantallas móviles */
+  .image-container-mobile {
+    display: block; /* Muestra la imagen */
+  }
+  
+  /* Mantener el contenedor de la imagen en el resto de tamaños */
+  .image-container {
+    display: block; /* Muestra la imagen en pantallas grandes */
+  }
+
+  /* Ajustar otros estilos según sea necesario */
   .home-container {
     padding: 0.625rem; /* 10px */
   }
@@ -227,13 +255,26 @@ section {
   }
 
   .counter-section {
-    flex-direction: column; /* Apila los contadores verticalmente */
-    gap: 0.625rem; /* 10px */
-    top: 70%; /* Ajusta la posición, permanece igual */
+    flex-direction: row; /* Pone los contadores en fila */
+    justify-content: center; /* Centra los contadores */
+    align-items: center; /* Alinea verticalmente */
+    position: absolute;
+    top: 60%; /* Los coloca en la mitad inferior de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1rem; /* Espacio entre los contadores */
   }
 
   .counter-box {
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
     padding: 0.625rem; /* 10px */
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
   }
 
   .info-section {
@@ -267,7 +308,7 @@ section {
     align-items: center; /* Centra verticalmente la cuadrícula */
     width: 100%; /* Asegura que ocupe el ancho disponible */
   }
-  
+
   .about-features li {
     display: flex; /* Centra el contenido de cada celda */
     justify-content: center;
@@ -277,8 +318,6 @@ section {
     height: 6.25rem; /* Altura fija */
     text-align: center; /* Centrado de texto */
   }
-  
-  
 
   .hover-text {
     font-size: 1rem; /* No cambia */

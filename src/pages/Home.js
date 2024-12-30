@@ -10,6 +10,7 @@ import House from '../img/landing/House.png';
 import Meeple from '../img/landing/Meeple.png';
 import Evento from '../img/landing/Event.png';
 import Discount from '../img/landing/Discount.png';
+import Wood from '../img/landing/wood3.webp';
 import '../styles/home.css';
 
 const Home = () => {
@@ -18,7 +19,13 @@ const Home = () => {
 
         <main className="image-container">
           {/* Cambiar imagen por video */}
-          <video src={partidaVideo} autoPlay loop muted className="video-background" />
+          <div class="image-container-mobile">
+            <img src={Wood} alt="Imagen alternativa"/>
+          </div>
+          
+          <div class="video-container">
+            <video src={partidaVideo} autoPlay loop muted className="video-background" />
+          </div>
 
           <div className="counter-section">
               {/* Cuadrado del contador de juegos */}

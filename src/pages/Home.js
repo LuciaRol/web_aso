@@ -93,8 +93,10 @@ const Home = () => {
         <section className="about-section">
           <article className="about-details">
             <h4>
+              <strong>
               Si te gustan los juegos de mesa, vives en Granada o alrededores y quieres
               conocer gente nueva, ¡pásate a conocernos!
+              </strong>
             </h4>
             <p>
               Disponemos de un local de 140m2 situado en La Chana y destinado a las
@@ -106,35 +108,35 @@ const Home = () => {
             </p>
           </article>
           <ul className="about-features">
-  <li>
-    <div className="feature-content">
-      <img src={House} alt="House" />
-      <p>Local</p>
-    </div>
-    <div className="hover-text">Local a disposición de los socios</div>
-  </li>
-  <li>
-    <div className="feature-content">
-      <img src={Meeple} alt="Meeple" />
-      <p>Ludoteca</p>
-    </div>
-    <div className="hover-text">Amplia variedad de juegos en la ludoteca propia de la asociación</div>
-  </li>
-  <li>
-    <div className="feature-content">
-      <img src={Evento} alt="Event" />
-      <p>Eventos</p>
-    </div>
-    <div className="hover-text">Eventos mensuales y extraordinarios</div>
-  </li>
-  <li>
-    <div className="feature-content">
-      <img src={Discount} alt="Discount" />
-      <p>Descuentos</p>
-    </div>
-    <div className="hover-text">Descuentos en tiendas</div>
-  </li>
-</ul>
+            <li>
+              <div className="feature-content">
+                <img src={House} alt="House" />
+                <p>Local</p>
+              </div>
+              <div className="hover-text"><p>Local a disposición de los socios</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Meeple} alt="Meeple" />
+                <p>Ludoteca</p>
+              </div>
+              <div className="hover-text"><p>Amplia variedad de juegos en la ludoteca</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Evento} alt="Event" />
+                <p>Eventos</p>
+              </div>
+              <div className="hover-text"><p>Eventos mensuales y extraordinarios</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Discount} alt="Discount" />
+                <p>Descuentos</p>
+              </div>
+              <div className="hover-text"><p>Descuentos en tiendas colaboradoras</p></div>
+            </li>
+          </ul>
 
         </section>
     </div>

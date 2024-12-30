@@ -115,11 +115,18 @@ section {
 .info-details h3 {
   font-size: 1.8rem;
   margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .info-details p {
   font-size: 1rem;
   margin: 5px 0;
+}
+
+.info-details p:first-of-type {
+  font-size: 1rem;
+  margin: 5px 0;
+  font-weight: bold;
 }
 
 .info-social {
@@ -329,11 +336,34 @@ section {
     align-items: center;
     border-radius: 0.5rem; /* Bordes redondeados */
     width: 100%; /* Asegura que ocupe la celda */
-    height: 6.25rem; /* Altura fija */
+    height: 9.5rem; /* Altura fija */
     text-align: center; /* Centrado de texto */
+  }
+
+  .feature-content{
+    margin: 1rem;
   }
 
   .hover-text {
     font-size: 1rem; /* No cambia */
+    text-align: center; /* Centrado del texto */
+    background-color: transparent; /* Fondo transparente */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    width: 100%; /* Asegurarse de que ocupe todo el espacio disponible */
+    height: 100%; /* Asegurarse de que ocupe toda la altura del contenedor */
   }
+  
+  .hover-text p {
+    width: 50%; /* Ajuste de ancho al 50% */
+    height: 70%; /* Ajusta la altura al contenido */
+    background-color: #012e4a;
+    padding: 0.5rem; /* 8px */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    display: flex; /* Usar flexbox para centrar el texto dentro del p */
+  }
+  
 }

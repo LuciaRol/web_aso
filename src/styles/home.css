@@ -210,4 +210,77 @@ section {
   transform: translateY(100%); /* Se desliza hacia abajo desde fuera del contenedor */
 }
 
+/* MEDIA QUERY PANTALLAS MÓVILES */
 
+/* Media query para pantallas móviles */
+@media screen and (max-width: 48rem) { /* 768px a rem */
+  .home-container {
+    padding: 0.625rem; /* 10px */
+  }
+
+  .image-container::before {
+    font-size: 2.5rem; /* No cambia, ya está en rem */
+  }
+
+  .image-container::after {
+    font-size: 1.2rem; /* No cambia, ya está en rem */
+  }
+
+  .counter-section {
+    flex-direction: column; /* Apila los contadores verticalmente */
+    gap: 0.625rem; /* 10px */
+    top: 70%; /* Ajusta la posición, permanece igual */
+  }
+
+  .counter-box {
+    padding: 0.625rem; /* 10px */
+  }
+
+  .info-section {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 0.9375rem; /* 15px */
+  }
+
+  .carousel-info img {
+    height: 18.75rem; /* 300px */
+  }
+
+  .info-details h3 {
+    font-size: 1.5rem; /* No cambia */
+  }
+
+  .info-details p {
+    font-size: 0.9rem; /* No cambia */
+  }
+
+  .about-section {
+    grid-template-columns: 1fr; /* Una sola columna */
+    text-align: center;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    grid-template-rows: repeat(2, 1fr); /* Dos filas */
+    gap: 1rem; /* Espacio entre las celdas */
+    justify-content: center; /* Centra horizontalmente la cuadrícula */
+    align-items: center; /* Centra verticalmente la cuadrícula */
+    width: 100%; /* Asegura que ocupe el ancho disponible */
+  }
+  
+  .about-features li {
+    display: flex; /* Centra el contenido de cada celda */
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem; /* Bordes redondeados */
+    width: 100%; /* Asegura que ocupe la celda */
+    height: 6.25rem; /* Altura fija */
+    text-align: center; /* Centrado de texto */
+  }
+  
+  
+
+  .hover-text {
+    font-size: 1rem; /* No cambia */
+  }
+}

@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
   width: 100%; /* Ocupa todo el ancho */
-  margin: 0;
   padding: 0;
 }
 
@@ -108,34 +107,68 @@ section {
   margin: 0 auto;
 }
 
+.carousel-control-prev:hover, .carousel-control-next:hover{
+  background-color: #00000025;
+}
+
 .info-details {
-  text-align: center; /* Cambiar a alineación izquierda */
+  text-align: center;
+  align-items: center;
 }
 
 .info-details h3 {
-  font-size: 1.8rem;
+  font-size: 3rem;
   margin-bottom: 10px;
-  font-weight: bold;
+  font-family: 'MedievalSharp', cursive;
+  font-weight: bolder;
+  padding: 0 20px;
 }
 
 .info-details p {
-  font-size: 1rem;
-  margin: 5px 0;
+  font-size: 1.5rem;
 }
 
 .info-details p:first-of-type {
-  font-size: 1rem;
-  margin: 5px 0;
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .info-social {
   display: flex;
-  justify-content: center; /* Alinear íconos a la izquierda */
+  justify-content: center; /* Centrar los íconos horizontalmente */
   gap: 10px;
   list-style: none;
   margin-top: 10px;
+  align-items: center;
 }
+
+.info-social a {
+  display: flex;
+  justify-content: center; /* Centrar el contenido dentro del enlace */
+  align-items: center;
+  width: 3.2rem; /* Tamaño uniforme de ancho */
+  height: 3.2rem; /* Tamaño uniforme de alto */
+  border-radius: 50%; /* Bordes redondeados */
+  background-color: #f0f0f0; /* Fondo para mejor contraste */
+  text-decoration: none; /* Quitar subrayado */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+.info-social a:hover {
+  background-color: #dcdcdc; /* Cambiar fondo al pasar el ratón */
+  transform: scale(1.1); /* Aumentar ligeramente el tamaño del enlace */
+}
+
+.info-social svg {
+  width: 2rem; /* Tamaño uniforme del icono */
+  height: 2rem; /* Tamaño uniforme del icono */
+  color: #2c3e50; /* Color del icono */
+  transition: transform 0.3s ease; /* Transición suave para el tamaño */
+}
+
+.info-social a:hover svg {
+  transform: scale(1.2); /* Aumentar ligeramente el tamaño del icono */
+}
+
 
 
 /* Styles for the about section */
@@ -144,7 +177,7 @@ section {
   gap: 20px; /* Espacio entre columnas */
   align-items: center; /* Centrado vertical */
   justify-content: center; /* Centrado horizontal */
-  text-align: center;
+  text-align: justify;
 }
 
 .about-details h4 {
@@ -155,6 +188,7 @@ section {
 .about-details p {
   font-size: 1rem;
   margin: 10px 0;
+  
 }
 
 /* Styles for the features list */
@@ -173,9 +207,8 @@ section {
   list-style: none;
   cursor: pointer;
   position: relative;
-  width: 150px;
+  width: 100%;
   height: 150px;
-  perspective: 1000px; /* Proporciona profundidad 3D */
   overflow: hidden; /* Asegura que los elementos no visibles queden ocultos */
 }
 
@@ -197,7 +230,7 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #012e4a; /* Fondo oscuro */
+  background-color: transparent; /* Fondo oscuro */
   color: white;
   display: flex;
   justify-content: center;
@@ -206,6 +239,17 @@ section {
   border-radius: 10px;
   opacity: 0; /* Oculto por defecto */
   transition: transform 0.6s ease, opacity 0.3s ease;
+}
+
+.hover-text p {
+  width: 50%; /* Ajuste de ancho al 50% */
+  height: 90%; /* Ajusta la altura al contenido */
+  background-color: #012e4a;
+  padding: 0.6rem; /* 8px */
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  display: flex; /* Usar flexbox para centrar el texto dentro del p */
 }
 
 .about-features li:hover .feature-content {

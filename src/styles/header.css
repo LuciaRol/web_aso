@@ -27,8 +27,9 @@
   color: var(--white);
   padding: 10px 0;
   width: 100%;
-  position: relative;
+  position: fixed;
   margin: 0; /* Asegúrate de que no haya márgenes */
+  z-index: 10; /* Asegura que el menú esté encima de otros elementos */
 }
 
 .header-content {

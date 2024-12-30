@@ -210,7 +210,7 @@ section {
   transform: translateY(100%); /* Se desliza hacia abajo desde fuera del contenedor */
 }
 
-/* MEDIA QUERY PANTALLAS MÓVILES */
+
 /* Estilos por defecto (para pantallas grandes de ordenador) */
 @media screen and (min-width: 48.01rem) { /* A partir de 768px */
   /* Mostrar el video solo en pantallas de ordenador */
@@ -224,8 +224,39 @@ section {
   }
 }
 
+/* MEDIA QUERY PANTALLAS MÓVILES */
 /* Media query para pantallas móviles */
 @media screen and (max-width: 48rem) { /* 768px a rem */
+  /* Ajustar otros estilos según sea necesario */
+ 
+  /* Mantener el contenedor de la imagen en el resto de tamaños */
+  .image-container {
+    display: block; /* Muestra la imagen en pantallas grandes */
+  }
+
+  .image-container::before,
+  .image-container::after {
+    font-size: 2.5rem; /* Ajuste del tamaño de fuente */
+    text-align: center; /* Centra el texto */
+    position: absolute;
+    top: 20%; /* Posiciona el título en la primera mitad de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Asegura que el contenido ocupe todo el ancho disponible */
+    color: white;
+    z-index: 1; /* Asegura que los títulos estén encima de la imagen */
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  .image-container::before {
+    top: 20%; /* Ajusta la posición del título "before" */
+    font-size: 2.5rem;
+  }
+
+  .image-container::after {
+    top: 35%; /* Ajusta la posición del título "after" */
+    font-size: 1.2rem;
+  }
   /* Ocultar el contenedor del video en pantallas móviles */
   .video-container {
     display: none; /* Oculta el video */
@@ -234,24 +265,7 @@ section {
   /* Mostrar la imagen en pantallas móviles */
   .image-container-mobile {
     display: block; /* Muestra la imagen */
-  }
-  
-  /* Mantener el contenedor de la imagen en el resto de tamaños */
-  .image-container {
-    display: block; /* Muestra la imagen en pantallas grandes */
-  }
-
-  /* Ajustar otros estilos según sea necesario */
-  .home-container {
-    padding: 0.625rem; /* 10px */
-  }
-
-  .image-container::before {
-    font-size: 2.5rem; /* No cambia, ya está en rem */
-  }
-
-  .image-container::after {
-    font-size: 1.2rem; /* No cambia, ya está en rem */
+    
   }
 
   .counter-section {
@@ -266,7 +280,7 @@ section {
   }
 
   .counter-box {
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    background-color: rgba(0, 0, 0, 0.436); /* Fondo oscuro semitransparente */
     padding: 0.625rem; /* 10px */
     border-radius: 10px;
     color: white;

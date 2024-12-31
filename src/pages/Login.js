@@ -93,7 +93,7 @@ const LoginPage = () => {
           />
         </div>
         <div className="button-container">
-          <button type="submit" className="btn">Iniciar Sesión</button>
+          <button type="submit" className="login-btn">Iniciar Sesión</button>
           <button type="button" onClick={handleResetPassword} className="btn-link">Restablecer Contraseña</button>
         </div>
         {error && <p className="error-message">{error}</p>}

@@ -44,34 +44,38 @@ html, body {
 }
 .button-container {
     display: flex; /* Usar flexbox para alinear los botones */
+    flex-direction: column; /* Alinear los botones en columna */
     justify-content: center; /* Centra horizontalmente los botones */
     margin-top: 1rem; /* Margen superior para separación */
     gap: 1rem; /* Espaciado entre botones */
   }
   
-  .btn {
-    background-color: #007bff; /* Color de fondo del botón */
+  .login-btn {
+    background-color: #012E4A; /* Color de fondo del botón */
     color: white; /* Color del texto del botón */
     border: none; /* Sin borde */
     border-radius: 4px; /* Bordes redondeados */
     padding: 0.5rem 1rem; /* Espaciado interno */
     cursor: pointer; /* Cambiar cursor al pasar */
     transition: background 0.3s; /* Transición suave */
+    border-radius: 4px;
   }
   
   .btn:hover {
-    background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
+    background-color: #B37100; /* Color de fondo del botón al pasar el mouse */
   }
   
   .btn-link {
-    background: none; /* Sin fondo */
+    background-color: transparent;
     color: #007bff; /* Color del enlace */
     border: none; /* Sin borde */
+    text-decoration: none !important; /* Sin subrayado */
     cursor: pointer; /* Cambiar cursor al pasar */
   }
   
   .btn-link:hover {
-    text-decoration: underline; /* Subrayar al pasar el mouse */
+    text-decoration: underline !important; /* Subrayar al pasar el mouse */
+    background-color: transparent;
   }
 
 .error-message {

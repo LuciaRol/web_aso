@@ -1,9 +1,14 @@
+.game-list{
+    padding-top: 5.5rem;
+}
+
+
 /* VENTANA MODAL */
 /* Estilo para el fondo de la ventana modal */
 .modal-content {
   background-color: #ffffff !important; /* Fondo blanco sólido */
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 10px !important; /* Esquinas redondeadas */
   width: 90%; /* Ancho adaptativo */
   max-width: 600px; /* Máximo ancho */
   max-height: 80vh; /* Altura máxima del 80% de la ventana */

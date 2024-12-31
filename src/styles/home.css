@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
   width: 100%; /* Ocupa todo el ancho */
-  margin: 0;
   padding: 0;
 }
 
@@ -108,27 +107,68 @@ section {
   margin: 0 auto;
 }
 
+.carousel-control-prev:hover, .carousel-control-next:hover{
+  background-color: #00000025;
+}
+
 .info-details {
-  text-align: center; /* Cambiar a alineación izquierda */
+  text-align: center;
+  align-items: center;
 }
 
 .info-details h3 {
-  font-size: 1.8rem;
+  font-size: 3rem;
   margin-bottom: 10px;
+  font-family: 'MedievalSharp', cursive;
+  font-weight: bolder;
+  padding: 0 20px;
 }
 
 .info-details p {
-  font-size: 1rem;
-  margin: 5px 0;
+  font-size: 1.5rem;
+}
+
+.info-details p:first-of-type {
+  font-weight: bolder;
 }
 
 .info-social {
   display: flex;
-  justify-content: center; /* Alinear íconos a la izquierda */
+  justify-content: center; /* Centrar los íconos horizontalmente */
   gap: 10px;
   list-style: none;
   margin-top: 10px;
+  align-items: center;
 }
+
+.info-social a {
+  display: flex;
+  justify-content: center; /* Centrar el contenido dentro del enlace */
+  align-items: center;
+  width: 3.2rem; /* Tamaño uniforme de ancho */
+  height: 3.2rem; /* Tamaño uniforme de alto */
+  border-radius: 50%; /* Bordes redondeados */
+  background-color: #f0f0f0; /* Fondo para mejor contraste */
+  text-decoration: none; /* Quitar subrayado */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+.info-social a:hover {
+  background-color: #dcdcdc; /* Cambiar fondo al pasar el ratón */
+  transform: scale(1.1); /* Aumentar ligeramente el tamaño del enlace */
+}
+
+.info-social svg {
+  width: 2rem; /* Tamaño uniforme del icono */
+  height: 2rem; /* Tamaño uniforme del icono */
+  color: #2c3e50; /* Color del icono */
+  transition: transform 0.3s ease; /* Transición suave para el tamaño */
+}
+
+.info-social a:hover svg {
+  transform: scale(1.2); /* Aumentar ligeramente el tamaño del icono */
+}
+
 
 
 /* Styles for the about section */
@@ -137,7 +177,7 @@ section {
   gap: 20px; /* Espacio entre columnas */
   align-items: center; /* Centrado vertical */
   justify-content: center; /* Centrado horizontal */
-  text-align: center;
+  text-align: justify;
 }
 
 .about-details h4 {
@@ -148,6 +188,7 @@ section {
 .about-details p {
   font-size: 1rem;
   margin: 10px 0;
+  
 }
 
 /* Styles for the features list */
@@ -166,9 +207,8 @@ section {
   list-style: none;
   cursor: pointer;
   position: relative;
-  width: 150px;
+  width: 100%;
   height: 150px;
-  perspective: 1000px; /* Proporciona profundidad 3D */
   overflow: hidden; /* Asegura que los elementos no visibles queden ocultos */
 }
 
@@ -190,7 +230,7 @@ section {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #012e4a; /* Fondo oscuro */
+  background-color: transparent; /* Fondo oscuro */
   color: white;
   display: flex;
   justify-content: center;
@@ -199,6 +239,17 @@ section {
   border-radius: 10px;
   opacity: 0; /* Oculto por defecto */
   transition: transform 0.6s ease, opacity 0.3s ease;
+}
+
+.hover-text p {
+  width: 50%; /* Ajuste de ancho al 50% */
+  height: 90%; /* Ajusta la altura al contenido */
+  background-color: #012e4a;
+  padding: 0.6rem; /* 8px */
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  display: flex; /* Usar flexbox para centrar el texto dentro del p */
 }
 
 .about-features li:hover .feature-content {
@@ -211,3 +262,152 @@ section {
 }
 
 
+/* Estilos por defecto (para pantallas grandes de ordenador) */
+@media screen and (min-width: 48.01rem) { /* A partir de 768px */
+  /* Mostrar el video solo en pantallas de ordenador */
+  .video-container {
+    display: block; /* Muestra el video */
+  }
+
+  /* Ocultar la imagen en pantallas grandes */
+  .image-container-mobile {
+    display: none; /* Oculta la imagen */
+  }
+}
+
+/* MEDIA QUERY PANTALLAS MÓVILES */
+/* Media query para pantallas móviles */
+@media screen and (max-width: 48rem) { /* 768px a rem */
+  /* Ajustar otros estilos según sea necesario */
+ 
+  /* Mantener el contenedor de la imagen en el resto de tamaños */
+  .image-container {
+    display: block; /* Muestra la imagen en pantallas grandes */
+  }
+
+  .image-container::before,
+  .image-container::after {
+    font-size: 2.5rem; /* Ajuste del tamaño de fuente */
+    text-align: center; /* Centra el texto */
+    position: absolute;
+    top: 20%; /* Posiciona el título en la primera mitad de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Asegura que el contenido ocupe todo el ancho disponible */
+    color: white;
+    z-index: 1; /* Asegura que los títulos estén encima de la imagen */
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  .image-container::before {
+    top: 20%; /* Ajusta la posición del título "before" */
+    font-size: 2.5rem;
+  }
+
+  .image-container::after {
+    top: 35%; /* Ajusta la posición del título "after" */
+    font-size: 1.2rem;
+  }
+  /* Ocultar el contenedor del video en pantallas móviles */
+  .video-container {
+    display: none; /* Oculta el video */
+  }
+
+  /* Mostrar la imagen en pantallas móviles */
+  .image-container-mobile {
+    display: block; /* Muestra la imagen */
+    
+  }
+
+  .counter-section {
+    flex-direction: row; /* Pone los contadores en fila */
+    justify-content: center; /* Centra los contadores */
+    align-items: center; /* Alinea verticalmente */
+    position: absolute;
+    top: 60%; /* Los coloca en la mitad inferior de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1rem; /* Espacio entre los contadores */
+  }
+
+  .counter-box {
+    background-color: rgba(0, 0, 0, 0.436); /* Fondo oscuro semitransparente */
+    padding: 0.625rem; /* 10px */
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  .info-section {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 0.9375rem; /* 15px */
+  }
+
+  .carousel-info img {
+    height: 18.75rem; /* 300px */
+  }
+
+  .info-details h3 {
+    font-size: 1.5rem; /* No cambia */
+  }
+
+  .info-details p {
+    font-size: 0.9rem; /* No cambia */
+  }
+
+  .about-section {
+    grid-template-columns: 1fr; /* Una sola columna */
+    text-align: center;
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    grid-template-rows: repeat(2, 1fr); /* Dos filas */
+    gap: 1rem; /* Espacio entre las celdas */
+    justify-content: center; /* Centra horizontalmente la cuadrícula */
+    align-items: center; /* Centra verticalmente la cuadrícula */
+    width: 100%; /* Asegura que ocupe el ancho disponible */
+  }
+
+  .about-features li {
+    display: flex; /* Centra el contenido de cada celda */
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem; /* Bordes redondeados */
+    width: 100%; /* Asegura que ocupe la celda */
+    height: 9.5rem; /* Altura fija */
+    text-align: center; /* Centrado de texto */
+  }
+
+  .feature-content{
+    margin: 1rem;
+  }
+
+  .hover-text {
+    font-size: 1rem; /* No cambia */
+    text-align: center; /* Centrado del texto */
+    background-color: transparent; /* Fondo transparente */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    width: 100%; /* Asegurarse de que ocupe todo el espacio disponible */
+    height: 100%; /* Asegurarse de que ocupe toda la altura del contenedor */
+  }
+  
+  .hover-text p {
+    width: 50%; /* Ajuste de ancho al 50% */
+    height: 70%; /* Ajusta la altura al contenido */
+    background-color: #012e4a;
+    padding: 0.5rem; /* 8px */
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    display: flex; /* Usar flexbox para centrar el texto dentro del p */
+  }
+  
+}

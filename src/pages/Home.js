@@ -4,12 +4,13 @@ import partidaVideo from '../img/dragon_dnd.mp4'; // Ruta del video
 import aso1 from '../img/quienes_somos/aso1.jpg';
 import aso2 from '../img/quienes_somos/aso2.jpg';
 import aso3 from '../img/quienes_somos/aso3.jpg';
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faInstagram, faTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import House from '../img/landing/House.png';
 import Meeple from '../img/landing/Meeple.png';
 import Evento from '../img/landing/Event.png';
 import Discount from '../img/landing/Discount.png';
+import Wood from '../img/landing/wood3.webp';
 import '../styles/home.css';
 
 const Home = () => {
@@ -18,7 +19,13 @@ const Home = () => {
 
         <main className="image-container">
           {/* Cambiar imagen por video */}
-          <video src={partidaVideo} autoPlay loop muted className="video-background" />
+          <div class="image-container-mobile">
+            <img src={Wood} alt="Imagen alternativa"/>
+          </div>
+          
+          <div class="video-container">
+            <video src={partidaVideo} autoPlay loop muted className="video-background" />
+          </div>
 
           <div className="counter-section">
               {/* Cuadrado del contador de juegos */}
@@ -61,33 +68,39 @@ const Home = () => {
           <article className="info-details">
             <h3>Dragón de Madera</h3>
             <p>Asociación sin ánimo de lucro</p>
-            <p>Visítanos en:</p>
             <p>c/ Pepita Serrador 3, local 6</p>
             <p>18015 Granada</p>
-            <ul className="info-social">
-              <li><a href="https://twitter.com/your_profile" target="_blank" rel="noopener noreferrer">
-                        <FontAwesomeIcon icon={faTwitter} size="2x" />
+            <p className="info-social">
+              <li><a href="https://x.com/Dragon_DeMadera" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faTwitter} size="2x" style={{ color: '#2c3e50' }} />
                   </a>
               </li>
               <li>
-                <a href="https://facebook.com/your_profile" target="_blank" rel="noopener noreferrer">
-                          <FontAwesomeIcon icon={faFacebook} size="2x" style={{ color: '#4267B2' }} />
+                <a href="https://www.facebook.com/AsocDragonDeMadera/" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faFacebook} size="2x" style={{ color: '#2c3e50' }} />
                 </a>
               </li>
               <li>
-                <a href="https://instagram.com/your_profile" target="_blank" rel="noopener noreferrer">
-                          <FontAwesomeIcon icon={faInstagram} size="2x" />
+                <a href="https://www.instagram.com/dragon_demadera/" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faInstagram} size="2x" style={{ color: '#2c3e50' }} />
                 </a>
               </li>
-            </ul>
+              <li>
+                <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faWhatsapp} size="2x" style={{ color: '#2c3e50' }} />
+                </a>
+              </li>
+            </p>
           </article>
         </section>
 
         <section className="about-section">
           <article className="about-details">
             <h4>
+              <strong>
               Si te gustan los juegos de mesa, vives en Granada o alrededores y quieres
               conocer gente nueva, ¡pásate a conocernos!
+              </strong>
             </h4>
             <p>
               Disponemos de un local de 140m2 situado en La Chana y destinado a las
@@ -99,35 +112,35 @@ const Home = () => {
             </p>
           </article>
           <ul className="about-features">
-  <li>
-    <div className="feature-content">
-      <img src={House} alt="House" />
-      <p>Local</p>
-    </div>
-    <div className="hover-text">Local a disposición de los socios</div>
-  </li>
-  <li>
-    <div className="feature-content">
-      <img src={Meeple} alt="Meeple" />
-      <p>Ludoteca</p>
-    </div>
-    <div className="hover-text">Amplia variedad de juegos en la ludoteca propia de la asociación</div>
-  </li>
-  <li>
-    <div className="feature-content">
-      <img src={Evento} alt="Event" />
-      <p>Eventos</p>
-    </div>
-    <div className="hover-text">Eventos mensuales y extraordinarios</div>
-  </li>
-  <li>
-    <div className="feature-content">
-      <img src={Discount} alt="Discount" />
-      <p>Descuentos</p>
-    </div>
-    <div className="hover-text">Descuentos en tiendas</div>
-  </li>
-</ul>
+            <li>
+              <div className="feature-content">
+                <img src={House} alt="House" />
+                <p>Local</p>
+              </div>
+              <div className="hover-text"><p>Local a disposición de los socios</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Meeple} alt="Meeple" />
+                <p>Ludoteca</p>
+              </div>
+              <div className="hover-text"><p>Amplia variedad de juegos en la ludoteca</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Evento} alt="Event" />
+                <p>Eventos</p>
+              </div>
+              <div className="hover-text"><p>Eventos mensuales y extraordinarios</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Discount} alt="Discount" />
+                <p>Descuentos</p>
+              </div>
+              <div className="hover-text"><p>Descuentos en tiendas colaboradoras</p></div>
+            </li>
+          </ul>
 
         </section>
     </div>

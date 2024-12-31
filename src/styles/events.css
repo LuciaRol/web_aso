@@ -27,6 +27,13 @@
   padding: 0;
 }
 
+.events-container {
+  background-color: var(--background-color); /* Fondo gris claro */
+  min-height: 100vh; /* Altura mínima de la página */
+  padding: 20px;
+  padding-top: 5rem;
+}
+
 /* Center the title and description */
 h1 {
   text-align: center;

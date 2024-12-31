@@ -1,3 +1,6 @@
+.ludoteca-container {
+  padding-top: 5rem;
+}
 .filters-row {
   display: flex;
   align-items: center;

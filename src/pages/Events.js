@@ -62,7 +62,7 @@ const Events = () => {
   };
 
   return (
-    <div>
+    <div className='events-container'>
       <h1>Eventos</h1>
       <div className="description">
         <p>

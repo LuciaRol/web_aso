@@ -278,7 +278,7 @@ const Ludoteca = () => {
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
-    <div>
+    <div className="ludoteca-container">
       <h1>Ludoteca y préstamo de juegos </h1>
   
       {/* Filtros y botón de exportación */}
@@ -337,7 +337,7 @@ const Ludoteca = () => {
       </div>
       <div className="filters-row">
         <label className="filter-item">
-          Filtrar por nombre:
+          Buscar por nombre:
           <input
             type="text"
             value={searchName}
@@ -347,7 +347,7 @@ const Ludoteca = () => {
         </label>
   
         <label className="filter-item">
-          Filtrar por género:
+          Género:
           <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
             <option value=''>Todos</option>
             {genres.sort().map(genre => (
@@ -357,7 +357,7 @@ const Ludoteca = () => {
         </label>
         
         <label className="filter-item">
-          Ordenar por:
+         Mostrar:
           <div className="sort-options">
             <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)}>
               <option value="alphabetical-asc">Alfabéticamente, A-Z</option>

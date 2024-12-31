@@ -33,7 +33,7 @@ const WhoWeAre = () => {
   };
 
   return (
-    <div>
+    <div className='who-container'>
       {/* Banner publicitario */}
       {isBannerVisible && (
         <div className="ad-banner">

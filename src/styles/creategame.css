@@ -1,129 +1,151 @@
-/* creategame.css */
-
-/* Estilo general del contenedor de formularios */
-.form-container {
-    max-width: 600px;
-    padding: 20px;
-    padding-top: 5rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-
-  }
-  
-  /* Estilo para los mensajes de éxito y error */
-  .success-message {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .error-message {
-    color: red;
-    font-weight: bold;
-  }
-  
-  /* Estilos para los grupos de formularios */
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  /* Estilo del botón de envío */
-  .submit-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: var(--primary-color-hover);
-  }
-  
-  /* Contenedor y estilos para la búsqueda de juegos */
-  .search-container {
-    margin-top: 20px;
-  }
-  
-  .results-container {
-    margin-top: 20px;
-  }
-  
-  .guest-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .guest-item {
-    display: flex;
-    flex-direction: column; /* Cambiamos a columna para que todo esté en líneas separadas */
-    align-items: center; /* Centra el contenido horizontalmente */
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+/* Estilos para CreateGame */
+.create-game-form-container {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la ventana */
+  text-align: center; /* Alinea el texto y los elementos hijos */
 }
 
-.game-image {
-    width: 80px; /* Ajusta el tamaño según sea necesario */
-    height: auto;
-    border-radius: 5px;
-    object-fit: cover; /* Mantiene la proporción de la imagen */
-    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+.create-game-title {
+  font-size: 2rem;
+  color: #333;
 }
 
-.game-name {
-    font-weight: bold; /* Opcional: hacer que el nombre del juego se vea más destacado */
+.create-game-success-message {
+  color: green;
+  font-weight: bold;
 }
 
-.game-link {
-    margin-top: 5px; /* Espacio entre el nombre del juego y el enlace */
+.create-game-form-group {
+  background-color: white; /* Fondo blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 1rem;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 500px; /* Máximo ancho del formulario */
 }
 
-/* El botón sigue en su posición original */
-.submit-button {
-    margin-top: 10px; /* Añadir espacio entre el contenido y el botón */
+.create-game-label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
 }
-  
 
-  /* Estilo de la imagen del juego seleccionado */
-  .selected-game-image {
-    width: 100px;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 5px;
-  }
-  
-  /* Enlace para ver en BoardGameGeek */
-  .game-link {
-    color: var(--primary-color);
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .game-link:hover {
-    color: var(--primary-color-hover);
-  }
-  
+.create-game-select,
+.create-game-input,
+.create-game-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.create-game-submit-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 500px; /* El botón también tiene el mismo ancho que el formulario */
+}
+
+.create-game-submit-button:hover {
+  background-color: #45a049;
+}
+
+.create-game-search-container {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.create-game-results-container {
+  margin-top: 15px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.create-game-results-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.create-game-guest-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.create-game-guest-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.create-game-game-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.create-game-game-name {
+  font-weight: bold;
+}
+
+.create-game-game-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.create-game-game-link:hover {
+  text-decoration: underline;
+}
+
+.create-game-loading-text {
+  color: #777;
+}
+
+.create-game-selected-game-title {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.create-game-selected-game-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.create-game-no-results {
+  color: red;
+  text-align: center;
+}
+
+.create-game-error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.create-game-textarea {
+  height: 150px;
+}
+
+.create-game-form-group input,
+.create-game-form-group textarea {
+  font-size: 1rem;
+}
+

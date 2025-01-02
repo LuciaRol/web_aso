@@ -15,11 +15,6 @@
   color: #333;
 }
 
-.create-game-success-message {
-  color: green;
-  font-weight: bold;
-}
-
 .create-game-form-group {
   background-color: white; /* Fondo blanco */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
@@ -28,6 +23,7 @@
   margin-bottom: 15px;
   width: 100%;
   max-width: 500px; /* Máximo ancho del formulario */
+  text-align: left;
 }
 
 .create-game-label {
@@ -48,20 +44,19 @@
 }
 
 .create-game-submit-button {
-  background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 10px 20px;
   cursor: pointer;
   border-radius: 4px;
   margin-top: 10px;
   width: 100%;
   max-width: 500px; /* El botón también tiene el mismo ancho que el formulario */
+  padding: 1.5rem; /* Más espacio alrededor */
+  margin-bottom: 20px; /* Separación entre grupos */
+  width: 100%;
+  max-width: 600px;
 }
 
-.create-game-submit-button:hover {
-  background-color: #45a049;
-}
 
 .create-game-search-container {
   margin-top: 20px;
@@ -125,7 +120,7 @@
 }
 
 .create-game-game-link {
-  color: #007bff;
+  color: #2c3e50;
   text-decoration: none;
 }
 
@@ -168,4 +163,88 @@
 .create-game-form-group textarea {
   font-size: 1rem;
 }
+
+
+
+/* Estilos para GameForm */
+.game-form-container {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  text-align: center;
+  max-width: 500px; /* Ancho máximo */
+
+  
+}
+
+.game-form-group {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  margin-bottom: 20px; /* Separación entre grupos */
+  width: 100%;
+  max-width: 600px; /* Ancho máximo */
+  text-align: left;
+
+}
+
+.game-label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: #333; /* Color de texto */
+}
+
+.game-input,
+.game-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+}
+
+
+
+.game-textarea {
+  height: 100px; /* Altura específica para el textarea */
+}
+
+
+/* form partidas*/
+
+.form-container-partida {
+  background-color: white; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 1rem; /* Espaciado interno */
+  margin: 0 auto 20px; /* Centrado horizontal y separación abajo */
+  max-width: 500px; /* Ancho máximo para todos */
+  width: 100%; /* Asegura que ocupe todo el espacio disponible */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  font-family: Arial, sans-serif; /* Fuente consistente */
+}
+
+.form-container-partida form{
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Clase global para contenedores de formularios */
+/* .form-container {
+  background-color: transparent; 
+  border-radius: 8px; 
+  padding: 1.5rem; 
+  margin: 0 auto 20px; 
+  max-width: 500px; 
+  width: 100%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  font-family: Arial, sans-serif; 
+} */
+
 

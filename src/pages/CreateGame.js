@@ -223,7 +223,7 @@ const CreateGame = () => {
       <select
         value={partidaTipo}
         onChange={(e) => setPartidaTipo(e.target.value)}
-        className="create-game-select form-control"
+        className="create-game-select"
       >
         <option value="partidaJuego">Partida Juego</option>
         <option value="partidaAbierta">Partida Abierta</option>
@@ -240,7 +240,7 @@ const CreateGame = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Introduce al menos 4 letras"
-            className="create-game-input form-control"
+            className="create-game-input"
           />
           <button
             onClick={() => {
@@ -295,9 +295,10 @@ const CreateGame = () => {
     )}
 
     {(partidaTipo === 'partidaJuego' && selectedGame) || partidaTipo === 'partidaAbierta' ? (
+      <div class="form-container-partida">
       <form onSubmit={handleSubmit}>
         {partidaTipo === 'partidaAbierta' && (
-          <div className="create-game-form-group">
+          <div className='game-form-group'>
             <label className="create-game-label">Nombre del Juego:</label>
             <input
               type="text"
@@ -333,59 +334,67 @@ const CreateGame = () => {
             )}
           </div>
         )}
-        <div className="create-game-form-group">
-          <label className="create-game-label">Fecha:</label>
-          <input
-            type="date"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-            required
-            className="create-game-input form-control"
-          />
-        </div>
-        <div className="create-game-form-group">
-          <label className="create-game-label">Hora:</label>
-          <input
-            type="time"
-            value={hora}
-            onChange={(e) => setHora(e.target.value)}
-            required
-            className="create-game-input form-control"
-          />
-        </div>
-        <div className="create-game-form-group">
-          <label className="create-game-label">Número de Jugadores:</label>
-          <input
-            type="number"
-            value={numJugadoresMax}
-            onChange={(e) => setNumJugadoresMax(parseInt(e.target.value))}
-            required
-            className="create-game-input form-control"
-          />
-        </div>
-        <div className="create-game-form-group">
-          <label className="create-game-label">Duración (Horas):</label>
-          <input
-            type="number"
-            value={duracion}
-            onChange={(e) => setDuracion(e.target.value)}
-            required
-            className="create-game-input form-control"
-          />
-        </div>
-        <div className="create-game-form-group">
-          <label className="create-game-label">Descripción:</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            className="create-game-textarea form-control"
-          />
-        </div>
-        <button type="submit" className="create-game-submit-button submit-button">
-          Agregar Partida
-        </button>
+          <div className="game-form-group">
+            <label className="game-label">Fecha:</label>
+            <input
+              type="date"
+              value={fecha}
+              onChange={(e) => setFecha(e.target.value)}
+              required
+              className="game-input"
+            />
+          </div>
+          
+          <div className="game-form-group">
+            <label className="game-label">Hora:</label>
+            <input
+              type="time"
+              value={hora}
+              onChange={(e) => setHora(e.target.value)}
+              required
+              className="game-input"
+            />
+          </div>
+          
+          <div className="game-form-group">
+            <label className="game-label">Número de Jugadores:</label>
+            <input
+              type="number"
+              value={numJugadoresMax}
+              onChange={(e) => setNumJugadoresMax(parseInt(e.target.value))}
+              required
+              className="game-input"
+            />
+          </div>
+          
+          <div className="game-form-group">
+            <label className="game-label">Duración (Horas):</label>
+            <input
+              type="number"
+              value={duracion}
+              onChange={(e) => setDuracion(e.target.value)}
+              required
+              className="game-input"
+            />
+          </div>
+          
+          <div className="game-form-group">
+            <label className="game-label">Descripción:</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              className="game-textarea"
+            />
+          </div>
+  
+          <button type="submit" className="game-submit-button submit-button">
+            Agregar Partida
+          </button>
+        
+
       </form>
+      </div>
     ) : null}
 
     {error && <p className="create-game-error-message">{error}</p>}

@@ -108,8 +108,8 @@ const User = () => {
   };
 
   return (
-    <div className="form-container">
-      <h1>Modifica tu información de usuario</h1>
+    <div className="user-form-container">
+      <h1>Perfil de usuario</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -165,13 +165,14 @@ const User = () => {
         </div>
 
         <button className="submit-button" type="submit">Guardar</button>
-      </form>
+      
 
       {usuario && (
         <div className="user-info">
-          <button className="submit-button" onClick={handleResetPassword}>Restablecer Contraseña</button>
+          <button className="btn-link" onClick={handleResetPassword}>Restablecer contraseña</button>
         </div>
       )}
+      </form>
 
       <ToastContainer />
     </div>

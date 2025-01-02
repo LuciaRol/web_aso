@@ -20,7 +20,7 @@ const GuestRegistry = () => {
   const [guestData, setGuestData] = useState([]);
   const [filteredGuestData, setFilteredGuestData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [maxVisibleGuests] = useState(5); /* el número de invitados que se ven sin buscar */ 
+  const [maxVisibleGuests] = useState(5); /* el número de invitados que se ven sin buscar */
 
   const filterGuestData = useCallback((data) => {
     const normalizedSearchText = normalizeText(searchText);
@@ -113,8 +113,8 @@ const GuestRegistry = () => {
   }, [guestData, filterGuestData]);
 
   return (
-    <div>
-      <h1>Registro y Búsqueda de Invitados</h1>
+    <div className='guest-registry-container'>
+      <h1>Registro de invitados</h1>
 
       {/* Formulario de Registro */}
       <form
@@ -129,21 +129,26 @@ const GuestRegistry = () => {
           <input
             type="text"
             id="name"
+            className="form-control"
             value={invitedName}
             onChange={(e) => setInvitedName(e.target.value)}
-            placeholder="Nombre del invitado"
+            placeholder="Nombre"
+            maxLength={48}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="surname">Apellido:</label>
+          <label htmlFor="surname">Apellidos:</label>
           <input
             type="text"
             id="surname"
+            className="form-control"
             value={invitedSurname}
             onChange={(e) => setInvitedSurname(e.target.value)}
-            placeholder="Apellidos del invitado"
+            placeholder="Apellidos"
+            maxLength={48}
           />
         </div>
+
         <button type="submit" className="submit-button">
           Registrar
         </button>
@@ -154,36 +159,49 @@ const GuestRegistry = () => {
         <h2>Buscar Invitados</h2>
         <form className="form-container">
           <div className="form-group">
-            <label htmlFor="searchText">Nombre o Apellido:</label>
+            <label htmlFor="searchText">Nombre o apellidos:</label>
             <input
               type="text"
               id="searchText"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Nombre o Apellido del invitado"
+              placeholder="Busca por nombre o apellidos"
             />
           </div>
         </form>
       </div>
 
-      {/* Resultados de la Búsqueda */}
+      {/* Resultados de la Búsqueda en Formato Tabla */}
       <div className="results-container">
         {loading ? (
           <p>Cargando...</p>
         ) : (
-          <ul className="guest-list">
-            {filteredGuestData.length > 0 ? (
-              filteredGuestData.map((guest, index) => (
-                <li key={index} className="guest-item">
-                  <strong>{guest.name} {guest.surname}</strong><br />
-                  Número de visitas: {guest.visitCount}<br />
-                  Última fecha de visita: {guest.latestDate}
-                </li>
-              ))
-            ) : (
-              <p>No se encontraron resultados.</p>
-            )}
-          </ul>
+          <table className="guest-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Visitas</th>
+                <th>Última Fecha de Visita</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredGuestData.length > 0 ? (
+                filteredGuestData.map((guest, index) => (
+                  <tr key={index}>
+                    <td>{guest.name}</td>
+                    <td>{guest.surname}</td>
+                    <td>{guest.visitCount}</td>
+                    <td>{guest.latestDate}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No se encontraron resultados.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         )}
       </div>
 

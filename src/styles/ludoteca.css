@@ -1,24 +1,100 @@
 .ludoteca-container {
   padding-top: 5rem;
+  height: 100vh;
 }
+/* FILTROS */
 .filters-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  align-items: center; /* Alinea todos los elementos verticalmente */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  gap: 20px; /* Espaciado entre los elementos principales */
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
   margin-bottom: 20px;
 }
 
 .filter-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  align-items: center; /* Alinea los elementos verticalmente */
+  gap: 10px; /* Espaciado entre los elementos dentro del filtro */
 }
 
-.sort-options {
+.filter-item label {
   display: flex;
-  gap: 10px;
+  align-items: center; /* Asegura que el texto del label y los elementos estén alineados */
+  gap: 10px; /* Espaciado entre el label y los elementos */
 }
+
+.filter-item input,
+.filter-item select,
+.filter-item button {
+  width: 200px; /* Tamaño uniforme de ancho */
+  height: 40px; /* Tamaño uniforme de alto */
+  padding: 0 10px; /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde estándar */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 14px; /* Tamaño de fuente uniforme */
+  box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+}
+
+.filter-item button, .alphabet-button{
+  width: 300px; /* Ancho fijo */
+  height: 40px; /* Altura fija */
+  background-color: #012E4A; /* Color de fondo del botón */
+  color: #fff; /* Color del texto */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  cursor: pointer; /* Cambiar cursor al pasar */
+  border-radius: 4px;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Transiciones suaves */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+#reset-filters{
+  width: 200px; /* Ancho fijo */
+}
+
+.filter-item button:hover, .alphabet-button:hover {
+  background-color: #B37100 !important; /* Cambio de color en hover */
+  background: linear-gradient(45deg, var(--primary-hover-color), var(--primary-color)); /* Cambiar degradado al hacer hover */
+  transform: translateY(-2px); /* Efecto de elevación */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
+
+.filter-item button:active, .alphabet-button:active {
+  transform: translateY(0); /* Volver a la posición original al hacer clic */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
+  }
+
+
+/* FILTRO POR LETRAS DEL ALFABETO */
+.alphabet-buttons {
+  display: flex; /* Asegura que los botones estén alineados en fila */
+  flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea si es necesario */
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 0.5rem; /* Espaciado entre botones */
+}
+
+.alphabet-buttons button {
+  width: 2.5rem; /* Tamaño uniforme de ancho */
+  height: 2.5rem; /* Tamaño uniforme de alto */
+  border-radius: 50%; /* Bordes redondeados */
+  background-color: transparent; /* Fondo predeterminado */
+  color: #2c3e50; /* Color del texto */
+  text-decoration: none; /* Quitar subrayado */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+  text-align: center; /* Asegura texto centrado horizontalmente */
+  display: flex; /* Flexbox para centrar contenido */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+}
+
+.alphabet-buttons button:hover {
+  background-color: #dcdcdc;
+  transform: scale(1.1); /* Aumentar ligeramente el tamaño del botón */
+}
+
+
 

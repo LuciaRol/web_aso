@@ -287,6 +287,7 @@ const Ludoteca = () => {
         {user && (
           <div className="filter-item">
             <button
+            className='export-button'
               onClick={() =>
                 exportToExcel(
                   filteredGames.map((game) => ({
@@ -312,9 +313,9 @@ const Ludoteca = () => {
       
       <div className="filters-row">
           {/* Botón para mostrar/ocultar los botones de letras */}
-          <button onClick={toggleAlphabetButtons}>
-        {showAlphabetButtons ? 'Ocultar Filtro Letra Inicial' : 'Filtro Letra Inicial'}
-      </button>
+          <button onClick={toggleAlphabetButtons} className="alphabet-button">
+            {showAlphabetButtons ? 'Ocultar filtro por letra inicial' : 'Filtro por letra inicial'}
+          </button>
 
       </div>
       {/* Filtro por letra */}
@@ -335,9 +336,10 @@ const Ludoteca = () => {
           })}
         </div>)}
       </div>
+
       <div className="filters-row">
         <label className="filter-item">
-          Buscar por nombre:
+          Buscar:
           <input
             type="text"
             value={searchName}
@@ -347,7 +349,7 @@ const Ludoteca = () => {
         </label>
   
         <label className="filter-item">
-          Género:
+          Categoría:
           <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
             <option value=''>Todos</option>
             {genres.sort().map(genre => (
@@ -367,7 +369,7 @@ const Ludoteca = () => {
           </div>
         </label>
         <div>
-          <div className="filter-item">
+          <div className="filter-item" id='reset-filters'>
             <button onClick={resetFilters}>Eliminar filtros</button>
           </div>
         </div>

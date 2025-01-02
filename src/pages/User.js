@@ -78,8 +78,6 @@ const User = () => {
         const usuarioRef = doc(firestore, 'users', usuarioExistente.id);
 
         await updateDoc(usuarioRef, {
-          nombre,
-          apellido,
           telefono,
           usuarioTelegram,
           fechaHoraModificacion: serverTimestamp(),
@@ -118,24 +116,22 @@ const User = () => {
             id="nombre"
             className="form-control"
             type="text"
-            placeholder="Nombre"
             value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            required
+            readOnly
           />
+          <span className="error-message">Este campo solo puede ser modificado por el administrador</span>
         </div>
 
         <div className="form-group">
-          <label htmlFor="apellido">Apellido</label>
+          <label htmlFor="apellido">Apellidos</label>
           <input
             id="apellido"
             className="form-control"
             type="text"
-            placeholder="Apellido"
             value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            required
+            readOnly
           />
+          <span className="error-message">Este campo solo puede ser modificado por el administrador</span>
         </div>
 
         <div className="form-group">
@@ -165,13 +161,12 @@ const User = () => {
         </div>
 
         <button className="submit-button" type="submit">Guardar</button>
-      
 
-      {usuario && (
-        <div className="user-info">
-          <button className="btn-link" onClick={handleResetPassword}>Restablecer contraseña</button>
-        </div>
-      )}
+        {usuario && (
+          <div className="user-info">
+            <button className="btn-link" onClick={handleResetPassword}>Restablecer contraseña</button>
+          </div>
+        )}
       </form>
 
       <ToastContainer />

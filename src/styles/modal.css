@@ -23,8 +23,9 @@
 }
 
 .modal-content1 img {
-  width: 100%;
-  height: auto;
+  width: 100%; /* Ajusta el ancho al contenedor */
+  height: 400px; /* Altura fija */
+  object-fit: cover; /* Ajusta la imagen para llenar el contenedor sin distorsión */
   border-radius: 8px;
 }
 
@@ -37,10 +38,10 @@
   border: none;
   font-size: 15px;
   cursor: pointer;
-  color: #333; /* Ajusta el color como prefieras */
+  color: #999;
 }
 
 .close-button:hover {
-    color: orange; /* Puedes ajustar el color como prefieras */
+    color: #333; /* Puedes ajustar el color como prefieras */
     background: white;
 }

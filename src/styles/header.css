@@ -66,6 +66,10 @@
   margin-left: auto; /* Mover el botón hamburguesa a la derecha */
 }
 
+.menu-toggle:hover{
+  background-color: transparent;
+}
+
 /* Ocultamos el menú en dispositivos móviles por defecto */
 .header-nav-container {
   display: flex;

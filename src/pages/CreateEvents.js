@@ -22,6 +22,7 @@ const CreateEvents = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [editEvent, setEditEvent] = useState(null);
   const thread_id = 180; // Id del tema Eventos
+  const [formVisible, setFormVisible] = useState(false);
 
   const fetchEvents = async () => {
     setLoading(true);
@@ -97,6 +98,7 @@ const CreateEvents = () => {
 
     setLoading(true);
     try {
+      // Añadir el evento a Firestore
       await addDoc(collection(firestore, 'eventos'), {
         titulo,
         fecha,
@@ -105,6 +107,7 @@ const CreateEvents = () => {
         imagen,
       });
 
+      // Enviar mensaje a Telegram
       const message = `Nuevo evento creado:
         ${titulo}
         - Fecha: ${fecha}
@@ -112,13 +115,22 @@ const CreateEvents = () => {
         - Descripción: ${descripcion}`;
       await sendTelegramMessage(message, imagen, thread_id);
 
+      // Limpiar los campos del formulario
       setTitulo('');
       setFecha('');
       setHora('');
       setDescripcion('');
       setImagen('');
+
+      // Mostrar mensaje de éxito
       toast.success('Evento creado correctamente.');
+      
+      // Llamar a la función para obtener los eventos actualizados
       fetchEvents();
+
+      // Ocultar el formulario después de crear el evento
+      setFormVisible(false);
+
     } catch (error) {
       toast.error('Error al crear el evento.');
       console.error('Error al crear el evento:', error);
@@ -126,7 +138,7 @@ const CreateEvents = () => {
       setLoading(false);
     }
   };
-
+  
   const handleDeleteEvent = async (id) => {
     if (!isAdmin) {
       toast.error('No tienes permisos para eliminar eventos.');
@@ -189,77 +201,86 @@ const CreateEvents = () => {
   };
 
   return (
-    <div>
+    <div className='events-container'>
       <ToastContainer />
-      <h1>Crear Evento</h1>
-      <div className="description">
-        <p>Crea un evento especial y compártelo con todos para que no se lo pierdan...</p>
+      <h1>Administrar eventos</h1>
+
+      {/* FORMULARIO PARA CREAR EVENTO */}
+      <div className='new-event-container'>
+        <button 
+          className="new-event-btn submit-button" 
+          onClick={() => setFormVisible(!formVisible)}
+        >
+          {formVisible ? 'Cerrar formulario' : 'Nuevo evento'}
+        </button>
       </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="titulo">Título</label>
-          <input
-            id="titulo"
-            className="form-control"
-            type="text"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            required
-          />
-        </div>
+      {formVisible && (
+        <form onSubmit={handleSubmit} className='create-event-form'>
+          <div className="form-group">
+            <label htmlFor="titulo">Título</label>
+            <input
+              id="titulo"
+              className="form-control"
+              type="text"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="fecha">Fecha</label>
-          <input
-            id="fecha"
-            className="form-control"
-            type="date"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="fecha">Fecha</label>
+            <input
+              id="fecha"
+              className="form-control"
+              type="date"
+              value={fecha}
+              onChange={(e) => setFecha(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="hora">Hora</label>
-          <input
-            id="hora"
-            className="form-control"
-            type="time"
-            value={hora}
-            onChange={(e) => setHora(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="hora">Hora</label>
+            <input
+              id="hora"
+              className="form-control"
+              type="time"
+              value={hora}
+              onChange={(e) => setHora(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="descripcion">Descripción</label>
-          <textarea
-            id="descripcion"
-            className="form-control"
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="descripcion">Descripción</label>
+            <textarea
+              id="descripcion"
+              className="form-control"
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="imagen">URL de la Imagen</label>
-          <input
-            id="imagen"
-            className="form-control"
-            type="url"
-            value={imagen}
-            onChange={(e) => setImagen(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="imagen">URL de la Imagen</label>
+            <input
+              id="imagen"
+              className="form-control"
+              type="url"
+              value={imagen}
+              onChange={(e) => setImagen(e.target.value)}
+              required
+            />
+          </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? 'Creando Evento...' : 'Crear Evento'}
-        </button>
-      </form>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Creando Evento...' : 'Crear Evento'}
+          </button>
+        </form>
+      )}
 
       <h2>Eventos Creados</h2>
       <div className="events-list">
@@ -276,7 +297,7 @@ const CreateEvents = () => {
                 e.stopPropagation();  // Evita que se abra el modal al hacer clic
                 handleEditEvent(event);  // Llama a la función para editar
               }} 
-              className="edit-button"
+              className="edit-button submit-button"
             >
               Editar Evento
             </button>
@@ -286,7 +307,7 @@ const CreateEvents = () => {
                 e.stopPropagation();  // Prevent modal from opening
                 handleDeleteEvent(event.id);
               }} 
-              className="delete-button"
+              className="delete-button  submit-button"
             >
               Eliminar Evento
             </button>

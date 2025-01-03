@@ -47,16 +47,16 @@ const Admin = () => {
 
     return (
         <div className="admin-container">
-            <h1>Panel de Administración</h1>
+            <h1>Panel de administración</h1>
             <div className="admin-grid">
                 <div className="admin-box">
-                    <Link to="/CreateEvents">Crear Eventos</Link>
+                    <Link to="/CreateEvents">Gestionar eventos</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/CreateUser">Crear Usuarios</Link>
+                    <Link to="/CreateUser">Crear usuarios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/AdminUsers">Administrar Usuarios</Link>
+                    <Link to="/AdminUsers">Gestionar usuarios</Link>
                 </div>
                 <div className="admin-box">
                     <Link to="/Reminder">Recordatorios</Link>
@@ -65,10 +65,10 @@ const Admin = () => {
                     <Link to="/Statistics">Estadísticas</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/LoanedGames">Juegos Prestados</Link>
+                    <Link to="/LoanedGames">Juegos prestados</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/GuestList">Listado de Invitados</Link>
+                    <Link to="/GuestList">Listado de invitados</Link>
                 </div>
             </div>
         </div>

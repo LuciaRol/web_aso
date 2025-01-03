@@ -375,21 +375,30 @@ const Ludoteca = () => {
         </div>
       </div>
     
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
-        {filteredGames.map(game => (
+      <div className="games-grid">
+        {filteredGames.map((game) => (
           <div
             key={game.id}
-            style={{ cursor: 'pointer', textAlign: 'center', opacity: game.available ? 1 : 0.5 }}
+            className={`game-card ${game.available ? "available" : "unavailable"}`}
             onClick={() => openModal(game)}
           >
-            <div style={{ width: '100%', height: '200px', overflow: 'hidden', borderRadius: '8px' }}>
-              <img src={game.image} alt={game.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="game-image-container">
+              <img
+                src={game.image}
+                alt={game.name}
+                className="game-image"
+              />
             </div>
-            <h2 style={{ fontSize: '16px', marginTop: '10px' }}>{game.name}</h2>
-            {!game.available && <p style={{ color: 'red' }}>No disponible {game.loanedBy ? `- Prestado a: ${game.loanedBy}` : ''}</p>}
+            <h2 className="game-title">{game.name}</h2>
+            {!game.available && (
+              <p className="game-unavailable-text">
+                No disponible {game.loanedBy ? `- Prestado a: ${game.loanedBy}` : ""}
+              </p>
+            )}
           </div>
         ))}
       </div>
+
   
       {/* Modal for showing game details */}
       <Modal

@@ -1,0 +1,51 @@
+/* FLECHA */
+/* From Uiverse.io by ArturCodeCraft */ 
+/* <reset-style> ============================ */
+/* From Uiverse.io by ArturCodeCraft */ 
+/* <reset-style> ============================ */
+a {
+    text-decoration: none;
+  }
+  
+  /* <main-style> ============================ */
+  .scroll-up {
+    position: fixed; /* Fija el botón en la esquina */
+    right: 2rem; /* Espaciado desde el borde derecho */
+    bottom: 3rem; /* Espaciado desde el borde inferior */
+    z-index: 5; /* Asegura que esté por encima de otros elementos */
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Forma circular */
+    background-color: #012E4A;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity .4s, bottom .4s, transform .4s;
+    opacity: 0; /* Inicialmente invisible */
+    visibility: hidden; /* Asegura que no sea accesible cuando está invisible */
+  }
+  
+  /* Hover effect */
+  .scroll-up:hover {
+    background-color: #B37100;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Transiciones suaves */
+    transform: translateY(-.25rem); /* Ligeramente elevado al pasar el ratón */
+  }
+  
+  /* Asegura que se mantenga fijo en tamaños más pequeños */
+  @media (max-width: 1199.98px) {
+    .scroll-up {
+      right: 1rem; /* Reduce el margen derecho en pantallas pequeñas */
+    }
+  }
+  
+  /* Clase para hacerla visible */
+  ._show-scroll {
+    opacity: 1; /* Hace que la flecha sea visible */
+    visibility: visible; /* Asegura que sea accesible */
+    bottom: 3rem; /* Ajusta la posición si es necesario */
+  }
+  

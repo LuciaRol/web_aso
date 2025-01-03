@@ -8,6 +8,7 @@ import { auth, firestore } from '../firebase';
 import '../styles/ludoteca.css'; // Import CSS for styles
 import { utils, writeFile } from 'xlsx'; // Importar utilidades para exportar Excel
 import { sendTelegramMessage } from '../components/TelegramMessenger'; // Telegram component
+import TopArrow from '../components/TopArrow';
 
 
 // Establece el contenedor del modal
@@ -65,7 +66,6 @@ const Ludoteca = () => {
             };
           });
         }
-  
         setUsersMap(usersMap);
         setLoanedGames(loanedGamesMap);
         setGames(gamesList);
@@ -287,6 +287,7 @@ const Ludoteca = () => {
         {user && (
           <div className="filter-item">
             <button
+            className='export-button'
               onClick={() =>
                 exportToExcel(
                   filteredGames.map((game) => ({
@@ -312,9 +313,9 @@ const Ludoteca = () => {
       
       <div className="filters-row">
           {/* Botón para mostrar/ocultar los botones de letras */}
-          <button onClick={toggleAlphabetButtons}>
-        {showAlphabetButtons ? 'Ocultar Filtro Letra Inicial' : 'Filtro Letra Inicial'}
-      </button>
+          <button onClick={toggleAlphabetButtons} className="alphabet-button">
+            {showAlphabetButtons ? 'Ocultar filtro por letra inicial' : 'Filtro por letra inicial'}
+          </button>
 
       </div>
       {/* Filtro por letra */}
@@ -335,9 +336,10 @@ const Ludoteca = () => {
           })}
         </div>)}
       </div>
+
       <div className="filters-row">
         <label className="filter-item">
-          Buscar por nombre:
+          Buscar:
           <input
             type="text"
             value={searchName}
@@ -347,7 +349,7 @@ const Ludoteca = () => {
         </label>
   
         <label className="filter-item">
-          Género:
+          Categoría:
           <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
             <option value=''>Todos</option>
             {genres.sort().map(genre => (
@@ -367,91 +369,76 @@ const Ludoteca = () => {
           </div>
         </label>
         <div>
-          <div className="filter-item">
+          <div className="filter-item" id='reset-filters'>
             <button onClick={resetFilters}>Eliminar filtros</button>
           </div>
         </div>
       </div>
     
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
-        {filteredGames.map(game => (
+      <div className="games-grid">
+        {filteredGames.map((game) => (
           <div
             key={game.id}
-            style={{ cursor: 'pointer', textAlign: 'center', opacity: game.available ? 1 : 0.5 }}
+            className={`game-card ${game.available ? "available" : "unavailable"}`}
             onClick={() => openModal(game)}
           >
-            <div style={{ width: '100%', height: '200px', overflow: 'hidden', borderRadius: '8px' }}>
-              <img src={game.image} alt={game.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="game-image-container">
+              <img
+                src={game.image}
+                alt={game.name}
+                className="game-image"
+              />
             </div>
-            <h2 style={{ fontSize: '16px', marginTop: '10px' }}>{game.name}</h2>
-            {!game.available && <p style={{ color: 'red' }}>No disponible {game.loanedBy ? `- Prestado a: ${game.loanedBy}` : ''}</p>}
+            <h2 className="game-title">{game.name}</h2>
+            {!game.available && (
+              <p className="game-unavailable-text">
+                No disponible {game.loanedBy ? `- Prestado a: ${game.loanedBy}` : ""}
+              </p>
+            )}
           </div>
         ))}
       </div>
+
   
       {/* Modal for showing game details */}
       <Modal
         isOpen={!!selectedGame}
         onRequestClose={closeModal}
         contentLabel="Game Details"
-        style={{
-          overlay: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          },
-          content: {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            maxWidth: '80vw', 
-            maxHeight: '80vh', 
-            width: 'auto',
-            height: 'auto',
-            padding: '20px',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            backgroundColor: '#fff',
-            overflow: 'auto', 
-            position: 'relative',
-          }
-        }}
+        className="modal-content"
+        overlayClassName="modal-overlay"
       >
+        <button onClick={closeModal} className="modal-close-button" aria-label="Cerrar modal">
+          ×
+        </button>
         {selectedGame && (
-          <div style={{ textAlign: 'center', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h2 style={{ margin: '0 0 10px', fontSize: '1.5em' }}>{selectedGame.name}</h2>
+          <div className="modal-inner">
+            <h2 style={{ margin: "0 0 10px", fontSize: "1.5em" }}>{selectedGame.name}</h2>
             <img
               src={selectedGame.image}
               alt={selectedGame.name}
-              style={{
-                maxWidth: '100%',
-                maxHeight: '40vh', // Ajusta la altura máxima de la imagen
-                objectFit: 'contain',
-                borderRadius: '8px',
-              }}
+              className="modal-image"
             />
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px' }}>
-              <p><strong>Géneros:</strong> {selectedGame.genres.join(', ')}</p>
+            <div style={{ flex: 1, padding: "10px" }}>
+              <p><strong>Géneros:</strong> {selectedGame.genres.join(", ")}</p>
               <p><strong>Jugadores Máximos:</strong> {selectedGame.maxPlayers}</p>
-              <p><a href={selectedGame.url} target="_blank" rel="noopener noreferrer">Ver en BGG</a></p>
+              <p>
+                <a href={selectedGame.url} target="_blank" rel="noopener noreferrer" className='btn-link'>
+                  Ver en BGG
+                </a>
+              </p>
             </div>
-            <div style={{ marginTop: '20px' }}>
+            <div style={{ marginTop: "20px" }}>
               {!selectedGame.available ? (
                 <>
-                  <p><strong>Prestado a: </strong>{usersMap[user.email].name || 'Usuario desconocido'}</p>
-                  <p><strong>Fecha de Máxima de Devolución:</strong> {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : 'No disponible'}</p>
-  
+                  <p><strong>Prestado a:</strong> {usersMap[user.email]?.name || "Usuario desconocido"}</p>
+                  <p>
+                    <strong>Fecha Máxima de Devolución:</strong>{" "}
+                    {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : "No disponible"}
+                  </p>
                   <button
                     onClick={handleReturn}
-                    style={{
-                      marginTop: '10px',
-                      padding: '10px 20px',
-                      fontSize: '16px',
-                      cursor: 'pointer',
-                      backgroundColor: '#dc3545',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '5px',
-                    }}
+                    className="modal-button modal-button-return submit-button"
                   >
                     Devolver
                   </button>
@@ -459,41 +446,19 @@ const Ludoteca = () => {
               ) : (
                 <button
                   onClick={handleLoan}
-                  style={{
-                    marginTop: '10px',
-                    padding: '10px 20px',
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    backgroundColor: '#007bff',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '5px',
-                  }}
+                  className="modal-button modal-button-loan submit-button"
                 >
                   Registrar Préstamo
                 </button>
               )}
-              <button
-                onClick={closeModal}
-                style={{
-                  marginTop: '10px',
-                  padding: '10px 20px',
-                  fontSize: '16px',
-                  cursor: 'pointer',
-                  backgroundColor: '#ccc',
-                  color: '#000',
-                  border: 'none',
-                  borderRadius: '5px',
-                }}
-              >
-                Cerrar
-              </button>
             </div>
           </div>
         )}
       </Modal>
   
       <ToastContainer />
+
+      <TopArrow />
     </div>
   );
   

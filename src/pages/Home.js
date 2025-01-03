@@ -12,6 +12,7 @@ import Evento from '../img/landing/Event.png';
 import Discount from '../img/landing/Discount.png';
 import Wood from '../img/landing/wood3.webp';
 import '../styles/home.css';
+import TopArrow from '../components/TopArrow';
 
 const Home = () => {
   return (
@@ -143,6 +144,7 @@ const Home = () => {
           </ul>
 
         </section>
+        <TopArrow />
     </div>
   );
 };

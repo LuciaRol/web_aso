@@ -103,6 +103,7 @@
   padding: 20px; /* Añadir espacio alrededor del grid */
   margin: 0 auto; /* Centrar el grid en la pantalla */
   max-width: 1200px; /* Limitar el ancho máximo del grid */
+  
 }
 
 .game-card {
@@ -113,10 +114,14 @@
   border-radius: 8px;
   margin: 10px; /* Margen alrededor de cada tarjeta de juego */
   padding: 0.5rem;
+  transition: transform var(--transition-time) ease;
 }
 
+
 .game-card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombreado más intenso al pasar el mouse */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+   /* Sombreado más intenso al pasar el mouse */
 }
 
 .game-card.unavailable {
@@ -162,7 +167,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 55vw; /* Reducido de 80vw a 50vw */
+  max-width: 60vw; /* Reducido de 80vw a 50vw */
   max-height: 90vh;
   width: auto;
   height: auto;
@@ -221,6 +226,4 @@
   color: #fff; /* Asegura que ambos botones tengan texto blanco */
   width: 300px !important; /* Hace que ambos botones tengan el mismo ancho */
 }
-
-
 

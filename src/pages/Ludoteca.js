@@ -8,6 +8,7 @@ import { auth, firestore } from '../firebase';
 import '../styles/ludoteca.css'; // Import CSS for styles
 import { utils, writeFile } from 'xlsx'; // Importar utilidades para exportar Excel
 import { sendTelegramMessage } from '../components/TelegramMessenger'; // Telegram component
+import TopArrow from '../components/TopArrow';
 
 
 // Establece el contenedor del modal
@@ -65,7 +66,6 @@ const Ludoteca = () => {
             };
           });
         }
-  
         setUsersMap(usersMap);
         setLoanedGames(loanedGamesMap);
         setGames(gamesList);
@@ -457,6 +457,8 @@ const Ludoteca = () => {
       </Modal>
   
       <ToastContainer />
+
+      <TopArrow />
     </div>
   );
   

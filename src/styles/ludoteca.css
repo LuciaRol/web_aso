@@ -95,17 +95,28 @@
   transform: scale(1.1); /* Aumentar ligeramente el tamaño del botón */
 }
 
-/* MENSAJE DE PRÉSTAMO */
+/* GRID DE LOS JUEGOS */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* 5 juegos por fila */
   gap: 20px;
+  padding: 20px; /* Añadir espacio alrededor del grid */
+  margin: 0 auto; /* Centrar el grid en la pantalla */
+  max-width: 1200px; /* Limitar el ancho máximo del grid */
 }
 
 .game-card {
   cursor: pointer;
   text-align: center;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, box-shadow 0.3s ease; /* Agregar transición al sombreado */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombreado por defecto */
+  border-radius: 8px;
+  margin: 10px; /* Margen alrededor de cada tarjeta de juego */
+  padding: 0.5rem;
+}
+
+.game-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombreado más intenso al pasar el mouse */
 }
 
 .game-card.unavailable {
@@ -133,6 +144,8 @@
 .game-unavailable-text {
   color: red;
 }
+
+
 
 
 /* VENTANA MODAL */

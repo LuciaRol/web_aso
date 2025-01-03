@@ -402,59 +402,59 @@ const Ludoteca = () => {
   
       {/* Modal for showing game details */}
       <Modal
-    isOpen={!!selectedGame}
-    onRequestClose={closeModal}
-    contentLabel="Game Details"
-    className="modal-content"
-    overlayClassName="modal-overlay"
-  >
-    <button onClick={closeModal} className="modal-close-button" aria-label="Cerrar modal">
-      ×
-    </button>
-    {selectedGame && (
-      <div className="modal-inner">
-        <h2 style={{ margin: "0 0 10px", fontSize: "1.5em" }}>{selectedGame.name}</h2>
-        <img
-          src={selectedGame.image}
-          alt={selectedGame.name}
-          className="modal-image"
-        />
-        <div style={{ flex: 1, padding: "10px" }}>
-          <p><strong>Géneros:</strong> {selectedGame.genres.join(", ")}</p>
-          <p><strong>Jugadores Máximos:</strong> {selectedGame.maxPlayers}</p>
-          <p>
-            <a href={selectedGame.url} target="_blank" rel="noopener noreferrer" className='btn-link'>
-              Ver en BGG
-            </a>
-          </p>
-        </div>
-        <div style={{ marginTop: "20px" }}>
-          {!selectedGame.available ? (
-            <>
-              <p><strong>Prestado a:</strong> {usersMap[user.email]?.name || "Usuario desconocido"}</p>
+        isOpen={!!selectedGame}
+        onRequestClose={closeModal}
+        contentLabel="Game Details"
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        <button onClick={closeModal} className="modal-close-button" aria-label="Cerrar modal">
+          ×
+        </button>
+        {selectedGame && (
+          <div className="modal-inner">
+            <h2 style={{ margin: "0 0 10px", fontSize: "1.5em" }}>{selectedGame.name}</h2>
+            <img
+              src={selectedGame.image}
+              alt={selectedGame.name}
+              className="modal-image"
+            />
+            <div style={{ flex: 1, padding: "10px" }}>
+              <p><strong>Géneros:</strong> {selectedGame.genres.join(", ")}</p>
+              <p><strong>Jugadores Máximos:</strong> {selectedGame.maxPlayers}</p>
               <p>
-                <strong>Fecha Máxima de Devolución:</strong>{" "}
-                {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : "No disponible"}
+                <a href={selectedGame.url} target="_blank" rel="noopener noreferrer" className='btn-link'>
+                  Ver en BGG
+                </a>
               </p>
-              <button
-                onClick={handleReturn}
-                className="modal-button modal-button-return submit-button"
-              >
-                Devolver
-              </button>
-            </>
-          ) : (
-            <button
-              onClick={handleLoan}
-              className="modal-button modal-button-loan submit-button"
-            >
-              Registrar Préstamo
-            </button>
-          )}
-        </div>
-      </div>
-    )}
-  </Modal>
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              {!selectedGame.available ? (
+                <>
+                  <p><strong>Prestado a:</strong> {usersMap[user.email]?.name || "Usuario desconocido"}</p>
+                  <p>
+                    <strong>Fecha Máxima de Devolución:</strong>{" "}
+                    {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : "No disponible"}
+                  </p>
+                  <button
+                    onClick={handleReturn}
+                    className="modal-button modal-button-return submit-button"
+                  >
+                    Devolver
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={handleLoan}
+                  className="modal-button modal-button-loan submit-button"
+                >
+                  Registrar Préstamo
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </Modal>
   
       <ToastContainer />
     </div>

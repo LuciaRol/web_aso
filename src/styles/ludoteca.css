@@ -147,20 +147,37 @@
 }
 
 .game-unavailable-text {
+  position: absolute;
+  bottom: -30px; /* Inicialmente fuera de la tarjeta (debajo) */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: whitesmoke; /* Fondo blanco */
   color: red;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 1; /* Asegura que el texto esté encima de la tarjeta */
+  opacity: 0; /* Inicialmente oculto */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  width: 250px; /* Aumentamos el ancho del contenedor */
+  text-align: center; /* Centra el texto dentro del contenedor */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
 }
 
-
-
+.game-card:hover .game-unavailable-text {
+  bottom: 10px; /* Mueve el texto hacia arriba al hacer hover */
+  opacity: 1; /* Hace el texto visible */
+  transform: translateX(-50%) translateY(-10px); /* Animación para el movimiento */
+}
 
 /* VENTANA MODAL */
-/* Estilos para el overlay del modal */
 /* Estilos para el overlay del modal */
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Estilos para el contenido del modal */
 /* Estilos para el contenido del modal */
 .modal-content {
   display: flex;
@@ -225,5 +242,58 @@
   border-radius: 5px;
   color: #fff; /* Asegura que ambos botones tengan texto blanco */
   width: 300px !important; /* Hace que ambos botones tengan el mismo ancho */
+}
+
+@media (max-width: 768px) {
+  .games-grid {
+    grid-template-columns: 1fr; /* 1 tarjeta por fila en pantallas móviles */
+  }
+
+  .game-unavailable-text {
+    position: relative; /* Cambiamos la posición a 'relative' para que el texto quede debajo de la tarjeta */
+    bottom: 0; /* Restablecemos la posición para que no quede fuera de la tarjeta */
+    left: 0;
+    transform: translateX(0);
+    width: auto; /* Eliminamos el ancho fijo */
+    background-color: transparent;
+    padding: 5px 10px;
+    color: red;
+    opacity: 1; /* Aseguramos que el texto sea visible */
+    font-size: 16px; /* Ajustamos el tamaño de la fuente para pantallas pequeñas */
+    text-align: center; /* Centrado de texto */
+    border-radius: 5px; /* Bordes redondeados */
+    z-index: 1; /* Asegura que el texto esté encima de la tarjeta */
+    box-shadow: none;
+  }
+
+  /* No hay hover en móviles, por lo que el mensaje siempre será visible */
+  .game-card:hover .game-unavailable-text {
+    bottom: 0; /* Mantiene el mensaje en la parte inferior */
+    opacity: 1; /* El texto sigue siendo visible */
+    transform: translateX(0); /* Sin movimiento adicional */
+  }
+
+
+  .modal-content {
+    max-width: 100vw; /* Ocupa todo el ancho de la ventana */
+    max-height: 100vh; /* Ocupa todo el alto de la ventana */
+    width: 100vw; /* Asegura que la ventana modal ocupe todo el ancho */
+    height: 100vh; /* Asegura que la ventana modal ocupe todo el alto */
+    padding: 0; /* Elimina el padding para maximizar el espacio */
+    border-radius: 0; /* Opcional, para quitar los bordes redondeados */
+  }
+
+  .modal-inner {
+    height: 100%; /* Asegura que el contenido ocupe todo el alto disponible */
+  }
+
+  .modal-image {
+    max-height: 50vh; /* Ajusta el tamaño de la imagen dentro del modal */
+    margin-bottom: 20px; /* Añade un poco de margen para separar la imagen de los botones */
+  }
+
+  .modal-button {
+    width: 80%; /* Hace que los botones sean más grandes en pantallas pequeñas */
+  }
 }
 

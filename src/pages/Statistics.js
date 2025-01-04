@@ -7,6 +7,7 @@ import '../styles/statistics.css';
 import { FaUserAlt } from 'react-icons/fa'; 
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import TopArrow from '../components/TopArrow';
+import * as XLSX from 'xlsx'; // Importa la librería xlsx
 
 // Registra las escalas y elementos que usarás
 ChartJS.register(
@@ -153,6 +154,38 @@ const Statistics = () => {
     setModalData({}); // Limpia los datos del modal
   };
 
+  // Función para exportar los datos a un archivo Excel
+  const exportToExcel = () => {
+    const wb = XLSX.utils.book_new(); // Crear un nuevo libro de Excel
+
+    // Exportar Partidas por mes
+    const partidasData = [
+      ['Mes', 'Cantidad de Partidas'],
+      ...chartData.labels.map((label, index) => [label, chartData.datasets[0].data[index]])
+    ];
+    const partidasSheet = XLSX.utils.aoa_to_sheet(partidasData);
+    XLSX.utils.book_append_sheet(wb, partidasSheet, 'Partidas');
+
+    // Exportar Invitados por mes
+    const invitadosData = [
+      ['Mes', 'Cantidad de Invitados'],
+      ...invitedChartData.labels.map((label, index) => [label, invitedChartData.datasets[0].data[index]])
+    ];
+    const invitadosSheet = XLSX.utils.aoa_to_sheet(invitadosData);
+    XLSX.utils.book_append_sheet(wb, invitadosSheet, 'Invitados');
+
+    // Exportar Juegos prestados
+    const juegosData = [
+      ['Mes', 'Cantidad de Juegos Prestados'],
+      ...historicludotecaChartData.labels.map((label, index) => [label, historicludotecaChartData.datasets[0].data[index]])
+    ];
+    const juegosSheet = XLSX.utils.aoa_to_sheet(juegosData);
+    XLSX.utils.book_append_sheet(wb, juegosSheet, 'Juegos Prestados');
+
+    // Guardar el archivo Excel
+    XLSX.writeFile(wb, 'Estadisticas.xlsx');
+  };
+
   return (
     <div className="statistics-container">
       <h1>Estadísticas</h1>
@@ -163,6 +196,9 @@ const Statistics = () => {
           <p>{userCount}</p>
         </div>
       </div>
+
+      {/* Botón para exportar a Excel */}
+      <button onClick={exportToExcel} className="export-button submit-button">Exportar a Excel</button>
 
       {isLoading ? (
         <Spinner />

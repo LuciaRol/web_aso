@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { firestore } from '../firebase'; // Asegúrate de que firestore está correctamente configurado
 import Modal from '../components/Modal';
 import '../styles/events.css';  // Importa el CSS para los estilos
@@ -19,12 +19,14 @@ const Events = () => {
   const [events, setEvents] = useState([]); // Estado para los eventos
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const today = new Date().toISOString().split('T')[0];
 
   // Cargar eventos desde Firestore
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const querySnapshot = await getDocs(collection(firestore, 'eventos'));
+        const q = query(collection(firestore, 'eventos'), where('fecha', '>=', today));
+        const querySnapshot = await getDocs(q);
         const eventsData = querySnapshot.docs.map(doc => {
           const data = doc.data();
           

@@ -65,6 +65,7 @@
   max-width: 500px;
 }
 
+/* RESULTADOS */
 .create-game-results-container {
   margin-top: 15px;
    /* Asegura que no se desborde */
@@ -251,5 +252,46 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   font-family: Arial, sans-serif; 
 } */
+
+/* Estilos para pantallas móviles */
+@media screen and (max-width: 768px) {
+  /* Modificar el contenedor de los resultados para que ocupe más espacio en pantallas pequeñas */
+  .create-game-results-container {
+    width: 100%;  /* Ocupa el 100% del ancho disponible */
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Cambiar el diseño de los elementos para que haya un solo elemento por fila */
+  .create-game-guest-list {
+    grid-template-columns: 1fr; /* Solo un elemento por fila */
+    gap: 15px; /* Reducir el espacio entre los elementos */
+  }
+
+  .create-game-guest-item {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 90%; /* Limitar ligeramente el ancho */
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Estilos para pantallas grandes (por si se necesitan otros ajustes) */
+@media screen and (min-width: 769px) {
+  .create-game-results-container {
+    width: 90%;
+    max-width: 1200px;
+  }
+
+  .create-game-guest-list {
+    grid-template-columns: repeat(4, 1fr); /* Cuatro elementos por fila en pantallas grandes */
+    gap: 20px; /* Espacio entre los elementos */
+  }
+
+  .create-game-guest-item {
+    width: 300px; /* Ancho de los elementos */
+  }
+}
+
 
 

@@ -87,8 +87,8 @@ const CreateUser = () => {
   };
 
   return (
-    <div className="form-container">
-      <h1>Crear nuevo usuario</h1>
+    <div className="form-container create-user-form-container">
+      <h1>Nuevo usuario</h1>
 
       {isAdmin && (
         <form onSubmit={handleAddNewUser}>

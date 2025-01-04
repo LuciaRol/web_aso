@@ -186,3 +186,23 @@ select {
   padding: 12px;
   font-size: 1em;
 }
+
+
+/* BOTONES CREAR EVENTO */
+.new-event-container {
+  display: flex;
+  width: 30%;
+  justify-content: center; /* Centra el botón horizontalmente */
+  align-items: center; /* Centra el botón verticalmente */
+  margin: 0 auto; /* Centra el contenedor en la pantalla */
+}
+
+.new-event-btn {
+  width: 200px; /* Establece un ancho fijo de 200px */
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  display: inline-block; /* Asegura que el botón no ocupe todo el espacio disponible */
+  margin-top: 25px;
+  margin-bottom: 25px;
+}

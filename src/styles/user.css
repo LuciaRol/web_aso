@@ -1,3 +1,7 @@
+.create-user-form-container{
+  padding-top: 5rem !important;
+}
+
 /* Estilos generales para el contenedor del formulario */
 .user-form-container {
   max-width: 600px; /* Ancho máximo del formulario */

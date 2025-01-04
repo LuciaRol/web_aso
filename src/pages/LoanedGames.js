@@ -53,11 +53,11 @@ const LoanedGames = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="Statistics-container">
+    <div className="loaned-games-container">
+      <h1>Juegos en préstamo</h1>
       {/* Contenedor de Número de Usuarios */}
       {/* Listado de Juegos Prestados */}
       <div className="loaned-games-list">
-        <h3>Juegos Prestados</h3>
         {isLoading ? (
           <p>Cargando...</p>
         ) : currentGames.length > 0 ? (
@@ -75,7 +75,7 @@ const LoanedGames = () => {
                     <p><strong>Juego:</strong> {game.game.name}</p>
                     <p><strong>Usuario:</strong> {fullName} ({game.userName})</p>
                     <p><strong>Fecha de Préstamo:</strong> {formatDate(game.loanDate)}</p>
-                    <p><strong>Fecha de Retorno:</strong> {game.returnDate ? formatDate(game.returnDate) : 'Pendiente'}</p>
+                    <p><strong>Estado:</strong> {game.returnDate ? formatDate(game.returnDate) : 'Pendiente'}</p>
                   </div>
                 </li>
               );
@@ -88,12 +88,14 @@ const LoanedGames = () => {
         {/* Paginación */}
         <div className="pagination">
           <button
+            className='submit-button'
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
           >
             Anterior
           </button>
           <button
+            className='submit-button'
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage * gamesPerPage >= loanedGames.length}
           >

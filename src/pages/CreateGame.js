@@ -273,7 +273,7 @@ const CreateGame = () => {
                         href={game.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="create-game-game-link"
+                        className="create-game-game-link btn-link"
                       >
                         Ver en BGG
                       </a>
@@ -326,7 +326,7 @@ const CreateGame = () => {
                   href={selectedGame.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="create-game-game-link"
+                  className="create-game-game-link btn-link"
                 >
                   Ver en BGG
                 </a>

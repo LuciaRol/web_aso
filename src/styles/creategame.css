@@ -64,11 +64,12 @@
   max-width: 500px;
 }
 
+/* RESULTADOS */
 .create-game-results-container {
   margin-top: 15px;
-  width: 100%;
-  max-width: 500px; /* Asegura que no se desborde */
+   /* Asegura que no se desborde */
   display: grid;
+  width: 90%;
   gap: 20px; /* Espacio entre los elementos */
   justify-content: center; /* Centra el contenido horizontalmente */
   margin-left: auto; /* Centra el contenedor a la izquierda */
@@ -85,14 +86,16 @@
   list-style-type: none;
   padding-left: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Mantén 4 columnas */
-  gap: 20px; /* Espacio entre los elementos */
-  justify-items: center; /* Centra los elementos dentro de cada celda */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+  justify-items: center;
 }
+
 
 .create-game-guest-item {
   display: flex;
   flex-direction: column;
+  width: 300px;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
@@ -100,12 +103,14 @@
   background-color: white; /* Fondo blanco */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   border-radius: 8px; /* Bordes redondeados */
+  transition: background-color 0.3s ease;
   transition: transform var(--transition-time) ease;
   cursor: pointer;
 }
 
 .create-game-guest-item:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más fuerte */
 }
 
 .create-game-game-image {
@@ -120,7 +125,6 @@
 }
 
 .create-game-game-link {
-  color: #2c3e50;
   text-decoration: none;
 }
 
@@ -139,8 +143,9 @@
 }
 
 .create-game-selected-game-image {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 8px; /* Bordes redondeados */
   object-fit: cover;
 }
 
@@ -246,5 +251,46 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   font-family: Arial, sans-serif; 
 } */
+
+/* Estilos para pantallas móviles */
+@media screen and (max-width: 768px) {
+  /* Modificar el contenedor de los resultados para que ocupe más espacio en pantallas pequeñas */
+  .create-game-results-container {
+    width: 100%;  /* Ocupa el 100% del ancho disponible */
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Cambiar el diseño de los elementos para que haya un solo elemento por fila */
+  .create-game-guest-list {
+    grid-template-columns: 1fr; /* Solo un elemento por fila */
+    gap: 15px; /* Reducir el espacio entre los elementos */
+  }
+
+  .create-game-guest-item {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 90%; /* Limitar ligeramente el ancho */
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Estilos para pantallas grandes (por si se necesitan otros ajustes) */
+@media screen and (min-width: 769px) {
+  .create-game-results-container {
+    width: 90%;
+    max-width: 1200px;
+  }
+
+  .create-game-guest-list {
+    grid-template-columns: repeat(4, 1fr); /* Cuatro elementos por fila en pantallas grandes */
+    gap: 20px; /* Espacio entre los elementos */
+  }
+
+  .create-game-guest-item {
+    width: 300px; /* Ancho de los elementos */
+  }
+}
+
 
 

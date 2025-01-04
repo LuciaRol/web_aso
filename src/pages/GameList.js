@@ -11,6 +11,7 @@ import '../styles/gamelist.css'; // Importa el CSS
 import GuestNames from './GuestNames'; // Ajusta la ruta según sea necesario
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'moment/locale/es';  // Asegúrate de importar la configuración en español
 
 
 moment.locale('es');
@@ -34,6 +35,7 @@ const GameList = () => {
   const [currentView, setCurrentView] = useState(Views.MONTH);
   const [guestCount, setGuestCount] = useState(1);
   const [numInvitadosEliminar, setNumInvitadosEliminar] = useState(1); // Default a 1
+  const today = moment().startOf('day'); // Esto establece la fecha de hoy
 
 
 
@@ -499,7 +501,7 @@ const GameList = () => {
             <p><strong>Descripción:</strong> {selectedEvent.resource.description}</p>
             <div>
               {/* Renderizar botones solo si el usuario está autenticado */}
-              {user && (
+              {user && moment(selectedEvent.start).isSameOrAfter(today) && (
                 <>
                   {selectedEvent.resource.creador === nombreCompletoUsuario ? (
                     <button onClick={() => { handleDeleteEvent(selectedEvent); closeModal(); }} className="button-delete">

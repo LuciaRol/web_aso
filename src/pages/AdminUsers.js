@@ -247,9 +247,18 @@ const AdminUsers = () => {
                 <p><strong>Usuario Telegram:</strong> {usuario.usuarioTelegram}</p>
 
                 {/* Botones para editar el rol y eliminar usuario */}
-                <button onClick={() => handleUpdateRole(usuario.id, 'admin')}>Hacer Admin</button>
-                <button onClick={() => handleUpdateRole(usuario.id, 'ludotecario')}>Hacer Ludotecario</button>
-                <button onClick={() => handleUpdateRole(usuario.id, 'user')}>Hacer Usuario</button>
+                <div>
+                  <label htmlFor={`role-select-${usuario.id}`}>Cambiar Rol:</label>
+                  <select
+                    id={`role-select-${usuario.id}`}
+                    onChange={(e) => handleUpdateRole(usuario.id, e.target.value)}
+                  >
+                    <option value="">Seleccionar Rol</option>
+                    <option value="admin">Hacer Admin</option>
+                    <option value="ludotecario">Hacer Ludotecario</option>
+                    <option value="user">Hacer Usuario</option>
+                  </select>
+                </div>
                 <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
                 <button onClick={() => { 
                   setSelectedUserId(usuario.id); 

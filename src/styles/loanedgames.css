@@ -1,61 +1,67 @@
 /* Contenedor del listado de juegos prestados */
+.loaned-games-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 1200px; /* Limitar el ancho máximo */
+  margin: 0 auto; /* Centrar en la página */
+  padding-top: 5rem; /* Añadido para espacio en la parte superior */
+}
+
+/* Listado de juegos prestados */
 .loaned-games-list {
     width: 100%;
     max-width: 800px;
     margin-top: 30px;
-    padding: 20px;
-    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .loaned-games-list h3 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    text-align: center;
-  }
-  
-  .loaned-game-item {
+}
+
+.loaned-game-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 30px;
     margin-bottom: 15px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .loaned-game-item img {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo de imagen */
+.loaned-game-item img {
     border-radius: 8px;
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-  }
-  
-  .loaned-game-item div {
+    width: 200px;  /* Tamaño fijo */
+    height: 200px; /* Tamaño fijo */
+    object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar */
+}
+
+.loaned-game-item div {
     flex: 1;
     margin-left: 15px;
-  }
-  
-  .loaned-game-item p {
+    text-align: left !important; /* Alineación a la izquierda */
+}
+
+.loaned-game-item p {
     margin: 5px 0;
     font-size: 14px;
     color: #555;
-  }
-  
-  .loaned-game-item p strong {
+    text-align: left !important; /* Alineación a la izquierda */
+}
+
+.loaned-game-item p strong {
     color: #333;
-  }
-  
-  .loaned-game-item .loaned-game-buttons {
+}
+
+.loaned-game-item .loaned-game-buttons {
     display: flex;
     align-items: center;
     gap: 10px;
-  }
-  
-  .loaned-game-item .loaned-game-buttons button {
-    background-color: #3498db;
+}
+
+.loaned-game-item .loaned-game-buttons button {
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -63,37 +69,38 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .loaned-game-item .loaned-game-buttons button:hover {
-    background-color: #2980b9;
-  }
-  
-  /* Mensaje cuando no hay juegos prestados */
-  .loaned-games-list p {
+}
+
+/* Efecto hover para elevación y sombra */
+.loaned-game-item:hover {
+    transform: translateY(-5px); /* Eleva el elemento hacia arriba */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más fuerte */
+}
+
+/* Mensaje cuando no hay juegos prestados */
+.loaned-games-list p {
     text-align: center;
     color: #888;
     font-size: 16px;
     font-style: italic;
-  }
+}
 
-  .pagination {
+.pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-  }
-  
-  .pagination button {
+}
+
+.pagination button {
     padding: 10px 20px;
     margin: 0 10px;
-    background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-  }
-  
-  .pagination button:disabled {
+}
+
+.pagination button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-  }
+}

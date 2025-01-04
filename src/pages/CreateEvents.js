@@ -276,13 +276,13 @@ const CreateEvents = () => {
             />
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button className="submit-button" type="submit" disabled={loading}>
             {loading ? 'Creando Evento...' : 'Crear Evento'}
           </button>
         </form>
       )}
 
-      <h2>Eventos Creados</h2>
+      <h2>Eventos actuales</h2>
       <div className="events-list">
         {events.map((event) => (
           <div key={event.id} className="event-container" onClick={() => openModal(event)}>
@@ -314,6 +314,8 @@ const CreateEvents = () => {
           </div>
         ))}
       </div>
+
+      {/* FORMULARIO EDITAR EVENTO */}
       {editEvent && (
         <div className="description">
           <h1>Editar Evento</h1>
@@ -377,7 +379,7 @@ const CreateEvents = () => {
               />
             </div>
 
-            <button type="submit">Actualizar Evento</button>
+            <button type="submit" className='submit-button'>Actualizar Evento</button>
           </form>
         </div>
       )}

@@ -6,6 +6,7 @@ import { sendTelegramMessage } from '../components/TelegramMessenger';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/reminder.css'; // Import the CSS file
+import logo_negro from '../img/logo_negro_transp.png';
 
 const Reminder = () => {
   const handleManualExecution = async () => {
@@ -37,10 +38,10 @@ const Reminder = () => {
         }
 
         const message = `¡Recordad que tenemos este evento programado!
-Título: ${event.titulo}
-Fecha: ${event.fecha}
-Hora: ${event.hora}
-Descripción: ${event.descripcion}`;
+          Título: ${event.titulo}
+          Fecha: ${event.fecha}
+          Hora: ${event.hora}
+          Descripción: ${event.descripcion}`;
 
         try {
           await sendTelegramMessage(message, event.imagen, thread_id);
@@ -65,14 +66,19 @@ Descripción: ${event.descripcion}`;
 
   return (
     <div className="reminder-container">
-      <h1 className="reminder-title">Promoción y Recordatorios</h1>
+      <h1 className="reminder-title">Envío de recordatorios al canal de Telegram</h1>
       <p className="reminder-description">
-        Haz clic en el botón para enviar los recordatorios de eventos programados.
+        Haz clic en el botón para enviar los recordatorios de eventos y/o partidas programadas.
       </p>
-      <div className="reminder-button-container">
-        <button onClick={handleManualExecution} className="reminder-button">
-          Enviar recordatorio eventos
-        </button>
+      <div className="reminder-info"> 
+        <div>
+          <img src={logo_negro}alt="imagen" />
+        </div>
+        <div className="reminder-button-container">
+          <button onClick={handleManualExecution} className="reminder-button submit-button">
+            Enviar recordatorios
+          </button>
+        </div>
       </div>
       <ToastContainer />
     </div>

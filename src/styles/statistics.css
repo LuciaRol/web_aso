@@ -1,10 +1,47 @@
+/* Contenedor principal de estadísticas */
+.statistics-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 1200px; /* Limitar el ancho máximo */
+    margin: 0 auto; /* Centrar en la página */
+    padding-top: 5rem; /* Añadido para espacio en la parte superior */
+}
+
+/* Contenedor del número de usuarios */
+.user-count-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    padding: 15px 25px;
+    width: 100%;
+    max-width: 600px; /* Limitar el ancho del cuadro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-count-box h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-count-box p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Spinner */
 .spinner-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
-  
+
 .spinner {
     border: 4px solid #f3f3f3;
     border-top: 4px solid #3498db;
@@ -13,79 +50,74 @@
     height: 50px;
     animation: spin 2s linear infinite;
 }
-  
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-  
-.Statistics-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-  
-.user-count-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    background-color: #f2f2f2;
-    border-radius: 8px;
-    padding: 10px 20px;
-    width: 100%;
-    max-width: 600px;
-}
-  
-.user-count-box h3 {
-    margin: 0;
-    font-size: 18px;
-}
-  
-.user-count-box p {
-    font-size: 24px;
-    font-weight: bold;
-}
-  
+
+/* Contenedor de los gráficos */
 .charts-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%; /* Aseguramos que ocupe el 100% del ancho disponible */
-    max-width: 1200px; /* Limita el ancho máximo */
-    height: 20vh; /* Asegura que los gráficos se vean de forma cómoda */
+    display: grid; /* Usar grid en lugar de flex */
+    grid-template-columns: 1fr; /* Solo una columna por fila */
+    gap: 0.3rem; /* Espacio entre las estadísticas */
+    width: 100%;
 }
 
+/* Cada caja de gráfico */
 .chart-box {
-    flex: 1; /* Asegura que los tres gráficos se distribuyan igualmente */
-    margin: 10px;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 400px; /* Mantener la altura baja */
+    max-width: 700px; /* Limitar el ancho máximo */
+    width: 100%; /* Hacer que ocupe el 100% del contenedor disponible */
+    margin: 20px auto; /* Centrar y dar margen vertical */
+    display: flex; /* Usar flexbox */
+    flex-direction: column; /* Organizar el contenido de arriba hacia abajo */
+    justify-content: center; /* Centrar el contenido verticalmente */
+    align-items: center; /* Centrar el contenido horizontalmente */
+    cursor: pointer;
 }
-  
-@media (max-width: 768px) {
-    .charts-container {
-        flex-direction: column;  /* Cambiar a columna en pantallas pequeñas */
-        height: auto;  /* Altura dinámica */
-    }
-  
-    .chart-box {
-        margin-bottom: 20px;  /* Espacio entre los gráficos */
-    }
-  
-    .user-count-box {
-        flex-direction: column;  /* Colocar los iconos y texto en columna */
-        align-items: center;  /* Centrar elementos */
-        width: 100%;  /* Asegurar que ocupe todo el ancho disponible */
-    }
-  
-    .user-count-box h3 {
-        font-size: 16px;  /* Ajustar tamaño del título en pantallas pequeñas */
-    }
-  
-    .user-count-box p {
-        font-size: 20px;  /* Ajustar tamaño del conteo de usuarios */
-    }
+
+/* Estilo adicional para los elementos dentro de la estadística */
+.chart-box h3, .chart-box p {
+    text-align: center; /* Asegurar que el texto está centrado */
+}
+
+
+
+
+/* MODAL */
+
+/* Estilos para el modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 900px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
 }

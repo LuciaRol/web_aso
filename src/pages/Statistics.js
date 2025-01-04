@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { Bar } from 'react-chartjs-2';
-import { firestore } from '../firebase'; // Importa la configuración de Firebase
-import Spinner from '../components/Spinner'; // Importa el Spinner
-import '../styles/statistics.css'; // Estilo personalizado si lo necesitas
-import { FaUserAlt } from 'react-icons/fa'; // Icono de usuario
+import { firestore } from '../firebase'; 
+import Spinner from '../components/Spinner'; 
+import '../styles/statistics.css'; 
+import { FaUserAlt } from 'react-icons/fa'; 
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
 // Registra las escalas y elementos que usarás
@@ -20,23 +20,24 @@ ChartJS.register(
 const Statistics = () => {
   const [chartData, setChartData] = useState({});
   const [invitedChartData, setInvitedChartData] = useState({});
-  const [historicludotecaChartData, setHistoricChartData] = useState({}); // Para los datos del gráfico de historicoprestamojuegos
-  const [userCount, setUserCount] = useState(0); // Para contar usuarios
+  const [historicludotecaChartData, setHistoricChartData] = useState({});
+  const [userCount, setUserCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
+  
+  // Estado para el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({}); // Para almacenar los datos del gráfico que se mostrará en el modal
+  
   useEffect(() => {
     const fetchGameStats = async () => {
       try {
-        // Reemplaza 'partidas' con el nombre de tu colección
         const partidasRef = collection(firestore, 'partidas');
         const querySnapshot = await getDocs(partidasRef);
-
-        // Procesar datos de partidas
         const partidas = querySnapshot.docs.map(doc => doc.data());
         const partidasPorMes = {};
 
         partidas.forEach(partida => {
-          const fecha = new Date(partida.fecha); // Asegúrate de que el campo sea `fecha`
+          const fecha = new Date(partida.fecha);
           const mesAño = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}`;
 
           if (!partidasPorMes[mesAño]) {
@@ -45,15 +46,14 @@ const Statistics = () => {
           partidasPorMes[mesAño]++;
         });
 
-        // Crear datos para el gráfico de partidas
-        const labels = Object.keys(partidasPorMes).sort(); // Ordenar meses cronológicamente
+        const labels = Object.keys(partidasPorMes).sort();
         const counts = labels.map(mes => partidasPorMes[mes]);
 
         setChartData({
           labels,
           datasets: [
             {
-              label: 'Partidas por Mes',
+              label: 'Partidas por mes',
               data: counts,
               backgroundColor: 'rgba(75, 192, 192, 0.6)',
               borderColor: 'rgba(75, 192, 192, 1)',
@@ -69,7 +69,7 @@ const Statistics = () => {
         const invitadosPorMes = {};
 
         invitados.forEach(invitado => {
-          const fecha = new Date(invitado.registrationDate.toDate()); // Convertir Timestamp a Date
+          const fecha = new Date(invitado.registrationDate.toDate());
           const mesAño = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}`;
 
           if (!invitadosPorMes[mesAño]) {
@@ -85,7 +85,7 @@ const Statistics = () => {
           labels: invitedLabels,
           datasets: [
             {
-              label: 'Invitados por Mes',
+              label: 'Invitados por mes',
               data: invitedCounts,
               backgroundColor: 'rgba(153, 102, 255, 0.6)',
               borderColor: 'rgba(153, 102, 255, 1)',
@@ -94,19 +94,18 @@ const Statistics = () => {
           ],
         });
 
-        // Obtener el número total de usuarios
         const usersRef = collection(firestore, 'users');
         const usersSnapshot = await getDocs(usersRef);
         setUserCount(usersSnapshot.size);
 
-        // Obtener datos de historicos juegos (historicoprestamojuegos)
+        // Obtener datos de historicos juegos
         const historicoprestamojuegosRef = collection(firestore, 'historicoprestamojuegos');
         const historicoprestamojuegosSnapshot = await getDocs(historicoprestamojuegosRef);
         const historicoprestamojuegos = historicoprestamojuegosSnapshot.docs.map(doc => doc.data());
         const historicoprestamojuegosPorMes = {};
 
         historicoprestamojuegos.forEach(historicoprestamojuego => {
-          const fecha = new Date(historicoprestamojuego.loanDate.toDate()); // Convertir Timestamp a Date
+          const fecha = new Date(historicoprestamojuego.loanDate.toDate());
           const mesAño = `${fecha.getFullYear()}-${(fecha.getMonth() + 1).toString().padStart(2, '0')}`;
 
           if (!historicoprestamojuegosPorMes[mesAño]) {
@@ -141,74 +140,53 @@ const Statistics = () => {
     fetchGameStats();
   }, []);
 
+  // Función para abrir el modal con los datos del gráfico
+  const openModal = (data) => {
+    setModalData(data); // Establece los datos del gráfico en el estado
+    setIsModalOpen(true); // Abre el modal
+  };
+
+  // Función para cerrar el modal
+  const closeModal = () => {
+    setIsModalOpen(false); // Cierra el modal
+    setModalData({}); // Limpia los datos del modal
+  };
+
   return (
-    <div className="Statistics-container">
-      {/* Contenedor de Número de Usuarios */}
+    <div className="statistics-container">
+      <h1>Estadísticas</h1>
       <div className="user-count-box">
-        <FaUserAlt size={50} /> {/* Ícono de persona */}
+        <FaUserAlt size={50} />
         <div>
-          <h3>Usuarios Registrados</h3>
+          <h3>Usuarios registrados</h3>
           <p>{userCount}</p>
         </div>
       </div>
 
-      {/* Gráficos */}
       {isLoading ? (
-        <Spinner /> // Aquí mostramos el Spinner mientras se cargan los datos
+        <Spinner />
       ) : (
         <div className="charts-container">
-          <div className="chart-box">
-            <Bar
-              data={chartData}
-              options={{
-                responsive: true,
-                scales: {
-                  x: {
-                    title: { display: true, text: 'Mes y Año' },
-                  },
-                  y: {
-                    title: { display: true, text: 'Cantidad de Partidas' },
-                    beginAtZero: true,
-                  },
-                },
-              }}
-            />
+          <div className="chart-box" onClick={() => openModal(chartData)}>
+            <Bar data={chartData} options={{ responsive: true, scales: { x: { title: { display: true, text: 'Año y mes' } }, y: { title: { display: true, text: 'Cantidad de partidas' }, beginAtZero: true } }}} />
           </div>
 
-          <div className="chart-box">
-            <Bar
-              data={invitedChartData}
-              options={{
-                responsive: true,
-                scales: {
-                  x: {
-                    title: { display: true, text: 'Mes y Año' },
-                  },
-                  y: {
-                    title: { display: true, text: 'Cantidad de Invitados' },
-                    beginAtZero: true,
-                  },
-                },
-              }}
-            />
+          <div className="chart-box" onClick={() => openModal(invitedChartData)}>
+            <Bar data={invitedChartData} options={{ responsive: true, scales: { x: { title: { display: true, text: 'Año y mes' } }, y: { title: { display: true, text: 'Cantidad de invitados' }, beginAtZero: true } }}} />
           </div>
 
-          <div className="chart-box">
-            <Bar
-              data={historicludotecaChartData}
-              options={{
-                responsive: true,
-                scales: {
-                  x: {
-                    title: { display: true, text: 'Mes y Año' },
-                  },
-                  y: {
-                    title: { display: true, text: 'Juegos prestados' },
-                    beginAtZero: true,
-                  },
-                },
-              }}
-            />
+          <div className="chart-box" onClick={() => openModal(historicludotecaChartData)}>
+            <Bar data={historicludotecaChartData} options={{ responsive: true, scales: { x: { title: { display: true, text: 'Año y mes' } }, y: { title: { display: true, text: 'Juegos prestados' }, beginAtZero: true } }}} />
+          </div>
+        </div>
+      )}
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-btn" onClick={closeModal}>&times;</span>
+            <Bar data={modalData} options={{ responsive: true, scales: { x: { title: { display: true, text: 'Año y mes' } }, y: { title: { display: true, text: 'Cantidad' }, beginAtZero: true } }}} />
           </div>
         </div>
       )}

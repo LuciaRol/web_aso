@@ -65,6 +65,7 @@
 }
 
 /* Cada caja de gráfico */
+/* Animación y efecto de hover para el contenedor de la estadística */
 .chart-box {
     background-color: #ffffff;
     padding: 20px;
@@ -79,14 +80,19 @@
     justify-content: center; /* Centrar el contenido verticalmente */
     align-items: center; /* Centrar el contenido horizontalmente */
     cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Transición suave para el hover */
+}
+
+/* Efecto hover */
+.chart-box:hover {
+    transform: translateY(-10px); /* Elevar el contenedor */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumentar la sombra */
 }
 
 /* Estilo adicional para los elementos dentro de la estadística */
 .chart-box h3, .chart-box p {
     text-align: center; /* Asegurar que el texto está centrado */
 }
-
-
 
 
 /* MODAL */
@@ -121,3 +127,54 @@
     font-size: 30px;
     cursor: pointer;
 }
+
+
+/* PANTALLAS MÓVILES */
+/* Media query para pantallas móviles */
+@media (max-width: 768px) {
+    /* Contenedor principal de estadísticas */
+    .statistics-container {
+        padding: 10px; /* Reducir padding en pantallas pequeñas */
+        max-width: 100%; /* Asegurar que ocupe todo el ancho disponible */
+    }
+
+    /* Contenedor de los gráficos usando grid */
+    .charts-container {
+        display: grid; /* Usar grid */
+        grid-template-columns: 1fr; /* Una columna por fila */
+        gap: 10px; /* Reducir espacio entre las estadísticas */
+        width: 100%; /* Asegurar que ocupe todo el ancho */
+    }
+
+    /* Cada caja de gráfico */
+    .chart-box {
+        background-color: #ffffff;
+        padding: 15px; /* Reducir padding */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 300px; /* Reducir la altura */
+        max-width: 100%; /* Asegurar que ocupe todo el ancho */
+        margin: 10px 0; /* Añadir margen vertical */
+        display: flex; /* Usar flexbox */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Efecto hover para cada estadística */
+    .chart-box:hover {
+        transform: translateY(-5px); /* Elevar ligeramente */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más suave */
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 90%; /* Reducir el ancho del modal */
+        max-width: 600px; /* Limitar el ancho máximo del modal */
+        height: auto; /* Ajustar la altura al contenido */
+    }
+}
+
+

@@ -6,6 +6,7 @@ import Spinner from '../components/Spinner';
 import '../styles/statistics.css'; 
 import { FaUserAlt } from 'react-icons/fa'; 
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import TopArrow from '../components/TopArrow';
 
 // Registra las escalas y elementos que usarás
 ChartJS.register(
@@ -190,6 +191,7 @@ const Statistics = () => {
           </div>
         </div>
       )}
+      <TopArrow />
     </div>
   );
 };

@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   font-family: Arial, sans-serif;
+  width: ;
   min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la ventana */
   text-align: center; /* Alinea el texto y los elementos hijos */
 }
@@ -66,9 +67,9 @@
 
 .create-game-results-container {
   margin-top: 15px;
-  width: 100%;
-  max-width: 500px; /* Asegura que no se desborde */
+   /* Asegura que no se desborde */
   display: grid;
+  width: 90%;
   gap: 20px; /* Espacio entre los elementos */
   justify-content: center; /* Centra el contenido horizontalmente */
   margin-left: auto; /* Centra el contenedor a la izquierda */
@@ -85,14 +86,16 @@
   list-style-type: none;
   padding-left: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Mantén 4 columnas */
-  gap: 20px; /* Espacio entre los elementos */
-  justify-items: center; /* Centra los elementos dentro de cada celda */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+  justify-items: center;
 }
+
 
 .create-game-guest-item {
   display: flex;
   flex-direction: column;
+  width: 300px;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
@@ -100,12 +103,14 @@
   background-color: white; /* Fondo blanco */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   border-radius: 8px; /* Bordes redondeados */
+  transition: background-color 0.3s ease;
   transition: transform var(--transition-time) ease;
   cursor: pointer;
 }
 
 .create-game-guest-item:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más fuerte */
 }
 
 .create-game-game-image {
@@ -120,7 +125,6 @@
 }
 
 .create-game-game-link {
-  color: #2c3e50;
   text-decoration: none;
 }
 
@@ -139,8 +143,9 @@
 }
 
 .create-game-selected-game-image {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 8px; /* Bordes redondeados */
   object-fit: cover;
 }
 

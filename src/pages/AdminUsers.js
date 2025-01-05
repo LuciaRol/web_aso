@@ -4,7 +4,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/adminusers.css';
 import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';  // Importar ToastContainer y toast
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Importar el componente de Font Awesome
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'; // Importar iconos específicos
 import 'react-toastify/dist/ReactToastify.css'; // Importar estilos
+
+
 
 const AdminUsers = () => {
   const [email, setEmail] = useState('');
@@ -221,7 +225,7 @@ const AdminUsers = () => {
   //const showNextButton = usuarios.length === usuariosPorPagina && page * usuariosPorPagina < totalUsuarios;
 
   return (
-    <div className="form-container">
+    <div className="form-container admin-users-container">
        
       {isAdmin && (
         <div>
@@ -237,41 +241,69 @@ const AdminUsers = () => {
           </div>
           <p>Total de usuarios: {totalUsuarios}</p> {/* Mostrar el total de usuarios */}
 
+          {/* CARDS DE USUARIOS */}
           <div className="users-grid">
-            {usuarios.map((usuario) => (
-              <div key={usuario.id} className="user-card">
-                <p><strong>Nombre:</strong> {usuario.nombre} {usuario.apellido}</p>
-                <p><strong>Email:</strong> {usuario.email}</p>
-                <p><strong>Teléfono:</strong> {usuario.telefono}</p>
-                <p><strong>Rol:</strong> {usuario.role}</p>
-                <p><strong>Usuario Telegram:</strong> {usuario.usuarioTelegram}</p>
+            {/* Encabezado de la tabla */}
+            <div className="table-header">
+              <div>Nombre y apellidos</div>
+              <div>Email</div>
+              <div>Teléfono</div>
+              <div>Rol</div>
+              <div>Cambiar rol</div>
+              <div>Telegram</div>
+              <div>Acciones</div>
+            </div>
 
-                {/* Botones para editar el rol y eliminar usuario */}
+            {/* Filas de usuarios */}
+            {usuarios.map((usuario) => (
+              <div key={usuario.id} className="table-row">
+                <div>{usuario.nombre} {usuario.apellido}</div>
+                <div>{usuario.email}</div>
+                <div>{usuario.telefono}</div>
+                <div>{usuario.role}</div>
                 <div>
-                  <label htmlFor={`role-select-${usuario.id}`}>Cambiar Rol:</label>
+
+                  <label htmlFor={`role-select-${usuario.id}`} className="role-label"></label>
                   <select
                     id={`role-select-${usuario.id}`}
                     onChange={(e) => handleUpdateRole(usuario.id, e.target.value)}
                   >
                     <option value="">Seleccionar Rol</option>
-                    <option value="admin">Hacer Admin</option>
-                    <option value="ludotecario">Hacer Ludotecario</option>
-                    <option value="user">Hacer Usuario</option>
+                    <option value="admin">Administrador</option>
+                    <option value="ludotecario">Ludotecario</option>
+                    <option value="user">Usuario</option>
                   </select>
                 </div>
-                <button onClick={() => handleDeleteUser(usuario.id)}>Eliminar Usuario</button>
-                <button onClick={() => { 
-                  setSelectedUserId(usuario.id); 
-                  setNombre(usuario.nombre); 
-                  setApellido(usuario.apellido); 
-                  setTelefono(usuario.telefono); 
-                  setUsuarioTelegram(usuario.usuarioTelegram); 
-                }}>
-                  Editar Usuario
-                </button>
+                <div>{usuario.usuarioTelegram}</div>
+                <div className="action-buttons">
+                  <div>
+                    <button 
+                      className="submit-button users-button" 
+                      onClick={() => handleDeleteUser(usuario.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} /> {/* Icono de papelera */}
+                    </button>
+                  </div>
+                  <div>
+                    <button 
+                      className="submit-button users-button" 
+                      onClick={() => { 
+                        setSelectedUserId(usuario.id); 
+                        setNombre(usuario.nombre); 
+                        setApellido(usuario.apellido); 
+                        setTelefono(usuario.telefono); 
+                        setUsuarioTelegram(usuario.usuarioTelegram); 
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faEdit} /> {/* Icono de lápiz */}
+                    </button>
+                  </div>
+                </div>
+
               </div>
             ))}
           </div>
+
           
   {/* Formulario para editar usuario */}
            {selectedUserId && (

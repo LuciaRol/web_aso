@@ -208,7 +208,7 @@ button:disabled {
 
 /* MODAL */
 /* Estilos del modal */
-.modal {
+.user-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -221,12 +221,56 @@ button:disabled {
   z-index: 1000;
 }
 
-.modal-content {
+.user-modal-content {
   background: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 8px;
-  width: 300px;
+  width: 700px; /* El doble de ancho */
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative; /* Esto es necesario para que el botón de cierre se posicione correctamente */
 }
+
+.user-modal-content h2 {
+  margin-top: 0; /* Evitar que el título esté muy pegado al borde superior */
+}
+
+/* Estilo del botón de cierre */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  color: #999;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #333;
+}
+
+.user-modal-content form {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.user-modal-content label,
+.user-modal-content input {
+  margin-bottom: 10px;
+}
+
+.user-modal-content .button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 15px;
+}
+
+
+
+
 
 
 

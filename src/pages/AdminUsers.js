@@ -282,9 +282,12 @@ const AdminUsers = () => {
 
           {/* Modal para editar usuario */}
           {isModalOpen && (
-            <div className="modal">
-              <div className="modal-content">
-                <h2>Editar Usuario</h2>
+            <div className="user-modal" onClick={closeModal}>
+              <div className="user-modal-content" onClick={(e) => e.stopPropagation()}>
+                {/* Botón de cierre en la esquina superior derecha */}
+                <button className="close-button" onClick={closeModal}>×</button>
+                
+                <h2>Editar usuario</h2>
                 <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
                   <label>Nombre:</label>
                   <input
@@ -310,8 +313,10 @@ const AdminUsers = () => {
                     value={usuarioTelegram}
                     onChange={(e) => setUsuarioTelegram(e.target.value)}
                   />
-                  <button type="submit">Guardar</button>
-                  <button type="button" onClick={closeModal}>Cancelar</button>
+                  <div className="button-container">
+                    <button className='submit-button' type="submit">Guardar</button>
+                    <button className='submit-button' type="button" onClick={closeModal}>Cancelar</button>
+                  </div>
                 </form>
               </div>
             </div>

@@ -223,34 +223,39 @@ const AdminUsers = () => {
       {isAdmin && (
         <div>
           <h2>Administrar Usuarios</h2>
-          <div className="search-container">
+          <div className="user-search-container">
+            <label>Buscar usuario:</label>
             <input
               type="text"
               placeholder="Buscar por nombre, apellido o telegram"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <p>Total de usuarios registrados: {totalUsuarios}</p>
           </div>
-          <p>Total de usuarios: {totalUsuarios}</p>
+          
 
           <div className="users-grid">
-            <div className="table-header">
-              <div>Nombre y apellidos</div>
-              <div>Email</div>
-              <div>Teléfono</div>
-              <div>Rol</div>
-              <div>Cambiar rol</div>
-              <div>Telegram</div>
-              <div>Acciones</div>
-            </div>
-
             {usuarios.map((usuario) => (
               <div key={usuario.id} className="table-row">
-                <div>{usuario.nombre} {usuario.apellido}</div>
-                <div>{usuario.email}</div>
-                <div>{usuario.telefono}</div>
-                <div>{usuario.role}</div>
                 <div>
+                  <label>Nombre y apellidos</label>
+                  <p>{usuario.nombre} {usuario.apellido}</p>
+                </div>
+                <div>
+                  <label>Email</label>
+                  <p>{usuario.email}</p>
+                </div>
+                <div>
+                  <label>Teléfono</label>
+                  <p>{usuario.telefono}</p>
+                </div>
+                <div>
+                  <label>Rol</label>
+                  <p>{usuario.role}</p>
+                </div>
+                <div>
+                  <label>Cambiar rol</label>
                   <select
                     id={`role-select-${usuario.id}`}
                     onChange={(e) => handleUpdateRole(usuario.id, e.target.value)}
@@ -261,20 +266,17 @@ const AdminUsers = () => {
                     <option value="user">Usuario</option>
                   </select>
                 </div>
-                <div>{usuario.usuarioTelegram}</div>
-                <div className='action-buttons'>
-                  <div>
-                    <button className='submit-button users-button' onClick={() => openModal(usuario)}>
-                      <FontAwesomeIcon icon={faEdit} />
-                    </button>
-                  </div>
-                  
-                  <div>
-                    <button className='submit-button users-button' onClick={() => handleDeleteUser(usuario.id)}>
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
-                  </div>
-                  
+                <div>
+                  <label>Telegram</label>
+                  <p>{usuario.usuarioTelegram}</p>
+                </div>
+                <div className="action-buttons">
+                  <button className="submit-button users-button" onClick={() => openModal(usuario)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  <button className="submit-button users-button" onClick={() => handleDeleteUser(usuario.id)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
                 </div>
               </div>
             ))}

@@ -2,63 +2,62 @@ import { auth, firestore } from '../firebase';
 import React, { useEffect, useState, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import '../styles/adminusers.css';
-import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, query, where, getCountFromServer, collection, orderBy, startAfter, limit, getDoc, deleteDoc } from 'firebase/firestore';
-import { ToastContainer, toast } from 'react-toastify';  // Importar ToastContainer y toast
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Importar el componente de Font Awesome
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'; // Importar iconos específicos
-import 'react-toastify/dist/ReactToastify.css'; // Importar estilos
-
-
+import { getFirestore, updateDoc, doc, serverTimestamp, getDocs, collection, query, orderBy, getCountFromServer, getDoc, deleteDoc } from 'firebase/firestore'; // Asegúrate de importar 'query' y 'orderBy'
+import { ToastContainer, toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminUsers = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
   const [usuario] = useAuthState(auth);
-  const [usuarios, setUsuarios] = useState([]); // Todos los usuarios
-  const [isAdmin, setIsAdmin] = useState(false); // Estado para verificar si el usuario es admin
-  const [lastVisible, setLastVisible] = useState(null); // Último documento para la paginación
-  const [loading, setLoading] = useState(false); // Estado de carga
-  const [page, setPage] = useState(1); // Página actual
-  const [errorPagination, setErrorPagination] = useState(''); // Error en la paginación
-  const [totalUsuarios, setTotalUsuarios] = useState(0); // Total de usuarios en la base de datos
-  //const [usuariosPorPagina] = useState(5); // Número de usuarios por página
-  const [selectedUserId, setSelectedUserId] = useState(null); // Usuario seleccionado para editar
+  const [usuarios, setUsuarios] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [lastVisible, setLastVisible] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [errorPagination, setErrorPagination] = useState('');
+  const [totalUsuarios, setTotalUsuarios] = useState(0);
+  const [selectedUserId, setSelectedUserId] = useState(null);
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
-  const formRef = useRef(null);
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
-
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el pop-up
 
   useEffect(() => {
     if (usuario && usuario.email) {
       setEmail(usuario.email);
-      fetchUsers(); // Cargar todos los usuarios
-      checkIfUserIsAdmin(usuario.email); // Verificamos si el usuario es admin
-      fetchTotalUsuarios(); // Obtener el total de usuarios
+      fetchUsers();
+      checkIfUserIsAdmin(usuario.email);
+      fetchTotalUsuarios();
     }
-  
-    // Desplazarse al formulario cuando un usuario es seleccionado para editar
-    if (selectedUserId) {
-      formRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [usuario, page, selectedUserId, searchTerm]); // Agregar searchTerm como dependencia
-  
 
-  // Función para obtener el total de usuarios en la base de datos
+    if (selectedUserId) {
+      scrollToForm();
+    }
+  }, [usuario, page, selectedUserId, searchTerm]);
+
+  const scrollToForm = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
   const fetchTotalUsuarios = async () => {
     try {
       const usersRef = collection(firestore, 'users');
       const snapshot = await getCountFromServer(usersRef);
-      setTotalUsuarios(snapshot.data().count); // Guardar el total de usuarios
+      setTotalUsuarios(snapshot.data().count);
     } catch (err) {
       console.error('Error al obtener el total de usuarios:', err);
     }
   };
 
-  // Función para verificar si el usuario actual es admin
   const checkIfUserIsAdmin = async (email) => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -66,7 +65,7 @@ const AdminUsers = () => {
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         if (userData.email === email && userData.role === 'admin') {
-          setIsAdmin(true); // Si el usuario tiene rol 'admin', actualizamos el estado
+          setIsAdmin(true);
         }
       });
     } catch (err) {
@@ -74,7 +73,6 @@ const AdminUsers = () => {
     }
   };
 
-  // Función para cargar los usuarios con paginación y filtro de búsqueda
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -87,13 +85,11 @@ const AdminUsers = () => {
         fetchedUsuarios.push({ id: doc.id, ...doc.data() });
       });
 
-      // Normalizar el término de búsqueda
       const normalizedSearchTerm = searchTerm
         .toLowerCase()
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '');
 
-      // Filtrar localmente por nombre, apellido o telegram
       const filteredUsuarios = fetchedUsuarios.filter((usuario) => {
         const nombreNormalized = usuario.nombre
           .toLowerCase()
@@ -127,13 +123,9 @@ const AdminUsers = () => {
     }
   };
 
-
-
-  // Función para actualizar la información del usuario
   const handleUpdateUser = async (userId) => {
     if (!isAdmin) {
       toast.error('No tienes permisos para modificar los datos de otros usuarios.');
-
       return;
     }
 
@@ -148,14 +140,13 @@ const AdminUsers = () => {
       });
 
       toast.success('Usuario actualizado correctamente');
-      fetchUsers(); // Recargar la lista de usuarios
-      resetForm(); // Resetear el formulario
+      fetchUsers();
+      closeModal(); // Cerrar el pop-up
     } catch (err) {
       toast.error('Error al actualizar la información del usuario: ' + err.message);
     }
   };
 
-  // Resetear formulario después de la actualización
   const resetForm = () => {
     setNombre('');
     setApellido('');
@@ -164,11 +155,9 @@ const AdminUsers = () => {
     setSelectedUserId(null);
   };
 
-  // Función para actualizar el rol de un usuario.
   const handleUpdateRole = async (userId, newRole) => {
     if (!isAdmin) {
       toast.error('No tienes permisos para cambiar el rol de este usuario.');
-
       return;
     }
 
@@ -180,12 +169,10 @@ const AdminUsers = () => {
           fechaHoraModificacion: serverTimestamp(),
         });
         toast.success('Rol actualizado correctamente.');
-        fetchUsers(); // Recargar la lista de usuarios
-        resetForm(); // Resetear el formulario
+        fetchUsers();
+        resetForm();
       } catch (err) {
-            // Mensaje de éxito
         toast.error('Error al actualizar el rol: ' + err.message);
-
       }
     } else {
       toast.error('Rol inválido. Solo se permiten los roles "user", "ludotecario" o "admin".');
@@ -207,7 +194,7 @@ const AdminUsers = () => {
         if (userDoc.exists()) {
           await deleteDoc(usuarioRef);
           toast.success('Usuario eliminado correctamente.');
-          fetchUsers(); // Recargar la lista de usuarios
+          fetchUsers();
         } else {
           toast.error('No se encontró el usuario en Firestore.');
         }
@@ -217,33 +204,36 @@ const AdminUsers = () => {
     }
   };
 
-  const cerrarFormulario = () => {
-    fetchUsers(); // Recargar la lista de usuarios
+  const closeModal = () => {
+    setIsModalOpen(false); // Cerrar el modal
     resetForm(); // Resetear el formulario
-  }
-  // Lógica para mostrar u ocultar el botón de "Siguiente"
-  //const showNextButton = usuarios.length === usuariosPorPagina && page * usuariosPorPagina < totalUsuarios;
+  };
+
+  const openModal = (usuario) => {
+    setSelectedUserId(usuario.id);
+    setNombre(usuario.nombre);
+    setApellido(usuario.apellido);
+    setTelefono(usuario.telefono);
+    setUsuarioTelegram(usuario.usuarioTelegram);
+    setIsModalOpen(true); // Abrir el modal
+  };
 
   return (
     <div className="form-container admin-users-container">
-       
       {isAdmin && (
         <div>
           <h2>Administrar Usuarios</h2>
-          {/* Campo de búsqueda */}
           <div className="search-container">
             <input
               type="text"
               placeholder="Buscar por nombre, apellido o telegram"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <p>Total de usuarios: {totalUsuarios}</p> {/* Mostrar el total de usuarios */}
+          <p>Total de usuarios: {totalUsuarios}</p>
 
-          {/* CARDS DE USUARIOS */}
           <div className="users-grid">
-            {/* Encabezado de la tabla */}
             <div className="table-header">
               <div>Nombre y apellidos</div>
               <div>Email</div>
@@ -254,7 +244,6 @@ const AdminUsers = () => {
               <div>Acciones</div>
             </div>
 
-            {/* Filas de usuarios */}
             {usuarios.map((usuario) => (
               <div key={usuario.id} className="table-row">
                 <div>{usuario.nombre} {usuario.apellido}</div>
@@ -262,8 +251,6 @@ const AdminUsers = () => {
                 <div>{usuario.telefono}</div>
                 <div>{usuario.role}</div>
                 <div>
-
-                  <label htmlFor={`role-select-${usuario.id}`} className="role-label"></label>
                   <select
                     id={`role-select-${usuario.id}`}
                     onChange={(e) => handleUpdateRole(usuario.id, e.target.value)}
@@ -275,85 +262,63 @@ const AdminUsers = () => {
                   </select>
                 </div>
                 <div>{usuario.usuarioTelegram}</div>
-                <div className="action-buttons">
+                <div className='action-buttons'>
                   <div>
-                    <button 
-                      className="submit-button users-button" 
-                      onClick={() => handleDeleteUser(usuario.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} /> {/* Icono de papelera */}
+                    <button className='submit-button users-button' onClick={() => openModal(usuario)}>
+                      <FontAwesomeIcon icon={faEdit} />
                     </button>
                   </div>
+                  
                   <div>
-                    <button 
-                      className="submit-button users-button" 
-                      onClick={() => { 
-                        setSelectedUserId(usuario.id); 
-                        setNombre(usuario.nombre); 
-                        setApellido(usuario.apellido); 
-                        setTelefono(usuario.telefono); 
-                        setUsuarioTelegram(usuario.usuarioTelegram); 
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faEdit} /> {/* Icono de lápiz */}
+                    <button className='submit-button users-button' onClick={() => handleDeleteUser(usuario.id)}>
+                      <FontAwesomeIcon icon={faTrash} />
                     </button>
                   </div>
+                  
                 </div>
-
               </div>
             ))}
           </div>
 
-          
-  {/* Formulario para editar usuario */}
-           {selectedUserId && (
-            <div ref={formRef}>
-              <div className="centered-container">
-                <div className="user-form">
-                  <h3>Actualizar Información de Usuario</h3>
-                  <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
-                    <input
-                      type="text"
-                      placeholder="Nombre"
-                      value={nombre}
-                      onChange={(e) => setNombre(e.target.value)}
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Apellido"
-                      value={apellido}
-                      onChange={(e) => setApellido(e.target.value)}
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Teléfono"
-                      value={telefono}
-                      onChange={(e) => setTelefono(e.target.value)}
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Usuario Telegram"
-                      value={usuarioTelegram}
-                      onChange={(e) => setUsuarioTelegram(e.target.value)}
-                      required
-                    />
-                    <button type="submit">Actualizar Usuario</button>
-                    <button type="button" className="cancel-button" onClick={cerrarFormulario}>
-                      Cancelar
-                    </button>
-
-                  </form>
-                </div>
+          {/* Modal para editar usuario */}
+          {isModalOpen && (
+            <div className="modal">
+              <div className="modal-content">
+                <h2>Editar Usuario</h2>
+                <form onSubmit={(e) => { e.preventDefault(); handleUpdateUser(selectedUserId); }}>
+                  <label>Nombre:</label>
+                  <input
+                    type="text"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                  />
+                  <label>Apellidos:</label>
+                  <input
+                    type="text"
+                    value={apellido}
+                    onChange={(e) => setApellido(e.target.value)}
+                  />
+                  <label>Teléfono:</label>
+                  <input
+                    type="text"
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
+                  />
+                  <label>Usuario Telegram:</label>
+                  <input
+                    type="text"
+                    value={usuarioTelegram}
+                    onChange={(e) => setUsuarioTelegram(e.target.value)}
+                  />
+                  <button type="submit">Guardar</button>
+                  <button type="button" onClick={closeModal}>Cancelar</button>
+                </form>
               </div>
-              
             </div>
-         
-        )}
+          )}
         </div>
       )}
+
       <ToastContainer />
     </div>
   );

@@ -1,3 +1,7 @@
+.guest-list-container{
+  padding-top: 5rem;
+}
+
 .results-container {
     display: flex;
     justify-content: center;
@@ -32,6 +36,10 @@
   
   .guest-table tr:hover {
     background-color: #f1f1f1;
+  }
+
+  li{
+    list-style: none;
   }
   
   

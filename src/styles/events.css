@@ -75,6 +75,7 @@ h1 {
   padding: 16px;
   text-align: center;
   transition: transform var(--transition-time) ease;
+  cursor: pointer;
 }
 
 .event-container:hover {

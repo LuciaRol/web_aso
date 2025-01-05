@@ -6,11 +6,13 @@
   --AdminUsers-background-color: #f0f0f0;
   --AdminUsers-link-hover: #B37100;
 }
+
 .admin-users-container {
-  background-color: #f0f0f0;
+  background-color: #f5f5f5 !important;
   padding: 20px;
   padding-top: 5rem !important;
-  width: 100%;
+  box-shadow: none !important;
+  width: 90% !important;
   min-height: 100vh;
 }
 /* BUSCADOR */
@@ -28,7 +30,10 @@
 .user-search-container input {
   width: 300px; /* Reducir el tamaño del input */
   padding: 8px 12px; /* Ajustar el tamaño del padding */
+  background-color: #fff;
   border-radius: 8px; /* Bordes redondeados */
+  
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
   font-size: 14px; /* Reducir el tamaño de la fuente */
   margin-top: 5px; /* Añadir espacio entre el label y el input */
@@ -54,12 +59,15 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  
 }
 
 .table-header {
   display: table-row;
   font-weight: bold;
-  background-color: #f4f4f4;
+  
 }
 
 .table-header div {
@@ -67,6 +75,7 @@
   padding: 10px;
   border: 1px solid #ddd;
   text-align: left;
+  background-color: #fff;
 }
 
 .table-row {
@@ -136,13 +145,13 @@
 }
 
 .form-container {
-  background-color: #fff; /* Fondo blanco */
+  background-color: #fff; 
   padding: 20px;
-  width: 100%; /* Ocupa todo el ancho disponible */
-  max-width: 1500px; /* Limita el ancho máximo */
+  width: 100%; 
+  max-width: 1500px; 
   margin-left: auto;
-  margin-right: auto; /* Centra el contenedor */
-  border-radius: 8px; /* Bordes redondeados */
+  margin-right: auto; 
+  border-radius: 8px; 
 }
 
 /* Contenedor principal para centrar el formulario */
@@ -308,6 +317,10 @@ button:disabled {
     display: grid;
     grid-template-columns: 1fr; /* Una tarjeta por fila en pantallas móviles */
     gap: 20px;
+    box-shadow: none;
+    background-color: transparent;
+
+   
   }
 
   .table-header {

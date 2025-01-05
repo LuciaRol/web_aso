@@ -228,7 +228,7 @@
 
 /* Estilos del botón de logout */
 .logout-btn {
-  background-color: var(--accent-color-header); /* Color de fondo del botón */
+  background-color: rgba(0, 255, 255, 0.397); /* Color de fondo del botón */
   color: white; /* Color del texto del botón */
   border: none; /* Sin borde */
   border-radius: 4px; /* Bordes redondeados */
@@ -240,7 +240,8 @@
 
 /* Efecto hover para el botón de logout */
 .logout-btn:hover {
-  background-color: var(--accent-color-hover-header); /* Color de fondo del botón al pasar el mouse */
+  background-color: rgba(0, 255, 255, 0.762); /* Color de fondo del botón *//* Color de fondo del botón al pasar el mouse */
+  color: var(--accent-color-hover-header);
 }
 
 /* Alineación del botón de logout en vista de escritorio */

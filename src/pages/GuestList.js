@@ -71,12 +71,12 @@ const GuestList = () => {
   }, []);
 
   return (
-    <div>
+    <div className='guest-list-container'>
       <h1>Lista de Invitados</h1>
 
       {/* Botón para exportar los datos a Excel */}
         <div className="button-container">
-            <button onClick={exportToExcel} className="export-button">
+            <button onClick={exportToExcel} className="export-button submit-button">
                 Exportar a Excel
             </button>
         </div>
@@ -91,7 +91,7 @@ const GuestList = () => {
               <tr>
                 <th>Nombre</th>
                 <th>Apellidos</th>
-                <th>Fecha Visitas</th>
+                <th>Fecha de las visitas</th>
               </tr>
             </thead>
             <tbody>

@@ -1,8 +1,6 @@
 /* Archivo: home.css  */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
-
-
 .home-container {
   display: flex;
   flex-direction: column;
@@ -82,8 +80,6 @@
 }
 
 /* SECCIONES */
-/* General styles for sections */
-/* General styles for sections */
 section {
   width: 100%;
   padding: 20px;
@@ -364,50 +360,61 @@ section {
     text-align: center;
   }
 
-  .about-features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
-    grid-template-rows: repeat(2, 1fr); /* Dos filas */
-    gap: 1rem; /* Espacio entre las celdas */
-    justify-content: center; /* Centra horizontalmente la cuadrícula */
-    align-items: center; /* Centra verticalmente la cuadrícula */
-    width: 100%; /* Asegura que ocupe el ancho disponible */
-  }
 
   .about-features li {
-    display: flex; /* Centra el contenido de cada celda */
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.5rem; /* Bordes redondeados */
-    width: 100%; /* Asegura que ocupe la celda */
     height: 9.5rem; /* Altura fija */
-    text-align: center; /* Centrado de texto */
+
   }
 
-  .feature-content{
-    margin: 1rem;
-  }
 
   .hover-text {
     font-size: 1rem; /* No cambia */
-    text-align: center; /* Centrado del texto */
-    background-color: transparent; /* Fondo transparente */
-    display: flex; /* Usar flexbox para centrar el contenido */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    width: 100%; /* Asegurarse de que ocupe todo el espacio disponible */
-    height: 100%; /* Asegurarse de que ocupe toda la altura del contenedor */
   }
   
   .hover-text p {
-    width: 50%; /* Ajuste de ancho al 50% */
+    width: 40%; /* Ajuste de ancho al 50% */
     height: 70%; /* Ajusta la altura al contenido */
-    background-color: #012e4a;
-    padding: 0.5rem; /* 8px */
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    display: flex; /* Usar flexbox para centrar el texto dentro del p */
   }
   
 }
+
+/* PANTALLAS MÓVILES ESTRECHAS */
+@media screen and (max-width: 417px) { 
+  .image-container::before {
+    top: 25%; 
+  }
+
+  .image-container::after {
+    top: 40%; 
+  }
+
+  .video-container {
+    display: none; 
+  }
+
+  .image-container-mobile {
+    display: none; 
+    
+  }
+
+  .image-container-alternative {
+    display: block; 
+    
+  }
+
+  .counter-section {
+    gap: 0.5rem; 
+  }
+
+  .hover-text {
+    font-size: 0.9rem; /* No cambia */
+  }
+  
+  .hover-text p {
+    width: 60%; /* Ajuste de ancho al 50% */
+  }
+
+
+  
+}
+

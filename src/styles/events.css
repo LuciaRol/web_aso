@@ -54,24 +54,18 @@ h1 {
   padding: 20px;
 }
 
-@media (max-width: 768px) {
-  .events-list {
-    grid-template-columns: repeat(2, 1fr); /* Dos tarjetas por fila en tablets */
-  }
-}
 
-@media (max-width: 480px) {
+@media (max-width: 417px) {
   .events-list {
     grid-template-columns: 1fr; /* Una tarjeta por fila en pantallas pequeñas */
   }
 }
 
 .event-container {
-  width: 350px;
+  width: 340px;
   background-color: var(--white); /* Fondo blanco para el contenedor */
   border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--shadow-color); /* Sombra suave */
-  margin: 16px;
   padding: 16px;
   text-align: center;
   transition: transform var(--transition-time) ease;

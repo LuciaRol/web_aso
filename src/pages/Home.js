@@ -11,6 +11,7 @@ import Meeple from '../img/landing/Meeple.png';
 import Evento from '../img/landing/Event.png';
 import Discount from '../img/landing/Discount.png';
 import Wood from '../img/landing/wood3.webp';
+import DragonMobile from '../img/landing/dragon-mobile.png';
 import '../styles/home.css';
 import TopArrow from '../components/TopArrow';
 
@@ -22,6 +23,10 @@ const Home = () => {
           {/* Cambiar imagen por video */}
           <div class="image-container-mobile">
             <img src={Wood} alt="Imagen alternativa"/>
+          </div>
+
+          <div class="image-container-alternative">
+            <img src={DragonMobile} alt="Imagen alternativa"/>
           </div>
           
           <div class="video-container">

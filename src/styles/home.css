@@ -6,6 +6,7 @@
   flex-direction: column;
   width: 100%; /* Ocupa todo el ancho */
   padding: 0;
+
 }
 
 .image-container {
@@ -81,10 +82,11 @@
 
 /* SECCIONES */
 section {
-  width: 100%;
   padding: 20px;
   margin-top: 20px;
   align-items: center; /* Centrado vertical */
+  width: 90%;  /* Cambiar el ancho a 90% */
+  margin: 0 auto; /* Centrar el contenedor en la página */
 }
 
 /* Styles for the info section */
@@ -98,7 +100,7 @@ section {
 
 .carousel-info img {
   width: auto;
-  height: 550px;
+  height: 500px;
   display: block;
   margin: 0 auto;
 }

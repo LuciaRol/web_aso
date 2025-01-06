@@ -1,5 +1,7 @@
 .create-user-form-container{
   padding-top: 5rem !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 /* Estilos generales para el contenedor del formulario */

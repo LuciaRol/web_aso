@@ -73,7 +73,7 @@ const SendEmail = () => {
           className="email-textarea"
         />
       </label>
-      <button type="submit" className="">Enviar Email</button>
+      <button type="submit" className="submit-button">Enviar</button>
     </form>
   </div>
   );

@@ -273,6 +273,13 @@
     transform: translateX(0); /* Sin movimiento adicional */
   }
 
+  .filter-item {
+    display: flex;
+    flex-direction: column; /* Apila los elementos en una columna */
+    gap: 5px; /* Espaciado entre el label y el input */
+  }
+  
+
 
   .modal-content {
     max-width: 100vw; /* Ocupa todo el ancho de la ventana */

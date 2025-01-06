@@ -45,9 +45,12 @@
 /* Contenedor del logo y menú hamburguesa */
 .header-logo-container {
   display: flex;
-  align-items: center;
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: space-between; /* Distribuye los elementos entre los dos extremos */
   flex-grow: 1;
 }
+
+
 
 /* Logo */
 .header-logo {
@@ -152,7 +155,10 @@
   }
 
   .header-logo-container {
-    flex-grow: 0; /* No permitir que crezca en pantallas pequeñas */
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos a los extremos */
+    align-items: center; /* Alinea los elementos verticalmente */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
   }
 
   .menu-toggle {

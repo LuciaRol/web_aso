@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase'; // Importa la configuración de Firebase
 import '../styles/loanedgames.css'; // Estilo personalizado si lo necesitas
+import TopArrow from '../components/TopArrow';
 
 
 
@@ -103,6 +104,7 @@ const LoanedGames = () => {
           </button>
         </div>
       </div>
+      <TopArrow />
     </div>
   );
 };

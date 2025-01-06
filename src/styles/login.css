@@ -10,7 +10,6 @@ html, body {
     justify-content: center; /* Centra horizontalmente el contenedor */
     align-items: center; /* Centra verticalmente el contenedor */
     height: 100vh; /* Ocupa todo el alto de la ventana */
-    background-color: #f8f9fa; /* Color de fondo suave */
 }
 
 .form {

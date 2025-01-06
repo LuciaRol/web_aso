@@ -153,6 +153,7 @@
     /* Contenedor principal de estadísticas */
     .statistics-container {
         padding: 10px; /* Reducir padding en pantallas pequeñas */
+        padding-top: 5rem;
         max-width: 100%; /* Asegurar que ocupe todo el ancho disponible */
     }
 

@@ -6,6 +6,7 @@
   flex-direction: column;
   width: 100%; /* Ocupa todo el ancho */
   padding: 0;
+
 }
 
 .image-container {
@@ -81,10 +82,11 @@
 
 /* SECCIONES */
 section {
-  width: 100%;
   padding: 20px;
   margin-top: 20px;
   align-items: center; /* Centrado vertical */
+  width: 90%;  /* Cambiar el ancho a 90% */
+  margin: 0 auto; /* Centrar el contenedor en la página */
 }
 
 /* Styles for the info section */
@@ -98,7 +100,7 @@ section {
 
 .carousel-info img {
   width: auto;
-  height: 550px;
+  height: 500px;
   display: block;
   margin: 0 auto;
 }
@@ -258,28 +260,41 @@ section {
 }
 
 
-/* Estilos por defecto (para pantallas grandes de ordenador) */
-@media screen and (min-width: 48.01rem) { /* A partir de 768px */
-  /* Mostrar el video solo en pantallas de ordenador */
+@media screen and (min-width: 769px) {
   .video-container {
-    display: block; /* Muestra el video */
+    display: block; /* Muestra el video en pantallas de ordenador */
   }
 
-  /* Ocultar la imagen en pantallas grandes */
   .image-container-mobile {
-    display: none; /* Oculta la imagen */
+    display: none; /* Oculta la imagen para pantallas grandes */
+  }
+
+  .image-container-alternative {
+    display: none; /* También ocultamos la imagen alternativa */
   }
 }
 
 /* MEDIA QUERY PANTALLAS MÓVILES */
 /* Media query para pantallas móviles */
-@media screen and (max-width: 48rem) { /* 768px a rem */
+@media screen and (max-width: 768px) { /* 768px a rem */
   /* Ajustar otros estilos según sea necesario */
- 
-  /* Mantener el contenedor de la imagen en el resto de tamaños */
   .image-container {
-    display: block; /* Muestra la imagen en pantallas grandes */
+    display: block !important; /* Muestra la imagen en pantallas grandes */
   }
+
+  .video-container {
+    display: none; /* Oculta el video en pantallas móviles */
+  }
+
+  .image-container-mobile {
+    display: block; /* Muestra la imagen Wood en pantallas intermedias */
+  }
+
+  .image-container-alternative {
+    display: none; /* Mantiene oculta la imagen DragonMobile */
+  }
+  /* Mantener el contenedor de la imagen en el resto de tamaños */
+ 
 
   .image-container::before,
   .image-container::after {

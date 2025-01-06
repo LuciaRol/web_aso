@@ -1,5 +1,7 @@
 .game-list{
     padding-top: 5.5rem;
+    width: 90%;  /* Cambiar el ancho a 90% */
+    margin: 0 auto; /* Centrar el contenedor en la página */
 }
 
 

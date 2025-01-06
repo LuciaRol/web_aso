@@ -38,7 +38,8 @@ const WhoWeAre = () => {
       {isBannerVisible && (
         <div className="ad-banner">
           <div className="ad-banner-text">
-            <p>¡Bebe Grog! Una bebida tan fuerte que puede disolver una jarra de metal.</p>
+            <p>Bebe Grog.</p>
+            <p>¡Y pásatelo pirata!</p>
           </div>
           <button className="ad-banner-close" onClick={handleCloseBanner}>
             &times; {/* Icono de cerrar */}
@@ -51,26 +52,8 @@ const WhoWeAre = () => {
 
     {/* Carrusel de fotos */}
     <section>
-      <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src={aso1} class="d-block w-100" alt="..." />
-          </div>
-          <div class="carousel-item">
-            <img src={aso2} class="d-block w-100" alt="..." />
-          </div>
-          <div class="carousel-item">
-            <img src={aso3} class="d-block w-100" alt="..." />
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+      <div className="who-image-container" data-bs-ride="true">
+        <img src={aso1}  alt="..." />
       </div>
 
 
@@ -117,8 +100,9 @@ const WhoWeAre = () => {
       </p>
 
       <div className="contact-content">
+
         <div className="contact-qr-container">
-          <h2 className="contact-qr-heading">Grupo de WhatsApp</h2>
+          <h3 className="contact-qr-heading">Grupo de WhatsApp</h3>
           <div>
             <img
               src={qrCode}
@@ -130,18 +114,13 @@ const WhoWeAre = () => {
 
         {/* FORMULARIO */}
         <div className="email-form-container">
-          
-          <h2 className="email-heading">Envíanos un Email</h2>
-          <SendEmail />
+          <div>
+            <SendEmail />
+          </div>
         </div>
       </div>
     </section>
 
-    <div className="whatsapp-container">
-      <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
-        <FaWhatsapp size={50} color="#25D366" className="whatsapp-icon" /> {/* Icono de WhatsApp */}
-      </a>
-    </div>
   </div>
 );
 };

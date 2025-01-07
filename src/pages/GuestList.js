@@ -82,46 +82,46 @@ const GuestList = () => {
         </div>
 
       {/* Tabla de resultados */}
-      <div className="results-container">
-        {loading ? (
-          <p>Cargando...</p>
-        ) : (
-          <table className="guest-table">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Fecha de las visitas</th>
-              </tr>
-            </thead>
-            <tbody>
-              {guestData.length > 0 ? (
-                guestData.map((guest, index) => (
-                  <tr key={index}>
-                    <td>{guest.name}</td>
-                    <td>{guest.surname}</td>
-                    <td>
-                     
-                        {guest.visits.length > 0 ? (
-                          guest.visits.map((visit, idx) => (
-                            <li key={idx}>{visit}</li>
-                          ))
-                        ) : (
-                          <li>No tiene visitas registradas.</li>
-                        )}
-                    
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="3">No se encontraron invitados.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        )}
-      </div>
+      <div className="results-container--unique">
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <div className="guest-list--unique">
+          {guestData.length > 0 ? (
+            guestData.map((guest, index) => (
+              <div key={index} className="guest-row--unique">
+              <div className="guest-card__row--unique">
+                <span className="guest-card__label--unique">Nombre:</span>
+                <span className="guest-card__value--unique">{guest.name}</span>
+              </div>
+
+              <div className="guest-card__row--unique">
+                <span className="guest-card__label--unique">Apellidos:</span>
+                <span className="guest-card__value--unique">{guest.surname}</span>
+              </div>
+
+              <div className="guest-card__row--unique">
+                <span className="guest-card__label--unique">Fecha de las visitas:</span>
+                <div className="guest-card__value--unique">
+                  {guest.visits.length > 0 ? (
+                    guest.visits.map((visit, idx) => (
+                      <div key={idx}>{visit}</div>
+                    ))
+                  ) : (
+                    <div>No tiene visitas registradas.</div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            ))
+          ) : (
+            <p>No se encontraron invitados.</p>
+          )}
+        </div>
+  )}
+</div>
+
     </div>
   );
 };

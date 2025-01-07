@@ -158,6 +158,10 @@
   white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
+.guest-card__label--unique li{
+  list-style: none;
+}
+
 .guest-card__value--unique {
   display: block;
   width: 200px; /* Ancho fijo para el valor */

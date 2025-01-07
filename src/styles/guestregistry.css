@@ -93,11 +93,43 @@
   margin-bottom: 20px;
 }
 
+/* PAGINACIÓN */
+.pagination-container {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 20px; /* Espaciado entre los botones */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.submit-button.guest-button {
+  padding: 5px 10px; /* Reduce el padding horizontal (mitad del original) */
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px; /* Ajusta el tamaño de la fuente */
+  width: auto; /* Asegura que el ancho se ajuste al contenido */
+}
+
+.submit-button.guest-button:disabled {
+  background-color: #ccc; /* Color para el botón deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+}
+
+
+
 
 /* TABLA DE INVITADOS REGISTRADOS */
 
-/* Estilo para escritorio */
-/* Estilo para escritorio */
+.results-container--unique {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  padding: 15px;
+  width: 100%; /* Se adapta al ancho disponible */
+  box-sizing: border-box; /* Asegura que el padding se incluya en el ancho total */
+}
+
 .guest-list--unique {
   display: flex;
   flex-direction: column;
@@ -106,24 +138,35 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombreado sutil */
   border-radius: 8px; /* Bordes redondeados */
   padding: 15px;
+  width: 1000px; /* Ancho fijo de 900px */
+  table-layout: fixed; /* Hace que las celdas tengan un ancho fijo */
 }
 
 .guest-row--unique {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Espacio entre las celdas */
+  align-items: center; /* Alinea las celdas verticalmente */
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
 .guest-card__label--unique {
   font-weight: bold;
+  width: 250px; /* Ancho fijo para la etiqueta */
+  overflow: hidden; /* Evita desbordamientos */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
 .guest-card__value--unique {
   display: block;
+  width: 200px; /* Ancho fijo para el valor */
+  overflow: hidden; /* Evita desbordamientos */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
-/* Estilo para móviles (cambia a tarjetas) */
+/* Media Query para pantallas pequeñas (máximo 768px) */
 @media (max-width: 768px) {
   .guest-list--unique {
     display: grid;
@@ -146,13 +189,13 @@
 
   .guest-card__label--unique {
     display: block;
-    font-size: 14px;
+    font-size: 14px; /* Ajuste del tamaño de la fuente */
     margin-bottom: 5px;
   }
 
   .guest-card__value--unique {
     display: block;
-    font-size: 16px;
+    font-size: 16px; /* Ajuste del tamaño de la fuente */
     margin-bottom: 10px; /* Separación entre label y value */
   }
 
@@ -160,4 +203,6 @@
     display: block;
     margin-bottom: 15px; /* Separación entre filas */
   }
+
+  /* Es importante asegurarse de que no se apliquen otros cambios de estilo aquí */
 }

@@ -20,8 +20,11 @@ const GuestRegistry = () => {
   const [guestData, setGuestData] = useState([]);
   const [filteredGuestData, setFilteredGuestData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [maxVisibleGuests] = useState(5); /* el número de invitados que se ven sin buscar */
+  const [maxVisibleGuests] = useState(5); // El número de invitados que se ven sin buscar
+  const [currentPage, setCurrentPage] = useState(1);
+  const [guestsPerPage] = useState(5); // Número de invitados por página
 
+  // Función para filtrar los datos de los invitados
   const filterGuestData = useCallback((data) => {
     const normalizedSearchText = normalizeText(searchText);
 
@@ -31,9 +34,10 @@ const GuestRegistry = () => {
       return nameMatch || surnameMatch;
     });
 
-    setFilteredGuestData(filtered.slice(0, maxVisibleGuests));
-  }, [searchText, maxVisibleGuests]);
+    setFilteredGuestData(filtered);
+  }, [searchText]);
 
+  // Obtener los datos de los invitados desde Firestore
   const fetchGuestData = useCallback(async () => {
     setLoading(true);
 
@@ -78,6 +82,7 @@ const GuestRegistry = () => {
     }
   }, [filterGuestData]);
 
+  // Agregar un nuevo invitado a Firestore
   const handleAddGuest = async () => {
     const normalizedName = normalizeText(invitedName);
     const normalizedSurname = normalizeText(invitedSurname);
@@ -102,6 +107,19 @@ const GuestRegistry = () => {
       console.error('Error al registrar el invitado:', err);
       toast.error('Error al registrar el invitado.');
     }
+  };
+
+  // Control de paginación: calcula los invitados a mostrar según la página actual
+  const currentGuests = filteredGuestData.slice(
+    (currentPage - 1) * guestsPerPage,
+    currentPage * guestsPerPage
+  );
+
+  const totalPages = Math.ceil(filteredGuestData.length / guestsPerPage);
+
+  // Cambiar de página
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
@@ -172,37 +190,60 @@ const GuestRegistry = () => {
       </div>
 
       {/* Resultados de la Búsqueda en Formato Tabla */}
-      <div className="results-container">
+      <div className="results-container--unique">
         {loading ? (
-          <p>Cargando...</p>
+          <p className="results-container__loading-text--unique">Cargando...</p>
         ) : (
-          <table className="guest-table">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Visitas</th>
-                <th>Última Fecha de Visita</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredGuestData.length > 0 ? (
-                filteredGuestData.map((guest, index) => (
-                  <tr key={index}>
-                    <td>{guest.name}</td>
-                    <td>{guest.surname}</td>
-                    <td>{guest.visitCount}</td>
-                    <td>{guest.latestDate}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4">No se encontraron resultados.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          <div className="guest-list-container--unique">
+            {currentGuests.length > 0 ? (
+              <div className="guest-list--unique">
+                {currentGuests.map((guest, index) => (
+                  <div className="guest-row--unique" key={index}>
+                    <div className="guest-card__row--unique">
+                      <span className="guest-card__label--unique">Nombre:</span>
+                      <span className="guest-card__value--unique">{guest.name}</span>
+                    </div>
+                    <div className="guest-card__row--unique">
+                      <span className="guest-card__label--unique">Apellidos:</span>
+                      <span className="guest-card__value--unique">{guest.surname}</span>
+                    </div>
+                    <div className="guest-card__row--unique">
+                      <span className="guest-card__label--unique">Nº de visitas:</span>
+                      <span className="guest-card__value--unique">{guest.visitCount}</span>
+                    </div>
+                    <div className="guest-card__row--unique">
+                      <span className="guest-card__label--unique">Última fecha de visita:</span>
+                      <span className="guest-card__value--unique">{guest.latestDate}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="no-results--unique">
+                <p className="no-results__text--unique">No se encontraron resultados.</p>
+              </div>
+            )}
+          </div>
         )}
+      </div>
+
+      {/* Paginación */}
+      <div className="pagination-container">
+        <button
+          className='submit-button guest-button'
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Anterior
+        </button>
+        <span>{`Página ${currentPage} de ${totalPages}`}</span>
+        <button
+          className='submit-button guest-button'
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Siguiente
+        </button>
       </div>
 
       <ToastContainer />

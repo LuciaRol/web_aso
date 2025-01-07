@@ -2,44 +2,13 @@
   padding-top: 5rem;
 }
 
-.results-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 20px;
-  }
-  
-  .guest-table {
-    width: 80%; /* O ajusta el tamaño de la tabla según tus necesidades */
-    max-width: 800px; /* Establece un ancho máximo para la tabla */
-    margin: 0 auto;
-    border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    border-radius: 8px;
-  }
-  
-  .guest-table th, .guest-table td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #ddd;
-  }
-  
-  .guest-table th {
-    background-color: #f4f4f4;
-  }
-  
-  .guest-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .guest-table tr:hover {
-    background-color: #f1f1f1;
-  }
+.guest-card__label--unique {
+  display: block !important; /* Hace que el label ocupe una fila completa */
+}
 
-  li{
-    list-style: none;
-  }
-  
-  
+.guest-card__value--unique {
+  display: block !important; /* Hace que el value ocupe una fila completa */
+}
+
+
+

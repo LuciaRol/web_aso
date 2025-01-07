@@ -93,7 +93,7 @@ footer {
 
 @media (max-width: 768px) {
     .admin-container {
-        padding-top: 2rem; /* Reducir el espacio superior en pantallas pequeñas */
+        padding-top: 5rem; /* Reducir el espacio superior en pantallas pequeñas */
         height: auto; /* Asegura que el contenedor principal no ocupe más de la altura necesaria */
     }
 

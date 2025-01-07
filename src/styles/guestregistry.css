@@ -93,69 +93,114 @@
   margin-bottom: 20px;
 }
 
+/* PAGINACIÓN */
+.pagination-container {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 20px; /* Espaciado entre los botones */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.submit-button.guest-button {
+  padding: 5px 10px; /* Reduce el padding horizontal (mitad del original) */
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px; /* Ajusta el tamaño de la fuente */
+  width: auto; /* Asegura que el ancho se ajuste al contenido */
+}
+
+.submit-button.guest-button:disabled {
+  background-color: #ccc; /* Color para el botón deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+}
+
+
+
 
 /* TABLA DE INVITADOS REGISTRADOS */
 
-/* Estilo para la tabla de invitados */
-.guest-table {
-  border-collapse: collapse;
-  min-width: 1200px; /* Ancho fijo de 800px */
-  margin: 0 auto; /* Centra la tabla */
+.results-container--unique {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  padding: 15px;
+  width: 100%; /* Se adapta al ancho disponible */
+  box-sizing: border-box; /* Asegura que el padding se incluya en el ancho total */
 }
 
-.guest-table th, .guest-table td {
-  text-align: left;
-  border: 1px solid #ddd;
-  padding: 12px; /* Mayor espacio dentro de las celdas */
-  word-wrap: break-word; /* Rompe palabras largas que no caben */
-  white-space: nowrap; /* Evita el ajuste de texto en una sola línea */
+.guest-list--unique {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff; /* Fondo blanco */
+  border: 1px solid #ddd; /* Borde de la tabla */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombreado sutil */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 15px;
+  width: 1000px; /* Ancho fijo de 900px */
+  table-layout: fixed; /* Hace que las celdas tengan un ancho fijo */
 }
 
-.guest-table th {
-  background-color: #f4f4f4;
+.guest-row--unique {
+  display: flex;
+  justify-content: space-between; /* Espacio entre las celdas */
+  align-items: center; /* Alinea las celdas verticalmente */
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.guest-card__label--unique {
   font-weight: bold;
+  width: 250px; /* Ancho fijo para la etiqueta */
+  overflow: hidden; /* Evita desbordamientos */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
-.guest-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.guest-card__label--unique li{
+  list-style: none;
 }
 
-.guest-table tr:hover {
-  background-color: #f1f1f1;
+.guest-card__value--unique {
+  display: block;
+  width: 200px; /* Ancho fijo para el valor */
+  overflow: hidden; /* Evita desbordamientos */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
-/* Evita que las columnas se ajusten al contenido */
-.guest-table th, .guest-table td {
-  width: 25%; /* Asegura que todas las columnas sean proporcionales */
-}
-
+/* Media Query para pantallas pequeñas (máximo 768px) */
 @media (max-width: 768px) {
-  .guest-table th, .guest-table td {
-    display: block;
-    width: 100%; /* Las celdas ocuparán todo el ancho en pantallas pequeñas */
-    text-align: right; /* Alineación a la derecha en pantallas pequeñas */
+  .guest-list--unique {
+    display: grid;
+    grid-template-columns: 1fr; /* Una columna por fila */
+    gap: 15px; /* Espacio entre las cards */
+    width: 100%; /* Ajusta al ancho disponible */
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
   }
 
-  .guest-table th {
-    text-align: left; /* Alinea los encabezados a la izquierda */
-    background-color: #f4f4f4;
+  .guest-row--unique {
+    display: block; /* Hace que cada fila se comporte como un bloque */
+    border-bottom: none; /* Elimina el borde entre filas */
+    padding: 15px;
+    background-color: #fff; /* Fondo blanco para cada card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra en cada card */
+    border-radius: 8px; /* Bordes redondeados */
+    width: 350px; /* Ancho fijo para cada card (ajustado a 350px) */
+    margin: 0 auto; /* Centra la card en el contenedor */
+  }
+
+  .guest-card__label--unique {
+    width: auto; /* Deja que el ancho sea automático */
     font-weight: bold;
   }
 
-  .guest-table tr {
-    display: block;
-    margin-bottom: 10px; /* Espacio entre filas */
-  }
-
-  .guest-table td {
-    text-align: left; /* Alineación a la izquierda en pantallas pequeñas */
-    padding-left: 40%; /* Para dar espacio a la etiqueta en pantallas pequeñas */
+  .guest-card__value--unique {
+    width: auto; /* Deja que el ancho sea automático */
   }
 }
 
 
-
-
-
-  
-  

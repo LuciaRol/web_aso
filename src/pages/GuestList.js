@@ -6,9 +6,11 @@ import '../styles/guestlist.css';
 
 const GuestList = () => {
   const [guestData, setGuestData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1); // Página actual
   const [itemsPerPage] = useState(5); // Número de registros por página
+  const [searchTerm, setSearchTerm] = useState(''); // Término de búsqueda
 
   // Función para obtener los datos de los invitados desde Firestore
   const fetchGuestData = async () => {
@@ -46,6 +48,7 @@ const GuestList = () => {
 
       console.log('Datos obtenidos de Firestore:', guestsArray);
       setGuestData(guestsArray);
+      setFilteredData(guestsArray); // Inicializar la lista filtrada
     } catch (err) {
       console.error('Error al obtener los datos de los invitados:', err);
     } finally {
@@ -55,7 +58,7 @@ const GuestList = () => {
 
   // Función para exportar los datos a un archivo Excel
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(guestData.map(guest => ({
+    const worksheet = XLSX.utils.json_to_sheet(filteredData.map(guest => ({
       Nombre: guest.name,
       Apellido: guest.surname,
       Visitas: guest.visits.join(", "), // Unir las fechas de visitas en una sola celda
@@ -72,28 +75,63 @@ const GuestList = () => {
     setCurrentPage(pageNumber);
   };
 
+  // Lógica para la paginación
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentGuests = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Número total de páginas
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  // Función para manejar la búsqueda
+  const handleSearch = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setSearchTerm(searchValue);
+
+    // Filtrar los invitados por nombre o apellido
+    const filtered = guestData.filter(guest =>
+      guest.name.toLowerCase().includes(searchValue) ||
+      guest.surname.toLowerCase().includes(searchValue)
+    );
+    setFilteredData(filtered);
+    setCurrentPage(1); // Reiniciar la página a 1 cuando se realice una nueva búsqueda
+  };
+
   // Obtener los datos al montar el componente
   useEffect(() => {
     fetchGuestData();
   }, []);
 
-  // Lógica para la paginación
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentGuests = guestData.slice(indexOfFirstItem, indexOfLastItem);
-
-  // Número total de páginas
-  const totalPages = Math.ceil(guestData.length / itemsPerPage);
-
   return (
     <div className='guest-list-container'>
       <h1>Lista de Invitados</h1>
+
+      
+
 
       {/* Botón para exportar los datos a Excel */}
       <div className="button-container">
         <button onClick={exportToExcel} className="export-button submit-button">
           Exportar a Excel
         </button>
+      </div>
+
+      {/* Buscador */}
+      <div className="guest-search-container">
+        <h2 className="guest-search-title">Buscar Invitados</h2>
+        <form className="guest-search-form">
+          <div className="guest-search-form-group">
+            <label htmlFor="searchText" className="guest-search-label">Nombre o apellidos:</label>
+            <input
+              type="text"
+              id="searchText"
+              value={searchTerm} // Cambiado a searchTerm
+              onChange={handleSearch} // Cambiado a handleSearch
+              placeholder="Busca por nombre o apellidos"
+              className="guest-search-input"
+            />
+          </div>
+        </form>
       </div>
 
       {/* Tabla de resultados */}
@@ -139,7 +177,7 @@ const GuestList = () => {
       {/* Controles de paginación */}
       <div className="pagination-container">
         <button
-        className='submit-button guest-button'
+          className='submit-button guest-button'
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
         >

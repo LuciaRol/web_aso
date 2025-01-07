@@ -172,38 +172,43 @@ const GuestRegistry = () => {
       </div>
 
       {/* Resultados de la Búsqueda en Formato Tabla */}
-      <div className="results-container">
-        {loading ? (
-          <p>Cargando...</p>
-        ) : (
-          <table className="guest-table">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Visitas</th>
-                <th>Última Fecha de Visita</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredGuestData.length > 0 ? (
-                filteredGuestData.map((guest, index) => (
-                  <tr key={index}>
-                    <td>{guest.name}</td>
-                    <td>{guest.surname}</td>
-                    <td>{guest.visitCount}</td>
-                    <td>{guest.latestDate}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4">No se encontraron resultados.</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        )}
-      </div>
+      <div className="results-container--unique">
+  {loading ? (
+    <p className="results-container__loading-text--unique">Cargando...</p>
+  ) : (
+    <div className="guest-list-container--unique">
+      {filteredGuestData.length > 0 ? (
+        <div className="guest-list--unique">
+          {filteredGuestData.map((guest, index) => (
+            <div className="guest-row--unique" key={index}>
+              <div className="guest-card__row--unique">
+                <span className="guest-card__label--unique">Nombre:</span>
+                <span className="guest-card__value--unique">{guest.name}</span>
+              </div>
+              <div className="guest-card__row--unique">
+                <span className="guest-card__label--unique">Apellidos:</span>
+                <span className="guest-card__value--unique">{guest.surname}</span>
+              </div>
+              <div className="guest-card__row--unique">
+                <span className="guest-card__label--unique">Nº de visitas:</span>
+                <span className="guest-card__value--unique">{guest.visitCount}</span>
+              </div>
+              <div className="guest-card__row--unique">
+                <span className="guest-card__label--unique">Última fecha de visita:</span>
+                <span className="guest-card__value--unique">{guest.latestDate}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="no-results--unique">
+          <p className="no-results__text--unique">No se encontraron resultados.</p>
+        </div>
+      )}
+    </div>
+  )}
+</div>
+
 
       <ToastContainer />
     </div>

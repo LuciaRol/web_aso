@@ -96,66 +96,68 @@
 
 /* TABLA DE INVITADOS REGISTRADOS */
 
-/* Estilo para la tabla de invitados */
-.guest-table {
-  border-collapse: collapse;
-  min-width: 1200px; /* Ancho fijo de 800px */
-  margin: 0 auto; /* Centra la tabla */
+/* Estilo para escritorio */
+/* Estilo para escritorio */
+.guest-list--unique {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff; /* Fondo blanco */
+  border: 1px solid #ddd; /* Borde de la tabla */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombreado sutil */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 15px;
 }
 
-.guest-table th, .guest-table td {
-  text-align: left;
-  border: 1px solid #ddd;
-  padding: 12px; /* Mayor espacio dentro de las celdas */
-  word-wrap: break-word; /* Rompe palabras largas que no caben */
-  white-space: nowrap; /* Evita el ajuste de texto en una sola línea */
+.guest-row--unique {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-.guest-table th {
-  background-color: #f4f4f4;
+.guest-card__label--unique {
   font-weight: bold;
 }
 
-.guest-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.guest-card__value--unique {
+  display: block;
 }
 
-.guest-table tr:hover {
-  background-color: #f1f1f1;
-}
-
-/* Evita que las columnas se ajusten al contenido */
-.guest-table th, .guest-table td {
-  width: 25%; /* Asegura que todas las columnas sean proporcionales */
-}
-
+/* Estilo para móviles (cambia a tarjetas) */
 @media (max-width: 768px) {
-  .guest-table th, .guest-table td {
+  .guest-list--unique {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    background-color: transparent; /* Fondo blanco para las tarjetas */
+    border: none; /* Borde de las tarjetas */
+    box-shadow: none; /* Sombreado sutil */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px;
+  }
+
+  .guest-row--unique {
+    border-radius: 8px;
+    background-color: #fff; /* Fondo blanco para las tarjetas */
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para cada tarjeta */
     display: block;
-    width: 100%; /* Las celdas ocuparán todo el ancho en pantallas pequeñas */
-    text-align: right; /* Alineación a la derecha en pantallas pequeñas */
   }
 
-  .guest-table th {
-    text-align: left; /* Alinea los encabezados a la izquierda */
-    background-color: #f4f4f4;
-    font-weight: bold;
-  }
-
-  .guest-table tr {
+  .guest-card__label--unique {
     display: block;
-    margin-bottom: 10px; /* Espacio entre filas */
+    font-size: 14px;
+    margin-bottom: 5px;
   }
 
-  .guest-table td {
-    text-align: left; /* Alineación a la izquierda en pantallas pequeñas */
-    padding-left: 40%; /* Para dar espacio a la etiqueta en pantallas pequeñas */
+  .guest-card__value--unique {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px; /* Separación entre label y value */
+  }
+
+  .guest-card__row--unique {
+    display: block;
+    margin-bottom: 15px; /* Separación entre filas */
   }
 }
-
-
-
-
-
-  
-  

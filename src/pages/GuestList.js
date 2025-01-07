@@ -62,6 +62,7 @@ const GuestList = () => {
       Nombre: guest.name,
       Apellido: guest.surname,
       Visitas: guest.visits.join(", "), // Unir las fechas de visitas en una sola celda
+      'Número de Visitas': guest.visits.length, // Añadir el conteo de visitas
     })));
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Invitados");
@@ -105,9 +106,6 @@ const GuestList = () => {
   return (
     <div className='guest-list-container'>
       <h1>Lista de Invitados</h1>
-
-      
-
 
       {/* Botón para exportar los datos a Excel */}
       <div className="button-container">
@@ -153,6 +151,12 @@ const GuestList = () => {
                     <span className="guest-card__value--unique">{guest.surname}</span>
                   </div>
 
+                  {/* Añadir el conteo de visitas */}
+                  <div className="guest-card__row--unique">
+                    <span className="guest-card__label--unique">Nº de visitas:</span>
+                    <span className="guest-card__value--unique">{guest.visits.length}</span>
+                  </div>
+
                   <div className="guest-card__row--unique">
                     <span className="guest-card__label--unique">Fecha de las visitas:</span>
                     <div className="guest-card__value--unique">
@@ -165,6 +169,8 @@ const GuestList = () => {
                       )}
                     </div>
                   </div>
+
+                  
                 </div>
               ))
             ) : (

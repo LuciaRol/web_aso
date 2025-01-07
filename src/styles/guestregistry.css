@@ -170,39 +170,33 @@
 @media (max-width: 768px) {
   .guest-list--unique {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    background-color: transparent; /* Fondo blanco para las tarjetas */
-    border: none; /* Borde de las tarjetas */
-    box-shadow: none; /* Sombreado sutil */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 15px;
+    grid-template-columns: 1fr; /* Una columna por fila */
+    gap: 15px; /* Espacio entre las cards */
+    width: 100%; /* Ajusta al ancho disponible */
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
   }
 
   .guest-row--unique {
-    border-radius: 8px;
-    background-color: #fff; /* Fondo blanco para las tarjetas */
+    display: block; /* Hace que cada fila se comporte como un bloque */
+    border-bottom: none; /* Elimina el borde entre filas */
     padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para cada tarjeta */
-    display: block;
+    background-color: #fff; /* Fondo blanco para cada card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra en cada card */
+    border-radius: 8px; /* Bordes redondeados */
+    width: 350px; /* Ancho fijo para cada card (ajustado a 350px) */
+    margin: 0 auto; /* Centra la card en el contenedor */
   }
 
   .guest-card__label--unique {
-    display: block;
-    font-size: 14px; /* Ajuste del tamaño de la fuente */
-    margin-bottom: 5px;
+    width: auto; /* Deja que el ancho sea automático */
+    font-weight: bold;
   }
 
   .guest-card__value--unique {
-    display: block;
-    font-size: 16px; /* Ajuste del tamaño de la fuente */
-    margin-bottom: 10px; /* Separación entre label y value */
+    width: auto; /* Deja que el ancho sea automático */
   }
-
-  .guest-card__row--unique {
-    display: block;
-    margin-bottom: 15px; /* Separación entre filas */
-  }
-
-  /* Es importante asegurarse de que no se apliquen otros cambios de estilo aquí */
 }
+
+

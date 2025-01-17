@@ -5,12 +5,14 @@
   --footer-bg-color: #012E4A; 
   --footer-text-color: white; /* Color del texto en el footer */
   --footer-link-hover: white; /* Color de hover para los enlaces */
+  --footer-link-visited: orange; /* Color de los enlaces visitados */
 }
 
 /* Estilos para el footer */
 footer {
   position: relative;
   width: 100%; /* Ocupa todo el ancho */
+  height: auto;
   display: flex;
   flex-direction: row; /* Alineación horizontal */
   justify-content: space-around; /* Distribución uniforme */
@@ -32,6 +34,10 @@ footer a {
 footer a:hover {
   color: var(--footer-link-hover);
   text-decoration: underline;
+}
+
+footer a:visited {
+  color: var(--footer-link-visited);
 }
 
 /* Estilo para los íconos sociales */
@@ -66,3 +72,54 @@ footer a:hover {
 .footer-links a:hover {
   text-decoration: underline !important;
 }
+
+.footer-links a:visited {
+  color: purple !important;
+  text-decoration: underline !important;
+}
+
+.footer-links a:checked {
+  color: purple !important;
+  text-decoration: underline !important;
+}
+
+/* POP UPS */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 12 !important;
+}
+
+.popup-content {
+  background-color: #fff;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative; /* Necesario para posicionar el botón dentro de este contenedor */
+}
+
+.popup-content .close-button {
+  position: absolute;
+  top: 10px; /* Ajusta la posición según sea necesario */
+  right: 10px; /* Alinea el botón a la derecha */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-content .close-button:hover {
+  background-color: transparent;
+}
+

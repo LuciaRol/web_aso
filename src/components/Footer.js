@@ -6,7 +6,6 @@ import '../styles/footer.css'; // Ensure the CSS file is imported
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>Síguenos en nuestras redes</p>
       <div className="social-icons">
         <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faWhatsapp} size="2x" />
@@ -20,6 +19,13 @@ const Footer = () => {
         <a href="https://www.instagram.com/dragon_demadera/" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faInstagram} size="2x" />
         </a>
+      </div>
+      <div className='footer-text'>
+        <p>©2025 Developed by Lucía Rodríguez López</p>
+      </div>
+      <div className='footer-links'>
+        <a>Política de cookies</a>
+        <a>Política de privacidad</a>
       </div>
     </footer>
   );

@@ -163,7 +163,7 @@ const Header = () => {
                                         className={window.location.pathname === '/GuestRegistry' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
-                                        Registro Invitados
+                                        Registro de invitados
                                     </Link>
                                 </li>
                                 <li>
@@ -172,7 +172,7 @@ const Header = () => {
                                         className={window.location.pathname === '/Ludoteca' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
-                                        Solicitar Juego
+                                        Ludoteca
                                     </Link>
                                 </li>
                                 <li>
@@ -181,7 +181,7 @@ const Header = () => {
                                         className={window.location.pathname === '/User' ? 'active' : ''}
                                         onClick={closeMenu}
                                     >
-                                        Usuario
+                                        Perfil
                                     </Link>
                                 </li>
                                 {userRole === 'admin' && (

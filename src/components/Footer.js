@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { faFacebook, faInstagram, faTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import defaultImage from '../img/meeple_logo.png';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/footer.css';
 
 const Footer = () => {
@@ -22,10 +24,14 @@ const Footer = () => {
 
   return (
     <footer className="footer">
+      <div className="footer-text">
+        <div><img className="footer-text-img" src={defaultImage}/></div>
+        <div>Dragón de Madera</div>
+        <div>c/ Pepita Serrador 3, local 6</div>
+        <div>18015 Granada</div>
+      </div>
+
       <div className="social-icons">
-        <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faWhatsapp} size="2x" />
-        </a>
         <a href="https://x.com/Dragon_DeMadera" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faTwitter} size="2x" />
         </a>
@@ -35,13 +41,24 @@ const Footer = () => {
         <a href="https://www.instagram.com/dragon_demadera/" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faInstagram} size="2x" />
         </a>
+        <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faWhatsapp} size="2x" />
+        </a>
       </div>
-      <div className="footer-text">
-        <p>©2025 Developed by Lucía Rodríguez López</p>
-      </div>
+
+      
+
       <div className="footer-links">
-        <a onClick={handleCookieClick} style={{ cursor: 'pointer' }}>Política de cookies</a>
-        <a onClick={handlePrivacyClick} style={{ cursor: 'pointer' }}>Política de privacidad</a>
+        <a onClick={handleCookieClick}>Política de cookies</a>
+        <a onClick={handlePrivacyClick}>Política de privacidad</a>
+        <a>
+          <Link
+            to="/quienessomos"
+            className={window.location.pathname === '/quienessomos' ? 'active' : ''}
+          >
+            Hazte socio
+          </Link>
+        </a>
       </div>
 
       {showCookiePolicy && (

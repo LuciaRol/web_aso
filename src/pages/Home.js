@@ -14,11 +14,12 @@ import Wood from '../img/landing/wood3.webp';
 import DragonMobile from '../img/landing/dragon-mobile.png';
 import '../styles/home.css';
 import TopArrow from '../components/TopArrow';
+import CookieBanner from "../components/CookieBanner";
 
 const Home = () => {
   return (
     <div className="home-container">
-
+      <CookieBanner />
         <main className="image-container">
           {/* Cambiar imagen por video */}
           <div class="image-container-mobile">

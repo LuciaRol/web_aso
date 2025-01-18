@@ -82,10 +82,11 @@ const Footer = () => {
           <div className="popup-content">
             <h2>Política de Privacidad</h2>
             <p>
-              La protección de tus datos personales es importante para nosotros. Esta política de privacidad explica cómo
-              recopilamos, usamos y protegemos la información que proporcionas a través de nuestro sitio web. Cumplimos con
-              el Reglamento General de Protección de Datos (RGPD) de la Unión Europea para garantizar que tus datos estén
-              protegidos y utilizados adecuadamente.
+            A través de este sitio web no se recaban datos de carácter personal de las personas usuarias sin su conocimiento, ni se ceden a terceros.
+
+            Dragón de Madera no utiliza cookies para recoger información de las personas usuarias, ni registra las direcciones IP de acceso. Únicamente se utilizan cookies de sesión, con finalidad técnica (aquellas que permiten la navegación a través del sitio web y la utilización de las diferentes opciones y servicios que en ella existen).
+
+            El portal del que es titular Dragón de Madera contiene enlaces a sitios web de terceros, cuyas políticas de privacidad son ajenas a la de la AEPD. Al acceder a tales sitios web usted puede decidir si acepta sus políticas de privacidad y de cookies. Con carácter general, si navega por internet usted puede aceptar o rechazar las cookies de terceros desde las opciones de configuración de su navegador.
             </p>
             <button onClick={closePopup} className="close-button">
               <span className="close-icon">×</span>

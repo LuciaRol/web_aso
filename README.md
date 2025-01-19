@@ -1,71 +1,58 @@
-# Getting Started with Create React App
+# Bienvenid@ a la versión 1.0 de la aplicación web del Dragón de Madera
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Antes de nada, necesitas tener una cuenta de Telegram. Una vez la tengas, puedes acceder al grupo de la web a través de este enlace:
+## https://t.me/+4EyjudL6QDRiZmRk
 
-## Available Scripts
+Después puedes visitar la web en producción en el siguiente enlace:
+## https://dragonmadera.vercel.app/
 
-In the project directory, you can run:
+Te recibirá la siguiente página de inicio:
+![image](https://github.com/user-attachments/assets/02fa8f57-7f59-4591-aced-88b3d899848f)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Como visitante, podrás mirar los eventos o las partidas que se organizan, además podrás ponerte en contacto con la asociación a través de un formulario, o bien, cotillear la ludoteca de la asociación!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![image](https://github.com/user-attachments/assets/a5fa9595-af12-483e-8445-c6f2e5c757d1)
 
-### `npm test`
+![image](https://github.com/user-attachments/assets/9bc78d3f-a953-4adf-be76-b5d9abb540ce)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![image](https://github.com/user-attachments/assets/c306dff6-d001-4bd3-8831-991150b371cb)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Como socio, para poder iniciar sesión, deberías haber recibido tu usuario y contraseña por parte de la directiva. Una vez en el área de socios podrás realizar las siguientes acciones
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Crear una partida:
+![image](https://github.com/user-attachments/assets/11a76e71-0c5a-4b39-a4ed-245a564f97b1)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Registrar invitados:
+![image](https://github.com/user-attachments/assets/66724b01-a1c6-49e9-be86-8a19d967309b)
 
-### `npm run eject`
+### Añadir o eliminar invitados a una partida:
+![image](https://github.com/user-attachments/assets/51eab0d6-7f67-4319-a989-a9f90555b0b8)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Tomar prestados o devolver juegos:
+![image](https://github.com/user-attachments/assets/18d076f9-89e2-4265-8db1-77de102e6242)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Por supuesto, también podrás modificar tus datos personales.
+(A excepción de nombre y apellidos, que solo pordrá hacerlo el administrador)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Para la directiva, se ha creado un panel de administración, donde se puedan gestionar usarios, eventos y préstamos.
 
-## Learn More
+![image](https://github.com/user-attachments/assets/5af234b2-5f11-48a1-9d89-05340ef76579)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+También se han añadido algunas opciones interesantes, como la visualización de estadísticas o exportar distintos datos a excel:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![image](https://github.com/user-attachments/assets/eed2ee59-8f8e-42c6-88bf-dea5aeda4d73)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Gracias por haber llegado hasta aquí!!
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# Dragon-De-Madera" 

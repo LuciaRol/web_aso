@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import qrCode from '../img/quienes_somos/qr_code.png';
-import aso1 from '../img/quienes_somos/aso1.jpg';
-import aso2 from '../img/quienes_somos/aso2.jpg';
-import aso3 from '../img/quienes_somos/aso3.jpg';
+import aso4 from '../img/quienes_somos/aso4.jpeg';
 import SendEmail from '../components/SendEmail';
 import { FaWhatsapp } from 'react-icons/fa'; // Importamos el icono de WhatsApp
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -53,7 +51,7 @@ const WhoWeAre = () => {
     {/* Carrusel de fotos */}
     <section>
       <div className="who-image-container" data-bs-ride="true">
-        <img src={aso1}  alt="..." />
+        <img src={aso4}  alt="..." />
       </div>
 
 

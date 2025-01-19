@@ -1,7 +1,8 @@
 import React from 'react';
-import '../styles/styles.css'; // Asegúrate de que la ruta sea correcta
+import '../styles/styles.css'; 
 
 const Spinner = () => {
+    /* spinner de carga cuando tarda en cargar un página */
     return (
         <div className="spinner-overlay">
         <div className="spinner"></div>

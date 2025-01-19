@@ -17,22 +17,22 @@ const LoginPage = () => {
     event.preventDefault();
 
     try {
-      // Check if the email is available in the firestore database as double check security measure
+      // Veridica si el email se encuentra en la base de datos
       const usersRef = collection(firestore, 'users');
       const q = query(usersRef, where('email', '==', email.trim().toLowerCase()));
       const querySnapshot = await getDocs(q);
 
       if (querySnapshot.empty) {
         setError('Este correo electrónico no está registrado en nuestra base de datos.');
-        return; // if email is not registered, stop the login process
+        return; // Si el email no existe, detiene el inicio de sesión
       }
 
-      // If mail exists, proceed to check the password and log in
+      // Si existe el email, verifica la contraseña
       await signInWithEmailAndPassword(auth, email, password);
       setError('');
       setEmail('');
       setPassword('');
-      navigate('/'); // Redirect to the home page
+      navigate('/'); // Redirige a la página de inicio
 
     } catch (err) {
       let errorMessage;
@@ -53,6 +53,7 @@ const LoginPage = () => {
     }
   };
 
+  /* Función para mandar un mensaje de reseteo de contraseña */
   const handleResetPassword = async () => {
     try {
       await sendPasswordResetEmail(auth, email);
@@ -94,7 +95,7 @@ const LoginPage = () => {
         </div>
         <div className="button-container">
           <button type="submit" className="login-btn submit-button">Iniciar Sesión</button>
-          <button type="button" onClick={handleResetPassword} className="btn-link">Restablecer Contraseña</button>
+          <button type="button" onClick={handleResetPassword} className="btn-link">Restablecer contraseña</button>
         </div>
         {error && <p className="error-message">{error}</p>}
         {message && <p className="success-message">{message}</p>}

@@ -36,9 +36,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-footer a:visited {
-  color: var(--footer-link-visited);
-}
+
 
 /* Estilo para los íconos sociales */
 .social-icons {
@@ -78,10 +76,7 @@ footer a:visited {
   text-decoration: underline !important;
 }
 
-.footer-links a:visited {
-  color: var(--footer-link-visited) !important;
-  text-decoration: underline !important;
-}
+
 
 /* POP UPS */
 .popup {

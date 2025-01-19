@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import { firestore } from '../firebase'; // Importa la configuración de Firebase
-import '../styles/loanedgames.css'; // Estilo personalizado si lo necesitas
+import { firestore } from '../firebase'; 
+import '../styles/loanedgames.css'; 
 import TopArrow from '../components/TopArrow';
 
 
 
 const LoanedGames = () => {
-  const [loanedGames, setLoanedGames] = useState([]); // Para los juegos prestados
-  const [usersMap, setUsersMap] = useState({}); // Mapa de usuarios (email -> {name, lastName})
+  const [loanedGames, setLoanedGames] = useState([]); 
+  const [usersMap, setUsersMap] = useState({}); 
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1); // Página actual
-  const [gamesPerPage] = useState(5); // Juegos por página
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [gamesPerPage] = useState(5); 
 
   const formatDate = (date) => new Date(date.toDate()).toLocaleDateString();
 
@@ -29,7 +29,7 @@ const LoanedGames = () => {
         });
         setUsersMap(usersMap);
 
-        // Obtener los juegos prestados
+        // Obtener los juegos prestados de la base de datos
         const prestamoRef = collection(firestore, 'prestamojuegos');
         const prestamoSnapshot = await getDocs(prestamoRef);
         const loanedGamesData = prestamoSnapshot.docs.map(doc => doc.data());
@@ -45,7 +45,7 @@ const LoanedGames = () => {
     fetchGameStats();
   }, []);
 
-  // Lógica de paginación
+
   const indexOfLastGame = currentPage * gamesPerPage; // Último juego de la página
   const indexOfFirstGame = indexOfLastGame - gamesPerPage; // Primer juego de la página
   const currentGames = loanedGames.slice(indexOfFirstGame, indexOfLastGame); // Juegos actuales en la página
@@ -54,6 +54,7 @@ const LoanedGames = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
+    /* Cards de juegos prestados */
     <div className="loaned-games-container">
       <h1>Juegos en préstamo</h1>
       {/* Contenedor de Número de Usuarios */}

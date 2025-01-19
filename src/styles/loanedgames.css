@@ -1,4 +1,4 @@
-/* Estilo general del contenedor de juegos prestados */
+
 .loaned-games-container {
     display: flex;
     flex-direction: column;
@@ -6,10 +6,10 @@
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-    padding-top: 5rem; /* Espacio superior */
+    padding-top: 5rem; 
   }
   
-  /* Listado de juegos prestados */
+
   .loaned-games-list {
     width: 100%;
     max-width: 800px;
@@ -30,7 +30,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  /* Estilo de imagen */
+
   .loaned-game-item img {
     border-radius: 8px;
     width: 200px;
@@ -71,13 +71,13 @@
     transition: background-color 0.3s ease;
   }
   
-  /* Efecto hover */
+
   .loaned-game-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   
-  /* Mensaje cuando no hay juegos prestados */
+
   .loaned-games-list p {
     text-align: center;
     color: #888;
@@ -105,11 +105,9 @@
     cursor: not-allowed;
   }
   
-  /* Media Query para móviles */
-  @media (max-width: 768px) {
-    /* Aseguramos que el contenedor principal ocupe al menos el 100% de la altura de la ventana */
 
-  
+  @media (max-width: 768px) {
+
     .loaned-games-container {
       display: flex;
       flex-direction: column;
@@ -121,7 +119,6 @@
       flex-grow: 1;
     }
   
-    /* Contenedor del listado de juegos prestados en grid */
     .loaned-games-list {
       display: grid;
       grid-template-columns: 1fr;
@@ -132,12 +129,11 @@
       flex-grow: 1;
     }
   
-    /* Centrado de las cards verticalmente */
     .loaned-game-item {
       display: flex;
-      flex-direction: column; /* Coloca los elementos en columna */
-      align-items: center; /* Centra los elementos dentro de la card */
-      justify-content: center; /* Centra los elementos dentro de la card */
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
       padding: 20px;
       margin-bottom: 15px;
       background-color: #ffffff;
@@ -147,7 +143,6 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
   
-    /* Paginación en fila */
     .pagination {
       display: flex;
       justify-content: center;

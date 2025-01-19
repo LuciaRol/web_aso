@@ -1,88 +1,87 @@
-/* login.css */
+
 html, body {
     height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif; /* Tipografía básica */
+    font-family: Arial, sans-serif; 
 }
 
 .container {
     display: flex;
-    justify-content: center; /* Centra horizontalmente el contenedor */
-    align-items: center; /* Centra verticalmente el contenedor */
-    height: 100vh; /* Ocupa todo el alto de la ventana */
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
 }
 
 .form {
-    background-color: #ffffff; /* Color de fondo del formulario */
-    padding: 2rem; /* Espaciado interno */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra del formulario */
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px; /* Limitar ancho del formulario */
+    max-width: 400px;
 }
 
 .title {
-    text-align: center; /* Centrar el título */
-    margin-bottom: 1.5rem; /* Espaciado inferior */
+    text-align: center;
+    margin-bottom: 1.5rem; 
 }
 
 .form-group {
-    margin-bottom: 1rem; /* Espaciado inferior entre grupos de formularios */
+    margin-bottom: 1rem; 
 }
 
 .label {
-    display: block; /* Hacer que el label ocupe todo el ancho */
-    margin-bottom: 0.5rem; /* Espaciado inferior del label */
+    display: block; 
+    margin-bottom: 0.5rem; 
 }
 
 .input {
-    width: 100%; /* Ancho completo */
-    padding: 0.5rem; /* Espaciado interno */
-    border: 1px solid #ced4da; /* Bordes */
-    border-radius: 4px; /* Bordes redondeados */
+    width: 100%;
+    padding: 0.5rem; 
+    border: 1px solid #ced4da; 
+    border-radius: 4px; 
 }
 .button-container {
-    display: flex; /* Usar flexbox para alinear los botones */
-    flex-direction: column; /* Alinear los botones en columna */
-    justify-content: center; /* Centra horizontalmente los botones */
-    margin-top: 1rem; /* Margen superior para separación */
-    gap: 1rem; /* Espaciado entre botones */
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    margin-top: 1rem; 
+    gap: 1rem; 
   }
   
   .login-btn {
-    background-color: #012E4A; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Bordes redondeados */
-    padding: 0.5rem 1rem; /* Espaciado interno */
-    cursor: pointer; /* Cambiar cursor al pasar */
-    transition: background 0.3s; /* Transición suave */
+    background-color: #012E4A; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    padding: 0.5rem 1rem; 
+    cursor: pointer; 
+    transition: background 0.3s;
     border-radius: 4px;
   }
   
   .btn:hover {
-    background-color: #B37100; /* Color de fondo del botón al pasar el mouse */
+    background-color: #B37100; 
   }
   
   .btn-link {
     background-color: transparent;
-    color: #007bff; /* Color del enlace */
-    border: none; /* Sin borde */
-    text-decoration: none !important; /* Sin subrayado */
-    cursor: pointer; /* Cambiar cursor al pasar */
+    color: #007bff; 
+    border: none; 
+    text-decoration: none !important;
+    cursor: pointer; 
   }
   
   .btn-link:hover {
-    text-decoration: underline !important; /* Subrayar al pasar el mouse */
+    text-decoration: underline !important; 
     background-color: transparent;
   }
 
 .error-message {
-    color: red; /* Color de mensaje de error */
-    text-align: center; /* Centrar mensaje de error */
+    color: red; 
+    text-align: center; 
 }
 
 .success-message {
-    color: green; /* Color de mensaje de éxito */
-    text-align: center; /* Centrar mensaje de éxito */
+    color: green; 
+    text-align: center;
 }

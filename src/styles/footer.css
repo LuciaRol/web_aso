@@ -1,30 +1,27 @@
-/* footer.css */
 
-/* Variables de color específicas para el footer */
 :root {
   --footer-bg-color: #012E4A; 
-  --footer-text-color: white; /* Color del texto en el footer */
-  --footer-link-hover: white; /* Color de hover para los enlaces */
-  --footer-link-visited: #B37100; /* Color de los enlaces visitados */
+  --footer-text-color: white; 
+  --footer-link-hover: white; 
+  --footer-link-visited: #B37100; 
 }
 
-/* Estilos para el footer */
+
 footer {
   position: relative;
-  width: 100%; /* Ocupa todo el ancho */
+  width: 100%; 
   height: auto;
   display: flex;
-  flex-direction: row; /* Alineación horizontal */
-  justify-content: space-around; /* Distribución uniforme */
-  align-items: center; /* Alineación vertical al centro */
-  background-color: var(--footer-bg-color); /* Fondo */
+  flex-direction: row; 
+  justify-content: space-around; 
+  align-items: center; 
+  background-color: var(--footer-bg-color); 
   color: var(--footer-text-color);
   padding: 20px;
   text-align: center;
   z-index: 8;
 }
 
-/* Estilo para los enlaces */
 footer a {
   color: var(--footer-text-color);
   text-decoration: none;
@@ -36,9 +33,6 @@ footer a:hover {
   text-decoration: underline;
 }
 
-
-
-/* Estilo para los íconos sociales */
 .social-icons {
   display: flex;
   justify-content: center;
@@ -66,8 +60,8 @@ footer a:hover {
 
 .footer-links {
   display: flex;
-  flex-direction: column; /* Mantener los enlaces en columna */
-  text-align: left; /* Alinear texto a la izquierda */
+  flex-direction: column; 
+  text-align: left; 
   font-size: 0.8rem;
   cursor: pointer;
 }
@@ -75,8 +69,6 @@ footer a:hover {
 .footer-links a:hover {
   text-decoration: underline !important;
 }
-
-
 
 /* POP UPS */
 .popup {
@@ -101,13 +93,13 @@ footer a:hover {
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-  position: relative; /* Necesario para posicionar el botón dentro de este contenedor */
+  position: relative;
 }
 
 .popup-content .close-button {
   position: absolute;
-  top: 10px; /* Ajusta la posición según sea necesario */
-  right: 10px; /* Alinea el botón a la derecha */
+  top: 10px;
+  right: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;

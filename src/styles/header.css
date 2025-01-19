@@ -1,11 +1,9 @@
-/* Reset CSS para eliminar márgenes y paddings predeterminados */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Incluye padding y borde en el ancho y alto total */
+  box-sizing: border-box;
 }
 
-/* Variables CSS para colores y tamaños */
 :root {
   --primary-color-header: #007bff;
   --primary-color-hover-header: #0056b3;
@@ -21,79 +19,70 @@
   --success-color: #28a745;
 }
 
-/* Estilos generales */
 .header {
   background-color: var(--secondary-color-header);
   color: var(--white);
   padding: 10px 0;
   width: 100%;
   position: fixed;
-  margin: 0; /* Asegúrate de que no haya márgenes */
-  z-index: 10; /* Asegura que el menú esté encima de otros elementos */
+  margin: 0;
+  z-index: 10;
 }
 
 .header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px; /* Limita el ancho máximo del contenido */
-  margin: 0 auto; /* Centra el contenido en la página */
-  padding: 0 20px; /* Espacio a los lados */
-  width: 100%; /* Asegura que ocupe todo el ancho de la pantalla */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
 }
 
-/* Contenedor del logo y menú hamburguesa */
 .header-logo-container {
   display: flex;
-  align-items: center; /* Centra los elementos verticalmente */
-  justify-content: space-between; /* Distribuye los elementos entre los dos extremos */
+  align-items: center;
+  justify-content: space-between;
   flex-grow: 1;
 }
 
-
-
-/* Logo */
 .header-logo {
-  height: 50px; /* Ajusta según sea necesario */
-  margin-right: 10px; /* Espacio entre el logo y el botón */
+  height: 50px;
+  margin-right: 10px;
 }
 
-/* Estilo del botón del menú hamburguesa */
 .menu-toggle {
   background: none;
   border: none;
   color: var(--white);
   font-size: 28px;
   cursor: pointer;
-  display: none; /* Ocultamos el botón en pantallas grandes */
-  margin-left: auto; /* Mover el botón hamburguesa a la derecha */
+  display: none;
+  margin-left: auto;
 }
 
-.menu-toggle:hover{
+.menu-toggle:hover {
   background-color: transparent;
 }
 
-/* Ocultamos el menú en dispositivos móviles por defecto */
 .header-nav-container {
   display: flex;
   flex-direction: row;
-  max-height: none; /* En pantallas grandes no limitamos la altura */
+  max-height: none;
   overflow: visible;
-  align-items: center; /* Alinear verticalmente todos los elementos */
+  align-items: center;
 }
 
-/* Menú de navegación */
 .header-nav {
   display: flex;
   list-style-type: none;
   padding: 0;
   margin: 0;
-  justify-content: center; /* Centra todos los elementos dentro del ul */
-  flex-grow: 1; /* Permite que el ul ocupe el espacio disponible */
-  align-items: center; /* Alinear verticalmente los elementos dentro del menú */
+  justify-content: center;
+  flex-grow: 1;
+  align-items: center;
 }
 
-/* Estilo para los elementos de la lista */
 .header-nav li {
   position: relative;
   padding: 0;
@@ -103,9 +92,9 @@
   color: var(--white);
   text-decoration: none;
   margin: 0;
-  padding: 0 20px; /* Ajusta este padding si quieres que la línea sea más corta o larga */
+  padding: 0 20px;
   line-height: 35px;
-  display: inline-block; /* Para que la línea respete el ancho del texto */
+  display: inline-block;
   background: linear-gradient(90deg, var(--accent-color-header) 50%, transparent 50%);
   background-size: 200% 100%;
   background-position: 100% 0;
@@ -115,89 +104,82 @@
 
 .header-nav li a:hover {
   color: var(--white);
-  background-position: 0 0; /* Mueve el fondo hacia la izquierda en hover */
+  background-position: 0 0;
 }
 
-/* Línea naranja debajo del enlace activo */
 .header-nav li a.active {
-  position: relative; /* Necesario para posicionar el pseudo-elemento */
+  position: relative;
 }
 
 .header-nav li a.active::after {
-  content: ''; /* Necesario para que el pseudo-elemento aparezca */
-  display: block; /* Hace que el pseudo-elemento sea un bloque */
-  width: 8px; /* Ajusta el tamaño del punto */
-  height: 8px; /* Ajusta el tamaño del punto */
-  background-color: var(--accent-color-header); /* Color inicial del punto (blanco) */
-  border-radius: 50%; /* Hace que el fondo sea circular */
-  position: absolute; /* Permite posicionar el punto */
-  left: 50%; /* Centrar horizontalmente */
-  bottom: -4px; /* Ajustar la posición vertical del punto */
-  transform: translateX(-50%); /* Centra el punto en el enlace */
-  transition: background-color 0.4s ease; /* Transición suave para el color de fondo */
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-color-header);
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  transition: background-color 0.4s ease;
 }
 
-/* Cambia el color a naranja cuando está activo */
 .header-nav li a.active {
-  background-color: var(--secondary-color-header); /* Color del punto en estado activo */
+  background-color: var(--secondary-color-header);
 }
 
 .header-nav li a.active:hover::after {
-  background-color: var(--secondary-color-header); /* Mantiene el color naranja en hover */
+  background-color: var(--secondary-color-header);
   z-index: -1;
 }
 
-
-/* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
   .header-content {
-    justify-content: space-between; /* Aseguramos el espaciado entre el logo y el botón */
+    justify-content: space-between;
   }
 
   .header-logo-container {
     display: flex;
-    justify-content: space-between; /* Distribuye los elementos a los extremos */
-    align-items: center; /* Alinea los elementos verticalmente */
-    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 
   .menu-toggle {
-    display: block; /* Mostramos el botón en pantallas pequeñas */
-    height: auto; /* Asegúrate de que el botón tenga una altura automática */
-    background: none; /* Para que no haya fondo en el botón */
-    border: none; /* Sin borde */
-    padding: 0; /* Sin padding para mantener altura uniforme */
-    line-height: 1; /* Ajuste de la altura de línea */
-    margin-left: auto; /* Asegura que esté alineado a la derecha */
+    display: block;
+    height: auto;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 1;
+    margin-left: auto;
   }
 
-  /* Ocultamos el menú por defecto en móviles */
   .header-nav-container {
     flex-direction: column;
-    max-height: 0; /* Altura inicial 0 para el menú cerrado */
+    max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease; /* Transición suave al abrir/cerrar */
+    transition: max-height 0.5s ease;
     width: 100%;
-    align-items: center; /* Centra todos los elementos en el contenedor */
+    align-items: center;
   }
 
-  /* Cuando el menú está abierto */
   .header-nav-container.open {
-    max-height: 700px; /* Ajustar según la cantidad de elementos */
+    max-height: 700px;
   }
 
-  /* Menú desplegado en móviles */
   .header-nav {
     flex-direction: column;
-    width: 100%; /* Ocupa todo el ancho */
-    align-items: center; /* Centra todos los elementos dentro del menú */
+    width: 100%;
+    align-items: center;
   }
 
   .header-nav li {
     margin-bottom: 15px;
     width: 100%;
     text-align: center;
-    border-right: none; /* Elimina líneas verticales en móviles */
+    border-right: none;
   }
 
   .header-nav li a {
@@ -205,59 +187,54 @@
     padding: 10px;
     color: var(--white);
     text-decoration: none;
-    background-color: var(--secondary-color-header); /* Fondo del enlace */
+    background-color: var(--secondary-color-header);
   }
 
   .header-nav li a:hover {
     color: #ddd;
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo en hover */
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
-  /* Ajustamos el comportamiento del contenido */
   .header-content {
-    flex-direction: column; /* Elementos en columna en móviles */
-    align-items: center; /* Centrar contenido */
+    flex-direction: column;
+    align-items: center;
   }
 
   .header-user {
     display: flex;
-    align-items: center; /* Alinear verticalmente */
-    justify-content: center; /* Centrar horizontalmente */
-    margin-top: 10px; /* Espacio arriba para separación */
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
   }
 
   .logout-btn {
-    margin-top: 0; /* Remover margen superior */
-    margin-left: 15px; /* Espaciado para el botón logout */
+    margin-top: 0;
+    margin-left: 15px;
   }
 }
 
-/* Estilos del botón de logout */
 .logout-btn {
-  background-color: rgba(0, 255, 255, 0.397); /* Color de fondo del botón */
-  color: white; /* Color del texto del botón */
-  border: none; /* Sin borde */
-  border-radius: 4px; /* Bordes redondeados */
-  padding: 0.5rem 1rem; /* Espaciado interno */
-  cursor: pointer; /* Cambiar cursor al pasar */
-  transition: background 0.3s; /* Transición suave */
-  align-self: center; /* Centrar el botón en su contenedor */
+  background-color: rgba(0, 255, 255, 0.397);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: center;
 }
 
-/* Efecto hover para el botón de logout */
 .logout-btn:hover {
-  background-color: rgba(0, 255, 255, 0.762); /* Color de fondo del botón *//* Color de fondo del botón al pasar el mouse */
+  background-color: rgba(0, 255, 255, 0.762);
   color: var(--accent-color-hover-header);
 }
 
-/* Alineación del botón de logout en vista de escritorio */
 .header-user {
-  display: flex; /* Hacer que el contenedor de usuario sea un flex container */
-  align-items: center; /* Centrar verticalmente el contenido */
-  margin-left: 15px; /* Margen para separarlo del menú */
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
 }
 
-/* Estilo adicional para el botón hamburguesa cuando el menú está abierto */
 .menu-toggle.open {
-  color: var(--primary-color-hover-header); /* Cambiar color del ícono del menú cuando está abierto */
+  color: var(--primary-color-hover-header);
 }

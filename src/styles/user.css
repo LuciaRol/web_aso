@@ -4,92 +4,83 @@
   box-shadow: none !important;
 }
 
-/* Estilos generales para el contenedor del formulario */
 .user-form-container {
-  max-width: 600px; /* Ancho máximo del formulario */
-  margin: 0 auto; /* Centra el formulario en la página */
-  padding: 20px; /* Espaciado interno */
+  max-width: 600px; 
+  margin: 0 auto; 
+  padding: 20px; 
   padding-top: 5rem;
 }
 
-/* Estilos para los grupos de formulario */
 .form-group {
-  margin-bottom: 15px; /* Espaciado entre grupos de formulario */
-  position: relative; /* Para que el mensaje emergente se posicione correctamente */
+  margin-bottom: 15px;
+  position: relative; 
 }
 
-/* Estilos para las etiquetas */
 label {
-  display: block; /* Hace que las etiquetas ocupen todo el ancho */
-  margin-bottom: 5px; /* Espaciado inferior */
+  display: block; 
+  margin-bottom: 5px; 
 }
 
-/* Estilos para los campos de entrada */
 input[type="text"],
 input[type="email"],
 select {
-  width: 100%; /* Ancho completo */
-  padding: 10px; /* Espaciado interno */
-  border: 1px solid #ccc; /* Bordes */
-  border-radius: 4px; /* Bordes redondeados */
+  width: 100%; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
 }
 
-/* Estilos para los campos de solo lectura */
+
 input[readonly] {
-  background-color: #f0f0f0; /* Fondo gris claro para los campos no editables */
-  cursor: not-allowed; /* Cursor que indica que el campo no es editable */
+  background-color: #f0f0f0; 
+  cursor: not-allowed; 
 }
 
-/* Estilos para el mensaje emergente */
 .error-message {
-  display: none; /* Inicialmente oculto */
-  color: red; /* Color del mensaje */
-  font-size: 12px; /* Tamaño de fuente */
-  position: absolute; /* Posiciona el mensaje respecto al contenedor */
-  top: 100%; /* Coloca el mensaje justo debajo del campo */
+  display: none; 
+  color: red;
+  font-size: 12px;
+  position: absolute; 
+  top: 100%; 
   left: 0;
-  margin-top: 5px; /* Espaciado superior */
+  margin-top: 5px; 
 }
 
-/* Estilos para cuando el campo está enfocado y es de solo lectura */
 input#nombre:focus + .error-message,
 input#apellido:focus + .error-message {
-  display: block; /* Muestra el mensaje cuando el campo es enfocado */
+  display: block;
 }
 
-/* Estilos para el botón de envío */
 .submit-button {
-  display: block; /* Hace que el botón ocupe su propio espacio */
-  width: 100%; /* Ancho completo */
-  padding: 10px; /* Espaciado interno */
-  background-color: #2c3e50; /* Color de fondo del botón */
-  color: white; /* Color del texto */
-  border: none; /* Sin borde */
-  border-radius: 4px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor al pasar el ratón */
-  font-size: 16px; /* Tamaño de fuente */
-  transition: background-color 0.3s; /* Efecto de transición */
+  display: block; 
+  width: 100%;
+  padding: 10px; 
+  background-color: #2c3e50; 
+  color: white; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  font-size: 16px; 
+  transition: background-color 0.3s; 
 }
 
-/* Cambia el color de fondo del botón al pasar el ratón */
 .submit-button:hover {
-  background-color: #B37100; /* Color más oscuro al pasar el ratón */
+  background-color: #B37100; 
 }
 
-/* Estilos para la lista de resultados */
 .results-container {
-  margin-top: 20px; /* Espaciado superior */
+  margin-top: 20px; 
 }
 
-/* Estilos para los elementos de la lista */
+
 .guest-item {
-  border: 1px solid #e0e0e0; /* Bordes suaves */
-  border-radius: 4px; /* Bordes redondeados */
-  padding: 10px; /* Espaciado interno */
-  margin-bottom: 10px; /* Espaciado inferior */
-  background-color: #f9f9f9; /* Color de fondo de los elementos de la lista */
+  border: 1px solid #e0e0e0; 
+  border-radius: 4px; 
+  padding: 10px; 
+  margin-bottom: 10px; 
+  background-color: #f9f9f9; 
 }
 
 .user-info {
-  text-align: center; /* Centra el contenido de texto (y botones) */
+  text-align: center; 
 }

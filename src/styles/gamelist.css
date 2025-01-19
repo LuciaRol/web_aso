@@ -1,23 +1,22 @@
 .game-list{
     padding-top: 5.5rem;
-    width: 90%;  /* Cambiar el ancho a 90% */
-    margin: 0 auto; /* Centrar el contenedor en la página */
+    width: 90%;
+    margin: 0 auto; 
 }
 
 
 /* VENTANA MODAL */
-/* Estilo para el fondo de la ventana modal */
 .modal-content {
-  background-color: #ffffff !important; /* Fondo blanco sólido */
+  background-color: #ffffff !important;
   padding: 20px;
-  border-radius: 10px !important; /* Esquinas redondeadas */
-  width: 90%; /* Ancho adaptativo */
-  max-width: 600px; /* Máximo ancho */
-  max-height: 80vh; /* Altura máxima del 80% de la ventana */
-  overflow-y: auto; /* Agrega desplazamiento vertical si el contenido excede */
+  border-radius: 10px !important; 
+  width: 90%; 
+  max-width: 600px;
+  max-height: 80vh; 
+  overflow-y: auto; 
   position: relative;
-  text-align: center; /* Centra el contenido */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  text-align: center; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 /* Fondo semitransparente oscuro detrás del modal */
@@ -27,7 +26,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,30 +53,29 @@
 
 /* Imagen del evento */
 .event-image {
-  width: 10rem; /* Ancho fijo en rem */
-  height: 10rem; /* Alto igual al ancho */
-  object-fit: cover; /* Ajuste para cubrir todo el espacio */
+  width: 10rem; 
+  height: 10rem; 
+  object-fit: cover; 
   margin: 10px auto;
-  border-radius: 8px; /* Esquinas redondeadas */
+  border-radius: 8px; 
 }
 
-/* Secciones internas */
 .invite-section,
 .remove-section {
   margin-top: 20px;
   display: flex;
-  justify-content: center; /* Centra los elementos en la fila */
-  align-items: center; /* Centra los elementos verticalmente */
-  gap: 10px; /* Espacio entre el select y el botón */
+  justify-content: center; 
+  align-items: center; 
+  gap: 10px; 
 }
 
 .invite-select,
 .remove-select {
-  padding: 0.8rem; /* Igualar la altura con el botón */
+  padding: 0.8rem; 
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100%; /* Asegura que el ancho se ajuste */
-  max-width: 200px; /* Limita el ancho máximo */
+  width: 100%; 
+  max-width: 200px; 
 }
 
 .button-invite,
@@ -85,20 +83,20 @@
 .button-delete,
 .button-join,
 .button-leave {
-  padding: 0.8rem 1.5rem; /* Igualar altura con el select */
+  padding: 0.8rem 1.5rem;
   margin: 0;
   border: none;
   border-radius: 4px;
-  background-color: #2c3e50;; /* Azul */
+  background-color: #2c3e50;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: 100%; /* Asegura que el botón ocupe el mismo ancho que el select */
-  max-width: 200px; /* Limita el ancho máximo */
-  border-radius: 4px; /* Bordes redondeados */
-  cursor: pointer; /* Cambia el cursor al pasar el ratón */
-  font-size: 16px; /* Tamaño de fuente */
-  transition: background-color 0.3s; /* Efecto de transición */
+  width: 100%;
+  max-width: 200px;
+  border-radius: 4px; 
+  cursor: pointer; 
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 .button-invite:hover,
@@ -106,49 +104,45 @@
 .button-delete:hover,
 .button-join:hover,
 .button-leave:hover {
-  background-color: #B37100; /* Azul oscuro */
+  background-color: #B37100;
 }
 
-/* Mensajes de error */
 .error-message {
   color: red;
   font-weight: bold;
 }
 
-/* Mensajes de éxito */
 .success {
   color: green;
   font-weight: bold;
 }
 
-
-/* Media query para pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
   .modal-content {
-    width: 100%; /* Ancho completo en móviles */
-    height: 100%; /* Altura completa en móviles */
-    max-width: none; /* Eliminar límite de ancho */
-    max-height: none; /* Eliminar límite de altura */
-    padding: 10px; /* Ajuste de padding */
+    width: 100%; 
+    height: 100%; 
+    max-width: none;
+    max-height: none;
+    padding: 10px; 
     background-color: rgba(255, 255, 255, 0.97) !important;
   }
 
   .invite-section,
   .remove-section {
-    display: flex; /* Usamos flexbox para organizar los elementos */
-    flex-direction: row; /* Aseguramos que los elementos estén en la misma fila */
-    align-items: center; /* Centramos los elementos verticalmente */
-    justify-content: center; /* Centramos los elementos horizontalmente */
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: center; 
   }
 
   .invite-select,
   .remove-select {
-    width: 45%; /* Ajustamos el ancho para que quepan en la misma fila */
+    width: 45%; 
     margin: 5px;
     padding: 12px;
-    border: 1px solid #ccc; /* Borde estándar */
-    background-color: white; /* Fondo blanco estándar */
-    z-index: 999; /* Asegura que los elementos estén por encima de otros */
+    border: 1px solid #ccc; 
+    background-color: white;
+    z-index: 999; 
   }
 
   .button-invite,
@@ -156,13 +150,13 @@
   .button-delete,
   .button-join,
   .button-leave {
-    width: 90%; /* Asegura que los botones se ajusten en pantallas pequeñas */
+    width: 90%; 
     margin: 5px 0;
     padding: 12px;
-    border: none; /* Sin borde personalizado */
-    color: white; /* Texto blanco */
-    font-size: 16px; /* Tamaño de fuente original */
-    cursor: pointer; /* Añadido para mejorar la interacción */
+    border: none; 
+    color: white; 
+    font-size: 16px;
+    cursor: pointer; 
   }
 
   .button-invite:hover,
@@ -170,7 +164,7 @@
   .button-delete:hover,
   .button-join:hover,
   .button-leave:hover {
-    background-color: #0056b3; /* Color de fondo al pasar el ratón (azul más oscuro) */
+    background-color: #0056b3; 
   }
 
 }

@@ -15,7 +15,7 @@ const Header = () => {
     const db = getFirestore();
 
     useEffect(() => {
-        setIsLoggedIn(!!user); // Check if user is authenticated
+        setIsLoggedIn(!!user); // Verifica si el usuario está autenticado
 
         const fetchUserRole = async () => {
             if (user) {
@@ -49,15 +49,17 @@ const Header = () => {
         }
     };
 
+    /* Menú hamburguesa de la vista móvil */
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     const closeMenu = () => {
-        setIsMenuOpen(false); // Cierra el menú al hacer clic en cualquier enlace
+        setIsMenuOpen(false); // Cerrar el menú al hacer clic
     };
 
     return (
+        /* Header */
         <header className="header">
             <div className="header-content">
                 <div className="header-logo-container">

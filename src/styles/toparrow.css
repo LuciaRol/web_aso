@@ -1,21 +1,17 @@
 /* FLECHA */
 /* From Uiverse.io by ArturCodeCraft */ 
-/* <reset-style> ============================ */
-/* From Uiverse.io by ArturCodeCraft */ 
-/* <reset-style> ============================ */
 a {
     text-decoration: none;
   }
-  
-  /* <main-style> ============================ */
+
   .scroll-up {
-    position: fixed; /* Fija el botón en la esquina */
-    right: 2rem; /* Espaciado desde el borde derecho */
-    bottom: 3rem; /* Espaciado desde el borde inferior */
-    z-index: 5; /* Asegura que esté por encima de otros elementos */
+    position: fixed; 
+    right: 2rem; 
+    bottom: 3rem; 
+    z-index: 5; 
     width: 32px;
     height: 32px;
-    border-radius: 50%; /* Forma circular */
+    border-radius: 50%; 
     background-color: #012E4A;
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -24,28 +20,27 @@ a {
     justify-content: center;
     overflow: hidden;
     transition: opacity .4s, bottom .4s, transform .4s;
-    opacity: 0; /* Inicialmente invisible */
-    visibility: hidden; /* Asegura que no sea accesible cuando está invisible */
+    opacity: 0; 
+    visibility: hidden; 
   }
   
   /* Hover effect */
   .scroll-up:hover {
     background-color: #B37100;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Transiciones suaves */
-    transform: translateY(-.25rem); /* Ligeramente elevado al pasar el ratón */
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s; 
+    transform: translateY(-.25rem); 
   }
   
-  /* Asegura que se mantenga fijo en tamaños más pequeños */
   @media (max-width: 1199.98px) {
     .scroll-up {
-      right: 1rem; /* Reduce el margen derecho en pantallas pequeñas */
+      right: 1rem; 
     }
   }
   
-  /* Clase para hacerla visible */
+  
   ._show-scroll {
-    opacity: 1; /* Hace que la flecha sea visible */
-    visibility: visible; /* Asegura que sea accesible */
-    bottom: 3rem; /* Ajusta la posición si es necesario */
+    opacity: 1; 
+    visibility: visible; 
+    bottom: 3rem;
   }
   

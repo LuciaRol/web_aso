@@ -1,4 +1,3 @@
-// Reminder.js
 import React from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase';
@@ -72,7 +71,7 @@ const Reminder = () => {
       </p>
       <div className="reminder-info"> 
         <div>
-          <img src={logo_negro}alt="imagen" />
+          <img src={logo_negro}alt="Logo de la asociación Dragón de madera: dragón negro que forma un cículo abierto a la izquierda y que envuelve un peón en negro." />
         </div>
         <div className="reminder-button-container">
           <button onClick={handleManualExecution} className="reminder-button submit-button">

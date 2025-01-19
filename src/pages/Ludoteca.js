@@ -5,13 +5,11 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { auth, firestore } from '../firebase'; 
-import '../styles/ludoteca.css'; // Import CSS for styles
-import { utils, writeFile } from 'xlsx'; // Importar utilidades para exportar Excel
-import { sendTelegramMessage } from '../components/TelegramMessenger'; // Telegram component
+import '../styles/ludoteca.css'; 
+import { utils, writeFile } from 'xlsx'; 
+import { sendTelegramMessage } from '../components/TelegramMessenger';
 import TopArrow from '../components/TopArrow';
 
-
-// Establece el contenedor del modal
 Modal.setAppElement('#root');
 
 const Ludoteca = () => {
@@ -23,12 +21,12 @@ const Ludoteca = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [searchName, setSearchName] = useState('');
   const [selectedGame, setSelectedGame] = useState(null);
-  const [user, setUser] = useState(null); // Data of the user logged
-  const [loanedGames, setLoanedGames] = useState({}); // State of games
+  const [user, setUser] = useState(null);
+  const [loanedGames, setLoanedGames] = useState({}); 
   const [usersMap, setUsersMap] = useState({}); 
-  const [sortCriteria, setSortCriteria] = useState('alphabetical-asc'); // Starts ordered alphabetically
+  const [sortCriteria, setSortCriteria] = useState('alphabetical-asc');
   const [sortOrder, setSortOrder] = useState('asc');
-  const thread_id = 14; // thread of the Telegram
+  const thread_id = 14;
   const [letterFilter, setLetterFilter] = useState('');
   const [showAlphabetButtons, setShowAlphabetButtons] = useState(false);
 
@@ -37,7 +35,7 @@ const Ludoteca = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        // Load all games
+        // Carga todos los juegos de la BGG
         const gamesSnapshot = await getDocs(collection(firestore, 'ludoteca'));
         const gamesList = gamesSnapshot.docs.map(doc => ({
           id: doc.id,
@@ -62,7 +60,7 @@ const Ludoteca = () => {
             const data = doc.data();
             usersMap[data.email] = {
               name: `${data.nombre} ${data.apellido}`,
-              role: data.role || 'user', // We bring the role of the user. If there is no role recognised, it is user
+              role: data.role || 'user', 
             };
           });
         }
@@ -94,10 +92,10 @@ const Ludoteca = () => {
       }
     });
 
-    // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
 
+  /* Función que resetea los filtros */
   const resetFilters = () => {
     setSelectedGenre('');
     setSearchName('');
@@ -106,6 +104,7 @@ const Ludoteca = () => {
     filterGames();
   };
 
+  /* Filtros */
   const filterGames = useCallback(() => {
     let filtered = games;
   
@@ -117,7 +116,6 @@ const Ludoteca = () => {
       filtered = filtered.filter(game => game.name.toLowerCase().includes(searchName.toLowerCase()));
     }
   
-    
     filtered = filtered.map(game => ({
       ...game,
       available: !(loanedGames[game.id] && !loanedGames[game.id].returnDate),
@@ -125,7 +123,7 @@ const Ludoteca = () => {
       returnDate: loanedGames[game.id] && loanedGames[game.id].loanDate ? new Date(loanedGames[game.id].loanDate.seconds * 1000 + 7 * 24 * 60 * 60 * 1000) : null
     }));
   
-    // To order according to the criteria
+    // Filtro para mostrar los juegos según distintos criterios
     if (sortCriteria === 'alphabetical-asc') {
       filtered.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortCriteria === 'alphabetical-desc') {
@@ -171,11 +169,11 @@ const Ludoteca = () => {
         returnDate: null,
       });
   
-      // Update local state
+      // Actualiza el estado del juego
       setLoanedGames(prev => ({ ...prev, [selectedGame.id]: { ...prev[selectedGame.id], loanDate: new Date(), userName: user.email } }));
       toast.success('Préstamo registrado con éxito.');
       
-      // Send Telegram message
+      // Envía un mensaje de telegram
       const message = `Nuevo préstamo: El juego "${selectedGame.name}" ha sido prestado a ${userFullName}.`;
       await sendTelegramMessage(message, selectedGame.image, thread_id);
   
@@ -238,7 +236,7 @@ const Ludoteca = () => {
   
       toast.success('Devolución registrada con éxito.');
   
-      // Send Telegram message
+      // Envía un mensaje de telagram
       const message = `Devolución registrada: El juego "${selectedGame.name}" ha sido devuelto por ${userFullName}.`;
       await sendTelegramMessage(message, selectedGame.image, thread_id);
   
@@ -251,13 +249,13 @@ const Ludoteca = () => {
 
 
   const exportToExcel = (data, filename = 'ludoteca.xlsx') => {
-    const worksheet = utils.json_to_sheet(data); // Convert json to spreadsheet
+    const worksheet = utils.json_to_sheet(data); // Convierte de los datos en un JSON
     const workbook = utils.book_new(); 
-    utils.book_append_sheet(workbook, worksheet, 'Ludoteca'); // Add sheet
-    writeFile(workbook, filename); // Download excel file
+    utils.book_append_sheet(workbook, worksheet, 'Ludoteca'); 
+    writeFile(workbook, filename); 
   };
 
-    // Function to filter by letter
+    // Filtro por letra
     const filterByLetter = (letter) => {
       setLetterFilter(letter);
       const filtered = games.filter((game) => game.name.toLowerCase().startsWith(letter.toLowerCase()))
@@ -270,7 +268,7 @@ const Ludoteca = () => {
       setFilteredGames(filtered);
     };
 
-   // Función para alternar la visibilidad de los botones
+   // Función abrir o cerra el filtro por letra
    const toggleAlphabetButtons = () => {
     setShowAlphabetButtons(!showAlphabetButtons);
   };
@@ -433,7 +431,7 @@ const Ludoteca = () => {
                 <>
                   <p><strong>Prestado a:</strong> {usersMap[user.email]?.name || "Usuario desconocido"}</p>
                   <p>
-                    <strong>Fecha Máxima de Devolución:</strong>{" "}
+                    <strong>Fecha máxima de devolución:</strong>{" "}
                     {selectedGame.returnDate ? selectedGame.returnDate.toLocaleDateString() : "No disponible"}
                   </p>
                   <button
@@ -448,7 +446,7 @@ const Ludoteca = () => {
                   onClick={handleLoan}
                   className="modal-button modal-button-loan submit-button"
                 >
-                  Registrar Préstamo
+                  Registrar préstamo
                 </button>
               )}
             </div>

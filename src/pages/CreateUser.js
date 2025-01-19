@@ -25,7 +25,7 @@ const CreateUser = () => {
     }
   }, [usuario]);
 
-  // Function to check if user is an admin
+
   const checkIfUserIsAdmin = async (email) => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -43,21 +43,21 @@ const CreateUser = () => {
 
  
 
-  // Function to add a new user
+  // Función para agregar nuevo usuario
   const handleAddNewUser = async (event) => {
     event.preventDefault();
     setLoading(true);
     try {
-      // Create user in Firebase Authentication
+      // Crear nuevo usuario con email y contraseña
       const userCredential = await createUserWithEmailAndPassword(auth, nuevoEmail, nuevaContraseña);
       const user = userCredential.user;
       
 
-      // Store additional data in Firestore, including UID
+      // Se almacenará en la colección 'users' de Firestore
       await addDoc(collection(firestore, 'users'), {
-        uid: user.uid,  // Store UID in db
+        uid: user.uid,  
         email: user.email,
-        role: 'user', // Default role user
+        role: 'user', // Rol por defecto
         nombre,
         apellido,
         telefono,
@@ -66,12 +66,14 @@ const CreateUser = () => {
         fechaHoraModificacion: serverTimestamp(),
       });
 
-      // Signout so it doesn't log into the new user. This process is done automatically with function of line 52. It is thought so each user logs in itself.
-      // From other customer requirements, it would be done as per Firestore suggestions. In here, the admin must be the one to sign up new users. 
+      /* 
+      Cerrar sesión para que no se inicie sesión con el nuevo usuario. Este proceso se realiza automáticamente con la función de la línea 52. Se ha diseñado para que cada usuario inicie sesión por sí mismo.
+      Según otros requisitos del cliente, se haría siguiendo las sugerencias de Firestore. Aquí, el administrador debe ser quien registre a los nuevos usuarios.
+      */
       await signOut(auth);
 
       setExito('Nuevo usuario agregado exitosamente');
-      // Clear form fields after submission
+      // Limpia los campos del formulario
       setNuevoEmail('');
       setNuevaContraseña('');
       setNombre('');
@@ -89,7 +91,7 @@ const CreateUser = () => {
   return (
     <div className="form-container create-user-form-container">
       <h1>Nuevo usuario</h1>
-
+      {/* Formulario de nuevo usuario */}
       {isAdmin && (
         <form onSubmit={handleAddNewUser}>
          

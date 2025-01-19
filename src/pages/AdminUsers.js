@@ -48,6 +48,7 @@ const AdminUsers = () => {
     });
   };
 
+  /* Conteo total de usuarios registrados */
   const fetchTotalUsuarios = async () => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -58,6 +59,7 @@ const AdminUsers = () => {
     }
   };
 
+  /* Verifica si un usuario es administrador */
   const checkIfUserIsAdmin = async (email) => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -73,6 +75,7 @@ const AdminUsers = () => {
     }
   };
 
+  /* Petición a la base de datos para buscar usuarios por nombre, apellido o usuario de telegram */
   const fetchUsers = async () => {
     setLoading(true);
     try {
@@ -219,6 +222,7 @@ const AdminUsers = () => {
   };
 
   return (
+    /* Listado de usuarios registrados y sus roles */
     <div className="form-container admin-users-container">
       {isAdmin && (
         <div>

@@ -36,6 +36,7 @@ const CreateGame = () => {
     }
   }, [user]);
 
+
   const fetchUserDetails = async (email) => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -80,6 +81,7 @@ const CreateGame = () => {
     }
   };
 
+  /* Busca un juego en la BGG */
   const searchGames = async () => {
     if (abortController) {
       abortController.abort();
@@ -104,13 +106,13 @@ const CreateGame = () => {
         return;
       }
   
-      // Iterar sobre cada elemento, pero no esperes a que terminen todos
+      // Itera sobre cada elemento
       for (const item of items) {
         const id = item.getAttribute('id');
         const nameElement = item.querySelector('name[type="primary"]');
         const name = nameElement ? nameElement.getAttribute('value') : 'Sin nombre';
   
-        // Llama a fetchGameDetails para obtener los detalles, pero no esperes
+        // Llama a fetchGameDetails para obtener los detalles
         fetchGameDetails(id).then((gameDetails) => {
           if (gameDetails) {
             const game = {
@@ -137,6 +139,7 @@ const CreateGame = () => {
     }
   };
 
+  /* Función para seleccionar un juego */
   const selectGame = (game) => {
     setSelectedGame(game);
     setGameResults([]);
@@ -203,6 +206,7 @@ const CreateGame = () => {
     }
   };
   
+  /* Busca un juego cuando se pulsa la tecla enter */
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -216,24 +220,24 @@ const CreateGame = () => {
   <div className="create-game-form-container">
     {loading && <Spinner />} {/* Mostrar el spinner mientras se carga */}
 
-    <h1 className="create-game-title">Crea una Partida</h1>
+    <h1 className="create-game-title">Crea una partida</h1>
     {successMessage && <p className="create-game-success-message">{successMessage}</p>}
     <div className="create-game-form-group">
-      <label className="create-game-label">Tipo de Partida:</label>
+      <label className="create-game-label">Tipo de partida:</label>
       <select
         value={partidaTipo}
         onChange={(e) => setPartidaTipo(e.target.value)}
         className="create-game-select"
       >
-        <option value="partidaJuego">Partida Juego</option>
-        <option value="partidaAbierta">Partida Abierta</option>
+        <option value="partidaJuego">Partida con juego de la BGG</option>
+        <option value="partidaAbierta">Partida abierta</option>
       </select>
     </div>
-
+    {/* Formulario de búsqueda de un juego */}
     {partidaTipo === 'partidaJuego' && !selectedGame && (
       <div className="create-game-search-container">
         <div className="create-game-form-group">
-          <label className="create-game-label">Buscar Juego:</label>
+          <label className="create-game-label">Buscar juego:</label>
           <input
             type="text"
             value={searchQuery}
@@ -334,6 +338,7 @@ const CreateGame = () => {
             )}
           </div>
         )}
+        {/* Formulario de creación de partida */}
           <div className="game-form-group">
             <label className="game-label">Fecha:</label>
             <input

@@ -1,4 +1,3 @@
-// src/components/SendEmail.js
 import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 import '../styles/whoweare.css';
@@ -17,9 +16,9 @@ const SendEmail = () => {
     setStatus(null); // Reinicia el estado antes de enviar
 
     // Configuración de EmailJS
-    const serviceID = 'service_uemdbp5'; // Sustituye con tu service_id de EmailJS
-    const templateID = 'template_9848ss1'; // Sustituye con tu template_id de EmailJS
-    const userID = 'Gzq_yUi6d-AX7f9pq'; // Sustituye con tu user_id de EmailJS
+    const serviceID = 'service_uemdbp5'; 
+    const templateID = 'template_9848ss1'; 
+    const userID = 'Gzq_yUi6d-AX7f9pq'; 
 
     emailjs.send(serviceID, templateID, emailData, userID)
       .then((response) => {
@@ -40,6 +39,7 @@ const SendEmail = () => {
         {status.message}
       </p>
     )}
+    {/* Formulario de contacto en quiénes somos */}
     <form onSubmit={handleSubmit} className="email-form">
       <label className="email-label">
         Nombre:

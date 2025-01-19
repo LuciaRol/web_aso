@@ -46,6 +46,7 @@ const Admin = () => {
     }
 
     return (
+        /* Cards del panel de administración */
         <div className="admin-container">
             <h1>Panel de administración</h1>
             <div className="admin-grid">

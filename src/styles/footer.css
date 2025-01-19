@@ -5,7 +5,7 @@
   --footer-bg-color: #012E4A; 
   --footer-text-color: white; /* Color del texto en el footer */
   --footer-link-hover: white; /* Color de hover para los enlaces */
-  --footer-link-visited: orange; /* Color de los enlaces visitados */
+  --footer-link-visited: #B37100; /* Color de los enlaces visitados */
 }
 
 /* Estilos para el footer */

@@ -1,0 +1,137 @@
+/* footer.css */
+
+/* Variables de color específicas para el footer */
+:root {
+  --footer-bg-color: #012E4A; 
+  --footer-text-color: white; /* Color del texto en el footer */
+  --footer-link-hover: white; /* Color de hover para los enlaces */
+  --footer-link-visited: #B37100; /* Color de los enlaces visitados */
+}
+
+/* Estilos para el footer */
+footer {
+  position: relative;
+  width: 100%; /* Ocupa todo el ancho */
+  height: auto;
+  display: flex;
+  flex-direction: row; /* Alineación horizontal */
+  justify-content: space-around; /* Distribución uniforme */
+  align-items: center; /* Alineación vertical al centro */
+  background-color: var(--footer-bg-color); /* Fondo */
+  color: var(--footer-text-color);
+  padding: 20px;
+  text-align: center;
+  z-index: 8;
+}
+
+/* Estilo para los enlaces */
+footer a {
+  color: var(--footer-text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: var(--footer-link-hover);
+  text-decoration: underline;
+}
+
+footer a:visited {
+  color: var(--footer-link-visited);
+}
+
+/* Estilo para los íconos sociales */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-icons a {
+  color: var(--footer-text-color);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2); /* Efecto de agrandamiento */
+  color: var(--footer-link-hover);
+}
+
+.footer-text {
+  font-size: 0.8rem;
+}
+
+.footer-text-img{
+  width: 50px;
+  height: auto;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column; /* Mantener los enlaces en columna */
+  text-align: left; /* Alinear texto a la izquierda */
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.footer-links a:hover {
+  text-decoration: underline !important;
+}
+
+.footer-links a:visited {
+  color: var(--footer-link-visited) !important;
+  text-decoration: underline !important;
+}
+
+/* POP UPS */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 12 !important;
+}
+
+.popup-content {
+  background-color: #fff;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative; /* Necesario para posicionar el botón dentro de este contenedor */
+}
+
+.popup-content .close-button {
+  position: absolute;
+  top: 10px; /* Ajusta la posición según sea necesario */
+  right: 10px; /* Alinea el botón a la derecha */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-content .close-button:hover {
+  background-color: transparent;
+}
+
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer-links {
+    text-align: center;
+  }
+}
+

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { firestore } from '../firebase'; // Importa la configuración de Firebase
-import '../styles/juegosprestados.css'; // Estilo personalizado si lo necesitas
+import '../styles/loanedgames.css'; // Estilo personalizado si lo necesitas
+import TopArrow from '../components/TopArrow';
 
 
 
-const JuegosPrestados = () => {
+const LoanedGames = () => {
   const [loanedGames, setLoanedGames] = useState([]); // Para los juegos prestados
   const [usersMap, setUsersMap] = useState({}); // Mapa de usuarios (email -> {name, lastName})
   const [isLoading, setIsLoading] = useState(true);
@@ -53,11 +54,11 @@ const JuegosPrestados = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="estadisticas-container">
+    <div className="loaned-games-container">
+      <h1>Juegos en préstamo</h1>
       {/* Contenedor de Número de Usuarios */}
       {/* Listado de Juegos Prestados */}
       <div className="loaned-games-list">
-        <h3>Juegos Prestados</h3>
         {isLoading ? (
           <p>Cargando...</p>
         ) : currentGames.length > 0 ? (
@@ -75,7 +76,7 @@ const JuegosPrestados = () => {
                     <p><strong>Juego:</strong> {game.game.name}</p>
                     <p><strong>Usuario:</strong> {fullName} ({game.userName})</p>
                     <p><strong>Fecha de Préstamo:</strong> {formatDate(game.loanDate)}</p>
-                    <p><strong>Fecha de Retorno:</strong> {game.returnDate ? formatDate(game.returnDate) : 'Pendiente'}</p>
+                    <p><strong>Estado:</strong> {game.returnDate ? formatDate(game.returnDate) : 'Pendiente'}</p>
                   </div>
                 </li>
               );
@@ -88,12 +89,14 @@ const JuegosPrestados = () => {
         {/* Paginación */}
         <div className="pagination">
           <button
+            className='submit-button'
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
           >
             Anterior
           </button>
           <button
+            className='submit-button'
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage * gamesPerPage >= loanedGames.length}
           >
@@ -101,8 +104,9 @@ const JuegosPrestados = () => {
           </button>
         </div>
       </div>
+      <TopArrow />
     </div>
   );
 };
 
-export default JuegosPrestados;
+export default LoanedGames;

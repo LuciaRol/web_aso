@@ -47,25 +47,28 @@ const Admin = () => {
 
     return (
         <div className="admin-container">
-            <h1>Panel de Administración</h1>
+            <h1>Panel de administración</h1>
             <div className="admin-grid">
                 <div className="admin-box">
-                    <Link to="/creareventos">Crear Eventos</Link>
+                    <Link to="/CreateEvents">Gestionar eventos</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/crearusuario">Crear Usuarios</Link>
+                    <Link to="/CreateUser">Crear usuarios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/adminusuarios">Administrar Usuarios</Link>
+                    <Link to="/AdminUsers">Gestionar usuarios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/promocionyrecordatorios">Promoción y Recordatorios</Link>
+                    <Link to="/Reminder">Recordatorios</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/estadisticas">Estadísticas</Link>
+                    <Link to="/Statistics">Estadísticas</Link>
                 </div>
                 <div className="admin-box">
-                    <Link to="/juegosprestados">Juegos Prestados</Link>
+                    <Link to="/LoanedGames">Juegos en préstamo</Link>
+                </div>
+                <div className="admin-box">
+                    <Link to="/GuestList">Listado de invitados</Link>
                 </div>
             </div>
         </div>

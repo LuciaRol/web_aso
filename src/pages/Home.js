@@ -1,40 +1,41 @@
 import React, { useState } from 'react';
 import Counter from '../components/counter';
 import partidaVideo from '../img/dragon_dnd.mp4'; // Ruta del video
+import aso1 from '../img/quienes_somos/aso1.jpg';
+import aso2 from '../img/quienes_somos/aso2.jpg';
+import aso3 from '../img/quienes_somos/aso3.jpg';
+import { faFacebook, faInstagram, faTwitter, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import House from '../img/landing/House.png';
+import Meeple from '../img/landing/Meeple.png';
+import Evento from '../img/landing/Event.png';
+import Discount from '../img/landing/Discount.png';
+import Wood from '../img/landing/wood3.webp';
+import DragonMobile from '../img/landing/dragon-mobile.png';
 import '../styles/home.css';
+import TopArrow from '../components/TopArrow';
+import CookieBanner from "../components/CookieBanner";
 
 const Home = () => {
-  const [isVideoReady, setIsVideoReady] = useState(false);
-
-  // Maneja el cambio de estado cuando el video está listo
-  const handleVideoReady = () => {
-    setIsVideoReady(true);
-  };
-
   return (
     <div className="home-container">
-      {/* Mostrar el video de fondo en bucle */}
-      <video
-        className="home-video"
-        autoPlay
-        muted
-        loop={true} // El video se reproduce en bucle
-        onCanPlay={handleVideoReady}
-        style={{ display: isVideoReady ? 'block' : 'none' }} // Ocultar hasta que esté listo
-      >
-        <source src={partidaVideo} type="video/mp4" />
-        Tu navegador no soporta videos HTML5.
-      </video>
+      <CookieBanner />
+        <main className="image-container">
+          {/* Cambiar imagen por video */}
+          <div class="image-container-mobile">
+            <img src={Wood} alt="Imagen alternativa"/>
+          </div>
 
-      {/* Texto superpuesto */}
-      {isVideoReady && (
-        <div className="overlay-text">
-          <h1>Dragón de Madera</h1>
-          <p>Tu asociación de juegos de mesa, rol, wargames y miniaturas de Granada.</p>
+          <div class="image-container-alternative">
+            <img src={DragonMobile} alt="Imagen alternativa"/>
+          </div>
+          
+          <div class="video-container">
+            <video src={partidaVideo} autoPlay loop muted className="video-background" />
+          </div>
 
-          {/* Sección de contadores */}
           <div className="counter-section">
-            {/* Cuadrado del contador de juegos */}
+              {/* Cuadrado del contador de juegos */}
             <div className="counter-box">
               <h2 className="counter-title">Juegos</h2>
               <Counter endValue={900} />
@@ -46,8 +47,110 @@ const Home = () => {
               <Counter endValue={300} />
             </div>
           </div>
-        </div>
-      )}
+        </main>
+
+        <section className="info-section">
+            <div id="carouselExampleRide" class="carousel slide carousel-info" data-bs-ride="true">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src={aso1} class="d-block w-100" alt="..." />
+                </div>
+                <div class="carousel-item">
+                  <img src={aso2} class="d-block w-100" alt="..." />
+                </div>
+                <div class="carousel-item">
+                  <img src={aso3} class="d-block w-100" alt="..." />
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+          <article className="info-details">
+            <h3>Dragón de Madera</h3>
+            <p>Asociación sin ánimo de lucro</p>
+            <p>c/ Pepita Serrador 3, local 6</p>
+            <p>18015 Granada</p>
+            <p className="info-social">
+              <li><a href="https://x.com/Dragon_DeMadera" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faTwitter} size="2x" style={{ color: '#2c3e50' }} />
+                  </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/AsocDragonDeMadera/" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faFacebook} size="2x" style={{ color: '#2c3e50' }} />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/dragon_demadera/" target="_blank" rel="noopener noreferrer">
+                  <FontAwesomeIcon icon={faInstagram} size="2x" style={{ color: '#2c3e50' }} />
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faWhatsapp} size="2x" style={{ color: '#2c3e50' }} />
+                </a>
+              </li>
+            </p>
+          </article>
+        </section>
+
+        <section className="about-section">
+          <article className="about-details">
+            <h4>
+              <strong>
+              Si te gustan los juegos de mesa, vives en Granada o alrededores y quieres
+              conocer gente nueva, ¡pásate a conocernos!
+              </strong>
+            </h4>
+            <p>
+              Disponemos de un local de 140m2 situado en La Chana y destinado a las
+              actividades de la asociación.
+            </p>
+            <p>
+              Disfruta de juegos clásicos y modernos en todo su esplendor con títulos
+              que te sorprenderán y te distraerán desde el primer momento.
+            </p>
+          </article>
+          <ul className="about-features">
+            <li>
+              <div className="feature-content">
+                <img src={House} alt="House" />
+                <p>Local</p>
+              </div>
+              <div className="hover-text"><p>Local a disposición de los socios</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Meeple} alt="Meeple" />
+                <p>Ludoteca</p>
+              </div>
+              <div className="hover-text"><p>Amplia variedad de juegos en la ludoteca</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Evento} alt="Event" />
+                <p>Eventos</p>
+              </div>
+              <div className="hover-text"><p>Eventos mensuales y extraordinarios</p></div>
+            </li>
+            <li>
+              <div className="feature-content">
+                <img src={Discount} alt="Discount" />
+                <p>Descuentos</p>
+              </div>
+              <div className="hover-text"><p>Descuentos en tiendas colaboradoras</p></div>
+            </li>
+          </ul>
+
+        </section>
+        <TopArrow />
     </div>
   );
 };

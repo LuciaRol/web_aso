@@ -211,162 +211,195 @@ const CreateGame = () => {
       }
     }
   };
+
   return (
-    <div className="form-container">
-      {loading && <Spinner />} {/* Mostrar el spinner mientras se carga */}
+  <div className="create-game-form-container">
+    {loading && <Spinner />} {/* Mostrar el spinner mientras se carga */}
 
-      <h1>Crea una Partida</h1>
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      <div className="form-group">
-        <label>Tipo de Partida:</label>
-        <select value={partidaTipo} onChange={(e) => setPartidaTipo(e.target.value)} className="form-control">
-          <option value="partidaJuego">Partida Juego</option>
-          <option value="partidaAbierta">Partida Abierta</option>
-        </select>
+    <h1 className="create-game-title">Crea una Partida</h1>
+    {successMessage && <p className="create-game-success-message">{successMessage}</p>}
+    <div className="create-game-form-group">
+      <label className="create-game-label">Tipo de Partida:</label>
+      <select
+        value={partidaTipo}
+        onChange={(e) => setPartidaTipo(e.target.value)}
+        className="create-game-select"
+      >
+        <option value="partidaJuego">Partida Juego</option>
+        <option value="partidaAbierta">Partida Abierta</option>
+      </select>
+    </div>
+
+    {partidaTipo === 'partidaJuego' && !selectedGame && (
+      <div className="create-game-search-container">
+        <div className="create-game-form-group">
+          <label className="create-game-label">Buscar Juego:</label>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Introduce al menos 4 letras"
+            className="create-game-input"
+          />
+          <button
+            onClick={() => {
+              if (searchQuery.length >= 4) {
+                searchGames();
+              }
+            }}
+            className="create-game-submit-button submit-button"
+          >
+            Buscar
+          </button>
+        </div>
+        {noResultsMessage && <p className="create-game-no-results">{noResultsMessage}</p>}
+        {gameResults.length > 0 && (
+          <div className="create-game-results-container">
+            <h2 className="create-game-results-title">Resultados de la búsqueda:</h2>
+            <ul className="create-game-guest-list">
+              {gameResults.map((game) => (
+                <li key={game.id} className="create-game-guest-item">
+                  <div>
+                    <img
+                      src={game.image}
+                      alt={game.name}
+                      className="create-game-game-image"
+                    />
+                    <div>
+                      <span className="create-game-game-name">{game.name}</span>
+                      <p></p>
+                      <a
+                        href={game.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="create-game-game-link btn-link"
+                      >
+                        Ver en BGG
+                      </a>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => selectGame(game)}
+                    className="create-game-submit-button submit-button"
+                  >
+                    Seleccionar
+                  </button>
+                </li>
+              ))}
+            </ul>
+            {loading && <p className="create-game-loading-text">Cargando juegos...</p>}
+          </div>
+        )}
       </div>
+    )}
 
-      {partidaTipo === 'partidaJuego' && !selectedGame && (
-        <div className="search-container">
-          <div className="form-group">
-            <label>Buscar Juego:</label>
+    {(partidaTipo === 'partidaJuego' && selectedGame) || partidaTipo === 'partidaAbierta' ? (
+      <div class="form-container-partida">
+      <form onSubmit={handleSubmit}>
+        {partidaTipo === 'partidaAbierta' && (
+          <div className='game-form-group'>
+            <label className="create-game-label">Nombre del Juego:</label>
             <input
               type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Introduce al menos 4 letras"
-              className="form-control"
+              value={manualGameName}
+              onChange={(e) => setManualGameName(e.target.value)}
+              placeholder="Introduce el nombre del juego"
+              required
+              className="create-game-input form-control"
             />
-            <button
-              onClick={() => {
-                if (searchQuery.length >= 4) {
-                  searchGames();
-                }
-              }}
-              className="submit-button"
-            >
-              Buscar
-            </button>
           </div>
-          {noResultsMessage && <p>{noResultsMessage}</p>}
-          {gameResults.length > 0 && (
-            <div className="results-container">
-              <h2>Resultados de la búsqueda:</h2>
-              <ul className="guest-list">
-                {gameResults.map((game) => (
-                  <li key={game.id} className="guest-item">
-                    <div>
-                      <img
-                        src={game.image}
-                        alt={game.name}
-                        className="game-image"
-                      />
-                      <div>
-                        <span className="game-name">{game.name}</span>
-                        <p></p>
-                        <a href={game.url} target="_blank" rel="noopener noreferrer" className="game-link">
-                          Ver en BGG
-                        </a>
-                      </div>
-                    </div>
-                    <button onClick={() => selectGame(game)} className="submit-button">
-                      Seleccionar
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              {loading && <p>Cargando juegos...</p>}
-            </div>
-          )}
-        </div>
-      )}
-
-      {(partidaTipo === 'partidaJuego' && selectedGame) || partidaTipo === 'partidaAbierta' ? (
-        <form onSubmit={handleSubmit}>
-          {partidaTipo === 'partidaAbierta' && (
-            <div className="form-group">
-              <label>Nombre del Juego:</label>
-              <input
-                type="text"
-                value={manualGameName}
-                onChange={(e) => setManualGameName(e.target.value)}
-                placeholder="Introduce el nombre del juego"
-                required
-                className="form-control"
+        )}
+        {partidaTipo === 'partidaJuego' && selectedGame && (
+          <div>
+            <h2 className="create-game-selected-game-title">Juego Seleccionado: {selectedGame.name}</h2>
+            {selectedGame.image && (
+              <img
+                src={selectedGame.image}
+                alt="Foto del juego"
+                className="create-game-selected-game-image"
               />
-            </div>
-          )}
-          {partidaTipo === 'partidaJuego' && selectedGame && (
-            <div>
-              <h2>Juego Seleccionado: {selectedGame.name}</h2>
-              {selectedGame.image && (
-                <img src={selectedGame.image} alt="Foto del juego" className="selected-game-image" />
-              )}
-              {selectedGame.url && (
-                <p>
-                  <a href={selectedGame.url} target="_blank" rel="noopener noreferrer" className="game-link">
-                    Ver en BGG
-                  </a>
-                </p>
-              )}
-            </div>
-          )}
-          <div className="form-group">
-            <label>Fecha:</label>
+            )}
+            {selectedGame.url && (
+              <p>
+                <a
+                  href={selectedGame.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="create-game-game-link btn-link"
+                >
+                  Ver en BGG
+                </a>
+              </p>
+            )}
+          </div>
+        )}
+          <div className="game-form-group">
+            <label className="game-label">Fecha:</label>
             <input
               type="date"
               value={fecha}
               onChange={(e) => setFecha(e.target.value)}
               required
-              className="form-control"
+              className="game-input"
             />
           </div>
-          <div className="form-group">
-            <label>Hora:</label>
+          
+          <div className="game-form-group">
+            <label className="game-label">Hora:</label>
             <input
               type="time"
               value={hora}
               onChange={(e) => setHora(e.target.value)}
               required
-              className="form-control"
+              className="game-input"
             />
           </div>
-          <div className="form-group">
-            <label>Número de Jugadores:</label>
+          
+          <div className="game-form-group">
+            <label className="game-label">Número de Jugadores:</label>
             <input
               type="number"
               value={numJugadoresMax}
               onChange={(e) => setNumJugadoresMax(parseInt(e.target.value))}
               required
-              className="form-control"
+              className="game-input"
             />
           </div>
-          <div className="form-group">
-            <label>Duración (Horas):</label>
+          
+          <div className="game-form-group">
+            <label className="game-label">Duración (Horas):</label>
             <input
               type="number"
               value={duracion}
               onChange={(e) => setDuracion(e.target.value)}
               required
-              className="form-control"
+              className="game-input"
             />
           </div>
-          <div className="form-group">
-            <label>Descripción:</label>
+          
+          <div className="game-form-group">
+            <label className="game-label">Descripción:</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
-              className="form-control"
+              className="game-textarea"
             />
           </div>
-          <button type="submit" className="submit-button">Agregar Partida</button>
-        </form>
-      ) : null}
+  
+          <button type="submit" className="game-submit-button submit-button">
+            Agregar Partida
+          </button>
+        
 
-      {error && <p className="error-message">{error}</p>}
-    </div>
-  );
-};
+      </form>
+      </div>
+    ) : null}
+
+    {error && <p className="create-game-error-message">{error}</p>}
+  </div>
+);
+}
 
 export default CreateGame;

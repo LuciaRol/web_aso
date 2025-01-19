@@ -11,16 +11,16 @@ import {
 import { auth } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/usuario.css';
+import '../styles/user.css';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Usuario = () => {
+const User = () => {
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [telefono, setTelefono] = useState('');
   const [usuarioTelegram, setUsuarioTelegram] = useState('');
-  const [error, setError] = useState('');
-  const [exito, setExito] = useState('');
   const [usuario] = useAuthState(auth);
 
   useEffect(() => {
@@ -36,17 +36,17 @@ const Usuario = () => {
           const querySnapshot = await getDocs(userQuery);
 
           if (!querySnapshot.empty) {
-            const userData = querySnapshot.docs[0].data(); // Obtenemos los datos del usuario
+            const userData = querySnapshot.docs[0].data();
             setNombre(userData.nombre || '');
             setApellido(userData.apellido || '');
             setTelefono(userData.telefono || '');
             setUsuarioTelegram(userData.usuarioTelegram || '');
           } else {
-            setError('No se encontró información del usuario en la base de datos.');
+            toast.error('No se encontró información del usuario en la base de datos.');
           }
         }
       } catch (err) {
-        setError('Error al obtener información del usuario: ' + err.message);
+        toast.error('Error al obtener información del usuario: ' + err.message);
       }
     };
 
@@ -78,19 +78,17 @@ const Usuario = () => {
         const usuarioRef = doc(firestore, 'users', usuarioExistente.id);
 
         await updateDoc(usuarioRef, {
-          nombre,
-          apellido,
           telefono,
           usuarioTelegram,
           fechaHoraModificacion: serverTimestamp(),
         });
 
-        setExito('Usuario actualizado correctamente');
+        toast.success('Usuario actualizado correctamente');
       } else {
-        setError('Usuario no encontrado');
+        toast.error('Usuario no encontrado');
       }
     } catch (err) {
-      setError('Error al actualizar la información del usuario: ' + err.message);
+      toast.error('Error al actualizar la información del usuario: ' + err.message);
     }
   };
 
@@ -98,19 +96,18 @@ const Usuario = () => {
     try {
       if (usuario && usuario.email) {
         await sendPasswordResetEmail(auth, usuario.email);
-        setExito('Se ha enviado un correo para restablecer tu contraseña.');
+        toast.success('Se ha enviado un correo para restablecer tu contraseña.');
       } else {
-        setError('No se pudo restablecer la contraseña. Asegúrate de estar conectado.');
+        toast.error('No se pudo restablecer la contraseña. Asegúrate de estar conectado.');
       }
     } catch (err) {
-      setError('Error al enviar el correo de restablecimiento: ' + err.message);
+      toast.error('Error al enviar el correo de restablecimiento: ' + err.message);
     }
   };
 
   return (
-    <div className="form-container">
-      
-      <h1>Modifica tu información de usuario</h1>
+    <div className="user-form-container">
+      <h1>Perfil de usuario</h1>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -119,24 +116,22 @@ const Usuario = () => {
             id="nombre"
             className="form-control"
             type="text"
-            placeholder="Nombre"
             value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            required
+            readOnly
           />
+          <span className="error-message">Este campo solo puede ser modificado por el administrador</span>
         </div>
 
         <div className="form-group">
-          <label htmlFor="apellido">Apellido</label>
+          <label htmlFor="apellido">Apellidos</label>
           <input
             id="apellido"
             className="form-control"
             type="text"
-            placeholder="Apellido"
             value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            required
+            readOnly
           />
+          <span className="error-message">Este campo solo puede ser modificado por el administrador</span>
         </div>
 
         <div className="form-group">
@@ -166,17 +161,17 @@ const Usuario = () => {
         </div>
 
         <button className="submit-button" type="submit">Guardar</button>
+
+        {usuario && (
+          <div className="user-info">
+            <button className="btn-link" onClick={handleResetPassword}>Restablecer contraseña</button>
+          </div>
+        )}
       </form>
 
-      {exito && <div className="success-message">{exito}</div>}
-      {error && <div className="error-message">{error}</div>}
-      {usuario && (
-        <div className="user-info">
-          <button className="submit-button" onClick={handleResetPassword}>Restablecer Contraseña</button>
-        </div>
-      )}
+      <ToastContainer />
     </div>
   );
 };
 
-export default Usuario;
+export default User;

@@ -1,128 +1,296 @@
-/* creategame.css */
-
-/* Estilo general del contenedor de formularios */
-.form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Estilo para los mensajes de éxito y error */
-  .success-message {
-    color: green;
-    font-weight: bold;
-  }
-  
-  .error-message {
-    color: red;
-    font-weight: bold;
-  }
-  
-  /* Estilos para los grupos de formularios */
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  /* Estilo del botón de envío */
-  .submit-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: var(--primary-color-hover);
-  }
-  
-  /* Contenedor y estilos para la búsqueda de juegos */
-  .search-container {
-    margin-top: 20px;
-  }
-  
-  .results-container {
-    margin-top: 20px;
-  }
-  
-  .guest-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .guest-item {
-    display: flex;
-    flex-direction: column; /* Cambiamos a columna para que todo esté en líneas separadas */
-    align-items: center; /* Centra el contenido horizontalmente */
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+/* Estilos para CreateGame */
+.create-game-form-container {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la ventana */
+  text-align: center; /* Alinea el texto y los elementos hijos */
 }
 
-.game-image {
-    width: 80px; /* Ajusta el tamaño según sea necesario */
-    height: auto;
-    border-radius: 5px;
-    object-fit: cover; /* Mantiene la proporción de la imagen */
-    margin-bottom: 10px; /* Espacio entre la imagen y el texto */
+.create-game-title {
+  font-size: 2rem;
+  color: #333;
 }
 
-.game-name {
-    font-weight: bold; /* Opcional: hacer que el nombre del juego se vea más destacado */
+.create-game-form-group {
+  background-color: white; /* Fondo blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 1rem;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 500px; /* Máximo ancho del formulario */
+  text-align: left;
 }
 
-.game-link {
-    margin-top: 5px; /* Espacio entre el nombre del juego y el enlace */
+.create-game-label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
 }
 
-/* El botón sigue en su posición original */
-.submit-button {
-    margin-top: 10px; /* Añadir espacio entre el contenido y el botón */
+.create-game-select,
+.create-game-input,
+.create-game-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
+
+.create-game-submit-button {
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 500px; /* El botón también tiene el mismo ancho que el formulario */
+  padding: 1.5rem; /* Más espacio alrededor */
+  margin-bottom: 20px; /* Separación entre grupos */
+  width: 100%;
+  max-width: 600px;
+}
+
+
+.create-game-search-container {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* RESULTADOS */
+.create-game-results-container {
+  margin-top: 15px;
+   /* Asegura que no se desborde */
+  display: grid;
+  width: 90%;
+  gap: 20px; /* Espacio entre los elementos */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  margin-left: auto; /* Centra el contenedor a la izquierda */
+  margin-right: auto; /* Centra el contenedor a la derecha */
+}
+
+.create-game-results-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.create-game-guest-list {
+  list-style-type: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+  justify-items: center;
+}
+
+
+.create-game-guest-item {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 10px;
+  background-color: white; /* Fondo blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  border-radius: 8px; /* Bordes redondeados */
+  transition: background-color 0.3s ease;
+  transition: transform var(--transition-time) ease;
+  cursor: pointer;
+}
+
+.create-game-guest-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más fuerte */
+}
+
+.create-game-game-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px; /* Bordes redondeados */
+  object-fit: cover;
+}
+
+.create-game-game-name {
+  font-weight: bold;
+}
+
+.create-game-game-link {
+  text-decoration: none;
+}
+
+.create-game-game-link:hover {
+  text-decoration: underline;
+}
+
+.create-game-loading-text {
+  color: #777;
+}
+
+.create-game-selected-game-title {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.create-game-selected-game-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px; /* Bordes redondeados */
+  object-fit: cover;
+}
+
+.create-game-no-results {
+  color: red;
+  text-align: center;
+}
+
+.create-game-error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+
+.create-game-textarea {
+  height: 150px;
+}
+
+.create-game-form-group input,
+.create-game-form-group textarea {
+  font-size: 1rem;
+}
+
+
+
+/* Estilos para GameForm */
+.game-form-container {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  text-align: center;
+  max-width: 500px; /* Ancho máximo */
+
   
+}
 
-  /* Estilo de la imagen del juego seleccionado */
-  .selected-game-image {
-    width: 100px;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 5px;
+.game-form-group {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  margin-bottom: 20px; /* Separación entre grupos */
+  width: 100%;
+  max-width: 600px; /* Ancho máximo */
+  text-align: left;
+
+}
+
+.game-label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: #333; /* Color de texto */
+}
+
+.game-input,
+.game-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+}
+
+
+
+.game-textarea {
+  height: 100px; /* Altura específica para el textarea */
+}
+
+
+/* form partidas*/
+
+.form-container-partida {
+  background-color: white; /* Fondo blanco */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 1rem; /* Espaciado interno */
+  margin: 0 auto 20px; /* Centrado horizontal y separación abajo */
+  max-width: 500px; /* Ancho máximo para todos */
+  width: 100%; /* Asegura que ocupe todo el espacio disponible */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  font-family: Arial, sans-serif; /* Fuente consistente */
+}
+
+.form-container-partida form{
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Clase global para contenedores de formularios */
+/* .form-container {
+  background-color: transparent; 
+  border-radius: 8px; 
+  padding: 1.5rem; 
+  margin: 0 auto 20px; 
+  max-width: 500px; 
+  width: 100%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  font-family: Arial, sans-serif; 
+} */
+
+/* Estilos para pantallas móviles */
+@media screen and (max-width: 768px) {
+  /* Modificar el contenedor de los resultados para que ocupe más espacio en pantallas pequeñas */
+  .create-game-results-container {
+    width: 100%;  /* Ocupa el 100% del ancho disponible */
+    margin-left: 0;
+    margin-right: 0;
   }
-  
-  /* Enlace para ver en BoardGameGeek */
-  .game-link {
-    color: var(--primary-color);
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
+
+  /* Cambiar el diseño de los elementos para que haya un solo elemento por fila */
+  .create-game-guest-list {
+    grid-template-columns: 1fr; /* Solo un elemento por fila */
+    gap: 15px; /* Reducir el espacio entre los elementos */
   }
-  
-  .game-link:hover {
-    color: var(--primary-color-hover);
+
+  .create-game-guest-item {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 90%; /* Limitar ligeramente el ancho */
+    margin-left: auto;
+    margin-right: auto;
   }
-  
+}
+
+/* Estilos para pantallas grandes (por si se necesitan otros ajustes) */
+@media screen and (min-width: 769px) {
+  .create-game-results-container {
+    width: 90%;
+    max-width: 1200px;
+  }
+
+  .create-game-guest-list {
+    grid-template-columns: repeat(4, 1fr); /* Cuatro elementos por fila en pantallas grandes */
+    gap: 20px; /* Espacio entre los elementos */
+  }
+
+  .create-game-guest-item {
+    width: 300px; /* Ancho de los elementos */
+  }
+}
+
+
+

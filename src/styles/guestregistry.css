@@ -1,0 +1,206 @@
+.guest-registry-container{
+  padding-top: 5.5rem;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 8px;
+}
+
+/* Estilos para formularios */
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  height: 100px; /* Default height for textarea */
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+.submit-button {
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-hover-color)); /* Degradado */
+  color: var(--white);
+  padding: 12px 20px; /* Aumentar el padding */
+  border: none;
+  border-radius: 25px; /* Bordes redondeados más pronunciados */
+  font-size: 18px; /* Aumentar el tamaño de fuente */
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Transiciones suaves */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.submit-button:hover {
+  background: linear-gradient(45deg, var(--primary-hover-color), var(--primary-color)); /* Cambiar degradado al hacer hover */
+  transform: translateY(-2px); /* Efecto de elevación */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
+
+.submit-button:active {
+  transform: translateY(0); /* Volver a la posición original al hacer clic */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
+}
+
+/* Estilos de mensajes */
+.error-message {
+  color: var(--error-color);
+}
+
+.success-message {
+  color: var(--success-color);
+}
+
+/* Estilos para centrar título de búsqueda */
+.search-container h2 {
+  text-align: center;
+}
+
+/* Resultados de la Búsqueda */
+.results-container {
+  margin-top: 20px;
+  text-align: center; /* Centra el contenido de los resultados */
+}
+
+
+.search-container {
+  margin: 20px 0;
+}
+
+.instruction-text {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+/* PAGINACIÓN */
+.pagination-container {
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 20px; /* Espaciado entre los botones */
+  margin-top: 20px; /* Espaciado superior */
+}
+
+.submit-button.guest-button {
+  padding: 5px 10px; /* Reduce el padding horizontal (mitad del original) */
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px; /* Ajusta el tamaño de la fuente */
+  width: auto; /* Asegura que el ancho se ajuste al contenido */
+}
+
+.submit-button.guest-button:disabled {
+  background-color: #ccc; /* Color para el botón deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+}
+
+
+
+
+/* TABLA DE INVITADOS REGISTRADOS */
+
+.results-container--unique {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  padding: 15px;
+  width: 100%; /* Se adapta al ancho disponible */
+  box-sizing: border-box; /* Asegura que el padding se incluya en el ancho total */
+}
+
+.guest-list--unique {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff; /* Fondo blanco */
+  border: 1px solid #ddd; /* Borde de la tabla */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombreado sutil */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 15px;
+  width: 1000px; /* Ancho fijo de 900px */
+  table-layout: fixed; /* Hace que las celdas tengan un ancho fijo */
+}
+
+.guest-row--unique {
+  display: flex;
+  justify-content: space-between; /* Espacio entre las celdas */
+  align-items: center; /* Alinea las celdas verticalmente */
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.guest-card__label--unique {
+  font-weight: bold;
+  width: 250px; /* Ancho fijo para la etiqueta */
+  overflow: hidden; /* Evita desbordamientos */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+.guest-card__label--unique li{
+  list-style: none;
+}
+
+.guest-card__value--unique {
+  display: block;
+  width: 200px; /* Ancho fijo para el valor */
+  overflow: hidden; /* Evita desbordamientos */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+/* Media Query para pantallas pequeñas (máximo 768px) */
+@media (max-width: 768px) {
+  .guest-list--unique {
+    display: grid;
+    grid-template-columns: 1fr; /* Una columna por fila */
+    gap: 15px; /* Espacio entre las cards */
+    width: 100%; /* Ajusta al ancho disponible */
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+  }
+
+  .guest-row--unique {
+    display: block; /* Hace que cada fila se comporte como un bloque */
+    border-bottom: none; /* Elimina el borde entre filas */
+    padding: 15px;
+    background-color: #fff; /* Fondo blanco para cada card */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra en cada card */
+    border-radius: 8px; /* Bordes redondeados */
+    width: 350px; /* Ancho fijo para cada card (ajustado a 350px) */
+    margin: 0 auto; /* Centra la card en el contenedor */
+  }
+
+  .guest-card__label--unique {
+    width: auto; /* Deja que el ancho sea automático */
+    font-weight: bold;
+  }
+
+  .guest-card__value--unique {
+    width: auto; /* Deja que el ancho sea automático */
+  }
+}
+
+

@@ -6,8 +6,6 @@ import defaultImage from '../img/meeple_logo.png';
 import '../styles/header.css';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
-
-
 const Header = () => {
     const [user] = useAuthState(auth);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,7 +17,6 @@ const Header = () => {
     useEffect(() => {
         setIsLoggedIn(!!user); // Check if user is authenticated
 
-        // Check once authenticated, if the user has the admin role. If admin role,it will display different header options
         const fetchUserRole = async () => {
             if (user) {
                 try {
@@ -28,8 +25,8 @@ const Header = () => {
                     const querySnapshot = await getDocs(q);
 
                     if (!querySnapshot.empty) {
-                        const userData = querySnapshot.docs[0].data(); // Asumimos un único documento por email
-                        setUserRole(userData.role); // Asumimos que el campo del rol es 'role'
+                        const userData = querySnapshot.docs[0].data(); 
+                        setUserRole(userData.role);
                     } else {
                         console.error('No se encontró un usuario con el email proporcionado en Firestore.');
                         setUserRole(null);
@@ -56,54 +53,158 @@ const Header = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const closeMenu = () => {
+        setIsMenuOpen(false); // Cierra el menú al hacer clic en cualquier enlace
+    };
+
     return (
         <header className="header">
-        <div className="header-content">
-            <div className="header-logo-container"> {/* Nuevo contenedor para el logo */}
-                <Link to="/">
-                    <img src={defaultImage} alt="Dragon" className="header-logo" />
-                </Link>
-                 <button className="menu-toggle" onClick={toggleMenu}>
-                &#9776; {/* Ícono de menú hamburguesa */}
-            </button>
-            </div>
-            <nav className={`header-nav-container ${isMenuOpen ? 'open' : ''}`}>
-                <ul className="header-nav">
-                    <li>
-                        <Link to="/" className={window.location.pathname === '/' ? 'active' : ''}>Inicio</Link>
-                    </li>
-                    {!isLoggedIn && <li><Link to="/eventos" className={window.location.pathname === '/eventos' ? 'active' : ''}>Eventos</Link></li>}
-                    {!isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
-                    {!isLoggedIn && <li><Link to="/quienessomos" className={window.location.pathname === '/quienessomos' ? 'active' : ''}>¿Quiénes somos?</Link></li>}
-                    {!isLoggedIn && <li><Link to="/Ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Ludoteca</Link></li>}
-                    {!isLoggedIn && <li><Link to="/login" className={window.location.pathname === '/login' ? 'active' : ''}>Login</Link></li>}
-                    {isLoggedIn && <li><Link to="/crearpartida" className={window.location.pathname === '/crearpartida' ? 'active' : ''}>Crear Partida</Link></li>}
-                    {isLoggedIn && <li><Link to="/calendariopartidas" className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}>Partidas</Link></li>}
-                    {isLoggedIn && <li><Link to="/registroinvitados" className={window.location.pathname === '/RegistroInvitados' ? 'active' : ''}>Registro de Invitados</Link></li>}
-                    {isLoggedIn && <li><Link to="/ludoteca" className={window.location.pathname === '/Ludoteca' ? 'active' : ''}>Solicitar Juego</Link></li>}
-                    {isLoggedIn && <li><Link to="/usuario" className={window.location.pathname === '/Usuario' ? 'active' : ''}>Usuario</Link></li>}
-                    {isLoggedIn && userRole === 'admin' && (
+            <div className="header-content">
+                <div className="header-logo-container">
+                    <Link to="/">
+                        <img src={defaultImage} alt="Dragon" className="header-logo" />
+                    </Link>
+                    <button className="menu-toggle" onClick={toggleMenu}>
+                        &#9776; {/* Ícono de menú hamburguesa */}
+                    </button>
+                </div>
+                <nav className={`header-nav-container ${isMenuOpen ? 'open' : ''}`}>
+                    <ul className="header-nav">
                         <li>
                             <Link
-                                to="/admin"
-                                className={window.location.pathname === '/admin' ? 'active' : ''}
+                                to="/"
+                                className={window.location.pathname === '/' ? 'active' : ''}
+                                onClick={closeMenu} // Cerrar el menú al hacer clic
                             >
-                                Admin
+                                Inicio
                             </Link>
-                            
                         </li>
-                        
-                    )}
-                    {isLoggedIn && (
-                    <li>
-                        <button onClick={handleLogout} className="logout-btn">
-                            Logout
-                        </button>
-                    </li>
-                    )}
-                </ul>
-            </nav>
-
+                        {!isLoggedIn && (
+                            <>
+                                <li>
+                                    <Link
+                                        to="/Events"
+                                        className={window.location.pathname === '/Events' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Eventos
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/calendariopartidas"
+                                        className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Partidas
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/quienessomos"
+                                        className={window.location.pathname === '/quienessomos' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        ¿Quiénes somos?
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/Ludoteca"
+                                        className={window.location.pathname === '/Ludoteca' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Ludoteca
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/login"
+                                        className={window.location.pathname === '/login' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Login
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                        {isLoggedIn && (
+                            <>  
+                                <li>
+                                    <Link
+                                        to="/Events"
+                                        className={window.location.pathname === '/Events' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Eventos
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/crearpartida"
+                                        className={window.location.pathname === '/crearpartida' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Crear Partida
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/calendariopartidas"
+                                        className={window.location.pathname === '/calendariopartidas' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Partidas
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/GuestRegistry"
+                                        className={window.location.pathname === '/GuestRegistry' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Registro de invitados
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/ludoteca"
+                                        className={window.location.pathname === '/Ludoteca' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Ludoteca
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/User"
+                                        className={window.location.pathname === '/User' ? 'active' : ''}
+                                        onClick={closeMenu}
+                                    >
+                                        Perfil
+                                    </Link>
+                                </li>
+                                {userRole === 'admin' && (
+                                    <li>
+                                        <Link
+                                            to="/admin"
+                                            className={window.location.pathname === '/admin' ? 'active' : ''}
+                                            onClick={closeMenu}
+                                        >
+                                            Admin
+                                        </Link>
+                                    </li>
+                                )}
+                                <li>
+                                    <button onClick={handleLogout} className="logout-btn">
+                                        Logout
+                                    </button>
+                                </li>
+                                
+                            </>
+                        )}
+                    </ul>
+                </nav>
             </div>
         </header>
     );

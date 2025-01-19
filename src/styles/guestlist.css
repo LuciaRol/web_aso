@@ -1,0 +1,14 @@
+.guest-list-container{
+  padding-top: 5rem;
+}
+
+.guest-card__label--unique {
+  display: block !important; /* Hace que el label ocupe una fila completa */
+}
+
+.guest-card__value--unique {
+  display: block !important; /* Hace que el value ocupe una fila completa */
+}
+
+
+

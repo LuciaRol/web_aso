@@ -27,8 +27,9 @@
   color: var(--white);
   padding: 10px 0;
   width: 100%;
-  position: relative;
+  position: fixed;
   margin: 0; /* Asegúrate de que no haya márgenes */
+  z-index: 10; /* Asegura que el menú esté encima de otros elementos */
 }
 
 .header-content {
@@ -44,9 +45,12 @@
 /* Contenedor del logo y menú hamburguesa */
 .header-logo-container {
   display: flex;
-  align-items: center;
+  align-items: center; /* Centra los elementos verticalmente */
+  justify-content: space-between; /* Distribuye los elementos entre los dos extremos */
   flex-grow: 1;
 }
+
+
 
 /* Logo */
 .header-logo {
@@ -63,6 +67,10 @@
   cursor: pointer;
   display: none; /* Ocultamos el botón en pantallas grandes */
   margin-left: auto; /* Mover el botón hamburguesa a la derecha */
+}
+
+.menu-toggle:hover{
+  background-color: transparent;
 }
 
 /* Ocultamos el menú en dispositivos móviles por defecto */
@@ -147,7 +155,10 @@
   }
 
   .header-logo-container {
-    flex-grow: 0; /* No permitir que crezca en pantallas pequeñas */
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos a los extremos */
+    align-items: center; /* Alinea los elementos verticalmente */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
   }
 
   .menu-toggle {
@@ -172,7 +183,7 @@
 
   /* Cuando el menú está abierto */
   .header-nav-container.open {
-    max-height: 500px; /* Ajustar según la cantidad de elementos */
+    max-height: 700px; /* Ajustar según la cantidad de elementos */
   }
 
   /* Menú desplegado en móviles */
@@ -223,7 +234,7 @@
 
 /* Estilos del botón de logout */
 .logout-btn {
-  background-color: var(--accent-color-header); /* Color de fondo del botón */
+  background-color: rgba(0, 255, 255, 0.397); /* Color de fondo del botón */
   color: white; /* Color del texto del botón */
   border: none; /* Sin borde */
   border-radius: 4px; /* Bordes redondeados */
@@ -235,7 +246,8 @@
 
 /* Efecto hover para el botón de logout */
 .logout-btn:hover {
-  background-color: var(--accent-color-hover-header); /* Color de fondo del botón al pasar el mouse */
+  background-color: rgba(0, 255, 255, 0.762); /* Color de fondo del botón *//* Color de fondo del botón al pasar el mouse */
+  color: var(--accent-color-hover-header);
 }
 
 /* Alineación del botón de logout en vista de escritorio */

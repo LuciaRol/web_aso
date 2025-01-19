@@ -1,48 +1,108 @@
+:root {
+    --primary-color-header: #012E4A;
+    --primary-color-hover-header: #0056b3;
+    --accent-color-header: #B37100;
+    --accent-color-hover-header: #5E471F;
+    --secondary-color-header: #012E4A;
+    --background-color: #f5f5f5;
+}
+
+body, html {
+    height: 100%; /* Aseguramos que el body y html ocupen toda la altura */
+    margin: 0; /* Eliminamos márgenes predeterminados */
+    display: flex;
+    flex-direction: column; /* Colocamos los elementos en columna */
+    background-color: var(--background-color);
+}
+
 .admin-container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%; /* Aseguramos que el contenedor ocupe toda la altura */
+    padding: 30px;
+    padding-top: 5rem;
+    border-radius: 12px;
     text-align: center;
+    flex: 1; /* Permite que el contenedor crezca y ocupe el espacio disponible */
 }
 
 .admin-container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    color: #333;
+    font-size: 2.8rem;
+    color: var(--secondary-color-header);
+    font-weight: 700;
+    margin-bottom: 40px;
 }
 
 .admin-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    height: auto;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
     margin-top: 20px;
 }
 
 .admin-box {
     padding: 20px;
     background-color: #ffffff;
-    border: 2px solid #007bff;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .admin-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    background-color: #f0f8ff; /* Color suave de fondo */
 }
 
 .admin-box a {
     text-decoration: none;
-    color: #007bff;
-    font-size: 1.2rem;
-    font-weight: bold;
+    color: var(--primary-color-header);
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: block;
+    padding: 15px 0;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .admin-box a:hover {
-    color: #0056b3;
+    color: var(--primary-color-hover-header);
+    transform: translateX(5px); /* Desplazamiento al hacer hover */
+}
+
+.admin-box:focus,
+.admin-box a:focus {
+    outline: none;
+    border-color: var(--primary-color-header);
+    box-shadow: 0 0 5px 2px rgba(0, 123, 255, 0.4);
+}
+
+.admin-grid .admin-box:nth-child(even) {
+    background-color: #f8f9fa; /* Fondo gris suave en los botones pares */
+}
+
+/* Fondo del body */
+footer {
+    margin-top: 30px; /* Ajustar el espacio entre el contenido y el footer */
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding-top: 5rem; /* Reducir el espacio superior en pantallas pequeñas */
+        height: auto; /* Asegura que el contenedor principal no ocupe más de la altura necesaria */
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr; /* Un solo contenedor por fila */
+    }
+
+    .admin-container h1 {
+        font-size: 2rem; /* Reducir el tamaño del título en pantallas pequeñas */
+        margin-bottom: 20px; /* Reducir el margen inferior */
+    }
 }

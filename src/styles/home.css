@@ -1,76 +1,435 @@
+/* Archivo: home.css  */
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
-
-:root {
-  --font-family: 'MedievalSharp', cursive; /* Define la variable para la fuente */
-}
-
-body {
-  font-family: var(--font-family); /* Aplica la fuente a todo el cuerpo */
-  margin: 0; /* Elimina los márgenes */
-  padding: 0; /* Elimina los rellenos */
-}
 
 .home-container {
   display: flex;
-  justify-content: center; /* Centra el contenido horizontalmente */
-  align-items: center; /* Centra el contenido verticalmente */
+  flex-direction: column;
+  width: 100%; /* Ocupa todo el ancho */
+  padding: 0;
+
+}
+
+.image-container {
   position: relative;
-  height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
-  width: 100%; /* Asegura que ocupe todo el ancho de la pantalla */
+  width: 100%;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
   overflow: hidden;
 }
 
-.home-video {
-  position: absolute; /* El video debe estar por detrás del contenido */
-  top: 0;
-  left: 0;
+.image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Mantiene la proporción y cubre todo el contenedor */
-  z-index: -1; /* Coloca el video por debajo del contenido */
+  object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+  z-index: -1;
 }
 
-.overlay-text {
+.image-container::before {
+  content: "Dragón de Madera";
+  font-family: 'MedievalSharp', cursive;
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centra el texto en la pantalla */
-  color: white;
+  transform: translateX(-50%);
   text-align: center;
-  z-index: 1; /* Asegura que el texto esté por encima del video */
-}
-
-.overlay-text h1 {
   color: white;
-  font-family: var(--font-family);
-  font-size: 4rem; /* Tamaño del título */
-  margin: 0; /* Sin margen */
+  font-size: 4.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  z-index: 1; /* Asegura que esté encima de la imagen */
 }
 
-.overlay-text p {
-  font-family: var(--font-family);
-  font-size: 1.5em; /* Tamaño del párrafo */
-  margin-top: 10px; /* Espaciado superior */
+.image-container::after {
+  content: "Asociación de juegos de mesa, rol y wargames";
+  position: absolute;
+  top: 35%; /* Ajustar para que esté debajo del título */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  font-size: 2rem; /* Tamaño de la segunda línea */
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  z-index: 1; /* Asegura que esté encima de la imagen */
 }
 
 .counter-section {
-  margin-top: 20px; /* Espacio entre el texto y los contadores */
+  position: absolute;
+  top: 60%; /* Ubicación en la mitad inferior de la pantalla */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 2; /* Asegura que los contadores estén encima de todo */
 }
 
 .counter-box {
-  margin: 10px; /* Espacio entre los contadores */
-  font-family: var(--font-family); /* Aplica la misma fuente */
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .counter-title {
-  color: white;
-  font-family: var(--font-family); /* Aplica la misma fuente al título */
-  font-size: 2rem; /* Ajuste de tamaño si es necesario */
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
-.counter-box p, .counter-box span { /* Aplica la fuente también a los números */
-  font-family: var(--font-family); /* Aplica la misma fuente al número */
-  font-size: 3rem; /* Ajuste del tamaño de los números */
-  margin-top: 10px; /* Espaciado superior */
-  color: white; /* Asegura que el color del número también sea blanco */
+/* SECCIONES */
+section {
+  padding: 20px;
+  margin-top: 20px;
+  align-items: center; /* Centrado vertical */
+  width: 90%;  /* Cambiar el ancho a 90% */
+  margin: 0 auto; /* Centrar el contenedor en la página */
 }
+
+/* Styles for the info section */
+.info-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Imagen y texto en columnas */
+  gap: 20px; /* Espacio entre columnas */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+}
+
+.carousel-info img {
+  width: auto;
+  height: 500px;
+  display: block;
+  margin: 0 auto;
+}
+
+.carousel-control-prev:hover, .carousel-control-next:hover{
+  background-color: #00000025;
+}
+
+.info-details {
+  text-align: center;
+  align-items: center;
+}
+
+.info-details h3 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-family: 'MedievalSharp', cursive;
+  font-weight: bolder;
+  padding: 0 20px;
+}
+
+.info-details p {
+  font-size: 1.5rem;
+}
+
+.info-details p:first-of-type {
+  font-weight: bolder;
+}
+
+.info-social {
+  display: flex;
+  justify-content: center; /* Centrar los íconos horizontalmente */
+  gap: 10px;
+  list-style: none;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.info-social a {
+  display: flex;
+  justify-content: center; /* Centrar el contenido dentro del enlace */
+  align-items: center;
+  width: 3.2rem; /* Tamaño uniforme de ancho */
+  height: 3.2rem; /* Tamaño uniforme de alto */
+  border-radius: 50%; /* Bordes redondeados */
+  background-color: #f0f0f0; /* Fondo para mejor contraste */
+  text-decoration: none; /* Quitar subrayado */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
+}
+
+.info-social a:hover {
+  background-color: #dcdcdc; /* Cambiar fondo al pasar el ratón */
+  transform: scale(1.1); /* Aumentar ligeramente el tamaño del enlace */
+}
+
+.info-social svg {
+  width: 2rem; /* Tamaño uniforme del icono */
+  height: 2rem; /* Tamaño uniforme del icono */
+  color: #2c3e50; /* Color del icono */
+  transition: transform 0.3s ease; /* Transición suave para el tamaño */
+}
+
+.info-social a:hover svg {
+  transform: scale(1.2); /* Aumentar ligeramente el tamaño del icono */
+}
+
+
+
+/* Styles for the about section */
+.about-section {
+  grid-template-columns: 1fr 1fr; /* Imagen y texto en columnas */
+  gap: 20px; /* Espacio entre columnas */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  text-align: justify;
+}
+
+.about-details h4 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.about-details p {
+  font-size: 1rem;
+  margin: 10px 0;
+  
+}
+
+/* Styles for the features list */
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Crear dos columnas */
+  gap: 15px; /* Espacio entre los elementos */
+  margin-top: 15px;
+  padding-left: 20px;
+  text-align: center; /* Alineación a la izquierda */
+}
+
+.about-features li {
+  font-size: 1.4rem;
+  margin: 5px 0;
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  height: 150px;
+  overflow: hidden; /* Asegura que los elementos no visibles queden ocultos */
+}
+
+.feature-content {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.hover-text {
+  position: absolute;
+  top: -100%; /* Empieza fuera del contenedor, por arriba */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent; /* Fondo oscuro */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  opacity: 0; /* Oculto por defecto */
+  transition: transform 0.6s ease, opacity 0.3s ease;
+}
+
+.hover-text p {
+  width: 50%; /* Ajuste de ancho al 50% */
+  height: 90%; /* Ajusta la altura al contenido */
+  background-color: #012e4a;
+  padding: 0.6rem; /* 8px */
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  display: flex; /* Usar flexbox para centrar el texto dentro del p */
+}
+
+.about-features li:hover .feature-content {
+  opacity: 0; /* Desvanece el círculo */
+}
+
+.about-features li:hover .hover-text {
+  opacity: 1; /* Hace visible el texto */
+  transform: translateY(100%); /* Se desliza hacia abajo desde fuera del contenedor */
+}
+
+
+@media screen and (min-width: 769px) {
+  .video-container {
+    display: block; /* Muestra el video en pantallas de ordenador */
+  }
+
+  .image-container-mobile {
+    display: none; /* Oculta la imagen para pantallas grandes */
+  }
+
+  .image-container-alternative {
+    display: none; /* También ocultamos la imagen alternativa */
+  }
+}
+
+/* MEDIA QUERY PANTALLAS MÓVILES */
+/* Media query para pantallas móviles */
+@media screen and (max-width: 768px) { /* 768px a rem */
+  /* Ajustar otros estilos según sea necesario */
+  .image-container {
+    display: block !important; /* Muestra la imagen en pantallas grandes */
+  }
+
+  .video-container {
+    display: none; /* Oculta el video en pantallas móviles */
+  }
+
+  .image-container-mobile {
+    display: block; /* Muestra la imagen Wood en pantallas intermedias */
+  }
+
+  .image-container-alternative {
+    display: none; /* Mantiene oculta la imagen DragonMobile */
+  }
+  /* Mantener el contenedor de la imagen en el resto de tamaños */
+ 
+
+  .image-container::before,
+  .image-container::after {
+    font-size: 2.5rem; /* Ajuste del tamaño de fuente */
+    text-align: center; /* Centra el texto */
+    position: absolute;
+    top: 20%; /* Posiciona el título en la primera mitad de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Asegura que el contenido ocupe todo el ancho disponible */
+    color: white;
+    z-index: 1; /* Asegura que los títulos estén encima de la imagen */
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  .image-container::before {
+    top: 20%; /* Ajusta la posición del título "before" */
+    font-size: 2.5rem;
+  }
+
+  .image-container::after {
+    top: 35%; /* Ajusta la posición del título "after" */
+    font-size: 1.2rem;
+  }
+  /* Ocultar el contenedor del video en pantallas móviles */
+  .video-container {
+    display: none; /* Oculta el video */
+  }
+
+  /* Mostrar la imagen en pantallas móviles */
+  .image-container-mobile {
+    display: block; /* Muestra la imagen */
+    
+  }
+
+  .counter-section {
+    flex-direction: row; /* Pone los contadores en fila */
+    justify-content: center; /* Centra los contadores */
+    align-items: center; /* Alinea verticalmente */
+    position: absolute;
+    top: 60%; /* Los coloca en la mitad inferior de la imagen */
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1rem; /* Espacio entre los contadores */
+  }
+
+  .counter-box {
+    background-color: rgba(0, 0, 0, 0.436); /* Fondo oscuro semitransparente */
+    padding: 0.625rem; /* 10px */
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  .info-section {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 0.9375rem; /* 15px */
+  }
+
+  .carousel-info img {
+    height: 18.75rem; /* 300px */
+  }
+
+  .info-details h3 {
+    font-size: 1.5rem; /* No cambia */
+  }
+
+  .info-details p {
+    font-size: 0.9rem; /* No cambia */
+  }
+
+  .about-section {
+    grid-template-columns: 1fr; /* Una sola columna */
+    text-align: center;
+  }
+
+
+  .about-features li {
+    height: 9.5rem; /* Altura fija */
+
+  }
+
+
+  .hover-text {
+    font-size: 1rem; /* No cambia */
+  }
+  
+  .hover-text p {
+    width: 40%; /* Ajuste de ancho al 50% */
+    height: 70%; /* Ajusta la altura al contenido */
+  }
+  
+}
+
+/* PANTALLAS MÓVILES ESTRECHAS */
+@media screen and (max-width: 417px) { 
+  .image-container::before {
+    top: 25%; 
+  }
+
+  .image-container::after {
+    top: 40%; 
+  }
+
+  .video-container {
+    display: none; 
+  }
+
+  .image-container-mobile {
+    display: none; 
+    
+  }
+
+  .image-container-alternative {
+    display: block; 
+    
+  }
+
+  .counter-section {
+    gap: 0.5rem; 
+  }
+
+  .hover-text {
+    font-size: 0.9rem; /* No cambia */
+  }
+  
+  .hover-text p {
+    width: 60%; /* Ajuste de ancho al 50% */
+  }
+
+
+  
+}
+

@@ -1,6 +1,6 @@
 // src/components/Counter.js
 import React, { useEffect, useState } from 'react';
-import '../styles/counter.css'; // Importa el CSS para el contador
+import '../styles/Counter.css'; // Importa el CSS para el contador
 
 const Counter = ({ endValue }) => {
   const [count, setCount] = useState(0);

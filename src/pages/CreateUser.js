@@ -2,10 +2,10 @@ import { addDoc, collection, getDocs, serverTimestamp } from 'firebase/firestore
 import { auth, firestore } from '../firebase';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import '../styles/usuario.css';
+import '../styles/user.css';
 import { createUserWithEmailAndPassword, signOut} from "firebase/auth";
 
-const CrearUsuario = () => {
+const CreateUser = () => {
   const [nuevoEmail, setNuevoEmail] = useState('');
   const [nuevaContraseña, setNuevaContraseña] = useState('');
   const [nombre, setNombre] = useState('');
@@ -52,10 +52,6 @@ const CrearUsuario = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, nuevoEmail, nuevaContraseña);
       const user = userCredential.user;
       
-      // Signout so it doesn't log into the new user. This process is done automatically with function of line 52. It is thought so each user logs in itself.
-      // From other customer requirements, it would be done as per Firestore suggestions. In here, the admin must be the one to sign up new users. 
-      await signOut(auth);
-
 
       // Store additional data in Firestore, including UID
       await addDoc(collection(firestore, 'users'), {
@@ -69,6 +65,10 @@ const CrearUsuario = () => {
         fechaHoraRegistro: serverTimestamp(),
         fechaHoraModificacion: serverTimestamp(),
       });
+
+      // Signout so it doesn't log into the new user. This process is done automatically with function of line 52. It is thought so each user logs in itself.
+      // From other customer requirements, it would be done as per Firestore suggestions. In here, the admin must be the one to sign up new users. 
+      await signOut(auth);
 
       setExito('Nuevo usuario agregado exitosamente');
       // Clear form fields after submission
@@ -87,12 +87,12 @@ const CrearUsuario = () => {
   };
 
   return (
-    <div className="form-container">
-      <h1>Tu información de usuario</h1>
+    <div className="form-container create-user-form-container">
+      <h1>Nuevo usuario</h1>
 
       {isAdmin && (
         <form onSubmit={handleAddNewUser}>
-          <h2>Agregar Nuevo Usuario</h2>
+         
           <div className="form-group">
             <label htmlFor="nuevo-email">Email</label>
             <input
@@ -181,4 +181,4 @@ const CrearUsuario = () => {
   );
 };
 
-export default CrearUsuario;
+export default CreateUser;

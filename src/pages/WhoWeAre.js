@@ -1,70 +1,43 @@
 import React, { useState } from 'react';
-import banner from '../img/banner.jpg'; // Cambia esta línea si tienes una imagen específica para el banner
-import homer_a from '../img/quienes_somos/homer_a.jpg';
-import homer_b from '../img/quienes_somos/homer_b.jpg';
-import peter_parker from '../img/quienes_somos/peter_parker.jpg';
-import spiderman from '../img/quienes_somos/spiderman.jpg';
+import qrCode from '../img/quienes_somos/qr_code.png';
+import aso4 from '../img/quienes_somos/aso4.jpeg';
+import SendEmail from '../components/SendEmail';
+import { FaWhatsapp } from 'react-icons/fa'; // Importamos el icono de WhatsApp
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../styles/whoweare.css'; // Importa el CSS correspondiente
 
-const members = [
-  {
-    id: 1,
-    name: 'Homer',
-    imgA: homer_a,
-    imgB: homer_b,
-    messageA: 'Soy Homer',
-    messageB: 'El tarugo número 1'
-  },
-  {
-    id: 2,
-    name: 'Amigo y vecino',
-    imgA: peter_parker,
-    imgB: spiderman,
-    messageA: 'Soy el verdadero Spiderman',
-    messageB: 'El verdadero Spiderman soy yo!'
-  },
-];
 
-const Member = ({ member }) => {
-  const [isToggled, setIsToggled] = useState(false);
 
-  const handleClick = () => {
-    setIsToggled(!isToggled);
-  };
-
-  return (
-    <div className="member-container" onClick={handleClick} style={{ cursor: 'pointer' }}>
-      <div className={`member-content ${isToggled ? 'flipped' : ''}`}>
-        <div className="member-front">
-          <div className="member-name">{member.name}</div>
-          <img src={member.imgA} alt={member.name} style={{ width: '200px', height: '200px' }} />
-          <p className="member-message">{member.messageA}</p>
-        </div>
-        <div className="member-back">
-          <div className="member-name">{member.name}</div>
-          <img src={member.imgB} alt={member.name} style={{ width: '200px', height: '200px' }} />
-          <p className="member-message">{member.messageB}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const WhoWeAre = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(true); // Estado para mostrar/ocultar el banner
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' }); // Estado para el formulario
 
   const handleCloseBanner = () => {
     setIsBannerVisible(false); // Cerrar el banner
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Formulario enviado:', formData);
+    alert('¡Gracias por tu mensaje!');
+    setFormData({ name: '', email: '', message: '' }); // Limpiar el formulario
+  };
+
   return (
-    <div>
+    <div className='who-container'>
       {/* Banner publicitario */}
       {isBannerVisible && (
         <div className="ad-banner">
-          <img src={banner} alt="Publicidad del Club" className="ad-banner-image" />
           <div className="ad-banner-text">
-            <p>¡Bebe Grog! Una bebida tan fuerte que puede disolver una jarra de metal.</p>
+            <p>Bebe Grog.</p>
+            <p>¡Y pásatelo pirata!</p>
           </div>
           <button className="ad-banner-close" onClick={handleCloseBanner}>
             &times; {/* Icono de cerrar */}
@@ -72,30 +45,82 @@ const WhoWeAre = () => {
         </div>
       )}
 
-      <h2>¿Quiénes somos?</h2>
-      <div className="description">
-        <p>
-          Bienvenidos a nuestro club de juegos de mesa, un refugio para los entusiastas de todas las edades y niveles de experiencia. Fundado por un grupo de amigos apasionados, nuestro club es más que un simple lugar de reunión; es un espacio donde la imaginación cobra vida y las amistades se forjan entre risas y estrategias. 
-        </p>
-        <p>
-          Desde nuestros humildes comienzos, nuestro propósito ha sido claro: crear una comunidad inclusiva y vibrante donde cada miembro pueda explorar nuevos mundos, enfrentarse a desafíos épicos y disfrutar del espíritu de la camaradería. Ya sea que prefieras juegos de estrategia, aventuras temáticas, o clásicos familiares, aquí encontrarás un asiento en la mesa esperando por ti.
-        </p>
-        <p>
-          Únete a nosotros y descubre el poder de los juegos de mesa para conectar, educar y, sobre todo, divertir. ¡Que empiecen los juegos!
-        </p>
+      <h2>¡Bienvenidos!</h2>
+
+
+    {/* Carrusel de fotos */}
+    <section>
+      <div className="who-image-container" data-bs-ride="true">
+        <img src={aso4}  alt="..." />
       </div>
 
-      <h2>Nuestros Miembros</h2>
-      <p style={{ textAlign: 'center', fontStyle: 'italic' }}>
-        Haz clic en los miembros para ver su identidad secreta.
-      </p>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {members.map(member => (
-          <Member key={member.id} member={member} />
-        ))}
+
+      <div className="description-container">
+        <div className="description custom-description">
+          <p>
+            Somos una asociación cultural sin ánimo de lucro, que fomenta el ocio a través de los juegos de mesa, pero también hacemos pintura de miniaturas, cineforums, rol, videojuegos, etc.
+          </p>
+          <p>
+            Disponemos de un local de 140m2 situado en el barrio de la Chana y destinado exclusivamente a las actividades propias de nuestra asociación.
+          </p>
+          <p>
+            Disfruta de juegos modernos en todo su esplendor con títulos que te sorprenderán y distraerán desde el primer momento. 
+            La gran cantidad de socios permite que se organicen partidas de todo tipo (temáticas, mecánicas, dificultad) a diferentes horarios.
+          </p>
+          <p>
+            No tenemos un horario de apertura fijo, sino que los socios van abriendo partidas a diferentes horas en función de su disponibilidad. 
+            Si alguien que no es socio se quiere sumar, la mejor manera es ver el calendario de actividades donde aparecen las partidas y los huecos disponibles. 
+            Si alguna partida te interesa, pregúntanos en las redes sociales o únete al chat de WhatsApp para contactar con el organizador.
+          </p>
+          <p>
+            Colaboramos y participamos en varios eventos relacionados con el sector, ¡ven a conocernos!
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    </section>
+
+    <section className="visit-us-section">
+      <h2 className="visit-us-heading">Visítanos</h2>
+        <div className="description custom-description">
+          <ul className="visit-us-list">
+            <li>Tiene 3 invitaciones gratuitas para asistir a partidas privadas.</li>
+            <li>Organizamos eventos gratuitos periódicamente, ¡síguenos en redes sociales!</li>
+            <li>Si te interesa hacerte socio, te recomendamos usar tus invitaciones y conocernos.</li>
+          </ul>
+        </div>
+    </section>
+
+    {/* Sección de contacto */}
+    <section className="contact-section">
+      <h2 className="contact-heading">Contacto</h2>
+      <p className="contact-description">
+        Si tienes alguna pregunta o quieres unirte a nuestro grupo, puedes enviarnos un mensaje o unirte a nuestro grupo de WhatsApp haciendo clic en el siguiente icono:
+      </p>
+
+      <div className="contact-content">
+
+        <div className="contact-qr-container">
+          <h3 className="contact-qr-heading">Grupo de WhatsApp</h3>
+          <div>
+            <img
+              src={qrCode}
+              alt="Código QR para acceder al grupo de WhatsApp del Dragón de Madera"
+              className="contact-qr-image"
+            />
+          </div>
+        </div>
+
+        {/* FORMULARIO */}
+        <div className="email-form-container">
+          <div>
+            <SendEmail />
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+);
 };
 
 export default WhoWeAre;

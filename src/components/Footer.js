@@ -7,22 +7,25 @@ import '../styles/footer.css';
 
 const Footer = () => {
   const [showCookiePolicy, setShowCookiePolicy] = useState(false);
-  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);  // Estado para la política de privacidad
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);  
 
+  /* Se abren los pop ups al hacer clic en el enlace */
   const handleCookieClick = () => {
     setShowCookiePolicy(true);
   };
 
   const handlePrivacyClick = () => {
-    setShowPrivacyPolicy(true);  // Mostrar el popup de la política de privacidad
+    setShowPrivacyPolicy(true);  
   };
 
+  /* Se cierran los pop ups al hacer clic en el botón de cerrar */
   const closePopup = () => {
     setShowCookiePolicy(false);
-    setShowPrivacyPolicy(false);  // Cerrar ambos popups
+    setShowPrivacyPolicy(false);  
   };
 
   return (
+    /* Footer */
     <footer className="footer">
       <div className="footer-text">
         <div><img className="footer-text-img" src={defaultImage}/></div>
@@ -30,7 +33,6 @@ const Footer = () => {
         <div>c/ Pepita Serrador 3, local 6</div>
         <div>18015 Granada</div>
       </div>
-
       <div className="social-icons">
         <a href="https://x.com/Dragon_DeMadera" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faTwitter} size="2x" />
@@ -45,9 +47,6 @@ const Footer = () => {
           <FontAwesomeIcon icon={faWhatsapp} size="2x" />
         </a>
       </div>
-
-      
-
       <div className="footer-links">
         <a onClick={handleCookieClick}>Política de cookies</a>
         <a onClick={handlePrivacyClick}>Política de privacidad</a>
@@ -61,6 +60,7 @@ const Footer = () => {
         </a>
       </div>
 
+      {/* Pop up de la política de cookies */}
       {showCookiePolicy && (
         <div className="popup">
           <div className="popup-content">
@@ -77,6 +77,7 @@ const Footer = () => {
         </div>
       )}
 
+      {/* Pop up de la política de privacidad */}
       {showPrivacyPolicy && (
         <div className="popup">
           <div className="popup-content">

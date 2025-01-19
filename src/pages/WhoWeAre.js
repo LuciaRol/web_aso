@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import qrCode from '../img/quienes_somos/qr_code.png';
 import aso4 from '../img/quienes_somos/aso4.jpeg';
 import SendEmail from '../components/SendEmail';
-import { FaWhatsapp } from 'react-icons/fa'; // Importamos el icono de WhatsApp
+import { FaWhatsapp } from 'react-icons/fa'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import '../styles/whoweare.css'; // Importa el CSS correspondiente
+import '../styles/whoweare.css'; 
 
 
 
 
 const WhoWeAre = () => {
   const [isBannerVisible, setIsBannerVisible] = useState(true); // Estado para mostrar/ocultar el banner
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' }); // Estado para el formulario
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' }); 
 
   const handleCloseBanner = () => {
     setIsBannerVisible(false); // Cerrar el banner
@@ -51,7 +51,7 @@ const WhoWeAre = () => {
     {/* Carrusel de fotos */}
     <section>
       <div className="who-image-container" data-bs-ride="true">
-        <img src={aso4}  alt="..." />
+        <img src={aso4}  alt="Local de la asociación Dragón de Madera. Las paredes están forradas con estanterías llenas de juegos de mesa. Hay mesa ambos lados, mesas apiladas al fondo y una puerta abierta a lo lejos. No jay gente." />
       </div>
 
 

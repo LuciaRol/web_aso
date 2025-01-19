@@ -20,9 +20,9 @@ const GuestRegistry = () => {
   const [guestData, setGuestData] = useState([]);
   const [filteredGuestData, setFilteredGuestData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [maxVisibleGuests] = useState(5); // El número de invitados que se ven sin buscar
+  const [maxVisibleGuests] = useState(5); 
   const [currentPage, setCurrentPage] = useState(1);
-  const [guestsPerPage] = useState(5); // Número de invitados por página
+  const [guestsPerPage] = useState(5); 
 
   // Función para filtrar los datos de los invitados
   const filterGuestData = useCallback((data) => {

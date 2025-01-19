@@ -1,4 +1,4 @@
-/* Estilos para CreateGame */
+
 .create-game-form-container {
   padding-top: 5rem;
   display: flex;
@@ -6,8 +6,8 @@
   align-items: center;
   justify-content: center;
   font-family: Arial, sans-serif;
-  min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la ventana */
-  text-align: center; /* Alinea el texto y los elementos hijos */
+  min-height: 100vh; 
+  text-align: center; 
 }
 
 .create-game-title {
@@ -16,13 +16,13 @@
 }
 
 .create-game-form-group {
-  background-color: white; /* Fondo blanco */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  border-radius: 8px; /* Bordes redondeados */
+  background-color: white; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px; 
   padding: 1rem;
   margin-bottom: 15px;
   width: 100%;
-  max-width: 500px; /* Máximo ancho del formulario */
+  max-width: 500px; 
   text-align: left;
 }
 
@@ -50,9 +50,9 @@
   border-radius: 4px;
   margin-top: 10px;
   width: 100%;
-  max-width: 500px; /* El botón también tiene el mismo ancho que el formulario */
-  padding: 1.5rem; /* Más espacio alrededor */
-  margin-bottom: 20px; /* Separación entre grupos */
+  max-width: 500px; 
+  padding: 1.5rem; 
+  margin-bottom: 20px; 
   width: 100%;
   max-width: 600px;
 }
@@ -67,13 +67,12 @@
 /* RESULTADOS */
 .create-game-results-container {
   margin-top: 15px;
-   /* Asegura que no se desborde */
   display: grid;
   width: 90%;
-  gap: 20px; /* Espacio entre los elementos */
-  justify-content: center; /* Centra el contenido horizontalmente */
-  margin-left: auto; /* Centra el contenedor a la izquierda */
-  margin-right: auto; /* Centra el contenedor a la derecha */
+  gap: 20px; 
+  justify-content: center; 
+  margin-left: auto; 
+  margin-right: auto; 
 }
 
 .create-game-results-title {
@@ -100,9 +99,9 @@
   align-items: center;
   padding: 1rem;
   margin-bottom: 10px;
-  background-color: white; /* Fondo blanco */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  border-radius: 8px; /* Bordes redondeados */
+  background-color: white; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px; 
   transition: background-color 0.3s ease;
   transition: transform var(--transition-time) ease;
   cursor: pointer;
@@ -110,13 +109,13 @@
 
 .create-game-guest-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más fuerte */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 .create-game-game-image {
   width: 200px;
   height: 200px;
-  border-radius: 8px; /* Bordes redondeados */
+  border-radius: 8px; 
   object-fit: cover;
 }
 
@@ -145,7 +144,7 @@
 .create-game-selected-game-image {
   width: 200px;
   height: 200px;
-  border-radius: 8px; /* Bordes redondeados */
+  border-radius: 8px; 
   object-fit: cover;
 }
 
@@ -171,7 +170,7 @@
 
 
 
-/* Estilos para GameForm */
+
 .game-form-container {
   padding-top: 5rem;
   display: flex;
@@ -181,17 +180,17 @@
   font-family: Arial, sans-serif;
   min-height: 100vh;
   text-align: center;
-  max-width: 500px; /* Ancho máximo */
+  max-width: 500px; 
 
   
 }
 
 .game-form-group {
-  background-color: #ffffff; /* Fondo blanco */
-  border-radius: 8px; /* Bordes redondeados */
-  margin-bottom: 20px; /* Separación entre grupos */
+  background-color: #ffffff; 
+  border-radius: 8px; 
+  margin-bottom: 20px; 
   width: 100%;
-  max-width: 600px; /* Ancho máximo */
+  max-width: 600px; 
   text-align: left;
 
 }
@@ -201,7 +200,7 @@
   font-weight: bold;
   margin-bottom: 8px;
   display: block;
-  color: #333; /* Color de texto */
+  color: #333; 
 }
 
 .game-input,
@@ -218,21 +217,19 @@
 
 
 .game-textarea {
-  height: 100px; /* Altura específica para el textarea */
+  height: 100px; 
 }
 
 
-/* form partidas*/
-
 .form-container-partida {
-  background-color: white; /* Fondo blanco */
-  border-radius: 8px; /* Bordes redondeados */
-  padding: 1rem; /* Espaciado interno */
-  margin: 0 auto 20px; /* Centrado horizontal y separación abajo */
-  max-width: 500px; /* Ancho máximo para todos */
-  width: 100%; /* Asegura que ocupe todo el espacio disponible */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  font-family: Arial, sans-serif; /* Fuente consistente */
+  background-color: white; 
+  border-radius: 8px; 
+  padding: 1rem; 
+  margin: 0 auto 20px; 
+  max-width: 500px; 
+  width: 100%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  font-family: Arial, sans-serif; 
 }
 
 .form-container-partida form{
@@ -240,42 +237,27 @@
   box-shadow: none;
 }
 
-/* Clase global para contenedores de formularios */
-/* .form-container {
-  background-color: transparent; 
-  border-radius: 8px; 
-  padding: 1.5rem; 
-  margin: 0 auto 20px; 
-  max-width: 500px; 
-  width: 100%; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  font-family: Arial, sans-serif; 
-} */
 
-/* Estilos para pantallas móviles */
 @media screen and (max-width: 768px) {
-  /* Modificar el contenedor de los resultados para que ocupe más espacio en pantallas pequeñas */
   .create-game-results-container {
-    width: 100%;  /* Ocupa el 100% del ancho disponible */
+    width: 100%;  
     margin-left: 0;
     margin-right: 0;
   }
 
-  /* Cambiar el diseño de los elementos para que haya un solo elemento por fila */
   .create-game-guest-list {
-    grid-template-columns: 1fr; /* Solo un elemento por fila */
-    gap: 15px; /* Reducir el espacio entre los elementos */
+    grid-template-columns: 1fr; 
+    gap: 15px; 
   }
 
   .create-game-guest-item {
-    width: 100%; /* Ocupa todo el ancho disponible */
-    max-width: 90%; /* Limitar ligeramente el ancho */
+    width: 100%; 
+    max-width: 90%; 
     margin-left: auto;
     margin-right: auto;
   }
 }
 
-/* Estilos para pantallas grandes (por si se necesitan otros ajustes) */
 @media screen and (min-width: 769px) {
   .create-game-results-container {
     width: 90%;
@@ -283,12 +265,12 @@
   }
 
   .create-game-guest-list {
-    grid-template-columns: repeat(4, 1fr); /* Cuatro elementos por fila en pantallas grandes */
-    gap: 20px; /* Espacio entre los elementos */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px; 
   }
 
   .create-game-guest-item {
-    width: 300px; /* Ancho de los elementos */
+    width: 300px; 
   }
 }
 

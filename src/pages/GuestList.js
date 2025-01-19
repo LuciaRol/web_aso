@@ -1,16 +1,16 @@
 import { getDocs, collection } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { firestore } from '../firebase';
-import * as XLSX from 'xlsx'; // Importar la librería xlsx
+import * as XLSX from 'xlsx';
 import '../styles/guestlist.css';
 
 const GuestList = () => {
   const [guestData, setGuestData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); // Página actual
+  const [currentPage, setCurrentPage] = useState(1); 
   const [itemsPerPage] = useState(5); // Número de registros por página
-  const [searchTerm, setSearchTerm] = useState(''); // Término de búsqueda
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   // Función para obtener los datos de los invitados desde Firestore
   const fetchGuestData = async () => {

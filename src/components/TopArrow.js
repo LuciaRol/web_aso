@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
-import '../styles/toparrow.css'; // Import CSS for styles
+import '../styles/toparrow.css';
 
+/* Pequeño componente de flechita que aparece en agunas páginas: al clicar lleva al principio de la misma */
 const TopArrow = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollUpButton = document.querySelector('.scroll-up');
-console.log(scrollUpButton); // Verifica si esto devuelve null
 
-
-      // Asegurarse de que el scrollUpButton esté presente antes de modificar la clase
       if (scrollUpButton) {
         if (window.scrollY > 100) {
           scrollUpButton.classList.add('_show-scroll');

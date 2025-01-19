@@ -8,10 +8,10 @@
 }
 
 body, html {
-    height: 100%; /* Aseguramos que el body y html ocupen toda la altura */
-    margin: 0; /* Eliminamos márgenes predeterminados */
+    height: 100%;
+    margin: 0;
     display: flex;
-    flex-direction: column; /* Colocamos los elementos en columna */
+    flex-direction: column;
     background-color: var(--background-color);
 }
 
@@ -20,12 +20,12 @@ body, html {
     color: #333;
     max-width: 1200px;
     margin: 0 auto;
-    height: 100%; /* Aseguramos que el contenedor ocupe toda la altura */
+    height: 100%;
     padding: 30px;
     padding-top: 5rem;
     border-radius: 12px;
     text-align: center;
-    flex: 1; /* Permite que el contenedor crezca y ocupe el espacio disponible */
+    flex: 1;
 }
 
 .admin-container h1 {
@@ -57,7 +57,7 @@ body, html {
 .admin-box:hover {
     transform: translateY(-8px);
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-    background-color: #f0f8ff; /* Color suave de fondo */
+    background-color: #f0f8ff;
 }
 
 .admin-box a {
@@ -72,7 +72,7 @@ body, html {
 
 .admin-box a:hover {
     color: var(--primary-color-hover-header);
-    transform: translateX(5px); /* Desplazamiento al hacer hover */
+    transform: translateX(5px);
 }
 
 .admin-box:focus,
@@ -83,26 +83,25 @@ body, html {
 }
 
 .admin-grid .admin-box:nth-child(even) {
-    background-color: #f8f9fa; /* Fondo gris suave en los botones pares */
+    background-color: #f8f9fa;
 }
 
-/* Fondo del body */
 footer {
-    margin-top: 30px; /* Ajustar el espacio entre el contenido y el footer */
+    margin-top: 30px;
 }
 
 @media (max-width: 768px) {
     .admin-container {
-        padding-top: 5rem; /* Reducir el espacio superior en pantallas pequeñas */
-        height: auto; /* Asegura que el contenedor principal no ocupe más de la altura necesaria */
+        padding-top: 5rem;
+        height: auto;
     }
 
     .admin-grid {
-        grid-template-columns: 1fr; /* Un solo contenedor por fila */
+        grid-template-columns: 1fr;
     }
 
     .admin-container h1 {
-        font-size: 2rem; /* Reducir el tamaño del título en pantallas pequeñas */
-        margin-bottom: 20px; /* Reducir el margen inferior */
+        font-size: 2rem;
+        margin-bottom: 20px;
     }
 }

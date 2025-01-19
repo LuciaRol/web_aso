@@ -66,6 +66,7 @@ const CreateEvents = () => {
     });
   };
   
+  /* Verifica si el usuario es administrador */
   const checkIfUserIsAdmin = async (email) => {
     try {
       const querySnapshot = await getDocs(
@@ -83,6 +84,7 @@ const CreateEvents = () => {
     }
   };
 
+  /* Mensajes de toatify */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -139,6 +141,7 @@ const CreateEvents = () => {
     }
   };
   
+  /* Función para eliminar un evento */
   const handleDeleteEvent = async (id) => {
     if (!isAdmin) {
       toast.error('No tienes permisos para eliminar eventos.');
@@ -154,6 +157,7 @@ const CreateEvents = () => {
     }
   };
 
+  /* Función para editar un evento */
   const handleUpdateEvent = async (e) => {
     e.preventDefault();
   
@@ -190,6 +194,7 @@ const CreateEvents = () => {
     }
   };
 
+  /* Funciones para abrir y cerrar el modal que muestra los eventos en detalle */
   const openModal = (event) => {
     setSelectedEvent(event);
     setModalOpen(true);
@@ -205,8 +210,9 @@ const CreateEvents = () => {
       <ToastContainer />
       <h1>Administrar eventos</h1>
 
-      {/* FORMULARIO PARA CREAR EVENTO */}
+      {/* Formulario para crear un evento */}
       <div className='new-event-container'>
+        {/* Botón para abrir o cerra el formulario de nuevo evento */}
         <button 
           className="new-event-btn submit-button" 
           onClick={() => setFormVisible(!formVisible)}
@@ -282,6 +288,7 @@ const CreateEvents = () => {
         </form>
       )}
 
+      {/* Cards de los eventos */}
       <h2>Eventos actuales</h2>
       <div className="events-list">
         {events.map((event) => (
@@ -315,7 +322,7 @@ const CreateEvents = () => {
         ))}
       </div>
 
-      {/* FORMULARIO EDITAR EVENTO */}
+      {/* Formulario para editar un evento */}
       {editEvent && (
         <div className="description">
           <h1>Editar Evento</h1>

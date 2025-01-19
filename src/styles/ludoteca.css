@@ -1,118 +1,119 @@
 .ludoteca-container {
   padding-top: 5rem;
 }
+
 /* FILTROS */
 .filters-row {
   display: flex;
-  align-items: center; /* Alinea todos los elementos verticalmente */
-  justify-content: center; /* Centra los elementos horizontalmente */
-  gap: 20px; /* Espaciado entre los elementos principales */
-  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
+  align-items: center; 
+  justify-content: center; 
+  gap: 20px; 
+  flex-wrap: wrap; 
   margin-bottom: 20px;
 }
 
 .filter-item {
   display: flex;
-  align-items: center; /* Alinea los elementos verticalmente */
-  gap: 10px; /* Espaciado entre los elementos dentro del filtro */
+  align-items: center; 
+  gap: 10px; 
 }
 
 .filter-item label {
   display: flex;
-  align-items: center; /* Asegura que el texto del label y los elementos estén alineados */
-  gap: 10px; /* Espaciado entre el label y los elementos */
+  align-items: center; 
+  gap: 10px; 
 }
 
 .filter-item input,
 .filter-item select,
 .filter-item button {
-  width: 200px; /* Tamaño uniforme de ancho */
-  height: 40px; /* Tamaño uniforme de alto */
-  padding: 0 10px; /* Espaciado interno */
-  border: 1px solid #ccc; /* Borde estándar */
-  border-radius: 4px; /* Bordes redondeados */
-  font-size: 14px; /* Tamaño de fuente uniforme */
-  box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+  width: 200px; 
+  height: 40px; 
+  padding: 0 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  font-size: 14px; 
+  box-sizing: border-box; 
 }
 
 .filter-item button, .alphabet-button{
-  width: 300px; /* Ancho fijo */
-  height: 40px; /* Altura fija */
-  background-color: #012E4A; /* Color de fondo del botón */
-  color: #fff; /* Color del texto */
+  width: 300px; 
+  height: 40px; 
+  background-color: #012E4A; 
+  color: #fff; 
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: none; /* Sin borde */
-  border-radius: 4px; /* Bordes redondeados */
-  padding: 0.5rem 1rem; /* Espaciado interno */
-  cursor: pointer; /* Cambiar cursor al pasar */
+  border: none; 
+  border-radius: 4px; 
+  padding: 0.5rem 1rem; 
+  cursor: pointer; 
   border-radius: 4px;
-  transition: background 0.3s, transform 0.2s, box-shadow 0.3s; /* Transiciones suaves */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
 #reset-filters{
-  width: 200px; /* Ancho fijo */
+  width: 200px; 
 }
 
 .filter-item button:hover, .alphabet-button:hover {
-  background-color: #B37100 !important; /* Cambio de color en hover */
-  background: linear-gradient(45deg, var(--primary-hover-color), var(--primary-color)); /* Cambiar degradado al hacer hover */
-  transform: translateY(-2px); /* Efecto de elevación */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+  background-color: #B37100 !important; 
+  background: linear-gradient(45deg, var(--primary-hover-color), var(--primary-color)); 
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); 
 }
 
 .filter-item button:active, .alphabet-button:active {
-  transform: translateY(0); /* Volver a la posición original al hacer clic */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra más pequeña */
+  transform: translateY(0); 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
   }
 
 
 /* FILTRO POR LETRAS DEL ALFABETO */
 .alphabet-buttons {
-  display: flex; /* Asegura que los botones estén alineados en fila */
-  flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea si es necesario */
-  justify-content: center; /* Centra los botones horizontalmente */
-  gap: 0.5rem; /* Espaciado entre botones */
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 0.5rem; 
 }
 
 .alphabet-buttons button {
-  width: 2.5rem; /* Tamaño uniforme de ancho */
-  height: 2.5rem; /* Tamaño uniforme de alto */
-  border-radius: 50%; /* Bordes redondeados */
-  background-color: transparent; /* Fondo predeterminado */
-  color: #2c3e50; /* Color del texto */
-  text-decoration: none; /* Quitar subrayado */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave */
-  text-align: center; /* Asegura texto centrado horizontalmente */
-  display: flex; /* Flexbox para centrar contenido */
-  justify-content: center; /* Centra el contenido horizontalmente */
-  align-items: center; /* Centra el contenido verticalmente */
+  width: 2.5rem; 
+  height: 2.5rem; 
+  border-radius: 50%; 
+  background-color: transparent;
+  color: #2c3e50; 
+  text-decoration: none; 
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  text-align: center; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 .alphabet-buttons button:hover {
   background-color: #dcdcdc;
-  transform: scale(1.1); /* Aumentar ligeramente el tamaño del botón */
+  transform: scale(1.1); 
 }
 
 /* GRID DE LOS JUEGOS */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 5 juegos por fila */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 20px;
-  padding: 20px; /* Añadir espacio alrededor del grid */
-  margin: 0 auto; /* Centrar el grid en la pantalla */
-  max-width: 1200px; /* Limitar el ancho máximo del grid */
+  padding: 20px; 
+  margin: 0 auto; 
+  max-width: 1200px; 
   
 }
 
 .game-card {
   cursor: pointer;
   text-align: center;
-  transition: opacity 0.3s ease, box-shadow 0.3s ease; /* Agregar transición al sombreado */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombreado por defecto */
+  transition: opacity 0.3s ease, box-shadow 0.3s ease; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   border-radius: 8px;
-  margin: 10px; /* Margen alrededor de cada tarjeta de juego */
+  margin: 10px;
   padding: 0.5rem;
   transition: transform var(--transition-time) ease;
 }
@@ -121,7 +122,6 @@
 .game-card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-5px);
-   /* Sombreado más intenso al pasar el mouse */
 }
 
 .game-card.unavailable {
@@ -148,43 +148,41 @@
 
 .game-unavailable-text {
   position: absolute;
-  bottom: -30px; /* Inicialmente fuera de la tarjeta (debajo) */
+  bottom: -30px; 
   left: 50%;
   transform: translateX(-50%);
-  background-color: whitesmoke; /* Fondo blanco */
+  background-color: whitesmoke; 
   color: red;
   font-weight: bold;
   font-size: 18px;
   padding: 5px 10px;
   border-radius: 5px;
-  z-index: 1; /* Asegura que el texto esté encima de la tarjeta */
-  opacity: 0; /* Inicialmente oculto */
+  z-index: 1; 
+  opacity: 0; 
   transition: transform 0.3s ease, opacity 0.3s ease;
-  width: 250px; /* Aumentamos el ancho del contenedor */
-  text-align: center; /* Centra el texto dentro del contenedor */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+  width: 250px; 
+  text-align: center; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
 .game-card:hover .game-unavailable-text {
-  bottom: 10px; /* Mueve el texto hacia arriba al hacer hover */
-  opacity: 1; /* Hace el texto visible */
-  transform: translateX(-50%) translateY(-10px); /* Animación para el movimiento */
+  bottom: 10px; 
+  opacity: 1; 
+  transform: translateX(-50%) translateY(-10px); 
 }
 
 /* VENTANA MODAL */
-/* Estilos para el overlay del modal */
 .modal-overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Estilos para el contenido del modal */
 .modal-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 60vw; /* Reducido de 80vw a 50vw */
+  max-width: 60vw; 
   max-height: 90vh;
   width: auto;
   height: auto;
@@ -196,8 +194,6 @@
   position: relative;
 }
 
-
-/* Botón de cierre */
 .modal-close-button {
   position: absolute;
   top: 10px;
@@ -213,8 +209,6 @@
   color: #333;
   background-color: transparent;
 }
-
-/* Estilos para el contenedor interno */
 .modal-inner {
   text-align: center;
   width: 100%;
@@ -224,7 +218,6 @@
   align-items: center;
 }
 
-/* Estilo de la imagen dentro del modal */
 .modal-image {
   max-width: 100%;
   max-height: 40vh;
@@ -232,7 +225,6 @@
   border-radius: 8px;
 }
 
-/* Botones */
 .modal-button {
   margin-top: 10px;
   padding: 10px 20px;
@@ -240,67 +232,66 @@
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  color: #fff; /* Asegura que ambos botones tengan texto blanco */
-  width: 300px !important; /* Hace que ambos botones tengan el mismo ancho */
+  color: #fff; 
+  width: 300px !important; 
 }
 
 @media (max-width: 768px) {
   .games-grid {
-    grid-template-columns: 1fr; /* 1 tarjeta por fila en pantallas móviles */
+    grid-template-columns: 1fr; 
   }
 
   .game-unavailable-text {
-    position: relative; /* Cambiamos la posición a 'relative' para que el texto quede debajo de la tarjeta */
-    bottom: 0; /* Restablecemos la posición para que no quede fuera de la tarjeta */
+    position: relative; 
+    bottom: 0; 
     left: 0;
     transform: translateX(0);
-    width: auto; /* Eliminamos el ancho fijo */
+    width: auto; 
     background-color: transparent;
     padding: 5px 10px;
     color: red;
-    opacity: 1; /* Aseguramos que el texto sea visible */
-    font-size: 16px; /* Ajustamos el tamaño de la fuente para pantallas pequeñas */
-    text-align: center; /* Centrado de texto */
-    border-radius: 5px; /* Bordes redondeados */
-    z-index: 1; /* Asegura que el texto esté encima de la tarjeta */
+    opacity: 1; 
+    font-size: 16px; 
+    text-align: center; 
+    border-radius: 5px; 
+    z-index: 1; 
     box-shadow: none;
   }
 
-  /* No hay hover en móviles, por lo que el mensaje siempre será visible */
   .game-card:hover .game-unavailable-text {
-    bottom: 0; /* Mantiene el mensaje en la parte inferior */
-    opacity: 1; /* El texto sigue siendo visible */
-    transform: translateX(0); /* Sin movimiento adicional */
+    bottom: 0; 
+    opacity: 1; 
+    transform: translateX(0); 
   }
 
   .filter-item {
     display: flex;
-    flex-direction: column; /* Apila los elementos en una columna */
-    gap: 5px; /* Espaciado entre el label y el input */
+    flex-direction: column; 
+    gap: 5px; 
   }
   
 
 
   .modal-content {
-    max-width: 100vw; /* Ocupa todo el ancho de la ventana */
-    max-height: 100vh; /* Ocupa todo el alto de la ventana */
-    width: 100vw; /* Asegura que la ventana modal ocupe todo el ancho */
-    height: 100vh; /* Asegura que la ventana modal ocupe todo el alto */
-    padding: 0; /* Elimina el padding para maximizar el espacio */
-    border-radius: 0; /* Opcional, para quitar los bordes redondeados */
+    max-width: 100vw; 
+    max-height: 100vh; 
+    width: 100vw; 
+    height: 100vh; 
+    padding: 0; 
+    border-radius: 0; 
   }
 
   .modal-inner {
-    height: 100%; /* Asegura que el contenido ocupe todo el alto disponible */
+    height: 100%; 
   }
 
   .modal-image {
-    max-height: 50vh; /* Ajusta el tamaño de la imagen dentro del modal */
-    margin-bottom: 20px; /* Añade un poco de margen para separar la imagen de los botones */
+    max-height: 50vh; 
+    margin-bottom: 20px; 
   }
 
   .modal-button {
-    width: 80%; /* Hace que los botones sean más grandes en pantallas pequeñas */
+    width: 80%; 
   }
 }
 

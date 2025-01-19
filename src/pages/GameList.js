@@ -7,18 +7,18 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Modal from 'react-modal';
 import { auth, firestore } from '../firebase';
 import defaultImage from '../img/partida_abierta.jpg';
-import '../styles/gamelist.css'; // Importa el CSS
-import GuestNames from './GuestNames'; // Ajusta la ruta según sea necesario
+import '../styles/gamelist.css'; 
+import GuestNames from './GuestNames'; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'moment/locale/es';  // Asegúrate de importar la configuración en español
+import 'moment/locale/es';  
 
 
 moment.locale('es');
 
 const localizer = momentLocalizer(moment);
 
-Modal.setAppElement('#root'); // Set root element for accessibility
+Modal.setAppElement('#root'); // Establece el elemento raíz para el modal
 
 const GameList = () => {
   const [eventos, setEventos] = useState([]);
@@ -94,6 +94,7 @@ const GameList = () => {
     }
   };
 
+  /* Función que obtiene los detalles de un usuario desde la base de datos*/
   const fetchUserDetails = async (email) => {
     try {
       const usersRef = collection(firestore, 'users');
@@ -149,23 +150,24 @@ const GameList = () => {
         jugadores: updatedJugadores
       });
 
-      toast.success('¡Te has unido correctamente a la partida!'); // Alerta de éxito
+      toast.success('¡Te has unido correctamente a la partida!'); // Mensaje de éxito
       // setJoinSuccessMessage('¡Te has unido correctamente a la partida!');
       fetchEventos();
 
       setTimeout(() => {
         setJoinSuccessMessage('');
       }, 5000);
-      closeModal(); // Close the modal after joining
+      closeModal(); // Cierra el modal después de unirse
     } catch (err) {
       console.error('Error al unirse a la partida: ', err);
       setError('Error al unirse a la partida: ' + err.message);
     }
   };
 
+  /* Función para que un usuario pueda abandonar una partida */
   const handleLeaveEvent = async (event) => {
     if (!user) {
-      toast.error('Debes estar autenticado para salir de una partida.'); // Alerta de fracaso
+      toast.error('Debes estar autenticado para salir de una partida.'); // Mensaje de fracaso
       //setError('Debes estar autenticado para salir de una partida.');
       return;
     }
@@ -175,7 +177,7 @@ const GameList = () => {
       const partidaDoc = await getDoc(partidaRef);
 
       if (!partidaDoc.exists()) {
-        toast.error('La partida seleccionada no existe.'); // Alerta de fracaso
+        toast.error('La partida seleccionada no existe.'); 
 
         // setError('La partida seleccionada no existe.');
         return;
@@ -185,7 +187,7 @@ const GameList = () => {
 
       const jugadorActual = `${nombreUsuario} ${apellidoUsuario}`;
       if (!partidaData.jugadores.includes(jugadorActual)) {
-        toast.error('No estás apuntado a esta partida.'); // Alerta de fracaso
+        toast.error('No estás apuntado a esta partida.'); 
         //setError('No estás apuntado a esta partida.');
         return;
       }
@@ -195,7 +197,7 @@ const GameList = () => {
         jugadores: updatedJugadores
       });
 
-      toast.success('¡Has salido de la partida correctamente!'); // Alerta de éxito
+      toast.success('¡Has salido de la partida correctamente!'); 
 
       //setJoinSuccessMessage('¡Has salido de la partida correctamente!');
       fetchEventos();
@@ -203,22 +205,23 @@ const GameList = () => {
       setTimeout(() => {
         setJoinSuccessMessage('');
       }, 5000);
-      closeModal(); // Close the modal after leaving
+      closeModal(); 
     } catch (err) {
       console.error('Error al salir de la partida: ', err);
       setError('Error al salir de la partida: ' + err.message);
     }
   };
 
+  /* Función para eliminar la partida */
   const handleDeleteEvent = async (event) => {
     if (!user) {
-      toast.error('Debes estar logeado y ser el creador para borrar la partida.'); // Alerta de fracaso
+      toast.error('Debes estar logeado y ser el creador para borrar la partida.'); 
       //setError('Debes estar autenticado para borrar una partida.');
       return;
     }
 
     if (event.resource.creador !== nombreCompletoUsuario) {
-      toast.error('Solo el creador puede borrar esta partida.'); // Alerta de fracaso
+      toast.error('Solo el creador puede borrar esta partida.'); 
 
 //      setError('Solo el creador puede borrar esta partida.');
       return;
@@ -226,16 +229,16 @@ const GameList = () => {
 
     try {
       await deleteDoc(doc(firestore, 'partidas', event.id));
-      toast.success('¡Partida borrada!'); // Alerta de éxito
+      toast.success('¡Partida borrada!'); 
 //      setJoinSuccessMessage('¡Partida borrada exitosamente!');
       fetchEventos();
       setTimeout(() => {
         setJoinSuccessMessage('');
       }, 5000);
-      closeModal(); // Close the modal after deleting
+      closeModal(); 
     } catch (err) {
       console.error('Error al borrar la partida: ', err);
-      toast.error('Error al borrar la partida: ' + err.message); // Alerta de fracaso
+      toast.error('Error al borrar la partida: ' + err.message); 
       //setError('Error al borrar la partida: ' + err.message);
     }
   };
